@@ -16,12 +16,22 @@ I class
 
 	^unSumando next! !
 
-!I class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 22:56:56'!
+!I class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:04:10'!
 - unNumero
 
-	self error: 'Nein'! !
+	self error: self descripcionDeErrorDeNumerosNegativosNoSoportados.! !
 
-!I class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 23:28:27'!
+!I class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:03:51'!
+descripcionDeErrorDeNumerosNegativosNoSoportados
+
+	^'El resultado no es un numero natural'! !
+
+!I class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:02:18'!
+esRestadoA: unNumero
+
+	^unNumero previous! !
+
+!I class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:06:00'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -51,8 +61,12 @@ II class
 
 	^self previous + unSumando next! !
 
-!II class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 23:27:43'!
+!II class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:00:55'!
 - unNumero
+
+	^unNumero esRestadoA: self.
+
+"
 		|aux resultado|
 	
 	resultado := self.
@@ -63,9 +77,14 @@ II class
 		].
 	^resultado previous.
 
-	! !
+	"! !
 
-!II class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 23:28:27'!
+!II class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:01:59'!
+esRestadoA: unNumero
+
+	^unNumero previous - previous.! !
+
+!II class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:06:00'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -98,7 +117,7 @@ II subclass: #III
 III class
 	instanceVariableNames: ''!
 
-!III class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 23:28:27'!
+!III class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:06:00'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -123,7 +142,7 @@ III subclass: #IIII
 IIII class
 	instanceVariableNames: ''!
 
-!IIII class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 23:28:27'!
+!IIII class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:06:00'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -144,7 +163,7 @@ IIII subclass: #IIIII
 IIIII class
 	instanceVariableNames: ''!
 
-!IIIII class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 23:28:27'!
+!IIIII class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:06:00'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
