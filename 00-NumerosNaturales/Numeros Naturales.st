@@ -21,7 +21,7 @@ I class
 
 	self error: 'Nein'! !
 
-!I class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 22:57:28'!
+!I class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 23:28:27'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -51,14 +51,21 @@ II class
 
 	^self previous + unSumando next! !
 
-!II class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 21:20:09'!
+!II class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 23:27:43'!
 - unNumero
-
-	unNumero = I ifTrue: [^previous] ifFalse: [^self previous - (unNumero previous)].
+		|aux resultado|
+	
+	resultado := self.
+	aux := unNumero.
+	[aux = I] whileFalse: [
+		resultado := resultado previous.		
+		aux := aux previous.
+		].
+	^resultado previous.
 
 	! !
 
-!II class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 22:57:28'!
+!II class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 23:28:27'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -91,7 +98,7 @@ II subclass: #III
 III class
 	instanceVariableNames: ''!
 
-!III class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 22:57:28'!
+!III class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 23:28:27'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -116,7 +123,7 @@ III subclass: #IIII
 IIII class
 	instanceVariableNames: ''!
 
-!IIII class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 22:57:28'!
+!IIII class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 23:28:27'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -137,7 +144,7 @@ IIII subclass: #IIIII
 IIIII class
 	instanceVariableNames: ''!
 
-!IIIII class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 22:57:28'!
+!IIIII class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 23:28:27'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
