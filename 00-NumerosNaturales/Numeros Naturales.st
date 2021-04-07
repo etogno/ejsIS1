@@ -25,17 +25,31 @@ I class
 
 	self error: self descripcionDeErrorDeNumerosNegativosNoSoportados.! !
 
+!I class methodsFor: 'as yet unclassified' stamp: 'ET 4/7/2021 15:50:56'!
+/ unDivisor
+
+	unDivisor = self ifTrue: [^self] ifFalse: [^self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor].! !
+
+!I class methodsFor: 'as yet unclassified' stamp: 'ET 4/7/2021 15:50:08'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+
+	^'El divisor es más grande que el dividendo.'! !
+
 !I class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:03:51'!
 descripcionDeErrorDeNumerosNegativosNoSoportados
 
 	^'El resultado no es un numero natural'! !
+
+!I class methodsFor: 'as yet unclassified' stamp: 'ET 4/7/2021 16:06:18'!
+esMayorA: unNumero
+	^false.! !
 
 !I class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:02:18'!
 esRestadoA: unNumero
 
 	^unNumero previous! !
 
-!I class methodsFor: 'as yet unclassified' stamp: 'JA 4/6/2021 23:28:58'!
+!I class methodsFor: 'as yet unclassified' stamp: 'ET 4/7/2021 16:07:02'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -87,12 +101,33 @@ II class
 
 	"! !
 
+!II class methodsFor: 'as yet unclassified' stamp: 'ET 4/7/2021 16:02:53'!
+/ unDivisor
+
+	(unDivisor esMayorA: self) ifTrue: [^self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor ] 
+	ifFalse: [
+		(II*unDivisor esMayorA: self) ifTrue: [^I]
+		ifFalse: [^(self - unDivisor / unDivisor) next]
+	].! !
+
+!II class methodsFor: 'as yet unclassified' stamp: 'ET 4/7/2021 15:50:26'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+
+	^'El divisor es más grande que el dividendo.'! !
+
+!II class methodsFor: 'as yet unclassified' stamp: 'ET 4/7/2021 16:06:09'!
+esMayorA: unNumero
+
+	unNumero = I ifTrue:[^true]
+	ifFalse: [
+		^self isDescendantOf: unNumero].! !
+
 !II class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:01:59'!
 esRestadoA: unNumero
 
 	^unNumero previous - previous.! !
 
-!II class methodsFor: 'as yet unclassified' stamp: 'JA 4/6/2021 23:28:58'!
+!II class methodsFor: 'as yet unclassified' stamp: 'ET 4/7/2021 16:07:02'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -129,12 +164,16 @@ II subclass: #III
 III class
 	instanceVariableNames: ''!
 
-!III class methodsFor: 'as yet unclassified' stamp: 'JA 4/6/2021 23:28:58'!
+!III class methodsFor: 'as yet unclassified' stamp: 'ET 4/7/2021 16:07:02'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
 	next := IIII.
 	previous := II.! !
+
+!III class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 21:09:00'!
+previous: aNumber
+	previous := aNumber.! !
 
 
 !classDefinition: #IIII category: 'Numeros Naturales'!
@@ -150,14 +189,36 @@ III subclass: #IIII
 IIII class
 	instanceVariableNames: ''!
 
-!IIII class methodsFor: 'as yet unclassified' stamp: 'JA 4/6/2021 23:28:58'!
+!IIII class methodsFor: 'as yet unclassified' stamp: 'ET 4/7/2021 16:07:02'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
 	next := nil.
 	previous := III.! !
 
+
+!classDefinition: #IIIII category: 'Numeros Naturales'!
+IIII subclass: #IIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros Naturales'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'IIIII class' category: 'Numeros Naturales'!
+IIIII class
+	instanceVariableNames: ''!
+
+!IIIII class methodsFor: 'as yet unclassified' stamp: 'ET 4/7/2021 16:07:02'!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	next := nil.
+	previous := IIII.! !
+
 I initializeAfterFileIn!
 II initializeAfterFileIn!
 III initializeAfterFileIn!
 IIII initializeAfterFileIn!
+IIIII initializeAfterFileIn!
