@@ -11,6 +11,10 @@ DenotativeObject subclass: #I
 I class
 	instanceVariableNames: 'next'!
 
+!I class methodsFor: 'as yet unclassified' stamp: 'JA 4/6/2021 23:14:35'!
+* aNumber
+	^ aNumber! !
+
 !I class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 20:46:35'!
 + unSumando
 
@@ -31,7 +35,7 @@ esRestadoA: unNumero
 
 	^unNumero previous! !
 
-!I class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:06:00'!
+!I class methodsFor: 'as yet unclassified' stamp: 'JA 4/6/2021 23:28:58'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -55,6 +59,10 @@ DenotativeObject subclass: #II
 !classDefinition: 'II class' category: 'Numeros Naturales'!
 II class
 	instanceVariableNames: 'next previous'!
+
+!II class methodsFor: 'as yet unclassified' stamp: 'JA 4/6/2021 23:14:13'!
+* aNumber
+	^ (self previous * aNumber)+aNumber ! !
 
 !II class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 20:55:44'!
 + unSumando
@@ -84,7 +92,7 @@ esRestadoA: unNumero
 
 	^unNumero previous - previous.! !
 
-!II class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:06:00'!
+!II class methodsFor: 'as yet unclassified' stamp: 'JA 4/6/2021 23:28:58'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -103,6 +111,10 @@ next
 previous
 	^previous! !
 
+!II class methodsFor: 'as yet unclassified' stamp: 'JA 4/6/2021 22:35:53'!
+previous: aPrevious
+	previous:=aPrevious! !
+
 
 !classDefinition: #III category: 'Numeros Naturales'!
 II subclass: #III
@@ -117,16 +129,12 @@ II subclass: #III
 III class
 	instanceVariableNames: ''!
 
-!III class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:06:00'!
+!III class methodsFor: 'as yet unclassified' stamp: 'JA 4/6/2021 23:28:58'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
 	next := IIII.
 	previous := II.! !
-
-!III class methodsFor: 'as yet unclassified' stamp: 'ET 4/5/2021 21:09:00'!
-previous: aNumber
-	previous := aNumber.! !
 
 
 !classDefinition: #IIII category: 'Numeros Naturales'!
@@ -142,36 +150,14 @@ III subclass: #IIII
 IIII class
 	instanceVariableNames: ''!
 
-!IIII class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:06:00'!
-initializeCollaboratorsFromFile
-	"Auto generated method for loading purposes - Do not modify it"
-
-	next := IIIII.
-	previous := III.! !
-
-
-!classDefinition: #IIIII category: 'Numeros Naturales'!
-IIII subclass: #IIIII
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Numeros Naturales'!
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'IIIII class' category: 'Numeros Naturales'!
-IIIII class
-	instanceVariableNames: ''!
-
-!IIIII class methodsFor: 'as yet unclassified' stamp: 'ET 4/6/2021 19:06:00'!
+!IIII class methodsFor: 'as yet unclassified' stamp: 'JA 4/6/2021 23:28:58'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
 	next := nil.
-	previous := IIII.! !
+	previous := III.! !
 
 I initializeAfterFileIn!
 II initializeAfterFileIn!
 III initializeAfterFileIn!
 IIII initializeAfterFileIn!
-IIIII initializeAfterFileIn!
