@@ -16,12 +16,12 @@ Error subclass: #NotFound
 
 !classDefinition: #CustomerBookTest category: 'CodigoRepetido-Ejercicio'!
 TestCase subclass: #CustomerBookTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'paulMcCartney johnLennon'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'CodigoRepetido-Ejercicio'!
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'JA 4/12/2021 22:13:38'!
+!CustomerBookTest methodsFor: 'assertions' stamp: 'JA 4/12/2021 22:13:38'!
 assertThat: aCustomerBook hasActiveCustomers: aNumberOfActiveCustomers andSuspendedCustomers: aNumberOfSuspendedCustomers andTotalCustomers: aNumberOfTotalCustomers
 	
 	self assert: aNumberOfActiveCustomers equals: aCustomerBook numberOfActiveCustomers.
@@ -33,7 +33,7 @@ assertThat: aCustomerBook hasActiveCustomers: aNumberOfActiveCustomers andSuspen
 	
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'JA 4/12/2021 21:44:35'!
+!CustomerBookTest methodsFor: 'assertions' stamp: 'JA 4/12/2021 21:44:35'!
 assertThatExecute: aBlock doesNotTakeMoreThan: aTimeLapse
 
 	| millisecondsBeforeRunning millisecondsAfterRunning |
@@ -46,32 +46,21 @@ assertThatExecute: aBlock doesNotTakeMoreThan: aTimeLapse
 	
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'ET 4/14/2021 16:59:14'!
-newCustomerBookAdding: aName
-	
-	| customerBook  |
-			
-	customerBook := CustomerBook new.	customerBook addCustomerNamed: aName.
-	
-	^customerBook.
-	
-! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'JA 4/12/2021 21:44:04'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'JA 4/14/2021 19:12:16'!
 test01AddingCustomerShouldNotTakeMoreThan50Milliseconds
 
 	| customerBook |
 	
 	customerBook := CustomerBook new.
-	self assertThatExecute: [customerBook addCustomerNamed: 'John Lennon'.] doesNotTakeMoreThan: 50*millisecond 
+	self assertThatExecute: [customerBook addCustomerNamed: johnLennon.] doesNotTakeMoreThan: 50*millisecond 
 		
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'ET 4/14/2021 17:08:33'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'JA 4/14/2021 19:11:48'!
 test02RemovingCustomerShouldNotTakeMoreThan100Milliseconds
 
-	| customerBook paulMcCartney |
-	paulMcCartney := 'Paul McCartney'.
+	| customerBook |
 	customerBook := self newCustomerBookAdding: paulMcCartney.
 	
 	self assertThatExecute: [customerBook removeCustomerNamed: paulMcCartney.] 
@@ -93,14 +82,13 @@ test03CanNotAddACustomerWithEmptyName
 			self assert: anError messageText = CustomerBook customerCanNotBeEmptyErrorMessage.
 			self assert: customerBook isEmpty ]! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'ET 4/14/2021 17:03:46'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'JA 4/14/2021 19:12:16'!
 test04CanNotRemoveAnInvalidCustomer
 	
-	| customerBook johnLennon |
-	johnLennon := 'John Lennon'.		
+	| customerBook |
 	customerBook := self newCustomerBookAdding: johnLennon.
 	
-	[ customerBook removeCustomerNamed: 'Paul McCartney'.
+	[ customerBook removeCustomerNamed: paulMcCartney.
 	self fail ]
 		on: NotFound 
 		do: [ :anError | 
@@ -108,11 +96,10 @@ test04CanNotRemoveAnInvalidCustomer
 			self assert: (customerBook includesCustomerNamed: johnLennon) ]
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'ET 4/14/2021 17:07:05'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'JA 4/14/2021 19:11:48'!
 test05SuspendingACustomerShouldNotRemoveItFromCustomerBook
 
-	| customerBook paulMcCartney|
-	paulMcCartney := 'Paul McCartney'.
+	| customerBook |	
 	customerBook := self newCustomerBookAdding: paulMcCartney.
 	customerBook suspendCustomerNamed: paulMcCartney.
 	
@@ -123,11 +110,10 @@ test05SuspendingACustomerShouldNotRemoveItFromCustomerBook
 	
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'ET 4/14/2021 17:06:56'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'JA 4/14/2021 19:11:48'!
 test06RemovingASuspendedCustomerShouldRemoveItFromCustomerBook
 
-	| customerBook paulMcCartney|
-	paulMcCartney := 'Paul McCartney'.
+	| customerBook |	
 	customerBook := self newCustomerBookAdding: paulMcCartney.
 	customerBook suspendCustomerNamed: paulMcCartney.
 	customerBook removeCustomerNamed: paulMcCartney.
@@ -139,11 +125,10 @@ test06RemovingASuspendedCustomerShouldRemoveItFromCustomerBook
 	
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'ET 4/14/2021 17:06:09'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'JA 4/14/2021 19:12:16'!
 test07CanNotSuspendAnInvalidCustomer
 	
-	| customerBook johnLennon |
-	johnLennon := 'John Lennon'.		
+	| customerBook |
 	customerBook := self newCustomerBookAdding: johnLennon.
 	
 	[ customerBook suspendCustomerNamed: 'George Harrison'.
@@ -154,11 +139,10 @@ test07CanNotSuspendAnInvalidCustomer
 			self assert: (customerBook includesCustomerNamed: johnLennon) ]
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'ET 4/14/2021 17:06:42'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'JA 4/14/2021 19:12:16'!
 test08CanNotSuspendAnAlreadySuspendedCustomer
 	
-	| customerBook johnLennon |
-	johnLennon := 'John Lennon'.		
+	| customerBook |
 	customerBook := self newCustomerBookAdding: johnLennon.
 	customerBook suspendCustomerNamed: johnLennon.
 	
@@ -168,6 +152,28 @@ test08CanNotSuspendAnAlreadySuspendedCustomer
 		do: [ :anError | 
 			self assert: customerBook numberOfCustomers = 1.
 			self assert: (customerBook includesCustomerNamed: johnLennon) ]
+! !
+
+
+!CustomerBookTest methodsFor: 'initialization' stamp: 'JA 4/14/2021 19:20:39'!
+initialize
+	johnLennon:='John Lennon'.
+	paulMcCartney := 'Paul McCartney'.
+! !
+
+
+!CustomerBookTest methodsFor: 'utils' stamp: 'ET 4/14/2021 16:59:14'!
+newCustomerBookAdding: aName
+	
+	| customerBook  |
+			
+	customerBook := CustomerBook new.
+
+	customerBook addCustomerNamed: aName.
+	
+	^customerBook.
+	
+
 ! !
 
 
@@ -221,7 +227,8 @@ numberOfSuspendedCustomers
 
 !CustomerBook methodsFor: 'customer management' stamp: 'ET 4/14/2021 00:37:12'!
 removeCustomerNamed: aName 
- 	((self removeFrom: active  aCustomerNamed: aName) or: 
+ 
+	((self removeFrom: active  aCustomerNamed: aName) or: 
 	[self removeFrom: suspended aCustomerNamed: aName.]) 
 	
 	ifFalse: 	[^ NotFound signal.]
