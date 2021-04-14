@@ -200,11 +200,11 @@ initialize
 	suspended:= OrderedCollection new.! !
 
 
-!CustomerBook methodsFor: 'customer management' stamp: 'NR 4/3/2019 10:14:26'!
+!CustomerBook methodsFor: 'customer management' stamp: 'ET 4/14/2021 00:16:45'!
 addCustomerNamed: aName
 
 	aName isEmpty ifTrue: [ self signalCustomerNameCannotBeEmpty ].
-	((active includes: aName) or: [suspended includes: aName]) ifTrue: [ self signalCustomerAlreadyExists ].
+	(self includesCustomerNamed: aName) ifTrue: [ self signalCustomerAlreadyExists ].
 	
 	active add: aName ! !
 
@@ -223,28 +223,26 @@ numberOfSuspendedCustomers
 	
 	^suspended size! !
 
-!CustomerBook methodsFor: 'customer management' stamp: 'NR 4/3/2019 10:14:26'!
+!CustomerBook methodsFor: 'customer management' stamp: 'ET 4/14/2021 00:37:12'!
 removeCustomerNamed: aName 
- 
-	1 to: active size do: 
-	[ :index |
-		aName = (active at: index)
-			ifTrue: [
-				active removeAt: index.
-				^ aName 
-			] 
-	].
-
-	1 to: suspended size do: 	
-	[ :index |
-		aName = (suspended at: index)
-			ifTrue: [
-				suspended removeAt: index.
-				^ aName 
-			] 
-	].
+ 	((self removeFrom: active  aCustomerNamed: aName) or: 
+	[self removeFrom: suspended aCustomerNamed: aName.]) 
 	
-	^ NotFound signal.
+	ifFalse: 	[^ NotFound signal.]
+! !
+
+!CustomerBook methodsFor: 'customer management' stamp: 'ET 4/14/2021 00:35:36'!
+removeFrom: aCollection aCustomerNamed: aName 
+ 
+	1 to: aCollection size do: 
+	[ :index |
+		aName = (aCollection at: index)
+			ifTrue: [
+				aCollection removeAt: index.
+				^true 
+			] 
+	].
+	^false.
 ! !
 
 !CustomerBook methodsFor: 'customer management' stamp: 'HernanWilkinson 7/6/2011 17:52'!
