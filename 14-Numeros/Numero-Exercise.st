@@ -378,10 +378,11 @@ Numero subclass: #Entero
 	(anAdder isKindOf: Fraccion) ifTrue: [	^ anAdder + self].
 ! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'NR 9/23/2018 23:40:37'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/18/2021 00:07:53'!
 - aSubtrahend 
-	
-	^ self class with: value - aSubtrahend integerValue.! !
+	(aSubtrahend isKindOf: Entero) ifTrue: [^ self class with: value - aSubtrahend integerValue.].
+	(aSubtrahend isKindOf: Fraccion) ifTrue: 
+	[^ (self class with: value) * aSubtrahend denominator - aSubtrahend numerator / aSubtrahend denominator ].! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'JA 4/17/2021 12:23:00'!
 / aDivisor 
@@ -511,13 +512,19 @@ Numero subclass: #Fraccion
 	
 	^newNumerator / newDenominator ! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'NR 9/23/2018 23:43:50'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/18/2021 00:12:08'!
 - aSubtrahend 
 	
 	| newNumerator newDenominator |
+	(aSubtrahend isKindOf: Fraccion ) ifTrue: [	
+		newNumerator := (numerator * aSubtrahend denominator) - (denominator * aSubtrahend numerator).
+		newDenominator := denominator * aSubtrahend denominator.
+		].
+	(aSubtrahend isKindOf: Entero ) ifTrue: [	
+		newNumerator := numerator - (denominator * aSubtrahend).
+		newDenominator := denominator.
+		].
 	
-	newNumerator := (numerator * aSubtrahend denominator) - (denominator * aSubtrahend numerator).
-	newDenominator := denominator * aSubtrahend denominator.
 	
 	^newNumerator / newDenominator 
 ! !
