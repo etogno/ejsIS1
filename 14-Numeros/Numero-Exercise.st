@@ -340,6 +340,17 @@ isZero
 
 	self subclassResponsibility ! !
 
+
+!Numero methodsFor: 'private' stamp: 'ET 4/21/2021 01:01:55'!
+nuevoNumeroConNumerador: unNumerador denominador: unDenominador
+
+	| newDenominator newNumerator |
+
+	newNumerator := unNumerador.
+	newDenominator := unDenominador.
+		
+	^Fraccion with: newNumerator over: newDenominator.! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Numero class' category: 'Numero-Exercise'!
@@ -406,26 +417,18 @@ Numero subclass: #Entero
 	
 	^self class with: value // aDivisor integerValue! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 23:36:34'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:10:29'!
 divideAUnEntero: unDividendo
-
-	| newDenominator newNumerator |
-
-	newNumerator := unDividendo.
-	newDenominator := self.
-		
-	^Fraccion with: newNumerator over: newDenominator.
+	
+	^self nuevoNumeroConNumerador: unDividendo 
+		denominador: self.
 	! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 23:33:40'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:10:24'!
 divideAUnaFraccion: unDividendo
 
-	| newDenominator newNumerator |
-
-	newNumerator := unDividendo numerator.
-	newDenominator := unDividendo denominator * self.
-	
-	 ^Fraccion with: newNumerator over: newDenominator.
+	^self nuevoNumeroConNumerador: unDividendo numerator 
+		denominador: unDividendo denominator * self.
 	! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 16:27:06'!
@@ -467,15 +470,11 @@ restaAUnEntero: unMinuendo
 	^ self class with: unMinuendo integerValue - value.
 ! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 00:20:27'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:11:20'!
 restaAUnaFraccion: unMinuendo
 
-	| newDenominator newNumerator |
-	
-	newNumerator := unMinuendo numerator - (unMinuendo denominator * self).
-	newDenominator := unMinuendo denominator.
-	
-	^newNumerator / newDenominator.! !
+	^self nuevoNumeroConNumerador: unMinuendo numerator - (unMinuendo denominator * self)
+		denominador: unMinuendo denominator.! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/19/2021 21:06:32'!
 sumaAUnEntero: anAdder
@@ -697,83 +696,55 @@ Numero subclass: #Fraccion
 	
 	"! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 23:35:07'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:05:42'!
 divideAUnEntero: unDividendo
 
-	| newDenominator newNumerator |
-	
-	newNumerator := unDividendo * denominator.
-	newDenominator := numerator.
-	
-	^self class with: newNumerator over: newDenominator.
+	^self nuevoNumeroConNumerador: unDividendo * denominator 
+		denominador: numerator.
 	! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 23:34:16'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:06:20'!
 divideAUnaFraccion: unDividendo
 
-	| newDenominator newNumerator |
-	
-	newNumerator := unDividendo numerator * denominator.
-	newDenominator := unDividendo denominator *  numerator.
-	
-	^self class with: newNumerator over: newDenominator.! !
+	^self nuevoNumeroConNumerador: unDividendo numerator * denominator
+		denominador: unDividendo denominator *  numerator.! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 00:11:42'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:06:55'!
 multiplicaAUnEntero: unEntero
-	
-		^ unEntero * numerator  / denominator.
-	! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 00:13:14'!
+	^self nuevoNumeroConNumerador: unEntero * numerator
+		denominador: denominator.! !
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:07:33'!
 multiplicaAUnaFraccion: aMultiplier
 
-	|newNumerator newDenominator|
-	
-	newNumerator := aMultiplier numerator * numerator.
-	newDenominator := aMultiplier denominator * denominator.
-	
-	^newNumerator / newDenominator.
+	^self nuevoNumeroConNumerador: aMultiplier numerator * numerator
+		denominador: aMultiplier denominator * denominator.
 	! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 00:10:59'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:08:00'!
 restaAUnEntero: unMinuendo
 
-	| newDenominator newNumerator |
-	
-	newNumerator := unMinuendo * denominator - numerator.
-	newDenominator := denominator.
+	^self nuevoNumeroConNumerador: unMinuendo * denominator - numerator
+		denominador: denominator.! !
 
-	^ newNumerator / newDenominator.! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 00:14:51'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:08:44'!
 restaAUnaFraccion: unMinuendo
 
-	| newDenominator newNumerator |
-	
-	newNumerator := unMinuendo numerator * denominator - (unMinuendo denominator * numerator).
-	newDenominator := unMinuendo denominator * denominator.
-	
-	^newNumerator / newDenominator.! !
+	^self nuevoNumeroConNumerador: unMinuendo numerator * denominator - (unMinuendo denominator * numerator)
+		denominador: unMinuendo denominator * denominator.! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 00:15:49'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:09:24'!
 sumaAUnEntero: anAdder 
 	
-	| newDenominator newNumerator |
-	
-	newNumerator := denominator * anAdder + numerator.
-	newDenominator := denominator.
-	
-	^newNumerator / newDenominator.! !
+	^self nuevoNumeroConNumerador: denominator * anAdder + numerator
+		denominador: denominator.! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 00:16:44'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:09:57'!
 sumaAUnaFraccion: anAdder
 	
-	| newNumerator newDenominator |
-
-	newNumerator := anAdder denominator * numerator + (anAdder numerator * denominator).
-	newDenominator := anAdder denominator * denominator.
-	
-	^newNumerator / newDenominator! !
+	^self nuevoNumeroConNumerador: anAdder denominator * numerator + (anAdder numerator * denominator)
+		denominador: anAdder denominator * denominator.! !
 
 
 !Fraccion methodsFor: 'comparing' stamp: 'HernanWilkinson 5/7/2016 20:42'!
