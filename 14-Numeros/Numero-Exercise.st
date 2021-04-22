@@ -325,6 +325,21 @@ negated
 	^self * (Entero with: -1)! !
 
 
+!Numero methodsFor: 'testing' stamp: 'ET 4/22/2021 00:21:37'!
+ifNegativeDo: aBlock
+
+	self subclassResponsibility.! !
+
+!Numero methodsFor: 'testing' stamp: 'ET 4/22/2021 00:21:33'!
+ifOneDo: aBlock
+
+	self subclassResponsibility.! !
+
+!Numero methodsFor: 'testing' stamp: 'ET 4/22/2021 00:21:30'!
+ifZeroDo: aBlock
+
+	self subclassResponsibility.! !
+
 !Numero methodsFor: 'testing' stamp: 'NR 9/23/2018 23:36:49'!
 isNegative
 
@@ -341,6 +356,26 @@ isZero
 	self subclassResponsibility ! !
 
 
+!Numero methodsFor: 'private' stamp: 'ET 4/22/2021 00:24:01'!
+divideAUnEntero: unDividendo
+
+	self subclassResponsibility.! !
+
+!Numero methodsFor: 'private' stamp: 'ET 4/22/2021 00:24:10'!
+divideAUnaFraccion: unDividendo
+
+	self subclassResponsibility.! !
+
+!Numero methodsFor: 'private' stamp: 'ET 4/22/2021 00:24:31'!
+multiplicaAUnEntero: aMultiplier
+
+	self subclassResponsibility.! !
+
+!Numero methodsFor: 'private' stamp: 'ET 4/22/2021 00:24:25'!
+multiplicaAUnaFraccion: aMultiplier
+
+	self subclassResponsibility.! !
+
 !Numero methodsFor: 'private' stamp: 'ET 4/21/2021 01:01:55'!
 nuevoNumeroConNumerador: unNumerador denominador: unDenominador
 
@@ -350,6 +385,26 @@ nuevoNumeroConNumerador: unNumerador denominador: unDenominador
 	newDenominator := unDenominador.
 		
 	^Fraccion with: newNumerator over: newDenominator.! !
+
+!Numero methodsFor: 'private' stamp: 'ET 4/22/2021 00:25:10'!
+restaAUnEntero: unMinuendo
+
+	self subclassResponsibility.! !
+
+!Numero methodsFor: 'private' stamp: 'ET 4/22/2021 00:25:16'!
+restaAUnaFraccion: unMinuendo
+
+	self subclassResponsibility.! !
+
+!Numero methodsFor: 'private' stamp: 'ET 4/22/2021 00:25:22'!
+sumaAUnEntero: anAdder
+
+	self subclassResponsibility.! !
+
+!Numero methodsFor: 'private' stamp: 'ET 4/22/2021 00:25:28'!
+sumaAUnaFraccion: anAdder
+
+	self subclassResponsibility.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -400,20 +455,6 @@ Numero subclass: #Entero
 	
 	^self class with: value // aDivisor integerValue! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:10:29'!
-divideAUnEntero: unDividendo
-	
-	^self nuevoNumeroConNumerador: unDividendo 
-		denominador: self.
-	! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:10:24'!
-divideAUnaFraccion: unDividendo
-
-	^self nuevoNumeroConNumerador: unDividendo numerator 
-		denominador: unDividendo denominator * self.
-	! !
-
 !Entero methodsFor: 'arithmetic operations' stamp: 'JA 4/21/2021 17:20:07'!
 fibonacci
 
@@ -423,42 +464,6 @@ fibonacci
 greatestCommonDivisorWith: anEntero 
 	
 	^self class with: (value gcd: anEntero integerValue)! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/19/2021 21:02:50'!
-multiplicaAUnEntero: aMultiplier 
-	
-	^self class with: value * aMultiplier integerValue.! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 00:19:58'!
-multiplicaAUnaFraccion: aMultiplier 
-
-	^aMultiplier multiplicaAUnEntero: self.
-	
-	! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 00:02:36'!
-restaAUnEntero: unMinuendo
-
-	^ self class with: unMinuendo integerValue - value.
-! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:11:20'!
-restaAUnaFraccion: unMinuendo
-
-	^self nuevoNumeroConNumerador: unMinuendo numerator - (unMinuendo denominator * self)
-		denominador: unMinuendo denominator.! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/19/2021 21:06:32'!
-sumaAUnEntero: anAdder
-
-	^self class with: value + anAdder integerValue.! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 00:23:23'!
-sumaAUnaFraccion: anAdder
-
-	^anAdder sumaAUnEntero: self.
-	
-	! !
 
 
 !Entero methodsFor: 'comparing' stamp: 'HernanWilkinson 5/7/2016 21:01'!
@@ -472,10 +477,55 @@ hash
 	^value hash! !
 
 
-!Entero methodsFor: 'initialization' stamp: 'HernanWilkinson 5/7/2016 20:09'!
-initalizeWith: aValue 
+!Entero methodsFor: 'private' stamp: 'ET 4/21/2021 01:10:29'!
+divideAUnEntero: unDividendo
 	
-	value := aValue! !
+	^self nuevoNumeroConNumerador: unDividendo 
+		denominador: self.
+	! !
+
+!Entero methodsFor: 'private' stamp: 'ET 4/21/2021 01:10:24'!
+divideAUnaFraccion: unDividendo
+
+	^self nuevoNumeroConNumerador: unDividendo numerator 
+		denominador: unDividendo denominator * self.
+	! !
+
+!Entero methodsFor: 'private' stamp: 'ET 4/19/2021 21:02:50'!
+multiplicaAUnEntero: aMultiplier 
+	
+	^self class with: value * aMultiplier integerValue.! !
+
+!Entero methodsFor: 'private' stamp: 'ET 4/20/2021 00:19:58'!
+multiplicaAUnaFraccion: aMultiplier 
+
+	^aMultiplier multiplicaAUnEntero: self.
+	
+	! !
+
+!Entero methodsFor: 'private' stamp: 'ET 4/20/2021 00:02:36'!
+restaAUnEntero: unMinuendo
+
+	^ self class with: unMinuendo integerValue - value.
+! !
+
+!Entero methodsFor: 'private' stamp: 'ET 4/21/2021 01:11:20'!
+restaAUnaFraccion: unMinuendo
+
+	^self nuevoNumeroConNumerador: unMinuendo numerator - (unMinuendo denominator * self)
+		denominador: unMinuendo denominator.! !
+
+!Entero methodsFor: 'private' stamp: 'ET 4/19/2021 21:06:32'!
+sumaAUnEntero: anAdder
+
+	^self class with: value + anAdder integerValue.! !
+
+!Entero methodsFor: 'private' stamp: 'ET 4/20/2021 00:23:23'!
+sumaAUnaFraccion: anAdder
+
+	^anAdder sumaAUnEntero: self.
+	
+	! !
 
 
 !Entero methodsFor: 'value' stamp: 'HernanWilkinson 5/7/2016 21:02'!
@@ -492,16 +542,22 @@ printOn: aStream
 	aStream print: value ! !
 
 
-!Entero methodsFor: 'testing' stamp: 'JA 4/21/2021 18:22:25'!
+!Entero methodsFor: 'testing' stamp: 'ET 4/22/2021 00:21:00'!
 ifNegativeDo: aBlock
+
+	self subclassResponsibility.
 	
 	! !
 
-!Entero methodsFor: 'testing' stamp: 'JA 4/21/2021 18:32:48'!
-ifOneDo: aBlock! !
+!Entero methodsFor: 'testing' stamp: 'ET 4/22/2021 00:21:13'!
+ifOneDo: aBlock
 
-!Entero methodsFor: 'testing' stamp: 'JA 4/21/2021 18:15:05'!
+	self subclassResponsibility.! !
+
+!Entero methodsFor: 'testing' stamp: 'ET 4/22/2021 00:21:19'!
 ifZeroDo: aBlock
+
+	self subclassResponsibility.
 	
 	! !
 
@@ -530,77 +586,97 @@ Entero class
 negativeFibonacciErrorDescription
 	^ ' Fibonacci no está definido aquí para Enteros Negativos!!!!!!'! !
 
-!Entero class methodsFor: 'instance creation' stamp: 'JA 4/21/2021 17:29:35'!
+!Entero class methodsFor: 'instance creation' stamp: 'ET 4/22/2021 00:05:44'!
 with: aValue 
 	
 	"Esta verificacion esta puesta por si se equivocan y quieren crear un Entero pasando otra cosa que un Integer - Hernan"
 	aValue isInteger ifFalse: [  self error: 'aValue debe ser anInteger' ].
 	
-	aValue < 0 ifTrue: [^Negativos new initalizeWith: aValue].
-	aValue = 0 ifTrue: [^Cero new initalizeWith: aValue].
-	aValue = 1 ifTrue: [^Uno new initalizeWith: aValue].
-	aValue > 1 ifTrue: [^MayoresAUno new initalizeWith: aValue].! !
-
-
-!classDefinition: #Negativos category: 'Numero-Exercise'!
-Entero subclass: #Negativos
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Numero-Exercise'!
-
-!Negativos methodsFor: 'as yet unclassified' stamp: 'ET 4/20/2021 16:28:20'!
-fibonacci
-
-	self error: Entero negativeFibonacciErrorDescription.! !
-
-
-!Negativos methodsFor: 'testing' stamp: 'JA 4/21/2021 18:23:04'!
-ifNegativeDo: aBlock
-	aBlock value.! !
-
-
-!classDefinition: #PositivosYCero category: 'Numero-Exercise'!
-Entero subclass: #PositivosYCero
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Numero-Exercise'!
-
-!PositivosYCero methodsFor: 'as yet unclassified' stamp: 'ET 4/20/2021 23:37:44'!
-fibonacci
-
-	self subclassResponsibility.
-
-	! !
+	aValue < 0 ifTrue: [^Negativo new initalizeWith: aValue].
+	aValue = 0 ifTrue: [^Cero new initalize].
+	aValue = 1 ifTrue: [^Uno new initalize].
+	aValue > 1 ifTrue: [^MayorAUno new initalizeWith: aValue].! !
 
 
 !classDefinition: #Cero category: 'Numero-Exercise'!
-PositivosYCero subclass: #Cero
+Entero subclass: #Cero
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Cero methodsFor: 'as yet unclassified' stamp: 'ET 4/20/2021 16:26:33'!
-fibonacci
+!Cero methodsFor: 'testing' stamp: 'ET 4/22/2021 00:12:13'!
+ifNegativeDo: aBlock! !
 
-	^Entero with: 1.! !
-
+!Cero methodsFor: 'testing' stamp: 'ET 4/22/2021 00:12:18'!
+ifOneDo: aBlock! !
 
 !Cero methodsFor: 'testing' stamp: 'JA 4/21/2021 18:16:20'!
 ifZeroDo: aBlock
 	aBlock value.! !
 
+
+!Cero methodsFor: 'initialization' stamp: 'ET 4/22/2021 00:19:45'!
+initalize
+	"Si bien está de más el colaborador value para instancias de Cero, lo dejamos porque sino tendríamos que redefinir casi todos los métodos del protocolo Entero para Cero"
+	value := 0.! !
+
+
+!Cero methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 16:26:33'!
+fibonacci
+
+	^Entero with: 1.! !
+
 
-!classDefinition: #MayoresAUno category: 'Numero-Exercise'!
-PositivosYCero subclass: #MayoresAUno
+!classDefinition: #NegativoOMayorAUno category: 'Numero-Exercise'!
+Entero subclass: #NegativoOMayorAUno
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!MayoresAUno methodsFor: 'as yet unclassified' stamp: 'ET 4/20/2021 16:27:56'!
+!NegativoOMayorAUno methodsFor: 'initialization' stamp: 'ET 4/22/2021 00:20:30'!
+initalizeWith: aValue
+	
+	value := aValue.! !
+
+
+!NegativoOMayorAUno methodsFor: 'testing' stamp: 'ET 4/22/2021 00:13:29'!
+ifNegativeDo: aBlock
+	
+	self subclassResponsibility.! !
+
+!NegativoOMayorAUno methodsFor: 'testing' stamp: 'ET 4/22/2021 00:13:43'!
+ifOneDo: aBlock! !
+
+!NegativoOMayorAUno methodsFor: 'testing' stamp: 'ET 4/22/2021 00:13:38'!
+ifZeroDo: aBlock! !
+
+
+!NegativoOMayorAUno methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 23:59:57'!
+fibonacci
+
+	self subclassResponsibility.! !
+
+
+!classDefinition: #MayorAUno category: 'Numero-Exercise'!
+NegativoOMayorAUno subclass: #MayorAUno
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+!MayorAUno methodsFor: 'testing' stamp: 'ET 4/22/2021 00:14:02'!
+ifNegativeDo: aBlock! !
+
+!MayorAUno methodsFor: 'testing' stamp: 'ET 4/22/2021 00:14:06'!
+ifOneDo: aBlock! !
+
+!MayorAUno methodsFor: 'testing' stamp: 'ET 4/22/2021 00:14:09'!
+ifZeroDo: aBlock! !
+
+
+!MayorAUno methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 16:27:56'!
 fibonacci
 
 	| one two |
@@ -611,22 +687,59 @@ fibonacci
 	^ (self - one) fibonacci + (self - two) fibonacci.! !
 
 
-!classDefinition: #Uno category: 'Numero-Exercise'!
-PositivosYCero subclass: #Uno
+!classDefinition: #Negativo category: 'Numero-Exercise'!
+NegativoOMayorAUno subclass: #Negativo
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Uno methodsFor: 'as yet unclassified' stamp: 'ET 4/20/2021 16:25:59'!
+!Negativo methodsFor: 'arithmetic operations' stamp: 'ET 4/20/2021 16:28:20'!
 fibonacci
 
-	^ self.! !
+	self error: Entero negativeFibonacciErrorDescription.! !
 
+
+!Negativo methodsFor: 'testing' stamp: 'JA 4/21/2021 18:23:04'!
+ifNegativeDo: aBlock
+	aBlock value.! !
+
+!Negativo methodsFor: 'testing' stamp: 'ET 4/22/2021 00:15:16'!
+ifOneDo: aBlock! !
+
+!Negativo methodsFor: 'testing' stamp: 'ET 4/22/2021 00:15:13'!
+ifZeroDo: aBlock! !
+
+
+!classDefinition: #Uno category: 'Numero-Exercise'!
+Entero subclass: #Uno
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+!Uno methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 23:59:12'!
+fibonacci
+	^self.! !
+
+
+!Uno methodsFor: 'initialization' stamp: 'ET 4/22/2021 00:18:30'!
+initalize
+
+	"Si bien está de más el colaborador value para instancias de Uno, lo dejamos porque sino tendríamos que redefinir casi todos los métodos del protocolo Entero para Uno"
+
+	value := 1.! !
+
+
+!Uno methodsFor: 'testing' stamp: 'ET 4/22/2021 00:12:55'!
+ifNegativeDo: aBlock! !
 
 !Uno methodsFor: 'testing' stamp: 'JA 4/21/2021 18:34:06'!
 ifOneDo: aBlock
 	aBlock value.! !
+
+!Uno methodsFor: 'testing' stamp: 'ET 4/22/2021 00:12:51'!
+ifZeroDo: aBlock! !
 
 
 !classDefinition: #Fraccion category: 'Numero-Exercise'!
@@ -654,56 +767,6 @@ Numero subclass: #Fraccion
 / aDivisor 
 
 	^aDivisor divideAUnaFraccion: self.! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:05:42'!
-divideAUnEntero: unDividendo
-
-	^self nuevoNumeroConNumerador: unDividendo * denominator 
-		denominador: numerator.
-	! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:06:20'!
-divideAUnaFraccion: unDividendo
-
-	^self nuevoNumeroConNumerador: unDividendo numerator * denominator
-		denominador: unDividendo denominator *  numerator.! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:06:55'!
-multiplicaAUnEntero: unEntero
-
-	^self nuevoNumeroConNumerador: unEntero * numerator
-		denominador: denominator.! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:07:33'!
-multiplicaAUnaFraccion: aMultiplier
-
-	^self nuevoNumeroConNumerador: aMultiplier numerator * numerator
-		denominador: aMultiplier denominator * denominator.
-	! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:08:00'!
-restaAUnEntero: unMinuendo
-
-	^self nuevoNumeroConNumerador: unMinuendo * denominator - numerator
-		denominador: denominator.! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:08:44'!
-restaAUnaFraccion: unMinuendo
-
-	^self nuevoNumeroConNumerador: unMinuendo numerator * denominator - (unMinuendo denominator * numerator)
-		denominador: unMinuendo denominator * denominator.! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:09:24'!
-sumaAUnEntero: anAdder 
-	
-	^self nuevoNumeroConNumerador: denominator * anAdder + numerator
-		denominador: denominator.! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'ET 4/21/2021 01:09:57'!
-sumaAUnaFraccion: anAdder
-	
-	^self nuevoNumeroConNumerador: anAdder denominator * numerator + (anAdder numerator * denominator)
-		denominador: anAdder denominator * denominator.! !
 
 
 !Fraccion methodsFor: 'comparing' stamp: 'HernanWilkinson 5/7/2016 20:42'!
@@ -753,6 +816,57 @@ isOne
 isZero
 	
 	^false! !
+
+
+!Fraccion methodsFor: 'private' stamp: 'ET 4/21/2021 01:05:42'!
+divideAUnEntero: unDividendo
+
+	^self nuevoNumeroConNumerador: unDividendo * denominator 
+		denominador: numerator.
+	! !
+
+!Fraccion methodsFor: 'private' stamp: 'ET 4/21/2021 01:06:20'!
+divideAUnaFraccion: unDividendo
+
+	^self nuevoNumeroConNumerador: unDividendo numerator * denominator
+		denominador: unDividendo denominator *  numerator.! !
+
+!Fraccion methodsFor: 'private' stamp: 'ET 4/21/2021 01:06:55'!
+multiplicaAUnEntero: unEntero
+
+	^self nuevoNumeroConNumerador: unEntero * numerator
+		denominador: denominator.! !
+
+!Fraccion methodsFor: 'private' stamp: 'ET 4/21/2021 01:07:33'!
+multiplicaAUnaFraccion: aMultiplier
+
+	^self nuevoNumeroConNumerador: aMultiplier numerator * numerator
+		denominador: aMultiplier denominator * denominator.
+	! !
+
+!Fraccion methodsFor: 'private' stamp: 'ET 4/21/2021 01:08:00'!
+restaAUnEntero: unMinuendo
+
+	^self nuevoNumeroConNumerador: unMinuendo * denominator - numerator
+		denominador: denominator.! !
+
+!Fraccion methodsFor: 'private' stamp: 'ET 4/21/2021 01:08:44'!
+restaAUnaFraccion: unMinuendo
+
+	^self nuevoNumeroConNumerador: unMinuendo numerator * denominator - (unMinuendo denominator * numerator)
+		denominador: unMinuendo denominator * denominator.! !
+
+!Fraccion methodsFor: 'private' stamp: 'ET 4/21/2021 01:09:24'!
+sumaAUnEntero: anAdder 
+	
+	^self nuevoNumeroConNumerador: denominator * anAdder + numerator
+		denominador: denominator.! !
+
+!Fraccion methodsFor: 'private' stamp: 'ET 4/21/2021 01:09:57'!
+sumaAUnaFraccion: anAdder
+	
+	^self nuevoNumeroConNumerador: anAdder denominator * numerator + (anAdder numerator * denominator)
+		denominador: anAdder denominator * denominator.! !
 
 
 !Fraccion methodsFor: 'printing' stamp: 'HAW 9/24/2018 08:54:46'!
