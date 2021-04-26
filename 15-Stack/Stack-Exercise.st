@@ -145,46 +145,166 @@ TestCase subclass: #SentenceFinderByPrefixTest
 	category: 'Stack-Exercise'!
 
 
-!classDefinition: #OOStack category: 'Stack-Exercise'!
-Object subclass: #OOStack
-	instanceVariableNames: 'coleccionConLosElementos'
+!classDefinition: #ElementosDelStack category: 'Stack-Exercise'!
+Object subclass: #ElementosDelStack
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStack methodsFor: 'testing' stamp: 'ET 4/25/2021 23:25:21'!
+!ElementosDelStack methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:29:14'!
+elDeAbajo
+
+	self subclassResponsibility.! !
+
+!ElementosDelStack methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:29:24'!
+elDeAbajo: unElementoDelStack
+
+	self subclassResponsibility.! !
+
+!ElementosDelStack methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:29:05'!
+valor
+
+	self subclassResponsibility.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'ElementosDelStack class' category: 'Stack-Exercise'!
+ElementosDelStack class
+	instanceVariableNames: ''!
+
+!ElementosDelStack class methodsFor: 'associating' stamp: 'ET 4/26/2021 18:34:41'!
+with: unElemento
+
+	^ElementosPropios new initializeWith: unElemento.! !
+
+
+!classDefinition: #Base category: 'Stack-Exercise'!
+ElementosDelStack subclass: #Base
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!Base methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:32:40'!
+elDeAbajo
+
+	self error: OOStack stackEmptyErrorDescription.! !
+
+!Base methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:32:36'!
+elDeAbajo: unElementoDelStack
+
+	self error: OOStack stackEmptyErrorDescription.! !
+
+!Base methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:31:42'!
+valor
+
+	self error: OOStack stackEmptyErrorDescription.! !
+
+
+!classDefinition: #ElementosPropios category: 'Stack-Exercise'!
+ElementosDelStack subclass: #ElementosPropios
+	instanceVariableNames: 'elDeAbajo valor'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!ElementosPropios methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:30:45'!
+elDeAbajo
+
+	^elDeAbajo.! !
+
+!ElementosPropios methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:31:06'!
+elDeAbajo: unElementoDelStack
+
+	elDeAbajo := unElementoDelStack.! !
+
+!ElementosPropios methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:30:26'!
+valor
+
+	^valor.! !
+
+
+!ElementosPropios methodsFor: 'initialization' stamp: 'ET 4/26/2021 18:35:44'!
+initializeWith: unElemento
+
+	
+	valor := unElemento.! !
+
+
+!classDefinition: #OOStack category: 'Stack-Exercise'!
+Object subclass: #OOStack
+	instanceVariableNames: 'tope tamaño'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!OOStack methodsFor: 'testing' stamp: 'ET 4/26/2021 18:28:21'!
 isEmpty
+	
+	^tope isKindOf: Base.
+	"
+	^coleccionConLosElementos isEmpty."! !
 
-	^coleccionConLosElementos isNil or: [coleccionConLosElementos isEmpty].! !
 
-
-!OOStack methodsFor: 'accessing' stamp: 'ET 4/25/2021 23:18:44'!
+!OOStack methodsFor: 'accessing' stamp: 'ET 4/26/2021 18:18:32'!
 size
 
-	^coleccionConLosElementos size.! !
+	^tamaño.! !
 
-!OOStack methodsFor: 'accessing' stamp: 'ET 4/25/2021 23:25:03'!
+!OOStack methodsFor: 'accessing' stamp: 'ET 4/26/2021 18:18:00'!
 top
 
-	self isEmpty
+	^tope valor.
+	"
+	coleccionConLosElementos isEmpty
 		ifTrue: [self error: OOStack stackEmptyErrorDescription]
-		ifFalse: [^coleccionConLosElementos first.]! !
+		ifFalse: [^coleccionConLosElementos first.]"! !
 
 
-!OOStack methodsFor: 'adding' stamp: 'ET 4/25/2021 23:14:56'!
+!OOStack methodsFor: 'adding' stamp: 'ET 4/26/2021 18:39:48'!
 push: unElemento 
+
+	|nuevoElemento|
 	
-	coleccionConLosElementos 
-		ifNil: [	coleccionConLosElementos := OrderedCollection with: unElemento]
-		ifNotNil: [coleccionConLosElementos addFirst: unElemento]! !
+	nuevoElemento  := ElementosDelStack with: unElemento.
+	
+	"tope elDeArriba: nuevoElemento."
+	
+	nuevoElemento elDeAbajo: tope.
+	
+	tope := nuevoElemento.
+	
+	tamaño := tamaño + 1.
+	"
+	coleccionConLosElementos addFirst: unElemento.
+	"! !
 
 
-!OOStack methodsFor: 'removing' stamp: 'ET 4/25/2021 23:23:56'!
+!OOStack methodsFor: 'initialization' stamp: 'ET 4/26/2021 18:36:11'!
+initialize
+	
+	tope := Base new.
+	
+	tamaño := 0.
+	"
+	coleccionConLosElementos := OrderedCollection new."! !
+
+
+!OOStack methodsFor: 'removing' stamp: 'ET 4/26/2021 18:27:07'!
 pop
 
-	self isEmpty
+	|valor|
+	
+	valor := tope valor.
+	
+	tope := tope elDeAbajo.
+	
+	^valor.
+	"
+	coleccionConLosElementos isEmpty
 		ifTrue: [self error: OOStack stackEmptyErrorDescription]
-		ifFalse: [^coleccionConLosElementos removeFirst.]! !
+		ifFalse: [^coleccionConLosElementos removeFirst.]"! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
