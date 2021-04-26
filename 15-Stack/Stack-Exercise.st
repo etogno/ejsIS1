@@ -145,42 +145,47 @@ TestCase subclass: #SentenceFinderByPrefixTest
 	category: 'Stack-Exercise'!
 
 
-!classDefinition: #ElementosDelStack category: 'Stack-Exercise'!
-Object subclass: #ElementosDelStack
+!classDefinition: #ElementoDelStack category: 'Stack-Exercise'!
+Object subclass: #ElementoDelStack
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!ElementosDelStack methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:29:14'!
+!ElementoDelStack methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:29:14'!
 elDeAbajo
 
 	self subclassResponsibility.! !
 
-!ElementosDelStack methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:29:24'!
+!ElementoDelStack methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:29:24'!
 elDeAbajo: unElementoDelStack
 
 	self subclassResponsibility.! !
 
-!ElementosDelStack methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:29:05'!
+!ElementoDelStack methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 19:07:39'!
+esBase
+
+	self subclassResponsibility.! !
+
+!ElementoDelStack methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:29:05'!
 valor
 
 	self subclassResponsibility.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'ElementosDelStack class' category: 'Stack-Exercise'!
-ElementosDelStack class
+!classDefinition: 'ElementoDelStack class' category: 'Stack-Exercise'!
+ElementoDelStack class
 	instanceVariableNames: ''!
 
-!ElementosDelStack class methodsFor: 'associating' stamp: 'ET 4/26/2021 18:34:41'!
+!ElementoDelStack class methodsFor: 'associating' stamp: 'ET 4/26/2021 19:02:41'!
 with: unElemento
 
-	^ElementosPropios new initializeWith: unElemento.! !
+	^ElementoPropio new initializeWith: unElemento.! !
 
 
 !classDefinition: #Base category: 'Stack-Exercise'!
-ElementosDelStack subclass: #Base
+ElementoDelStack subclass: #Base
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -196,36 +201,46 @@ elDeAbajo: unElementoDelStack
 
 	self error: OOStack stackEmptyErrorDescription.! !
 
+!Base methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 19:07:56'!
+esBase
+
+	^true.! !
+
 !Base methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:31:42'!
 valor
 
 	self error: OOStack stackEmptyErrorDescription.! !
 
 
-!classDefinition: #ElementosPropios category: 'Stack-Exercise'!
-ElementosDelStack subclass: #ElementosPropios
+!classDefinition: #ElementoPropio category: 'Stack-Exercise'!
+ElementoDelStack subclass: #ElementoPropio
 	instanceVariableNames: 'elDeAbajo valor'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!ElementosPropios methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:30:45'!
+!ElementoPropio methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:30:45'!
 elDeAbajo
 
 	^elDeAbajo.! !
 
-!ElementosPropios methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:31:06'!
+!ElementoPropio methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:31:06'!
 elDeAbajo: unElementoDelStack
 
 	elDeAbajo := unElementoDelStack.! !
 
-!ElementosPropios methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:30:26'!
+!ElementoPropio methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 19:08:03'!
+esBase
+
+	^false.! !
+
+!ElementoPropio methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:30:26'!
 valor
 
 	^valor.! !
 
 
-!ElementosPropios methodsFor: 'initialization' stamp: 'ET 4/26/2021 18:35:44'!
+!ElementoPropio methodsFor: 'initialization' stamp: 'ET 4/26/2021 18:35:44'!
 initializeWith: unElemento
 
 	
@@ -239,10 +254,10 @@ Object subclass: #OOStack
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStack methodsFor: 'testing' stamp: 'ET 4/26/2021 18:28:21'!
+!OOStack methodsFor: 'testing' stamp: 'ET 4/26/2021 19:08:13'!
 isEmpty
 	
-	^tope isKindOf: Base.
+	^tope esBase.
 	"
 	^coleccionConLosElementos isEmpty."! !
 
@@ -262,18 +277,16 @@ top
 		ifFalse: [^coleccionConLosElementos first.]"! !
 
 
-!OOStack methodsFor: 'adding' stamp: 'ET 4/26/2021 18:39:48'!
+!OOStack methodsFor: 'adding' stamp: 'ET 4/26/2021 19:09:18'!
 push: unElemento 
 
-	|nuevoElemento|
+	|nuevoTope|
 	
-	nuevoElemento  := ElementosDelStack with: unElemento.
+	nuevoTope  := ElementoDelStack with: unElemento.
 	
-	"tope elDeArriba: nuevoElemento."
+	nuevoTope elDeAbajo: tope.
 	
-	nuevoElemento elDeAbajo: tope.
-	
-	tope := nuevoElemento.
+	tope := nuevoTope.
 	
 	tamaño := tamaño + 1.
 	"
