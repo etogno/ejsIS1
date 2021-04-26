@@ -147,10 +147,44 @@ TestCase subclass: #SentenceFinderByPrefixTest
 
 !classDefinition: #OOStack category: 'Stack-Exercise'!
 Object subclass: #OOStack
-	instanceVariableNames: ''
+	instanceVariableNames: 'coleccionConLosElementos'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
+
+!OOStack methodsFor: 'testing' stamp: 'ET 4/25/2021 23:25:21'!
+isEmpty
+
+	^coleccionConLosElementos isNil or: [coleccionConLosElementos isEmpty].! !
+
+
+!OOStack methodsFor: 'accessing' stamp: 'ET 4/25/2021 23:18:44'!
+size
+
+	^coleccionConLosElementos size.! !
+
+!OOStack methodsFor: 'accessing' stamp: 'ET 4/25/2021 23:25:03'!
+top
+
+	self isEmpty
+		ifTrue: [self error: OOStack stackEmptyErrorDescription]
+		ifFalse: [^coleccionConLosElementos first.]! !
+
+
+!OOStack methodsFor: 'adding' stamp: 'ET 4/25/2021 23:14:56'!
+push: unElemento 
+	
+	coleccionConLosElementos 
+		ifNil: [	coleccionConLosElementos := OrderedCollection with: unElemento]
+		ifNotNil: [coleccionConLosElementos addFirst: unElemento]! !
+
+
+!OOStack methodsFor: 'removing' stamp: 'ET 4/25/2021 23:23:56'!
+pop
+
+	self isEmpty
+		ifTrue: [self error: OOStack stackEmptyErrorDescription]
+		ifFalse: [^coleccionConLosElementos removeFirst.]! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
