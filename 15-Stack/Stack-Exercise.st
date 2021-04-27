@@ -144,6 +144,228 @@ TestCase subclass: #SentenceFinderByPrefixTest
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:00:03'!
+test01StackVacioConCualquierPrefijoDaUnaColeccionVacia
+
+	|unStack unPrefijo finder|
+	
+	unStack := OOStack new.
+	
+	unPrefijo := 'wint'.
+	
+	finder := SentenceFinderByPrefix new.
+	
+	self assert: (finder find: unPrefijo enElStack: unStack) isEmpty.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:08:02'!
+test02StackConUnElementoYConElMismoPrefijoDaColeccionConElMismoElemento
+
+	|unStack unPrefijo finder coleccion|
+	
+	unStack := OOStack new.
+	
+	unPrefijo := 'winter'.
+	
+	unStack push: 'winter'.
+	
+	finder := SentenceFinderByPrefix new.
+	
+	coleccion :=finder find: unPrefijo enElStack: unStack.
+	
+	self deny: coleccion isEmpty.
+	
+	self assert: coleccion size = 1.
+	
+	self assert: (coleccion at: 1) equals: 'winter'.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:11:22'!
+test03StackConUnElementoSigueTeniendoElMismoElemento
+
+	|unStack unPrefijo finder coleccion|
+	
+	unStack := OOStack new.
+	
+	unPrefijo := 'win'.
+	
+	unStack push: 'winter'.
+	
+	finder := SentenceFinderByPrefix new.
+	
+	coleccion :=finder find: unPrefijo enElStack: unStack.
+	
+	self assert: unStack size equals: 1.
+	
+	self assert: unStack top equals: 'winter'.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:21:53'!
+test04ElPrefijoEsCaseSensitive
+
+	|unStack unPrefijo finder coleccion|
+	
+	unStack := OOStack new.
+	
+	unPrefijo := 'Win'.
+	
+	unStack push: 'winter'.
+	
+	finder := SentenceFinderByPrefix new.
+	
+	coleccion :=finder find: unPrefijo enElStack: unStack.
+	
+	self assert: coleccion isEmpty.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:48:18'!
+test05BuscaPrefijosYNoSubStringsPropiosOSufijos
+
+	|unStack unPrefijo finder coleccion|
+	
+	unStack := OOStack new.
+	
+	unPrefijo := 'wint'.
+	
+	unStack push: 'the winds of winter'.
+	
+	unStack push: 'winter is coming'.
+	
+	unStack push: 'win for wint'.
+	
+	finder := SentenceFinderByPrefix new.
+	
+	coleccion :=finder find: unPrefijo enElStack: unStack.
+	
+	self assert: (coleccion includes: 'winter is coming').
+	
+	self deny: (coleccion includes: 'win for wint').
+	
+	self deny: (coleccion includes: 'the winds of winter').! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:50:05'!
+test06NoIncluyePrefijosDelPrefijo
+
+	|unStack unPrefijo finder coleccion|
+	
+	unStack := OOStack new.
+	
+	unPrefijo := 'winterisaseason'.
+	
+	unStack push: 'winter'.
+	
+	unStack push: 'win is for victory'.
+	
+	unStack push: 'winterisaseasoneveryyear'.
+	
+	finder := SentenceFinderByPrefix new.
+	
+	coleccion :=finder find: unPrefijo enElStack: unStack.
+	
+	self assert: coleccion size equals: 1.
+		
+	self assert: (coleccion at: 1) equals: 'winterisaseasoneveryyear'.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:35:14'!
+test07RetornaTodasLasCoincidencias
+
+	|unStack unPrefijo finder coleccion|
+	
+	unStack := OOStack new.
+	
+	unPrefijo := 'win'.
+	
+	unStack push: 'winter'.
+	
+	unStack push: 'win is for victory'.
+	
+	unStack push: 'winter is a season every year'.
+	
+	unStack push: 'hola'.
+	
+	unStack push: 'chau'.
+	
+	finder := SentenceFinderByPrefix new.
+	
+	coleccion :=finder find: unPrefijo enElStack: unStack.
+	
+	self assert: coleccion size equals: 3.
+		
+	self assert: coleccion includes: 'winter is a season every year'.
+	
+	self assert: coleccion includes: 'win is for victory'.
+	
+	self assert: coleccion includes: 'winter'.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:38:33'!
+test08StackMantieneOrden
+
+	|unStack unPrefijo finder coleccion|
+	
+	unStack := OOStack new.
+	
+	unPrefijo := 'win'.
+	
+	unStack push: 'winter'.
+	
+	unStack push: 'win is for victory'.
+	
+	unStack push: 'winter is a season every year'.
+	
+	finder := SentenceFinderByPrefix new.
+	
+	coleccion :=finder find: unPrefijo enElStack: unStack.
+		
+	self assert: unStack pop equals: 'winter is a season every year'.
+			
+	self assert: unStack pop equals: 'win is for victory'.
+	
+	self assert: unStack pop equals: 'winter'.
+	
+	self assert: unStack isEmpty.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:52:32'!
+test09PrefijoVacioDaError
+
+	|unStack unPrefijo finder|
+	
+	unStack := OOStack new.
+	
+	unPrefijo := ''.
+	
+	unStack push: 'winter'.
+	
+	unStack push: 'win is for victory'.
+	
+	unStack push: 'winter is a season every year'.
+	
+	finder := SentenceFinderByPrefix new.
+	
+		
+	self 
+		should: [ finder find: unPrefijo enElStack: unStack.]
+		raise: Error
+		withExceptionDo: [ :anError | self assert: anError messageText equals: SentenceFinderByPrefix canNotUseEmptyPrefix].! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:54:58'!
+test10PrefijoConEspaciosVaciosDaError
+
+	|unStack unPrefijo finder|
+	
+	unStack := OOStack new.
+	
+	unPrefijo := 'winter is'.
+	
+	unStack push: 'winter'.
+	
+	unStack push: 'win is for victory'.
+	
+	unStack push: 'winter is a season every year'.
+	
+	finder := SentenceFinderByPrefix new.
+	
+		
+	self 
+		should: [ finder find: unPrefijo enElStack: unStack.]
+		raise: Error
+		withExceptionDo: [ :anError | self assert: anError messageText equals: SentenceFinderByPrefix canNotUsePrefixWithEmptySpaces].! !
+
 
 !classDefinition: #ElementoDelStack category: 'Stack-Exercise'!
 Object subclass: #ElementoDelStack
@@ -304,7 +526,7 @@ initialize
 	coleccionConLosElementos := OrderedCollection new."! !
 
 
-!OOStack methodsFor: 'removing' stamp: 'ET 4/26/2021 18:27:07'!
+!OOStack methodsFor: 'removing' stamp: 'ET 4/26/2021 21:13:16'!
 pop
 
 	|valor|
@@ -312,6 +534,8 @@ pop
 	valor := tope valor.
 	
 	tope := tope elDeAbajo.
+	
+	tamaño := tamaño - 1.
 	
 	^valor.
 	"
@@ -333,7 +557,57 @@ stackEmptyErrorDescription
 
 !classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
 Object subclass: #SentenceFinderByPrefix
-	instanceVariableNames: ''
+	instanceVariableNames: 'stack'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 22:02:30'!
+find: unPrefijo enElStack: unStack
+
+	|otroStack oracionesConElPrefijo|
+	
+	unPrefijo isEmpty ifTrue: [self error: self class canNotUseEmptyPrefix].
+	
+	(unPrefijo includes: (' ' at: 1)) ifTrue: [self error: self class canNotUsePrefixWithEmptySpaces].
+	
+	oracionesConElPrefijo := OrderedCollection new.
+	
+	otroStack := OOStack new.
+	
+	[unStack isEmpty] whileFalse:
+	[
+		|tope|
+		tope := unStack top.
+		(tope beginsWith: unPrefijo) ifTrue: [oracionesConElPrefijo add: tope].
+		unStack pop.
+		otroStack push: tope.
+		].
+	
+	[otroStack isEmpty] whileFalse:
+	[
+		|tope|
+		tope := otroStack top.
+		otroStack pop.
+		unStack push: tope.
+		].
+	
+	^oracionesConElPrefijo.
+	
+	! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'SentenceFinderByPrefix class' category: 'Stack-Exercise'!
+SentenceFinderByPrefix class
+	instanceVariableNames: ''!
+
+!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:52:52'!
+canNotUseEmptyPrefix
+
+	^'No se puede usar prefijo vacío!!!!'.! !
+
+!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:55:13'!
+canNotUsePrefixWithEmptySpaces
+
+	^'No se puede usar prefijo con espacios vacío!!!!'.! !
