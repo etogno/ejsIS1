@@ -374,36 +374,21 @@ Object subclass: #ElementoDelStack
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!ElementoDelStack methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:29:14'!
-elDeAbajo
+!ElementoDelStack methodsFor: 'accessing' stamp: 'JA 4/28/2021 19:42:15'!
+elementoPrevio
 
 	self subclassResponsibility.! !
 
-!ElementoDelStack methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:29:24'!
-elDeAbajo: unElementoDelStack
-
-	self subclassResponsibility.! !
-
-!ElementoDelStack methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 19:07:39'!
-esBase
-
-	self subclassResponsibility.! !
-
-!ElementoDelStack methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:29:05'!
+!ElementoDelStack methodsFor: 'accessing' stamp: 'ET 4/26/2021 18:29:05'!
 valor
 
 	self subclassResponsibility.! !
 
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'ElementoDelStack class' category: 'Stack-Exercise'!
-ElementoDelStack class
-	instanceVariableNames: ''!
+!ElementoDelStack methodsFor: 'testing' stamp: 'ET 4/26/2021 19:07:39'!
+esBase
 
-!ElementoDelStack class methodsFor: 'associating' stamp: 'ET 4/26/2021 19:02:41'!
-with: unElemento
-
-	^ElementoPropio new initializeWith: unElemento.! !
+	self subclassResponsibility.! !
 
 
 !classDefinition: #Base category: 'Stack-Exercise'!
@@ -413,22 +398,18 @@ ElementoDelStack subclass: #Base
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!Base methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:32:40'!
-elDeAbajo
-
-	self error: OOStack stackEmptyErrorDescription.! !
-
-!Base methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:32:36'!
-elDeAbajo: unElementoDelStack
-
-	self error: OOStack stackEmptyErrorDescription.! !
-
-!Base methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 19:07:56'!
+!Base methodsFor: 'testing' stamp: 'ET 4/26/2021 19:07:56'!
 esBase
 
 	^true.! !
 
-!Base methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:31:42'!
+
+!Base methodsFor: 'accessing' stamp: 'JA 4/28/2021 19:42:15'!
+elementoPrevio
+
+	self error: OOStack stackEmptyErrorDescription.! !
+
+!Base methodsFor: 'accessing' stamp: 'ET 4/26/2021 18:31:42'!
 valor
 
 	self error: OOStack stackEmptyErrorDescription.! !
@@ -436,37 +417,45 @@ valor
 
 !classDefinition: #ElementoPropio category: 'Stack-Exercise'!
 ElementoDelStack subclass: #ElementoPropio
-	instanceVariableNames: 'elDeAbajo valor'
+	instanceVariableNames: 'previousStackElement valor'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!ElementoPropio methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:30:45'!
-elDeAbajo
+!ElementoPropio methodsFor: 'initialization' stamp: 'JA 4/28/2021 19:48:33'!
+initializeWith: unValor andAPreviousElement: aPreviousStackElement.
 
-	^elDeAbajo.! !
+	
+	valor := unValor.
+	previousStackElement := aPreviousStackElement ! !
 
-!ElementoPropio methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:31:06'!
-elDeAbajo: unElementoDelStack
 
-	elDeAbajo := unElementoDelStack.! !
-
-!ElementoPropio methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 19:08:03'!
+!ElementoPropio methodsFor: 'testing' stamp: 'ET 4/26/2021 19:08:03'!
 esBase
 
 	^false.! !
 
-!ElementoPropio methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 18:30:26'!
+
+!ElementoPropio methodsFor: 'accessing' stamp: 'JA 4/28/2021 19:48:33'!
+elementoPrevio
+
+	^previousStackElement.! !
+
+!ElementoPropio methodsFor: 'accessing' stamp: 'ET 4/26/2021 18:30:26'!
 valor
 
 	^valor.! !
 
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!ElementoPropio methodsFor: 'initialization' stamp: 'ET 4/26/2021 18:35:44'!
-initializeWith: unElemento
+!classDefinition: 'ElementoPropio class' category: 'Stack-Exercise'!
+ElementoPropio class
+	instanceVariableNames: ''!
 
-	
-	valor := unElemento.! !
+!ElementoPropio class methodsFor: 'as yet unclassified' stamp: 'JA 4/28/2021 19:47:02'!
+with: unValor andAPreviousElement: aPreviousStackElement
+
+	^self new initializeWith: unValor andAPreviousElement: aPreviousStackElement.! !
 
 
 !classDefinition: #OOStack category: 'Stack-Exercise'!
@@ -476,12 +465,10 @@ Object subclass: #OOStack
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStack methodsFor: 'testing' stamp: 'ET 4/26/2021 19:08:13'!
+!OOStack methodsFor: 'testing' stamp: 'JA 4/28/2021 18:49:07'!
 isEmpty
 	
-	^tope esBase.
-	"
-	^coleccionConLosElementos isEmpty."! !
+	^tope esBase.! !
 
 
 !OOStack methodsFor: 'accessing' stamp: 'ET 4/26/2021 18:18:32'!
@@ -489,59 +476,37 @@ size
 
 	^tamaño.! !
 
-!OOStack methodsFor: 'accessing' stamp: 'ET 4/26/2021 18:18:00'!
+!OOStack methodsFor: 'accessing' stamp: 'JA 4/28/2021 18:49:30'!
 top
 
-	^tope valor.
-	"
-	coleccionConLosElementos isEmpty
-		ifTrue: [self error: OOStack stackEmptyErrorDescription]
-		ifFalse: [^coleccionConLosElementos first.]"! !
+	^tope valor.! !
 
 
-!OOStack methodsFor: 'adding' stamp: 'ET 4/26/2021 19:09:18'!
-push: unElemento 
-
-	|nuevoTope|
+!OOStack methodsFor: 'adding' stamp: 'JA 4/28/2021 19:49:56'!
+push: unValor 
 	
-	nuevoTope  := ElementoDelStack with: unElemento.
-	
-	nuevoTope elDeAbajo: tope.
-	
-	tope := nuevoTope.
-	
+	tope  := ElementoPropio with: unValor andAPreviousElement: tope.	
 	tamaño := tamaño + 1.
-	"
-	coleccionConLosElementos addFirst: unElemento.
-	"! !
+	! !
 
 
-!OOStack methodsFor: 'initialization' stamp: 'ET 4/26/2021 18:36:11'!
+!OOStack methodsFor: 'initialization' stamp: 'JA 4/28/2021 19:15:34'!
 initialize
 	
-	tope := Base new.
-	
-	tamaño := 0.
-	"
-	coleccionConLosElementos := OrderedCollection new."! !
+	tope := Base new.	
+	tamaño := 0.! !
 
 
-!OOStack methodsFor: 'removing' stamp: 'ET 4/26/2021 21:13:16'!
+!OOStack methodsFor: 'removing' stamp: 'JA 4/28/2021 19:43:13'!
 pop
 
 	|valor|
 	
-	valor := tope valor.
-	
-	tope := tope elDeAbajo.
-	
+	valor := tope valor.	
+	tope := tope elementoPrevio .	
 	tamaño := tamaño - 1.
 	
-	^valor.
-	"
-	coleccionConLosElementos isEmpty
-		ifTrue: [self error: OOStack stackEmptyErrorDescription]
-		ifFalse: [^coleccionConLosElementos removeFirst.]"! !
+	^valor.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
