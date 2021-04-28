@@ -144,10 +144,10 @@ TestCase subclass: #SentenceFinderByPrefixTest
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:00:03'!
-test01StackVacioConCualquierPrefijoDaUnaColeccionVacia
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:30:15'!
+test01StackVacioDaUnaColeccionVacia
 
-	|unStack unPrefijo finder|
+	|unStack unPrefijo finder coleccion |
 	
 	unStack := OOStack new.
 	
@@ -155,16 +155,18 @@ test01StackVacioConCualquierPrefijoDaUnaColeccionVacia
 	
 	finder := SentenceFinderByPrefix new.
 	
-	self assert: (finder find: unPrefijo enElStack: unStack) isEmpty.! !
+	coleccion := finder find: unPrefijo enElStack: unStack.
+	
+	self assert: coleccion isEmpty.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:08:02'!
-test02StackConUnElementoYConElMismoPrefijoDaColeccionConElMismoElemento
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:43:57'!
+test02StackConUnElementoYConPrefijoAdecuadoDaColeccionConDichoElemento
 
 	|unStack unPrefijo finder coleccion|
 	
 	unStack := OOStack new.
 	
-	unPrefijo := 'winter'.
+	unPrefijo := 'wint'.
 	
 	unStack push: 'winter'.
 	
@@ -172,20 +174,18 @@ test02StackConUnElementoYConElMismoPrefijoDaColeccionConElMismoElemento
 	
 	coleccion :=finder find: unPrefijo enElStack: unStack.
 	
-	self deny: coleccion isEmpty.
-	
 	self assert: coleccion size = 1.
 	
 	self assert: (coleccion at: 1) equals: 'winter'.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:11:22'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:32:27'!
 test03StackConUnElementoSigueTeniendoElMismoElemento
 
 	|unStack unPrefijo finder coleccion|
 	
 	unStack := OOStack new.
 	
-	unPrefijo := 'win'.
+	unPrefijo := 'wint'.
 	
 	unStack push: 'winter'.
 	
@@ -197,14 +197,14 @@ test03StackConUnElementoSigueTeniendoElMismoElemento
 	
 	self assert: unStack top equals: 'winter'.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:21:53'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:33:49'!
 test04ElPrefijoEsCaseSensitive
 
 	|unStack unPrefijo finder coleccion|
 	
 	unStack := OOStack new.
 	
-	unPrefijo := 'Win'.
+	unPrefijo := 'Wint'.
 	
 	unStack push: 'winter'.
 	
@@ -214,7 +214,7 @@ test04ElPrefijoEsCaseSensitive
 	
 	self assert: coleccion isEmpty.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:48:18'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:43:31'!
 test05BuscaPrefijosYNoSubStringsPropiosOSufijos
 
 	|unStack unPrefijo finder coleccion|
@@ -233,14 +233,12 @@ test05BuscaPrefijosYNoSubStringsPropiosOSufijos
 	
 	coleccion :=finder find: unPrefijo enElStack: unStack.
 	
-	self assert: (coleccion includes: 'winter is coming').
+	self assert: coleccion size equals: 1.
 	
-	self deny: (coleccion includes: 'win for wint').
-	
-	self deny: (coleccion includes: 'the winds of winter').! !
+	self assert: (coleccion includes: 'winter is coming').! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:50:05'!
-test06NoIncluyePrefijosDelPrefijo
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:45:38'!
+test06NoIncluyeStringsQueSeanPrefijosPropiosDelPrefijo
 
 	|unStack unPrefijo finder coleccion|
 	
@@ -250,7 +248,7 @@ test06NoIncluyePrefijosDelPrefijo
 	
 	unStack push: 'winter'.
 	
-	unStack push: 'win is for victory'.
+	unStack push: 'winteris a season'.
 	
 	unStack push: 'winterisaseasoneveryyear'.
 	
@@ -262,14 +260,14 @@ test06NoIncluyePrefijosDelPrefijo
 		
 	self assert: (coleccion at: 1) equals: 'winterisaseasoneveryyear'.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:35:14'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:42:27'!
 test07RetornaTodasLasCoincidencias
 
 	|unStack unPrefijo finder coleccion|
 	
 	unStack := OOStack new.
 	
-	unPrefijo := 'win'.
+	unPrefijo := 'wint'.
 	
 	unStack push: 'winter'.
 	
@@ -285,22 +283,20 @@ test07RetornaTodasLasCoincidencias
 	
 	coleccion :=finder find: unPrefijo enElStack: unStack.
 	
-	self assert: coleccion size equals: 3.
+	self assert: coleccion size equals: 2.
 		
 	self assert: coleccion includes: 'winter is a season every year'.
 	
-	self assert: coleccion includes: 'win is for victory'.
-	
 	self assert: coleccion includes: 'winter'.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:38:33'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:39:16'!
 test08StackMantieneOrden
 
 	|unStack unPrefijo finder coleccion|
 	
 	unStack := OOStack new.
 	
-	unPrefijo := 'win'.
+	unPrefijo := 'wint'.
 	
 	unStack push: 'winter'.
 	
@@ -310,7 +306,7 @@ test08StackMantieneOrden
 	
 	finder := SentenceFinderByPrefix new.
 	
-	coleccion :=finder find: unPrefijo enElStack: unStack.
+	coleccion := finder find: unPrefijo enElStack: unStack.
 		
 	self assert: unStack pop equals: 'winter is a season every year'.
 			
@@ -320,8 +316,8 @@ test08StackMantieneOrden
 	
 	self assert: unStack isEmpty.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:52:32'!
-test09PrefijoVacioDaError
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:38:29'!
+test09canNotUseEmptyPrefix
 
 	|unStack unPrefijo finder|
 	
@@ -343,8 +339,8 @@ test09PrefijoVacioDaError
 		raise: Error
 		withExceptionDo: [ :anError | self assert: anError messageText equals: SentenceFinderByPrefix canNotUseEmptyPrefix].! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 21:54:58'!
-test10PrefijoConEspaciosVaciosDaError
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:38:44'!
+test10canNotUsePrefixWithEmptySpaces
 
 	|unStack unPrefijo finder|
 	
@@ -562,37 +558,63 @@ Object subclass: #SentenceFinderByPrefix
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'ET 4/26/2021 22:02:30'!
+!SentenceFinderByPrefix methodsFor: 'finder' stamp: 'ET 4/28/2021 19:15:24'!
 find: unPrefijo enElStack: unStack
 
-	|otroStack oracionesConElPrefijo|
+	| oracionesConElPrefijo |
 	
-	unPrefijo isEmpty ifTrue: [self error: self class canNotUseEmptyPrefix].
-	
-	(unPrefijo includes: (' ' at: 1)) ifTrue: [self error: self class canNotUsePrefixWithEmptySpaces].
+	self asegurarQueElPrefijoEsValido: unPrefijo.
 	
 	oracionesConElPrefijo := OrderedCollection new.
 	
-	otroStack := OOStack new.
+	self porCadaElementoDelStack: unStack 
+		hacer: [:elementoDelStack | (elementoDelStack beginsWith: unPrefijo) ifTrue: [oracionesConElPrefijo add: elementoDelStack]].
+	
+	^oracionesConElPrefijo.
+	
+	! !
+
+
+!SentenceFinderByPrefix methodsFor: 'private' stamp: 'ET 4/28/2021 19:14:23'!
+asegurarQueElPrefijoEsValido: unPrefijo
+
+	|espacioVacio|
+	
+	unPrefijo isEmpty ifTrue: [self error: self class canNotUseEmptyPrefix].
+	
+	espacioVacio := ' ' at: 1.
+	
+	(unPrefijo includes: espacioVacio) ifTrue: [self error: self class canNotUsePrefixWithEmptySpaces].
+	
+	
+	! !
+
+!SentenceFinderByPrefix methodsFor: 'private' stamp: 'ET 4/28/2021 19:26:40'!
+desapilar: unStack apilandoSusElementosEn: otroStack ejecutandoPorCadaElemento: unClosureQueRecibeUnElemento
 	
 	[unStack isEmpty] whileFalse:
 	[
 		|tope|
 		tope := unStack top.
-		(tope beginsWith: unPrefijo) ifTrue: [oracionesConElPrefijo add: tope].
+		unClosureQueRecibeUnElemento value: tope.
 		unStack pop.
 		otroStack push: tope.
 		].
 	
-	[otroStack isEmpty] whileFalse:
-	[
-		|tope|
-		tope := otroStack top.
-		otroStack pop.
-		unStack push: tope.
-		].
 	
-	^oracionesConElPrefijo.
+	! !
+
+!SentenceFinderByPrefix methodsFor: 'private' stamp: 'ET 4/28/2021 19:27:11'!
+porCadaElementoDelStack: unStack hacer: unClosureQueRecibeUnElemento
+
+	|otroStack|
+	
+	otroStack := OOStack new.
+	
+	self desapilar: unStack apilandoSusElementosEn: otroStack ejecutandoPorCadaElemento: unClosureQueRecibeUnElemento.
+	
+	self desapilar: otroStack apilandoSusElementosEn: unStack ejecutandoPorCadaElemento: [:elementoDelStack | ].
+	
 	
 	! !
 
