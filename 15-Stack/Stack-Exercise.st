@@ -1,4 +1,4 @@
-!classDefinition: #OOStackTest category: 'Stack-Exercise'!
+!classDefinition: #OOStackTest category: #'Stack-Exercise'!
 TestCase subclass: #OOStackTest
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -137,233 +137,185 @@ test10CanNotTopWhenThereAreNoObjectsInTheStack
 ! !
 
 
-!classDefinition: #SentenceFinderByPrefixTest category: 'Stack-Exercise'!
+!classDefinition: #SentenceFinderByPrefixTest category: #'Stack-Exercise'!
 TestCase subclass: #SentenceFinderByPrefixTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'unStack unFinder unPrefix'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:30:15'!
+!SentenceFinderByPrefixTest methodsFor: 'setup' stamp: 'JA 4/28/2021 22:57:57'!
+setUp
+
+	unStack:= OOStack new.
+	unFinder:= SentenceFinderByPrefix new.
+	unPrefix:= 'wint'.! !
+
+
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'JA 4/28/2021 23:37:52'!
 test01StackVacioDaUnaColeccionVacia
 
-	|unStack unPrefijo finder coleccion |
+	| unaColeccionConCoincidencias |
 	
-	unStack := OOStack new.
+	unaColeccionConCoincidencias := unFinder find: unPrefix enElStack: unStack.
 	
-	unPrefijo := 'wint'.
-	
-	finder := SentenceFinderByPrefix new.
-	
-	coleccion := finder find: unPrefijo enElStack: unStack.
-	
-	self assert: coleccion isEmpty.! !
+	self assert: unaColeccionConCoincidencias isEmpty.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:43:57'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'JA 4/28/2021 23:44:13'!
 test02StackConUnElementoYConPrefijoAdecuadoDaColeccionConDichoElemento
 
-	|unStack unPrefijo finder coleccion|
+	| unaColeccionConCoincidencias |
 	
-	unStack := OOStack new.
+	self agregarUnElementoEnElStack.
+		
+	unaColeccionConCoincidencias :=unFinder find: unPrefix enElStack: unStack.
 	
-	unPrefijo := 'wint'.
-	
-	unStack push: 'winter'.
-	
-	finder := SentenceFinderByPrefix new.
-	
-	coleccion :=finder find: unPrefijo enElStack: unStack.
-	
-	self assert: coleccion size = 1.
-	
-	self assert: (coleccion at: 1) equals: 'winter'.! !
+	self assert: unaColeccionConCoincidencias size = 1.	
+	self assert: 'winter' equals: (unaColeccionConCoincidencias at: 1).! !
 
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:32:27'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'JA 4/28/2021 23:44:13'!
 test03StackConUnElementoSigueTeniendoElMismoElemento
 
-	|unStack unPrefijo finder coleccion|
+	self agregarUnElementoEnElStack.
 	
-	unStack := OOStack new.
+	unFinder find: unPrefix enElStack: unStack.
 	
-	unPrefijo := 'wint'.
-	
-	unStack push: 'winter'.
-	
-	finder := SentenceFinderByPrefix new.
-	
-	coleccion :=finder find: unPrefijo enElStack: unStack.
-	
-	self assert: unStack size equals: 1.
-	
-	self assert: unStack top equals: 'winter'.! !
+	self assert: 1 equals: unStack size.	
+	self assert: 'winter' equals: unStack top.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:33:49'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'JA 4/28/2021 23:44:13'!
 test04ElPrefijoEsCaseSensitive
 
-	|unStack unPrefijo finder coleccion|
+	| unPrefijoUpperCase unaColeccionConCoincidencias|
 	
-	unStack := OOStack new.
+	unPrefijoUpperCase := 'Wint'.
+	self agregarUnElementoEnElStack.
 	
-	unPrefijo := 'Wint'.
+	unaColeccionConCoincidencias :=unFinder find: unPrefijoUpperCase enElStack: unStack.
 	
-	unStack push: 'winter'.
-	
-	finder := SentenceFinderByPrefix new.
-	
-	coleccion :=finder find: unPrefijo enElStack: unStack.
-	
-	self assert: coleccion isEmpty.! !
+	self assert: unaColeccionConCoincidencias isEmpty.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:43:31'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'JA 4/28/2021 23:38:52'!
 test05BuscaPrefijosYNoSubStringsPropiosOSufijos
 
-	|unStack unPrefijo finder coleccion|
+	| unaColeccionConCoincidencias |
 	
-	unStack := OOStack new.
-	
-	unPrefijo := 'wint'.
-	
-	unStack push: 'the winds of winter'.
-	
-	unStack push: 'winter is coming'.
-	
+	unStack push: 'the winds of winter'.	
+	unStack push: 'winter is coming'.	
 	unStack push: 'win for wint'.
 	
-	finder := SentenceFinderByPrefix new.
+	unaColeccionConCoincidencias :=unFinder find: unPrefix enElStack: unStack.
 	
-	coleccion :=finder find: unPrefijo enElStack: unStack.
-	
-	self assert: coleccion size equals: 1.
-	
-	self assert: (coleccion includes: 'winter is coming').! !
+	self assert: unaColeccionConCoincidencias size equals: 1.	
+	self assert: (unaColeccionConCoincidencias includes: 'winter is coming').! !
 
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:45:38'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'JA 4/28/2021 23:39:06'!
 test06NoIncluyeStringsQueSeanPrefijosPropiosDelPrefijo
 
-	|unStack unPrefijo finder coleccion|
-	
-	unStack := OOStack new.
+	| unPrefijo unaColeccionConCoincidencias|
 	
 	unPrefijo := 'winterisaseason'.
 	
-	unStack push: 'winter'.
-	
-	unStack push: 'winteris a season'.
-	
+	unStack push: 'winter'.	
+	unStack push: 'winteris a season'.	
 	unStack push: 'winterisaseasoneveryyear'.
 	
-	finder := SentenceFinderByPrefix new.
+	unaColeccionConCoincidencias :=unFinder find: unPrefijo enElStack: unStack.
 	
-	coleccion :=finder find: unPrefijo enElStack: unStack.
-	
-	self assert: coleccion size equals: 1.
-		
-	self assert: (coleccion at: 1) equals: 'winterisaseasoneveryyear'.! !
+	self assert: 1 equals: unaColeccionConCoincidencias size.		
+	self assert: 'winterisaseasoneveryyear' equals: (unaColeccionConCoincidencias at: 1).! !
 
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:42:27'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'JA 4/28/2021 23:43:31'!
 test07RetornaTodasLasCoincidencias
 
-	|unStack unPrefijo finder coleccion|
+	| unaColeccionConCoincidencias|
 	
-	unStack := OOStack new.
+	self agregarTresElementosEnElStack.
 	
-	unPrefijo := 'wint'.
+	unaColeccionConCoincidencias :=unFinder find: unPrefix enElStack: unStack.
 	
-	unStack push: 'winter'.
-	
-	unStack push: 'win is for victory'.
-	
-	unStack push: 'winter is a season every year'.
-	
-	unStack push: 'hola'.
-	
-	unStack push: 'chau'.
-	
-	finder := SentenceFinderByPrefix new.
-	
-	coleccion :=finder find: unPrefijo enElStack: unStack.
-	
-	self assert: coleccion size equals: 2.
-		
-	self assert: coleccion includes: 'winter is a season every year'.
-	
-	self assert: coleccion includes: 'winter'.! !
+	self assert: 2 equals: unaColeccionConCoincidencias size.
+	self assert: unaColeccionConCoincidencias includes: 'winter is a season every year'.	
+	self assert: unaColeccionConCoincidencias includes: 'winter'.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:39:16'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'JA 4/28/2021 23:43:31'!
 test08StackMantieneOrden
 
-	|unStack unPrefijo finder coleccion|
+	self agregarTresElementosEnElStack.
 	
-	unStack := OOStack new.
-	
-	unPrefijo := 'wint'.
-	
-	unStack push: 'winter'.
-	
-	unStack push: 'win is for victory'.
-	
-	unStack push: 'winter is a season every year'.
-	
-	finder := SentenceFinderByPrefix new.
-	
-	coleccion := finder find: unPrefijo enElStack: unStack.
+	unFinder find: unPrefix enElStack: unStack.
 		
-	self assert: unStack pop equals: 'winter is a season every year'.
-			
-	self assert: unStack pop equals: 'win is for victory'.
-	
-	self assert: unStack pop equals: 'winter'.
-	
+	self assert: 'winter is a season every year' equals: unStack pop.			
+	self assert: 'win is for victory' equals: unStack pop.	
+	self assert: 'winter' equals: unStack pop.	
 	self assert: unStack isEmpty.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:38:29'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'JA 4/28/2021 23:43:31'!
 test09canNotUseEmptyPrefix
 
-	|unStack unPrefijo finder|
+	| unPrefijoVacio |
 	
-	unStack := OOStack new.
-	
-	unPrefijo := ''.
-	
-	unStack push: 'winter'.
-	
-	unStack push: 'win is for victory'.
-	
-	unStack push: 'winter is a season every year'.
-	
-	finder := SentenceFinderByPrefix new.
-	
+	unPrefijoVacio := ''.
+	self agregarTresElementosEnElStack.
 		
 	self 
-		should: [ finder find: unPrefijo enElStack: unStack.]
+		should: [ unFinder find: unPrefijoVacio enElStack: unStack.]
 		raise: Error
 		withExceptionDo: [ :anError | self assert: anError messageText equals: SentenceFinderByPrefix canNotUseEmptyPrefix].! !
 
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'ET 4/28/2021 18:38:44'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'JA 4/28/2021 23:43:31'!
 test10canNotUsePrefixWithEmptySpaces
 
-	|unStack unPrefijo finder|
-	
-	unStack := OOStack new.
-	
-	unPrefijo := 'winter is'.
-	
-	unStack push: 'winter'.
-	
-	unStack push: 'win is for victory'.
-	
-	unStack push: 'winter is a season every year'.
-	
-	finder := SentenceFinderByPrefix new.
-	
+	| unPrefijoConEspacio |
 		
+	unPrefijoConEspacio := 'winter is'.
+	self agregarTresElementosEnElStack.
+	
 	self 
-		should: [ finder find: unPrefijo enElStack: unStack.]
+		should: [ unFinder find: unPrefijoConEspacio enElStack: unStack.]
 		raise: Error
 		withExceptionDo: [ :anError | self assert: anError messageText equals: SentenceFinderByPrefix canNotUsePrefixWithEmptySpaces].! !
 
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'JA 4/28/2021 23:44:13'!
+test11ElPrefijoEsIgualALaFrase
+		
+	| unPrefijoIgualAFraseCompleta unaColeccionConCoincidencias |
+	
+	self agregarUnElementoEnElStack.
+	unPrefijoIgualAFraseCompleta:= 'winter'.
+	
+	unaColeccionConCoincidencias:=unFinder find: unPrefijoIgualAFraseCompleta enElStack: unStack.
+
+	self assert: unPrefijoIgualAFraseCompleta equals: (unaColeccionConCoincidencias at:1).! !
+
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'JA 4/28/2021 23:44:13'!
+test11ElPrefijoEsIgualALaFraseCompleta
+		
+	| unPrefijoIgualAFraseCompleta unaColeccionConCoincidencias |
+	
+	self agregarUnElementoEnElStack.
+	unPrefijoIgualAFraseCompleta:= 'winter'.
+	
+	unaColeccionConCoincidencias:=unFinder find: unPrefijoIgualAFraseCompleta enElStack: unStack.
+
+	self assert: unPrefijoIgualAFraseCompleta equals: (unaColeccionConCoincidencias at:1).! !
+
+
+!SentenceFinderByPrefixTest methodsFor: 'private' stamp: 'JA 4/28/2021 23:43:31'!
+agregarTresElementosEnElStack
+
+	unStack push: 'winter'.	
+	unStack push: 'win is for victory'.	
+	unStack push: 'winter is a season every year'.
+! !
+
+!SentenceFinderByPrefixTest methodsFor: 'private' stamp: 'JA 4/28/2021 23:44:13'!
+agregarUnElementoEnElStack
+	
+	unStack push: 'winter'.! !
+
 
-!classDefinition: #ElementoDelStack category: 'Stack-Exercise'!
+!classDefinition: #ElementoDelStack category: #'Stack-Exercise'!
 Object subclass: #ElementoDelStack
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -387,7 +339,7 @@ esBase
 	self subclassResponsibility.! !
 
 
-!classDefinition: #Base category: 'Stack-Exercise'!
+!classDefinition: #Base category: #'Stack-Exercise'!
 ElementoDelStack subclass: #Base
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -411,7 +363,7 @@ valor
 	self error: OOStack stackEmptyErrorDescription.! !
 
 
-!classDefinition: #ElementoPropio category: 'Stack-Exercise'!
+!classDefinition: #ElementoPropio category: #'Stack-Exercise'!
 ElementoDelStack subclass: #ElementoPropio
 	instanceVariableNames: 'previousStackElement valor'
 	classVariableNames: ''
@@ -444,7 +396,7 @@ valor
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'ElementoPropio class' category: 'Stack-Exercise'!
+!classDefinition: 'ElementoPropio class' category: #'Stack-Exercise'!
 ElementoPropio class
 	instanceVariableNames: ''!
 
@@ -454,7 +406,7 @@ with: unValor andAPreviousElement: aPreviousStackElement
 	^self new initializeWith: unValor andAPreviousElement: aPreviousStackElement.! !
 
 
-!classDefinition: #OOStack category: 'Stack-Exercise'!
+!classDefinition: #OOStack category: #'Stack-Exercise'!
 Object subclass: #OOStack
 	instanceVariableNames: 'tope tamaño'
 	classVariableNames: ''
@@ -506,7 +458,7 @@ pop
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'OOStack class' category: 'Stack-Exercise'!
+!classDefinition: 'OOStack class' category: #'Stack-Exercise'!
 OOStack class
 	instanceVariableNames: ''!
 
@@ -516,7 +468,7 @@ stackEmptyErrorDescription
 	^ 'Stack is empty!!!!!!'! !
 
 
-!classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
+!classDefinition: #SentenceFinderByPrefix category: #'Stack-Exercise'!
 Object subclass: #SentenceFinderByPrefix
 	instanceVariableNames: 'stack'
 	classVariableNames: ''
@@ -585,7 +537,7 @@ porCadaElementoDelStack: unStack hacer: unClosureQueRecibeUnElemento
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'SentenceFinderByPrefix class' category: 'Stack-Exercise'!
+!classDefinition: 'SentenceFinderByPrefix class' category: #'Stack-Exercise'!
 SentenceFinderByPrefix class
 	instanceVariableNames: ''!
 
