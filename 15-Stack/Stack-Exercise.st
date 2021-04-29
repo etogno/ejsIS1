@@ -1,4 +1,4 @@
-!classDefinition: #OOStackTest category: #'Stack-Exercise'!
+!classDefinition: #OOStackTest category: 'Stack-Exercise'!
 TestCase subclass: #OOStackTest
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -137,7 +137,7 @@ test10CanNotTopWhenThereAreNoObjectsInTheStack
 ! !
 
 
-!classDefinition: #SentenceFinderByPrefixTest category: #'Stack-Exercise'!
+!classDefinition: #SentenceFinderByPrefixTest category: 'Stack-Exercise'!
 TestCase subclass: #SentenceFinderByPrefixTest
 	instanceVariableNames: 'unStack unFinder unPrefix'
 	classVariableNames: ''
@@ -277,18 +277,6 @@ test10canNotUsePrefixWithEmptySpaces
 		withExceptionDo: [ :anError | self assert: anError messageText equals: SentenceFinderByPrefix canNotUsePrefixWithEmptySpaces].! !
 
 !SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'JA 4/28/2021 23:44:13'!
-test11ElPrefijoEsIgualALaFrase
-		
-	| unPrefijoIgualAFraseCompleta unaColeccionConCoincidencias |
-	
-	self agregarUnElementoEnElStack.
-	unPrefijoIgualAFraseCompleta:= 'winter'.
-	
-	unaColeccionConCoincidencias:=unFinder find: unPrefijoIgualAFraseCompleta enElStack: unStack.
-
-	self assert: unPrefijoIgualAFraseCompleta equals: (unaColeccionConCoincidencias at:1).! !
-
-!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'JA 4/28/2021 23:44:13'!
 test11ElPrefijoEsIgualALaFraseCompleta
 		
 	| unPrefijoIgualAFraseCompleta unaColeccionConCoincidencias |
@@ -315,7 +303,7 @@ agregarUnElementoEnElStack
 	unStack push: 'winter'.! !
 
 
-!classDefinition: #ElementoDelStack category: #'Stack-Exercise'!
+!classDefinition: #ElementoDelStack category: 'Stack-Exercise'!
 Object subclass: #ElementoDelStack
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -339,7 +327,7 @@ esBase
 	self subclassResponsibility.! !
 
 
-!classDefinition: #Base category: #'Stack-Exercise'!
+!classDefinition: #Base category: 'Stack-Exercise'!
 ElementoDelStack subclass: #Base
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -363,7 +351,7 @@ valor
 	self error: OOStack stackEmptyErrorDescription.! !
 
 
-!classDefinition: #ElementoPropio category: #'Stack-Exercise'!
+!classDefinition: #ElementoPropio category: 'Stack-Exercise'!
 ElementoDelStack subclass: #ElementoPropio
 	instanceVariableNames: 'previousStackElement valor'
 	classVariableNames: ''
@@ -396,7 +384,7 @@ valor
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'ElementoPropio class' category: #'Stack-Exercise'!
+!classDefinition: 'ElementoPropio class' category: 'Stack-Exercise'!
 ElementoPropio class
 	instanceVariableNames: ''!
 
@@ -406,7 +394,7 @@ with: unValor andAPreviousElement: aPreviousStackElement
 	^self new initializeWith: unValor andAPreviousElement: aPreviousStackElement.! !
 
 
-!classDefinition: #OOStack category: #'Stack-Exercise'!
+!classDefinition: #OOStack category: 'Stack-Exercise'!
 Object subclass: #OOStack
 	instanceVariableNames: 'tope tamaño'
 	classVariableNames: ''
@@ -458,7 +446,7 @@ pop
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'OOStack class' category: #'Stack-Exercise'!
+!classDefinition: 'OOStack class' category: 'Stack-Exercise'!
 OOStack class
 	instanceVariableNames: ''!
 
@@ -468,9 +456,9 @@ stackEmptyErrorDescription
 	^ 'Stack is empty!!!!!!'! !
 
 
-!classDefinition: #SentenceFinderByPrefix category: #'Stack-Exercise'!
+!classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
 Object subclass: #SentenceFinderByPrefix
-	instanceVariableNames: 'stack'
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
@@ -537,7 +525,7 @@ porCadaElementoDelStack: unStack hacer: unClosureQueRecibeUnElemento
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'SentenceFinderByPrefix class' category: #'Stack-Exercise'!
+!classDefinition: 'SentenceFinderByPrefix class' category: 'Stack-Exercise'!
 SentenceFinderByPrefix class
 	instanceVariableNames: ''!
 
