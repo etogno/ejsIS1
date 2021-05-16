@@ -5,8 +5,8 @@ TestCase subclass: #MarsRoverTests
 	poolDictionaries: ''
 	category: 'MarsRover'!
 
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 17:36:53'!
-test01
+!MarsRoverTests methodsFor: 'test position tests' stamp: 'JA 5/16/2021 20:42:35'!
+test01IsAtIsTrueWhenTestingForOriginalPositionAndProcessinEmptyPackage
 
 	| aMarsRover |
 	aMarsRover:=MarsRover at:0@0 facing: North new.
@@ -15,8 +15,8 @@ test01
 	
 	self assert: (aMarsRover isAt: 0@0 facing: North).! !
 
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:46:27'!
-test02
+!MarsRoverTests methodsFor: 'test position tests' stamp: 'JA 5/16/2021 20:42:01'!
+test02IsAtIsFalseWhenTestingForNotOriginalPositionAndProcesingEmptyPackage
 
 	| aMarsRover |
 	aMarsRover:=MarsRover at:0@0 facing: North new.
@@ -25,8 +25,8 @@ test02
 	
 	self deny: (aMarsRover isAt: 1@0 facing: North).! !
 
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:46:34'!
-test03
+!MarsRoverTests methodsFor: 'test position tests' stamp: 'JA 5/16/2021 20:44:58'!
+test03IsAtIsFalseWhenTestingOriginalPositionButDifferentOrientationProcessingEmptyPackage
 
 	| aMarsRover |
 	aMarsRover:=MarsRover at:0@0 facing: South new.
@@ -35,168 +35,9 @@ test03
 	
 	self deny: (aMarsRover isAt: 0@0 facing: North).! !
 
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:46:40'!
-test04
 
-	| aMarsRover |
-	aMarsRover:=MarsRover at:0@0 facing: North new.
-	
-	aMarsRover processPackage: 'f'.
-	
-	self assert: (aMarsRover isAt: 0@1 facing: North).! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:46:48'!
-test05
-
-	| aMarsRover |
-	aMarsRover:=MarsRover at:1@1 facing: South new.
-	
-	aMarsRover processPackage: 'f'.
-	
-	self assert: (aMarsRover isAt: 1@0 facing: South).! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:46:57'!
-test06
-
-	| aMarsRover |
-	aMarsRover:=MarsRover at:1@1 facing: East new.
-	
-	aMarsRover processPackage: 'f'.
-	
-	self assert: (aMarsRover isAt: 2@1 facing: East).! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:47:03'!
-test07
-
-	| aMarsRover |
-	aMarsRover:=MarsRover at:1@1 facing: West new.
-	
-	aMarsRover processPackage: 'f'.
-	
-	self assert: (aMarsRover isAt: 0@1 facing: West).! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:47:11'!
-test08
-
-	| aMarsRover |
-	aMarsRover:=MarsRover at:0@0 facing: North new.
-	
-	aMarsRover processPackage: 'b'.
-	
-	self assert: (aMarsRover isAt: 0@-1 facing: North).! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:47:18'!
-test09
-
-	| aMarsRover |
-	aMarsRover:=MarsRover at:0@0 facing:  South new.
-	
-	aMarsRover processPackage: 'b'.
-	
-	self assert: (aMarsRover isAt: 0@1 facing: South).! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:47:24'!
-test10
-
-	| aMarsRover |
-	aMarsRover:=MarsRover at:0@0 facing: East new.
-	
-	aMarsRover processPackage: 'b'.
-	
-	self assert: (aMarsRover isAt: -1@0 facing: East).! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:47:36'!
-test11
-
-	| aMarsRover |
-	aMarsRover:=MarsRover at:0@0 facing: West new.
-	
-	aMarsRover processPackage: 'b'.
-	
-	self assert: (aMarsRover isAt: 1@0 facing: West).! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:47:43'!
-test12
-
-	| aMarsRover |
-	aMarsRover:=MarsRover at:0@0 facing: North new.
-	
-	aMarsRover processPackage: 'l'.
-	
-	self assert: (aMarsRover isAt: 0@0 facing: West).! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:47:50'!
-test13
-
-	| aMarsRover |
-	aMarsRover:=MarsRover at:0@0 facing: West new.
-	
-	aMarsRover processPackage: 'l'.
-	
-	self assert: (aMarsRover isAt: 0@0 facing: South).! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:48:23'!
-test14
-
-	| aMarsRover |
-	aMarsRover:=MarsRover at:0@0 facing: South new.
-	
-	aMarsRover processPackage: 'l'.
-	
-	self assert: (aMarsRover isAt: 0@0 facing: East).! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:48:36'!
-test15
-
-	| aMarsRover |
-	aMarsRover:=MarsRover at:0@0 facing: East new.
-	
-	aMarsRover processPackage: 'l'.
-	
-	self assert: (aMarsRover isAt: 0@0 facing: North).! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:48:50'!
-test16
-
-	| aMarsRover |
-	aMarsRover:=MarsRover at:0@0 facing: North new.
-	
-	aMarsRover processPackage: 'r'.
-	
-	self assert: (aMarsRover isAt: 0@0 facing: East).! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:48:57'!
-test17
-
-	| aMarsRover |
-	aMarsRover:=MarsRover at:0@0 facing: East new.
-	
-	aMarsRover processPackage: 'r'.
-	
-	self assert: (aMarsRover isAt: 0@0 facing: South).! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:49:02'!
-test18
-
-	| aMarsRover |
-	aMarsRover:=MarsRover at:0@0 facing: South new.
-	
-	aMarsRover processPackage: 'r'.
-	
-	self assert: (aMarsRover isAt: 0@0 facing: West).! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:49:08'!
-test19
-
-	| aMarsRover |
-	aMarsRover:=MarsRover at:0@0 facing: West new.
-	
-	aMarsRover processPackage: 'r'.
-	
-	self assert: (aMarsRover isAt: 0@0 facing: North).! !
-
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:49:13'!
-test20
+!MarsRoverTests methodsFor: 'multiple chars tests' stamp: 'JA 5/16/2021 20:24:44'!
+test20ProcessFFFacingNorthAddsTwoToY
 
 	| aMarsRover |
 	aMarsRover:=MarsRover at:0@0 facing: North new.
@@ -205,8 +46,8 @@ test20
 	
 	self assert: (aMarsRover isAt: 0@2 facing: North).! !
 
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:49:18'!
-test21
+!MarsRoverTests methodsFor: 'multiple chars tests' stamp: 'JA 5/16/2021 20:25:18'!
+test21ProcessFBNotChangePosition
 
 	| aMarsRover |
 	aMarsRover:=MarsRover at:0@0 facing: North new.
@@ -215,8 +56,8 @@ test21
 	
 	self assert: (aMarsRover isAt: 0@0 facing: North).! !
 
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:49:23'!
-test22
+!MarsRoverTests methodsFor: 'multiple chars tests' stamp: 'JA 5/16/2021 20:27:42'!
+test22ProcessRFFacingNorthChangeRotationToEastAndAddsOneToX
 
 	| aMarsRover |
 	aMarsRover:=MarsRover at:0@0 facing: North new.
@@ -225,8 +66,8 @@ test22
 	
 	self assert: (aMarsRover isAt: 1@0 facing: East).! !
 
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:49:27'!
-test24
+!MarsRoverTests methodsFor: 'multiple chars tests' stamp: 'JA 5/16/2021 20:32:14'!
+test24ProcessPackageCanProcessMultipleChars
 
 	| aMarsRover |
 	aMarsRover:=MarsRover at:0@0 facing: North new.
@@ -235,8 +76,8 @@ test24
 	
 	self assert: (aMarsRover isAt: 1@-1 facing: North).! !
 
-!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/15/2021 16:49:32'!
-test25
+!MarsRoverTests methodsFor: 'multiple chars tests' stamp: 'JA 5/16/2021 20:33:42'!
+test25InvalidCharInPackageInterruptProcessing
 
 	| aMarsRover |
 	aMarsRover:=MarsRover at:0@0 facing: North new.
@@ -244,6 +85,170 @@ test25
 	aMarsRover processPackage: 'ffxff'.
 	
 	self assert: (aMarsRover isAt: 0@2 facing: North).! !
+
+
+!MarsRoverTests methodsFor: 'turn rigth tests' stamp: 'JA 5/16/2021 20:20:23'!
+test16ProcessSingleCharRFacingNorthChangeOrientationToEast
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'r'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: East).! !
+
+!MarsRoverTests methodsFor: 'turn rigth tests' stamp: 'JA 5/16/2021 20:21:03'!
+test17ProcessSingleCharRFacingEastChangeOrientationToSouth
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: East new.
+	
+	aMarsRover processPackage: 'r'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: South).! !
+
+!MarsRoverTests methodsFor: 'turn rigth tests' stamp: 'JA 5/16/2021 20:22:26'!
+test18ProcessSingleCharRFacingSouthChangeOrientationToWest
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: South new.
+	
+	aMarsRover processPackage: 'r'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: West).! !
+
+!MarsRoverTests methodsFor: 'turn rigth tests' stamp: 'JA 5/16/2021 20:23:24'!
+test19ProcessSingleCharRFacingWestChangeOrientationToNorth
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: West new.
+	
+	aMarsRover processPackage: 'r'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: North).! !
+
+
+!MarsRoverTests methodsFor: 'turn left tests' stamp: 'JA 5/16/2021 20:16:09'!
+test12ProcessSingleCharLFacingNorthChangeOrientationToWest
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'l'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: West).! !
+
+!MarsRoverTests methodsFor: 'turn left tests' stamp: 'JA 5/16/2021 20:17:19'!
+test13ProcessSingleCharLFacingWestChangeOrientationToSouth
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: West new.
+	
+	aMarsRover processPackage: 'l'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: South).! !
+
+!MarsRoverTests methodsFor: 'turn left tests' stamp: 'JA 5/16/2021 20:18:25'!
+test14ProcessSingleCharLFacingSouthChangeOrientationToEast
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: South new.
+	
+	aMarsRover processPackage: 'l'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: East).! !
+
+!MarsRoverTests methodsFor: 'turn left tests' stamp: 'JA 5/16/2021 20:19:15'!
+test15ProcessSingleCharLFacingEastChangeOrientationToNorth
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: East new.
+	
+	aMarsRover processPackage: 'l'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: North).! !
+
+
+!MarsRoverTests methodsFor: 'backward tests' stamp: 'JA 5/16/2021 20:07:31'!
+test08ProcessSingleCharBFacingNorthSubstractOneToY
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'b'.
+	
+	self assert: (aMarsRover isAt: 0@-1 facing: North).! !
+
+!MarsRoverTests methodsFor: 'backward tests' stamp: 'JA 5/16/2021 20:08:33'!
+test09ProcessSingleCharBFacingSouthAddsOneToY
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing:  South new.
+	
+	aMarsRover processPackage: 'b'.
+	
+	self assert: (aMarsRover isAt: 0@1 facing: South).! !
+
+!MarsRoverTests methodsFor: 'backward tests' stamp: 'JA 5/16/2021 20:09:19'!
+test10ProcessSingleCharBFacingEastSubstractOneToX
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: East new.
+	
+	aMarsRover processPackage: 'b'.
+	
+	self assert: (aMarsRover isAt: -1@0 facing: East).! !
+
+!MarsRoverTests methodsFor: 'backward tests' stamp: 'JA 5/16/2021 20:11:00'!
+test11ProcessSingleCharBFacingWestAddsOneToX
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: West new.
+	
+	aMarsRover processPackage: 'b'.
+	
+	self assert: (aMarsRover isAt: 1@0 facing: West).! !
+
+
+!MarsRoverTests methodsFor: 'forward tests' stamp: 'JA 5/16/2021 20:01:46'!
+test04ProcessSingleCharFFacingNorthAddsOneToY
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'f'.
+	
+	self assert: (aMarsRover isAt: 0@1 facing: North).! !
+
+!MarsRoverTests methodsFor: 'forward tests' stamp: 'JA 5/16/2021 20:03:45'!
+test05ProcessSingleCharFFacingSouthSubstractOneToY
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:1@1 facing: South new.
+	
+	aMarsRover processPackage: 'f'.
+	
+	self assert: (aMarsRover isAt: 1@0 facing: South).! !
+
+!MarsRoverTests methodsFor: 'forward tests' stamp: 'JA 5/16/2021 20:04:43'!
+test06ProcessSingleCharFFacingEastAddsOneToX
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:1@1 facing: East new.
+	
+	aMarsRover processPackage: 'f'.
+	
+	self assert: (aMarsRover isAt: 2@1 facing: East).! !
+
+!MarsRoverTests methodsFor: 'forward tests' stamp: 'JA 5/16/2021 20:06:26'!
+test07ProcessSingleCharFFacingWestSubstractOneToX
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:1@1 facing: West new.
+	
+	aMarsRover processPackage: 'f'.
+	
+	self assert: (aMarsRover isAt: 0@1 facing: West).! !
 
 
 !classDefinition: #CardinalPoint category: 'MarsRover'!

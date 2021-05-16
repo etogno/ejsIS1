@@ -5007,3 +5007,1112 @@ test01EmptyPackageDoesNotMoveRover
 	self assert: (aMarsRover isAt: 0@0 facing: North).!
 
 ----QUIT----(15 May 2021 17:41:38) CuisUniversity-4532.image priorSource: 16897974!
+
+----STARTUP---- (16 May 2021 19:48:58) as /home/julian/facu/ingenieria1/ambientesCuis/MarsRover_solo/CuisUniversity-4532.image!
+
+
+!testRun: #MarsRoverTests #test01 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test02 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test03 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test04 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test05 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test06 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test07 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test08 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test09 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test10 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test11 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test12 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test13 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test14 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test15 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test16 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test17 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test18 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test19 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test20 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test21 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test22 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test24 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test25 stamp: 'JA 5/16/2021 19:53:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test01 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test01 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test02 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test03 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test04 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test05 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test06 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test07 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test08 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test09 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test10 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test11 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test12 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test13 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test14 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test15 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test16 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test17 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test18 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test19 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test20 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test21 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test22 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test24 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+
+!testRun: #MarsRoverTests #test25 stamp: 'JA 5/16/2021 19:55:53'!
+PASSED!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:01:46'!
+test04ProcessSingleCharFFacingNorthAddsOneToY
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'f'.
+	
+	self assert: (aMarsRover isAt: 0@1 facing: North).! !
+
+!methodRemoval: MarsRoverTests #test04 stamp: 'JA 5/16/2021 20:01:46'!
+test04
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'f'.
+	
+	self assert: (aMarsRover isAt: 0@1 facing: North).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:03:45'!
+test05ProcessSingleCharFFacingSouthSubstractOneToY
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:1@1 facing: South new.
+	
+	aMarsRover processPackage: 'f'.
+	
+	self assert: (aMarsRover isAt: 1@0 facing: South).! !
+
+!methodRemoval: MarsRoverTests #test05 stamp: 'JA 5/16/2021 20:03:45'!
+test05
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:1@1 facing: South new.
+	
+	aMarsRover processPackage: 'f'.
+	
+	self assert: (aMarsRover isAt: 1@0 facing: South).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:04:43'!
+test06ProcessSingleCharFFacingEastAddsOneToX
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:1@1 facing: East new.
+	
+	aMarsRover processPackage: 'f'.
+	
+	self assert: (aMarsRover isAt: 2@1 facing: East).! !
+
+!methodRemoval: MarsRoverTests #test06 stamp: 'JA 5/16/2021 20:04:43'!
+test06
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:1@1 facing: East new.
+	
+	aMarsRover processPackage: 'f'.
+	
+	self assert: (aMarsRover isAt: 2@1 facing: East).!
+
+!testRun: #MarsRoverTests #test07 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test01 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test02 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test03 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test04ProcessSingleCharFFacingNorthAddsOneToY stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test05ProcessSingleCharFFacingSouthSubstractOneToY stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test06ProcessSingleCharFFacingEastAddsOneToX stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test07 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test08 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test09 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test10 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test11 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test12 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test13 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test14 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test15 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test16 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test17 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test18 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test19 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test20 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test21 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test22 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test24 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+
+!testRun: #MarsRoverTests #test25 stamp: 'JA 5/16/2021 20:05:11'!
+PASSED!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:06:26'!
+test07ProcessSingleCharFFacingWestSubstractOneToX
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:1@1 facing: West new.
+	
+	aMarsRover processPackage: 'f'.
+	
+	self assert: (aMarsRover isAt: 0@1 facing: West).! !
+
+!methodRemoval: MarsRoverTests #test07 stamp: 'JA 5/16/2021 20:06:26'!
+test07
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:1@1 facing: West new.
+	
+	aMarsRover processPackage: 'f'.
+	
+	self assert: (aMarsRover isAt: 0@1 facing: West).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:07:31'!
+test08ProcessSingleCharBFacingNorthSubstractOneToY
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'b'.
+	
+	self assert: (aMarsRover isAt: 0@-1 facing: North).! !
+
+!methodRemoval: MarsRoverTests #test08 stamp: 'JA 5/16/2021 20:07:31'!
+test08
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'b'.
+	
+	self assert: (aMarsRover isAt: 0@-1 facing: North).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:08:33'!
+test09ProcessSingleCharBFacingSouthAddsOneToY
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing:  South new.
+	
+	aMarsRover processPackage: 'b'.
+	
+	self assert: (aMarsRover isAt: 0@1 facing: South).! !
+
+!methodRemoval: MarsRoverTests #test09 stamp: 'JA 5/16/2021 20:08:33'!
+test09
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing:  South new.
+	
+	aMarsRover processPackage: 'b'.
+	
+	self assert: (aMarsRover isAt: 0@1 facing: South).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:09:19'!
+test10ProcessSingleCharBFacingEastSubstractOneToX
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: East new.
+	
+	aMarsRover processPackage: 'b'.
+	
+	self assert: (aMarsRover isAt: -1@0 facing: East).! !
+
+!methodRemoval: MarsRoverTests #test10 stamp: 'JA 5/16/2021 20:09:19'!
+test10
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: East new.
+	
+	aMarsRover processPackage: 'b'.
+	
+	self assert: (aMarsRover isAt: -1@0 facing: East).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:11:00'!
+test11ProcessSingleCharBFacingWestAddsOneToX
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: West new.
+	
+	aMarsRover processPackage: 'b'.
+	
+	self assert: (aMarsRover isAt: 1@0 facing: West).! !
+
+!methodRemoval: MarsRoverTests #test11 stamp: 'JA 5/16/2021 20:11:00'!
+test11
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: West new.
+	
+	aMarsRover processPackage: 'b'.
+	
+	self assert: (aMarsRover isAt: 1@0 facing: West).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:16:09'!
+test12ProcessSingleCharLFacingNorthChangeOrientationToWest
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'l'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: West).! !
+
+!methodRemoval: MarsRoverTests #test12 stamp: 'JA 5/16/2021 20:16:09'!
+test12
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'l'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: West).!
+
+!testRun: #MarsRoverTests #test12ProcessSingleCharLFacingNorthChangeOrientationToWest stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test01 stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test02 stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test03 stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test04ProcessSingleCharFFacingNorthAddsOneToY stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test05ProcessSingleCharFFacingSouthSubstractOneToY stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test06ProcessSingleCharFFacingEastAddsOneToX stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test07ProcessSingleCharFFacingWestSubstractOneToX stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test08ProcessSingleCharBFacingNorthSubstractOneToY stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test09ProcessSingleCharBFacingSouthAddsOneToY stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test10ProcessSingleCharBFacingEastSubstractOneToX stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test11ProcessSingleCharBFacingWestAddsOneToX stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test12ProcessSingleCharLFacingNorthChangeOrientationToWest stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test13 stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test14 stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test15 stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test16 stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test17 stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test18 stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test19 stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test20 stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test21 stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test22 stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test24 stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test25 stamp: 'JA 5/16/2021 20:16:21'!
+PASSED!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:17:19'!
+test13ProcessSingleCharLFacingWestChangeOrientationToSouth
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: West new.
+	
+	aMarsRover processPackage: 'l'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: South).! !
+
+!methodRemoval: MarsRoverTests #test13 stamp: 'JA 5/16/2021 20:17:19'!
+test13
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: West new.
+	
+	aMarsRover processPackage: 'l'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: South).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:18:25'!
+test14ProcessSingleCharLFacingSouthChangeOrientationToEast
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: South new.
+	
+	aMarsRover processPackage: 'l'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: East).! !
+
+!methodRemoval: MarsRoverTests #test14 stamp: 'JA 5/16/2021 20:18:25'!
+test14
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: South new.
+	
+	aMarsRover processPackage: 'l'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: East).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:19:15'!
+test15ProcessSingleCharLFacingEastChangeOrientationToNorth
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: East new.
+	
+	aMarsRover processPackage: 'l'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: North).! !
+
+!methodRemoval: MarsRoverTests #test15 stamp: 'JA 5/16/2021 20:19:15'!
+test15
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: East new.
+	
+	aMarsRover processPackage: 'l'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: North).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:20:23'!
+test16ProcessSingleCharRFacingNorthChangeOrientationToEast
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'r'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: East).! !
+
+!methodRemoval: MarsRoverTests #test16 stamp: 'JA 5/16/2021 20:20:23'!
+test16
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'r'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: East).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:21:03'!
+test17ProcessSingleCharRFacingEastChangeOrientationToSouth
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: East new.
+	
+	aMarsRover processPackage: 'r'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: South).! !
+
+!methodRemoval: MarsRoverTests #test17 stamp: 'JA 5/16/2021 20:21:03'!
+test17
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: East new.
+	
+	aMarsRover processPackage: 'r'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: South).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:22:26'!
+test18ProcessSingleCharRFacingSouthChangeOrientationToWest
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: South new.
+	
+	aMarsRover processPackage: 'r'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: West).! !
+
+!methodRemoval: MarsRoverTests #test18 stamp: 'JA 5/16/2021 20:22:26'!
+test18
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: South new.
+	
+	aMarsRover processPackage: 'r'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: West).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:23:24'!
+test19ProcessSingleCharRFacingWestChangeOrientationToNorth
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: West new.
+	
+	aMarsRover processPackage: 'r'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: North).! !
+
+!methodRemoval: MarsRoverTests #test19 stamp: 'JA 5/16/2021 20:23:24'!
+test19
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: West new.
+	
+	aMarsRover processPackage: 'r'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: North).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:24:44'!
+test20ProcessFFFacingNorthAddsTwoToY
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'ff'.
+	
+	self assert: (aMarsRover isAt: 0@2 facing: North).! !
+
+!methodRemoval: MarsRoverTests #test20 stamp: 'JA 5/16/2021 20:24:44'!
+test20
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'ff'.
+	
+	self assert: (aMarsRover isAt: 0@2 facing: North).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:25:18'!
+test21ProcessFBNotChangePosition
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'fb'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: North).! !
+
+!methodRemoval: MarsRoverTests #test21 stamp: 'JA 5/16/2021 20:25:18'!
+test21
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'fb'.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: North).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:27:42'!
+test22ProcessRFFacingNorthChangeRotationToEastAndAddsOneToX
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'rf'.
+	
+	self assert: (aMarsRover isAt: 1@0 facing: East).! !
+
+!methodRemoval: MarsRoverTests #test22 stamp: 'JA 5/16/2021 20:27:42'!
+test22
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'rf'.
+	
+	self assert: (aMarsRover isAt: 1@0 facing: East).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:32:14'!
+test24ProcessPackageCanProcessMultipleChars
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'rflb'.
+	
+	self assert: (aMarsRover isAt: 1@-1 facing: North).! !
+
+!methodRemoval: MarsRoverTests #test24 stamp: 'JA 5/16/2021 20:32:14'!
+test24
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'rflb'.
+	
+	self assert: (aMarsRover isAt: 1@-1 facing: North).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:33:27'!
+test25InvalidCharsInPackageInterruptProcessing
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'ffxff'.
+	
+	self assert: (aMarsRover isAt: 0@2 facing: North).! !
+
+!methodRemoval: MarsRoverTests #test25 stamp: 'JA 5/16/2021 20:33:27'!
+test25
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'ffxff'.
+	
+	self assert: (aMarsRover isAt: 0@2 facing: North).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:33:42'!
+test25InvalidCharInPackageInterruptProcessing
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'ffxff'.
+	
+	self assert: (aMarsRover isAt: 0@2 facing: North).! !
+
+!methodRemoval: MarsRoverTests #test25InvalidCharsInPackageInterruptProcessing stamp: 'JA 5/16/2021 20:33:42'!
+test25InvalidCharsInPackageInterruptProcessing
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: 'ffxff'.
+	
+	self assert: (aMarsRover isAt: 0@2 facing: North).!
+
+!testRun: #MarsRoverTests #test25InvalidCharInPackageInterruptProcessing stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test01 stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test02 stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test03 stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test04ProcessSingleCharFFacingNorthAddsOneToY stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test05ProcessSingleCharFFacingSouthSubstractOneToY stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test06ProcessSingleCharFFacingEastAddsOneToX stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test07ProcessSingleCharFFacingWestSubstractOneToX stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test08ProcessSingleCharBFacingNorthSubstractOneToY stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test09ProcessSingleCharBFacingSouthAddsOneToY stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test10ProcessSingleCharBFacingEastSubstractOneToX stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test11ProcessSingleCharBFacingWestAddsOneToX stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test12ProcessSingleCharLFacingNorthChangeOrientationToWest stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test13ProcessSingleCharLFacingWestChangeOrientationToSouth stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test14ProcessSingleCharLFacingSouthChangeOrientationToEast stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test15ProcessSingleCharLFacingEastChangeOrientationToNorth stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test16ProcessSingleCharRFacingNorthChangeOrientationToEast stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test17ProcessSingleCharRFacingEastChangeOrientationToSouth stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test18ProcessSingleCharRFacingSouthChangeOrientationToWest stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test19ProcessSingleCharRFacingWestChangeOrientationToNorth stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test20ProcessFFFacingNorthAddsTwoToY stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test21ProcessFBNotChangePosition stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test22ProcessRFFacingNorthChangeRotationToEastAndAddsOneToX stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test24ProcessPackageCanProcessMultipleChars stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+
+!testRun: #MarsRoverTests #test25InvalidCharInPackageInterruptProcessing stamp: 'JA 5/16/2021 20:35:48'!
+PASSED!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:37:46'!
+test01IsAtReportOriginalPositionAndOrientationWhenProcessinEmptyPackage
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: ''.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: North).! !
+
+!methodRemoval: MarsRoverTests #test01 stamp: 'JA 5/16/2021 20:37:46'!
+test01
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: ''.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: North).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:40:10'!
+test01IsAtIsTrueWhenTestingForOriginalPositionAndOrientationAndProcessinEmptyPackage
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: ''.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: North).! !
+
+!methodRemoval: MarsRoverTests #test01IsAtReportOriginalPositionAndOrientationWhenProcessinEmptyPackage stamp: 'JA 5/16/2021 20:40:10'!
+test01IsAtReportOriginalPositionAndOrientationWhenProcessinEmptyPackage
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: ''.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: North).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:42:01'!
+test02IsAtIsFalseWhenTestingForNotOriginalPositionAndProcesingEmptyPackage
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: ''.
+	
+	self deny: (aMarsRover isAt: 1@0 facing: North).! !
+
+!methodRemoval: MarsRoverTests #test02 stamp: 'JA 5/16/2021 20:42:01'!
+test02
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: ''.
+	
+	self deny: (aMarsRover isAt: 1@0 facing: North).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:42:35'!
+test01IsAtIsTrueWhenTestingForOriginalPositionAndProcessinEmptyPackage
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: ''.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: North).! !
+
+!methodRemoval: MarsRoverTests #test01IsAtIsTrueWhenTestingForOriginalPositionAndOrientationAndProcessinEmptyPackage stamp: 'JA 5/16/2021 20:42:35'!
+test01IsAtIsTrueWhenTestingForOriginalPositionAndOrientationAndProcessinEmptyPackage
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: North new.
+	
+	aMarsRover processPackage: ''.
+	
+	self assert: (aMarsRover isAt: 0@0 facing: North).!
+!MarsRoverTests methodsFor: 'as yet unclassified' stamp: 'JA 5/16/2021 20:44:58'!
+test03IsAtIsFalseWhenTestingOriginalPositionButDifferentOrientationProcessingEmptyPackage
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: South new.
+	
+	aMarsRover processPackage: ''.
+	
+	self deny: (aMarsRover isAt: 0@0 facing: North).! !
+
+!methodRemoval: MarsRoverTests #test03 stamp: 'JA 5/16/2021 20:44:58'!
+test03
+
+	| aMarsRover |
+	aMarsRover:=MarsRover at:0@0 facing: South new.
+	
+	aMarsRover processPackage: ''.
+	
+	self deny: (aMarsRover isAt: 0@0 facing: North).!
+
+!testRun: #MarsRoverTests #test03IsAtIsFalseWhenTestingOriginalPositionButDifferentOrientationProcessingEmptyPackage stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test01IsAtIsTrueWhenTestingForOriginalPositionAndProcessinEmptyPackage stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test02IsAtIsFalseWhenTestingForNotOriginalPositionAndProcesingEmptyPackage stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test03IsAtIsFalseWhenTestingOriginalPositionButDifferentOrientationProcessingEmptyPackage stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test04ProcessSingleCharFFacingNorthAddsOneToY stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test05ProcessSingleCharFFacingSouthSubstractOneToY stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test06ProcessSingleCharFFacingEastAddsOneToX stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test07ProcessSingleCharFFacingWestSubstractOneToX stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test08ProcessSingleCharBFacingNorthSubstractOneToY stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test09ProcessSingleCharBFacingSouthAddsOneToY stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test10ProcessSingleCharBFacingEastSubstractOneToX stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test11ProcessSingleCharBFacingWestAddsOneToX stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test12ProcessSingleCharLFacingNorthChangeOrientationToWest stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test13ProcessSingleCharLFacingWestChangeOrientationToSouth stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test14ProcessSingleCharLFacingSouthChangeOrientationToEast stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test15ProcessSingleCharLFacingEastChangeOrientationToNorth stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test16ProcessSingleCharRFacingNorthChangeOrientationToEast stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test17ProcessSingleCharRFacingEastChangeOrientationToSouth stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test18ProcessSingleCharRFacingSouthChangeOrientationToWest stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test19ProcessSingleCharRFacingWestChangeOrientationToNorth stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test20ProcessFFFacingNorthAddsTwoToY stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test21ProcessFBNotChangePosition stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test22ProcessRFFacingNorthChangeRotationToEastAndAddsOneToX stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test24ProcessPackageCanProcessMultipleChars stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test25InvalidCharInPackageInterruptProcessing stamp: 'JA 5/16/2021 20:45:21'!
+PASSED!
+
+!testRun: #MarsRoverTests #test01IsAtIsTrueWhenTestingForOriginalPositionAndProcessinEmptyPackage stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test02IsAtIsFalseWhenTestingForNotOriginalPositionAndProcesingEmptyPackage stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test03IsAtIsFalseWhenTestingOriginalPositionButDifferentOrientationProcessingEmptyPackage stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test04ProcessSingleCharFFacingNorthAddsOneToY stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test05ProcessSingleCharFFacingSouthSubstractOneToY stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test06ProcessSingleCharFFacingEastAddsOneToX stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test07ProcessSingleCharFFacingWestSubstractOneToX stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test08ProcessSingleCharBFacingNorthSubstractOneToY stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test09ProcessSingleCharBFacingSouthAddsOneToY stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test10ProcessSingleCharBFacingEastSubstractOneToX stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test11ProcessSingleCharBFacingWestAddsOneToX stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test12ProcessSingleCharLFacingNorthChangeOrientationToWest stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test13ProcessSingleCharLFacingWestChangeOrientationToSouth stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test14ProcessSingleCharLFacingSouthChangeOrientationToEast stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test15ProcessSingleCharLFacingEastChangeOrientationToNorth stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test16ProcessSingleCharRFacingNorthChangeOrientationToEast stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test17ProcessSingleCharRFacingEastChangeOrientationToSouth stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test18ProcessSingleCharRFacingSouthChangeOrientationToWest stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test19ProcessSingleCharRFacingWestChangeOrientationToNorth stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test20ProcessFFFacingNorthAddsTwoToY stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test21ProcessFBNotChangePosition stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test22ProcessRFFacingNorthChangeRotationToEastAndAddsOneToX stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test24ProcessPackageCanProcessMultipleChars stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test25InvalidCharInPackageInterruptProcessing stamp: 'JA 5/16/2021 20:51:31'!
+PASSED!
+
+!testRun: #MarsRoverTests #test01IsAtIsTrueWhenTestingForOriginalPositionAndProcessinEmptyPackage stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test02IsAtIsFalseWhenTestingForNotOriginalPositionAndProcesingEmptyPackage stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test03IsAtIsFalseWhenTestingOriginalPositionButDifferentOrientationProcessingEmptyPackage stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test04ProcessSingleCharFFacingNorthAddsOneToY stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test05ProcessSingleCharFFacingSouthSubstractOneToY stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test06ProcessSingleCharFFacingEastAddsOneToX stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test07ProcessSingleCharFFacingWestSubstractOneToX stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test08ProcessSingleCharBFacingNorthSubstractOneToY stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test09ProcessSingleCharBFacingSouthAddsOneToY stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test10ProcessSingleCharBFacingEastSubstractOneToX stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test11ProcessSingleCharBFacingWestAddsOneToX stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test12ProcessSingleCharLFacingNorthChangeOrientationToWest stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test13ProcessSingleCharLFacingWestChangeOrientationToSouth stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test14ProcessSingleCharLFacingSouthChangeOrientationToEast stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test15ProcessSingleCharLFacingEastChangeOrientationToNorth stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test16ProcessSingleCharRFacingNorthChangeOrientationToEast stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test17ProcessSingleCharRFacingEastChangeOrientationToSouth stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test18ProcessSingleCharRFacingSouthChangeOrientationToWest stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test19ProcessSingleCharRFacingWestChangeOrientationToNorth stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test20ProcessFFFacingNorthAddsTwoToY stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test21ProcessFBNotChangePosition stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test22ProcessRFFacingNorthChangeRotationToEastAndAddsOneToX stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test24ProcessPackageCanProcessMultipleChars stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+!testRun: #MarsRoverTests #test25InvalidCharInPackageInterruptProcessing stamp: 'JA 5/16/2021 20:53:32'!
+PASSED!
+
+----QUIT----(16 May 2021 20:54:42) CuisUniversity-4532.image priorSource: 17119493!
