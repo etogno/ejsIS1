@@ -1,0 +1,1761 @@
+
+
+----STARTUP---- (16 May 2021 20:41:00) as C:\Users\ezequ\Desktop\windows64\CuisUniversity-4532.image!
+
+
+TestCase subclass: #MarsRoverTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #MarsRoverTest category: 'MarsRover' stamp: 'ET 5/16/2021 20:46:08'!
+TestCase subclass: #MarsRoverTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #MarsRover category: 'MarsRover' stamp: 'ET 5/16/2021 20:50:20'!
+Object subclass: #MarsRover
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+!MarsRoverTest methodsFor: 'no messages' stamp: 'ET 5/16/2021 20:50:41'!
+test01
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: ''.
+	
+	self assert: (rover isIn: 0@0 withOrientation: #North).! !
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 20:50:47'!
+ERROR!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 20:51:03'!
+ERROR!
+!MarsRover class methodsFor: 'instance creation' stamp: 'ET 5/16/2021 20:51:16'!
+in: aPoint withOrientation: aSymbol 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeIn: aPoint withOrientation: aSymbol ! !
+!MarsRover class methodsFor: 'instance creation' stamp: 'ET 5/16/2021 20:52:17' prior: 50956606!
+in: aPoint withOrientation: aCardinalPointSymbol
+
+	^self new initializeIn: aPoint withOrientation: aCardinalPointSymbol.! !
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 20:52:26'!
+ERROR!
+
+!classDefinition: #MarsRover category: 'MarsRover' stamp: 'ET 5/16/2021 20:52:53'!
+Object subclass: #MarsRover
+	instanceVariableNames: 'point'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #MarsRover category: 'MarsRover' stamp: 'ET 5/16/2021 20:52:53'!
+Object subclass: #MarsRover
+	instanceVariableNames: 'point cardinalPointSymbol'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+!MarsRover methodsFor: 'initialization' stamp: 'ET 5/16/2021 20:52:53'!
+initializeIn: aPoint withOrientation: aCardinalPointSymbol 
+	self shouldBeImplemented.
+	point := aPoint.
+	cardinalPointSymbol := aCardinalPointSymbol.! !
+!MarsRover methodsFor: 'initialization' stamp: 'ET 5/16/2021 20:53:24' prior: 50956639!
+initializeIn: aPoint withOrientation: aCardinalPointSymbol 
+	point := aPoint.
+	cardinalPointSymbol := aCardinalPointSymbol.! !
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 20:53:29'!
+ERROR!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 20:53:41'!
+doCommands: aString 
+	self shouldBeImplemented.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 20:53:58' prior: 50956656!
+doCommands: aStringOfCommands
+
+	
+	! !
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 20:54:00'!
+ERROR!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 20:54:19'!
+isIn: aPoint withOrientation: aSymbol 
+	self shouldBeImplemented.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 20:55:09' prior: 50956667!
+isIn: aPoint withOrientation: aCardinalPointSymbol 
+	
+	^point = aPoint and: [cardinalPointSymbol := aCardinalPointSymbol].! !
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 20:55:10'!
+ERROR!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 20:55:37' prior: 50956673!
+isIn: aPoint withOrientation: aCardinalPointSymbol 
+	
+	^point = aPoint and: [cardinalPointSymbol = aCardinalPointSymbol].! !
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 20:55:40'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 20:55:40'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 20:56:45'!
+test02MoveForward
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'f'.
+	
+	self assert: (rover isIn: 1@0 withOrientation: #North).! !
+
+!testRun: #MarsRoverTest #test02MoveForward stamp: 'ET 5/16/2021 20:56:52'!
+FAILURE!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 20:58:32' prior: 50956661!
+doCommands: aStringOfCommands
+
+	aStringOfCommands = 'f' ifTrue: [point := (point x + 1) @ point y].
+
+	
+	! !
+
+!testRun: #MarsRoverTest #test02MoveForward stamp: 'ET 5/16/2021 20:58:35'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 20:58:35'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02MoveForward stamp: 'ET 5/16/2021 20:58:35'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 20:58:54'!
+test02
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'f'.
+	
+	self assert: (rover isIn: 1@0 withOrientation: #North).! !
+
+!methodRemoval: MarsRoverTest #test02MoveForward stamp: 'ET 5/16/2021 20:58:54'!
+test02MoveForward
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'f'.
+	
+	self assert: (rover isIn: 1@0 withOrientation: #North).!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 20:59:08'!
+test03
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'b'.
+	
+	self assert: (rover isIn: -1@0 withOrientation: #North).! !
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 20:59:12'!
+FAILURE!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 20:59:46' prior: 50956706!
+doCommands: aStringOfCommands
+
+	aStringOfCommands = 'f' ifTrue: [point := (point x + 1) @ point y].
+	
+	aStringOfCommands = 'b' ifTrue: [point := (point x - 1) @ point y].
+
+	
+	! !
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:00:06'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:00:06'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:00:06'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:00:06'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:00:52'!
+test04
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'fb'.
+	
+	self assert: (rover isIn: 0@0 withOrientation: #North).! !
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:00:56'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:00:56'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:00:56'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:00:56'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:00:56'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:01:04' prior: 50956765!
+test04
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'bf'.
+	
+	self assert: (rover isIn: 0@0 withOrientation: #North).! !
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:01:05'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:01:05'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:01:05'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:01:05'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:01:05'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:01:15' prior: 50956785!
+test04
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'bff'.
+	
+	self assert: (rover isIn: 0@0 withOrientation: #North).! !
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:01:16'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:01:16'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:01:16'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:01:16'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:01:16'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:01:22' prior: 50956805!
+test04
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'bffb'.
+	
+	self assert: (rover isIn: 0@0 withOrientation: #North).! !
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:01:22'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:01:22'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:01:22'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:01:22'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:01:22'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:01:25'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:01:25'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:01:25'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:01:25'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:01:25'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:01:46' prior: 50956825!
+test04
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'fb'.
+	
+	self assert: (rover isIn: 0@0 withOrientation: #North).! !
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:01:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:01:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:01:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:01:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:01:47'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:01:52' prior: 50956857!
+test04
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'fbf'.
+	
+	self assert: (rover isIn: 1@0 withOrientation: #North).! !
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:01:55'!
+FAILURE!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:03:59' prior: 50956747!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = 'f' ifTrue: [point := (point x + 1) @ point y].
+	
+		command = 'b' ifTrue: [point := (point x - 1) @ point y].
+	]
+	
+	! !
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:04:07'!
+FAILURE!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:04:52' prior: 50956888!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [point := (point x + 1) @ point y].
+	
+		command = $b ifTrue: [point := (point x - 1) @ point y].
+	]
+	
+	! !
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:04:55'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:04:55'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:04:55'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:04:55'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:04:55'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:04:58'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:04:58'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:04:58'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:04:58'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:04:58'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:05:47'!
+test05
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'l'.
+	
+	self assert: (rover isIn: 0@0 withOrientation: #East).! !
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:05:54'!
+FAILURE!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:06:34' prior: 50956900!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [point := (point x + 1) @ point y].
+	
+		command = $b ifTrue: [point := (point x - 1) @ point y].
+		
+		command = $l ifTrue: [cardinalPointSymbol := #East].
+	]
+	
+	! !
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:06:51'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:06:51'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:06:51'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:06:51'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:06:51'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:06:51'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:07:05'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:07:05'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:07:05'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:07:05'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:07:05'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:07:05'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:07:42'!
+test06
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'll'.
+	
+	self assert: (rover isIn: 0@0 withOrientation: #South).! !
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:07:44'!
+FAILURE!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:09:14' prior: 50956943!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [point := (point x + 1) @ point y].
+	
+		command = $b ifTrue: [point := (point x - 1) @ point y].
+		
+		command = $l ifTrue: [
+			cardinalPointSymbol = #North ifTrue: [cardinalPointSymbol := #East].
+			cardinalPointSymbol = #East ifTrue: [cardinalPointSymbol := #South]].
+	]
+	
+	! !
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:09:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:09:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:09:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:09:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:09:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:09:47'!
+FAILURE!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:09:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:09:47'!
+FAILURE!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:10:28' prior: 50956993!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [point := (point x + 1) @ point y].
+	
+		command = $b ifTrue: [point := (point x - 1) @ point y].
+		
+		command = $l ifTrue: [
+			cardinalPointSymbol = #North ifTrue: [cardinalPointSymbol := #East] ifFalse:[
+			cardinalPointSymbol = #East ifTrue: [cardinalPointSymbol := #South]]].
+	]
+	
+	! !
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:10:32'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:10:34'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:10:34'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:10:34'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:10:34'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:10:34'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:10:34'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:10:34'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:12:19'!
+test07
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'lll'.
+	
+	self assert: (rover isIn: 0@0 withOrientation: #West).! !
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:12:21'!
+FAILURE!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:13:13' prior: 50957027!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [point := (point x + 1) @ point y].
+	
+		command = $b ifTrue: [point := (point x - 1) @ point y].
+		
+		command = $l ifTrue: [
+			cardinalPointSymbol = #North ifTrue: [cardinalPointSymbol := #East] 
+				ifFalse:[
+				cardinalPointSymbol = #East ifTrue: [cardinalPointSymbol := #South]
+					ifFalse: [
+					cardinalPointSymbol = #South ifTrue: [cardinalPointSymbol := #West]]]].
+	]
+	
+	! !
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:13:20'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:13:20'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:13:21'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:13:21'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:13:21'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:13:21'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:13:21'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:13:21'!
+PASSED!
+
+Object subclass: #CardinalPoint
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #CardinalPoint category: 'MarsRover' stamp: 'ET 5/16/2021 21:13:52'!
+Object subclass: #CardinalPoint
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+CardinalPoint subclass: #North
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #North category: 'MarsRover' stamp: 'ET 5/16/2021 21:14:05'!
+CardinalPoint subclass: #North
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+CardinalPoint subclass: #East
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #East category: 'MarsRover' stamp: 'ET 5/16/2021 21:14:08'!
+CardinalPoint subclass: #East
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+CardinalPoint subclass: #West
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #West category: 'MarsRover' stamp: 'ET 5/16/2021 21:14:11'!
+CardinalPoint subclass: #West
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+CardinalPoint subclass: #South
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #South category: 'MarsRover' stamp: 'ET 5/16/2021 21:14:13'!
+CardinalPoint subclass: #South
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #MarsRover category: 'MarsRover' stamp: 'ET 5/16/2021 21:14:50'!
+Object subclass: #MarsRover
+	instanceVariableNames: 'point orientation'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:14:50' prior: 50956647!
+initializeIn: aPoint withOrientation: aCardinalPointSymbol 
+	point := aPoint.
+	orientation := aCardinalPointSymbol.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:14:50' prior: 50956683!
+isIn: aPoint withOrientation: aCardinalPointSymbol 
+	
+	^point = aPoint and: [orientation = aCardinalPointSymbol].! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:14:50' prior: 50957071!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [point := (point x + 1) @ point y].
+	
+		command = $b ifTrue: [point := (point x - 1) @ point y].
+		
+		command = $l ifTrue: [
+			orientation = #North ifTrue: [orientation := #East] 
+				ifFalse:[
+				orientation = #East ifTrue: [orientation := #South]
+					ifFalse: [
+					orientation = #South ifTrue: [orientation := #West]]]].
+	]
+	
+	! !
+
+Smalltalk at: #MarsRover!
+
+Smalltalk at: #MarsRover!
+
+Smalltalk at: #North!
+
+Smalltalk at: #North!
+!MarsRover methodsFor: 'initialization' stamp: 'ET 5/16/2021 21:16:55' prior: 50957168!
+initializeIn: aPoint withOrientation: aCardinalPointSymbol 
+	point := aPoint.
+	orientation := Smalltalk at: aCardinalPointSymbol new.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:17:27' prior: 50957175!
+isIn: aPoint withOrientation: aCardinalPointSymbol 
+	
+	^point = aPoint and: [orientation isKindOf: aCardinalPointSymbol].! !
+
+!classRenamed: #CardinalPoint as: #CardinalPointOfMarsRover stamp: 'ET 5/16/2021 21:18:19'!
+Smalltalk renameClassNamed: #CardinalPoint as: #CardinalPointOfMarsRover!
+!CardinalPointOfMarsRover methodsFor: 'no messages' stamp: 'ET 5/16/2021 21:19:04'!
+rotateLeft: aMarsRover
+! !
+!CardinalPointOfMarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:19:10' prior: 50957222!
+rotateLeft: aMarsRover
+
+	self subclassResponsibility.! !
+!East methodsFor: 'no messages' stamp: 'ET 5/16/2021 21:19:38' overrides: 50957227!
+rotateLeft: aMarsRover
+
+	aMarsRover newOrientation: #South.! !
+!North methodsFor: 'no messages' stamp: 'ET 5/16/2021 21:19:58' overrides: 50957227!
+rotateLeft: aMarsRover
+
+	aMarsRover newOrientation: #East.! !
+!South methodsFor: 'no messages' stamp: 'ET 5/16/2021 21:20:14' overrides: 50957227!
+rotateLeft: aMarsRover
+
+	aMarsRover newOrientation: #West.! !
+!West methodsFor: 'no messages' stamp: 'ET 5/16/2021 21:20:21' overrides: 50957227!
+rotateLeft: aMarsRover
+
+	aMarsRover newOrientation: #North.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:21:02'!
+newOrientation: aCardinalPointSymbol
+
+	orientation := (Smalltalk at: aCardinalPointSymbol) new.! !
+!MarsRover methodsFor: 'initialization' stamp: 'ET 5/16/2021 21:21:17' prior: 50957202!
+initializeIn: aPoint withOrientation: aCardinalPointSymbol 
+	point := aPoint.
+	orientation := (Smalltalk at: aCardinalPointSymbol) new.! !
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:21:23'!
+FAILURE!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:21:23'!
+FAILURE!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:21:23'!
+FAILURE!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:21:23'!
+FAILURE!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:21:23'!
+FAILURE!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:21:23'!
+FAILURE!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:21:23'!
+FAILURE!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:21:32'!
+FAILURE!
+
+rover!
+
+orientation isKindOf: aCardinalPointSymbol!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:23:19' prior: 50957210!
+isIn: aPoint withOrientation: aCardinalPointSymbol 
+	
+	^point = aPoint and: [orientation isKindOf: (Smalltalk at: aCardinalPointSymbol)].! !
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:23:21'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:23:23'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:23:23'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:23:23'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:23:23'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:23:23'!
+FAILURE!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:23:23'!
+FAILURE!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:23:23'!
+FAILURE!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:23:33'!
+FAILURE!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:24:20' prior: 50957182!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [point := (point x + 1) @ point y].
+	
+		command = $b ifTrue: [point := (point x - 1) @ point y].
+		
+		command = $l ifTrue: [orientation rotateLeft: self].
+	]
+	
+	! !
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:24:23'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:24:24'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:24:24'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:24:24'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:24:24'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:24:24'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:24:24'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:24:24'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:25:00'!
+test08
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'r'.
+	
+	self assert: (rover isIn: 0@0 withOrientation: #West).! !
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:25:05'!
+FAILURE!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:26:12' prior: 50957315!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [point := (point x + 1) @ point y].
+	
+		command = $b ifTrue: [point := (point x - 1) @ point y].
+		
+		command = $l ifTrue: [orientation rotateLeft: self].
+		
+		command = $r ifTrue: [(orientation isKindOf: North) ifTrue: [orientation := West new]].
+	]
+	
+	! !
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:26:14'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:26:14'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:26:14'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:26:14'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:26:14'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:26:14'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:26:14'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:26:14'!
+PASSED!
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:26:15'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:26:53' prior: 50957345!
+test08
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'rr'.
+	
+	self assert: (rover isIn: 0@0 withOrientation: #South).! !
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:26:55'!
+FAILURE!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:27:28' prior: 50957356!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [point := (point x + 1) @ point y].
+	
+		command = $b ifTrue: [point := (point x - 1) @ point y].
+		
+		command = $l ifTrue: [orientation rotateLeft: self].
+		
+		command = $r ifTrue: [(orientation isKindOf: North) ifTrue: [orientation := West new]
+									ifFalse: [(orientation isKindOf: West) ifTrue: [orientation := South new]]].
+	]
+	
+	! !
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:27:30'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:27:30'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:27:30'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:27:30'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:27:30'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:27:30'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:27:30'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:27:30'!
+PASSED!
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:27:30'!
+PASSED!
+!CardinalPointOfMarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:27:48'!
+rotateRight: aMarsRover
+
+	self subclassResponsibility.! !
+!East methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:28:02' overrides: 50957440!
+rotateRight: aMarsRover
+
+	aMarsRover newOrientation: #North.! !
+!North methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:28:16' overrides: 50957440!
+rotateRight: aMarsRover
+
+	aMarsRover newOrientation: #West.! !
+!South methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:28:45' overrides: 50957440!
+rotateRight: aMarsRover
+
+	aMarsRover newOrientation: #East.! !
+!West methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:28:56' overrides: 50957440!
+rotateRight: aMarsRover
+
+	aMarsRover newOrientation: #South.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:29:12' prior: 50957402!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [point := (point x + 1) @ point y].
+	
+		command = $b ifTrue: [point := (point x - 1) @ point y].
+		
+		command = $l ifTrue: [orientation rotateLeft: self].
+		
+		command = $r ifTrue: [orientation rotateRight: self].
+	]
+	
+	! !
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:29:17'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:29:17'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:29:17'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:29:17'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:29:17'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:29:17'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:29:17'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:29:17'!
+PASSED!
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:29:17'!
+PASSED!
+
+----SNAPSHOT----(16 May 2021 21:32:07) CuisUniversity-4532.image priorSource: 19993972!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:32:52' prior: 50957391!
+test08
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'rf'.
+	
+	self assert: (rover isIn: 0@1 withOrientation: #West).! !
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:32:55'!
+FAILURE!
+
+rover!
+!MarsRover methodsFor: 'movement' stamp: 'ET 5/16/2021 21:34:49' prior: 50957465!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [
+			orientation = North ifTrue: [point := (point x + 1) @ point y].
+			orientation = West ifTrue: [point := (point x) @ (point y + 1)].
+			
+			].
+	
+		command = $b ifTrue: [point := (point x - 1) @ point y].
+		
+		command = $l ifTrue: [orientation rotateLeft: self].
+		
+		command = $r ifTrue: [orientation rotateRight: self].
+	]
+	
+	! !
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:34:52'!
+FAILURE!
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:35:07'!
+FAILURE!
+
+rover!
+!MarsRover methodsFor: 'movement' stamp: 'ET 5/16/2021 21:37:31' prior: 50957513!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [
+			(orientation isKindOf: North) ifTrue: [point := (point x + 1) @ point y].
+			(orientation isKindOf: West) ifTrue: [point := (point x) @ (point y + 1)].
+			
+			].
+	
+		command = $b ifTrue: [point := (point x - 1) @ point y].
+		
+		command = $l ifTrue: [orientation rotateLeft: self].
+		
+		command = $r ifTrue: [orientation rotateRight: self].
+	]
+	
+	! !
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:37:46'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:37:46'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:37:46'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:37:46'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:37:46'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:37:46'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:37:46'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:37:46'!
+PASSED!
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:37:46'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:38:19' prior: 50957502!
+test08
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'lf'.
+	
+	self assert: (rover isIn: 0@-1 withOrientation: #East).! !
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:38:21'!
+FAILURE!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:38:50' prior: 50957572!
+test08
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #South.
+	
+	rover doCommands: 'f'.
+	
+	self assert: (rover isIn: -1@0 withOrientation: #South).! !
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:38:51'!
+FAILURE!
+!MarsRover methodsFor: 'movement' stamp: 'ET 5/16/2021 21:39:23' prior: 50957534!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [
+			(orientation isKindOf: North) ifTrue: [point := (point x + 1) @ point y].
+			(orientation isKindOf: West) ifTrue: [point := (point x) @ (point y + 1)].
+			(orientation isKindOf: South) ifTrue: [point := (point x - 1) @ point y].
+			
+			].
+	
+		command = $b ifTrue: [point := (point x - 1) @ point y].
+		
+		command = $l ifTrue: [orientation rotateLeft: self].
+		
+		command = $r ifTrue: [orientation rotateRight: self].
+	]
+	
+	! !
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:39:25'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:39:25'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:39:25'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:39:25'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:39:25'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:39:25'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:39:25'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:39:25'!
+PASSED!
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:39:26'!
+PASSED!
+!CardinalPointOfMarsRover methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:39:39'!
+moveForward: aMarsRover
+
+	self subclassResponsibility.! !
+!East methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:40:25' overrides: 50957633!
+moveForward: aMarsRover
+
+	aMarsRover moveEast.! !
+!North methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:40:36' overrides: 50957633!
+moveForward: aMarsRover
+
+	aMarsRover moveNorth.! !
+!South methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:40:45' overrides: 50957633!
+moveForward: aMarsRover
+
+	aMarsRover moveSouth.! !
+!West methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:40:54' overrides: 50957633!
+moveForward: aMarsRover
+
+	aMarsRover moveWest.! !
+!MarsRover methodsFor: 'private' stamp: 'ET 5/16/2021 21:41:50'!
+moveNorth
+
+	point := (point x + 1) @ point y.! !
+!MarsRover methodsFor: 'private' stamp: 'ET 5/16/2021 21:42:05'!
+moveEast
+
+	point := (point x - 1) @ point y.! !
+!MarsRover methodsFor: 'private' stamp: 'ET 5/16/2021 21:42:21' prior: 50957661!
+moveEast
+
+	point := (point x) @ (point y + 1).! !
+!MarsRover methodsFor: 'private' stamp: 'ET 5/16/2021 21:42:28'!
+moveWest
+
+	point := (point x) @ (point y - 1).! !
+!MarsRover methodsFor: 'private' stamp: 'ET 5/16/2021 21:42:49'!
+moveSouth
+
+	point := (point x - 1) @ point y.! !
+!MarsRover methodsFor: 'movement' stamp: 'ET 5/16/2021 21:43:04' prior: 50957593!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [
+			orientation moveForward: self.
+			
+			].
+	
+		command = $b ifTrue: [point := (point x - 1) @ point y].
+		
+		command = $l ifTrue: [orientation rotateLeft: self].
+		
+		command = $r ifTrue: [orientation rotateRight: self].
+	]
+	
+	! !
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:43:05'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:43:05'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:43:05'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:43:05'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:43:05'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:43:05'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:43:05'!
+PASSED!
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:43:05'!
+PASSED!
+
+----SNAPSHOT----(16 May 2021 21:43:12) CuisUniversity-4532.image priorSource: 20027124!
+!MarsRover methodsFor: 'movement' stamp: 'ET 5/16/2021 21:45:29' prior: 50957679!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [			orientation moveForward: self.		].
+	
+		command = $b ifTrue: [point := (point x - 1) @ point y].
+		
+		command = $l ifTrue: [orientation rotateLeft: self].
+		
+		command = $r ifTrue: [orientation rotateRight: self].
+	]
+	
+	! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:46:34'!
+test09
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'b'.
+	
+	self assert: (rover isIn: -1@0 withOrientation: #North).! !
+
+!testRun: #MarsRoverTest #test09 stamp: 'ET 5/16/2021 21:46:35'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:46:35'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:46:35'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:46:35'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:46:36'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:46:36'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:46:36'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:46:36'!
+PASSED!
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:46:36'!
+PASSED!
+
+!testRun: #MarsRoverTest #test09 stamp: 'ET 5/16/2021 21:46:36'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:46:45' prior: 50957726!
+test09
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #East.
+	
+	rover doCommands: 'b'.
+	
+	self assert: (rover isIn: -1@0 withOrientation: #East).! !
+
+!testRun: #MarsRoverTest #test09 stamp: 'ET 5/16/2021 21:46:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:46:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:46:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:46:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:46:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:46:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:46:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:46:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:46:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test09 stamp: 'ET 5/16/2021 21:46:47'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 21:47:17' prior: 50957758!
+test09
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #East.
+	
+	rover doCommands: 'b'.
+	
+	self assert: (rover isIn: 0@-1 withOrientation: #East).! !
+
+!testRun: #MarsRoverTest #test09 stamp: 'ET 5/16/2021 21:47:18'!
+FAILURE!
+!MarsRover methodsFor: 'movement' stamp: 'ET 5/16/2021 21:48:54' prior: 50957713!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [			orientation moveForward: self.		].
+	
+		command = $b ifTrue: [
+			(orientation isKindOf: North) ifTrue: [point := (point x - 1) @ point y].
+			(orientation isKindOf: East) ifTrue: [point := (point x) @ (point y - 1)].
+			].
+			
+		
+		command = $l ifTrue: [orientation rotateLeft: self].
+		
+		command = $r ifTrue: [orientation rotateRight: self].
+	]
+	
+	! !
+
+!testRun: #MarsRoverTest #test09 stamp: 'ET 5/16/2021 21:48:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:48:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:48:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:48:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:48:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:48:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:48:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:48:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:48:57'!
+PASSED!
+
+!testRun: #MarsRoverTest #test09 stamp: 'ET 5/16/2021 21:48:57'!
+PASSED!
+!CardinalPointOfMarsRover methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:49:15'!
+moveBackward: aMarsRover
+
+	self subclassResponsibility.! !
+!East methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:49:30' overrides: 50957840!
+moveBackward: aMarsRover
+
+	aMarsRover moveWest.! !
+!North methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:49:51' overrides: 50957840!
+moveBackward: aMarsRover
+
+	aMarsRover moveSouth.! !
+!South methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:50:03' overrides: 50957840!
+moveBackward: aMarsRover
+
+	aMarsRover moveNorth.! !
+!West methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:50:15' overrides: 50957840!
+moveBackward: aMarsRover
+
+	aMarsRover moveEast.! !
+!MarsRover methodsFor: 'movement' stamp: 'ET 5/16/2021 21:50:44' prior: 50957800!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [			orientation moveForward: self.		].
+	
+		command = $b ifTrue: [orientation moveBackward: self.			].
+			
+		
+		command = $l ifTrue: [orientation rotateLeft: self].
+		
+		command = $r ifTrue: [orientation rotateRight: self].
+	]
+	
+	! !
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:50:48'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:50:48'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:50:48'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:50:48'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:50:48'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:50:48'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:50:48'!
+PASSED!
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:50:48'!
+PASSED!
+
+!testRun: #MarsRoverTest #test09 stamp: 'ET 5/16/2021 21:50:48'!
+PASSED!
+
+!classRenamed: #CardinalPointOfMarsRover as: #OrientationOfMarsRover stamp: 'ET 5/16/2021 21:53:18'!
+Smalltalk renameClassNamed: #CardinalPointOfMarsRover as: #OrientationOfMarsRover!
+!East methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:55:23' prior: 50957445 overrides: 50957440!
+rotateRight: aMarsRover
+
+	aMarsRover headNorth.! !
+!North methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:55:39' prior: 50957450 overrides: 50957440!
+rotateRight: aMarsRover
+
+	aMarsRover headWest.! !
+!South methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:55:49' prior: 50957455 overrides: 50957440!
+rotateRight: aMarsRover
+
+	aMarsRover headEast.! !
+!West methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:55:57' prior: 50957460 overrides: 50957440!
+rotateRight: aMarsRover
+
+	aMarsRover headSouth.! !
+!MarsRover methodsFor: 'private' stamp: 'ET 5/16/2021 21:56:17'!
+headNorth
+
+	orientation := North new.! !
+!MarsRover methodsFor: 'private' stamp: 'ET 5/16/2021 21:56:24'!
+headSouth
+
+	orientation := South new.! !
+!MarsRover methodsFor: 'private' stamp: 'ET 5/16/2021 21:56:29'!
+headEast
+
+	orientation := East new.! !
+!MarsRover methodsFor: 'private' stamp: 'ET 5/16/2021 21:56:36'!
+headWest
+
+	orientation := West new.! !
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:57:06'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:57:06'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:57:06'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:57:06'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:57:06'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:57:06'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:57:06'!
+PASSED!
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:57:06'!
+PASSED!
+
+!testRun: #MarsRoverTest #test09 stamp: 'ET 5/16/2021 21:57:06'!
+PASSED!
+!East methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:57:16' prior: 50957232 overrides: 50957227!
+rotateLeft: aMarsRover
+
+	aMarsRover headSouth.! !
+!North methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:57:24' prior: 50957237 overrides: 50957227!
+rotateLeft: aMarsRover
+
+	aMarsRover headEast.! !
+!South methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:57:32' prior: 50957242 overrides: 50957227!
+rotateLeft: aMarsRover
+
+	aMarsRover headWest.! !
+!West methodsFor: 'rotation' stamp: 'ET 5/16/2021 21:57:42' prior: 50957247 overrides: 50957227!
+rotateLeft: aMarsRover
+
+	aMarsRover headNorth.! !
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:57:45'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:57:45'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:57:45'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:57:45'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:57:45'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:57:45'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:57:45'!
+PASSED!
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:57:45'!
+PASSED!
+
+!testRun: #MarsRoverTest #test09 stamp: 'ET 5/16/2021 21:57:45'!
+PASSED!
+
+!methodRemoval: MarsRover #newOrientation: stamp: 'ET 5/16/2021 21:58:01'!
+newOrientation: aCardinalPointSymbol
+
+	orientation := (Smalltalk at: aCardinalPointSymbol) new.!
+!MarsRoverTest methodsFor: 'testing' stamp: 'ET 5/16/2021 21:59:41' prior: 50956982!
+test06
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'llxddgggg'.
+	
+	self assert: (rover isIn: 0@0 withOrientation: #South).! !
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:59:42'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:59:42'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:59:43'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:59:43'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:59:43'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:59:43'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:59:43'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:59:43'!
+PASSED!
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:59:43'!
+PASSED!
+
+!testRun: #MarsRoverTest #test09 stamp: 'ET 5/16/2021 21:59:43'!
+PASSED!
+!MarsRoverTest methodsFor: 'testing' stamp: 'ET 5/16/2021 21:59:52' prior: 50958008!
+test06
+
+	|rover|
+	
+	rover := MarsRover in: 0@0 withOrientation: #North.
+	
+	rover doCommands: 'll'.
+	
+	self assert: (rover isIn: 0@0 withOrientation: #South).! !
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:59:53'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01 stamp: 'ET 5/16/2021 21:59:53'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02 stamp: 'ET 5/16/2021 21:59:53'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03 stamp: 'ET 5/16/2021 21:59:53'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04 stamp: 'ET 5/16/2021 21:59:53'!
+PASSED!
+
+!testRun: #MarsRoverTest #test05 stamp: 'ET 5/16/2021 21:59:53'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06 stamp: 'ET 5/16/2021 21:59:53'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07 stamp: 'ET 5/16/2021 21:59:53'!
+PASSED!
+
+!testRun: #MarsRoverTest #test08 stamp: 'ET 5/16/2021 21:59:53'!
+PASSED!
+
+!testRun: #MarsRoverTest #test09 stamp: 'ET 5/16/2021 21:59:53'!
+PASSED!
+
+!classDefinition: #MarsRover category: 'MarsRover' stamp: 'ET 5/16/2021 22:00:25'!
+Object subclass: #MarsRover
+	instanceVariableNames: 'position orientation'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 22:00:25' prior: 50957258!
+initializeIn: aPoint withOrientation: aCardinalPointSymbol 
+	position := aPoint.
+	orientation := (Smalltalk at: aCardinalPointSymbol) new.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 22:00:25' prior: 50957670!
+moveWest
+
+	position := (position x) @ (position y - 1).! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 22:00:25' prior: 50957674!
+moveSouth
+
+	position := (position x - 1) @ position y.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 22:00:25' prior: 50957666!
+moveEast
+
+	position := (position x) @ (position y + 1).! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 22:00:25' prior: 50957657!
+moveNorth
+
+	position := (position x + 1) @ position y.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'ET 5/16/2021 22:00:25' prior: 50957286!
+isIn: aPoint withOrientation: aCardinalPointSymbol 
+	
+	^position = aPoint and: [orientation isKindOf: (Smalltalk at: aCardinalPointSymbol)].! !
+!MarsRover methodsFor: 'movement' stamp: 'ET 5/16/2021 22:01:08' prior: 50957865!
+doCommands: aStringOfCommands
+	
+	aStringOfCommands do: [:command | 
+		command = $f ifTrue: [			orientation moveForward: self.		].
+	
+		command = $b ifTrue: [orientation moveBackward: self.			].
+			
+		command = $l ifTrue: [orientation rotateLeft: self].
+		
+		command = $r ifTrue: [orientation rotateRight: self].
+	]
+	
+	! !
+
+!classRemoval: #West stamp: 'ET 5/16/2021 22:07:03'!
+OrientationOfMarsRover subclass: #West
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classRemoval: #South stamp: 'ET 5/16/2021 22:07:04'!
+OrientationOfMarsRover subclass: #South
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classRemoval: #North stamp: 'ET 5/16/2021 22:07:04'!
+OrientationOfMarsRover subclass: #North
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classRemoval: #East stamp: 'ET 5/16/2021 22:07:04'!
+OrientationOfMarsRover subclass: #East
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classRemoval: #OrientationOfMarsRover stamp: 'ET 5/16/2021 22:07:05'!
+Object subclass: #OrientationOfMarsRover
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classRemoval: #MarsRover stamp: 'ET 5/16/2021 22:07:05'!
+Object subclass: #MarsRover
+	instanceVariableNames: 'position orientation'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classRemoval: #MarsRoverTest stamp: 'ET 5/16/2021 22:07:06'!
+TestCase subclass: #MarsRoverTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+----End fileIn of C:\Users\ezequ\Desktop\windows64\ejs\16-MarsRover\MarsRover.st----!
