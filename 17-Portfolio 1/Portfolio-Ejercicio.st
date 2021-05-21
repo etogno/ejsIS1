@@ -206,6 +206,82 @@ test11
 	self assert: 200 equals: portfolioParent balance.
 ! !
 
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:22:35'!
+test12
+
+	|portfolioParent portfolioChild  account deposit|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	portfolioParent addPortfolio: portfolioChild.
+	
+	account := ReceptiveAccount new.
+	
+	portfolioParent addAccount: account.
+	
+	deposit := Deposit register: 100 on: account.
+	
+		
+	self assert: 100 equals: portfolioParent balance.
+! !
+
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:38:38'!
+test13
+
+	|portfolioParent portfolioChild account deposit|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	deposit := Deposit register: 100 on: account.
+	
+	portfolioChild addAccount: account.
+	
+	portfolioParent addPortfolio: portfolioChild.
+	
+	
+	self assert: (portfolioParent hasRegistered: deposit).
+! !
+
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:43:04'!
+test14
+
+	|portfolioParent portfolioChild account deposit |
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	deposit := Deposit register: 50 on: account.
+	
+	portfolioChild addAccount: account.
+	
+	portfolioParent addPortfolio: portfolioChild.
+		
+	self assert: 1 equals: portfolioParent transactions size.
+	self assert: (portfolioParent transactions includes: deposit).! !
+
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 21:07:42'!
+test15
+
+	|portfolio account|
+	
+	portfolio:= Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	portfolio addAccount: account.
+	
+	self should:[portfolio addAccount: account]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedAccount) ].! !
+
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Ejercicio'!
 TestCase subclass: #ReceptiveAccountTest
@@ -399,14 +475,16 @@ for: aValue
 
 !classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
 Object subclass: #Portfolio
-	instanceVariableNames: 'account accounts portfolio portfolios'
+	instanceVariableNames: 'accounts portfolios'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 20:37:08'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 21:04:52'!
 addAccount: aReceptiveAccount
-
+	
+	(accounts includes: aReceptiveAccount) ifTrue: [self error: self class canNotAddAlreadyAddedAccount].
+	
 	accounts add: aReceptiveAccount.! !
 
 !Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 21:59:59'!
@@ -421,10 +499,11 @@ balance
 	^(accounts sum: [:anAccount | anAccount balance] ifEmpty: [0])
 	+(portfolios sum: [:aPortfolio | aPortfolio balance] ifEmpty: [0]).! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 20:52:04'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:39:27'!
 hasRegistered: aDeposit 
 	
-	^accounts anySatisfy: [:anAccount | anAccount hasRegistered: aDeposit].! !
+	^(accounts anySatisfy: [:anAccount | anAccount hasRegistered: aDeposit])
+	or: [portfolios anySatisfy: [:anAccount | anAccount hasRegistered: aDeposit]].! !
 
 !Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 22:00:38'!
 initialize
@@ -433,14 +512,26 @@ initialize
 	
 	portfolios := OrderedCollection new.! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 21:05:41'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:44:27'!
 transactions
 
 	|transactions|
 	transactions := OrderedCollection new.
 	accounts do: [:anAccount | transactions addAllFirst: anAccount transactions].
+	portfolios do: [:aPortfolio | transactions addAllFirst: aPortfolio transactions].
 	
 	^transactions.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Portfolio class' category: 'Portfolio-Ejercicio'!
+Portfolio class
+	instanceVariableNames: ''!
+
+!Portfolio class methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 21:07:07'!
+canNotAddAlreadyAddedAccount
+	
+	^'This account has been added in the portfolio before!!!!'! !
 
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!

@@ -985,3 +985,1525 @@ PASSED!
 
 !testRun: #PortfolioTest #test11 stamp: 'ET 5/17/2021 22:01:58'!
 PASSED!
+
+----End fileIn of C:\Users\ezequ\Desktop\windows64\Portfolio-Ejercicio.st----!
+!Behavior method!
+initialize
+	(transactions _ [
+	(OrderedCollection
+		cover: (30 to: 46)
+		declaredAt: (30 to: 46)) new ] valueCoveringAll:
+		{48 to: 50})
+		cover: (14 to: 25)
+		declaredAt: (14 to: 25).! !
+!Behavior method!
+balance
+	^ [
+	(transactions
+		cover: (12 to: 23)
+		declaredAt: (12 to: 23))
+		inject:
+			(0 coverAll:
+				{33 to: 33})
+		into: [ :balance :aTransaction |
+			[
+			(aTransaction
+				cover: (68 to: 79)
+				declaredAt: (52 to: 63)) xxx:
+				(balance
+					cover: (86 to: 92)
+					declaredAt: (43 to: 49)) ] valueCoveringAll:
+				{81 to: 84} ]] valueCoveringAll:
+		{25 to: 31. 35 to: 39}.! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 5/20/2021 20:04:12'!
+PASSED!
+!Behavior method!
+register: aValue on: account
+	| transaction |
+	(transaction _ [
+	(self coverAll:
+		{66 to: 69}) for:
+		(aValue
+			cover: (76 to: 81)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{71 to: 74})
+		cover: (51 to: 61)
+		declaredAt: (34 to: 44).
+	[
+	(account
+		cover: (85 to: 91)
+		declaredAt: (22 to: 28)) register:
+		(transaction
+			cover: (103 to: 113)
+			declaredAt: (34 to: 44)) ] valueCoveringAll:
+		{93 to: 101}.
+	^ transaction
+		cover: (122 to: 132)
+		declaredAt: (34 to: 44).! !
+!Behavior method!
+for: aValue
+	^ [
+	([
+	(self coverAll:
+		{17 to: 20}) new ] valueCoveringAll:
+		{22 to: 24}) initializeFor:
+		(aValue
+			cover: (41 to: 46)
+			declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{26 to: 39}.! !
+!Behavior method!
+initializeFor: aValue
+	(value _ aValue
+		cover: (34 to: 39)
+		declaredAt: (16 to: 21))
+		cover: (25 to: 29)
+		declaredAt: (25 to: 29).! !
+!Behavior method!
+register: aTransaction
+	[
+	(transactions
+		cover: (26 to: 37)
+		declaredAt: (26 to: 37)) add:
+		(aTransaction
+			cover: (44 to: 55)
+			declaredAt: (11 to: 22)) ] valueCoveringAll:
+		{39 to: 42}.! !
+!Behavior method!
+xxx: balance
+	^ [
+	(balance
+		cover: (17 to: 23)
+		declaredAt: (6 to: 12)) +
+		(value
+			cover: (27 to: 31)
+			declaredAt: (27 to: 31)) ] valueCoveringAll:
+		{25 to: 25}.! !
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 5/20/2021 20:04:12'!
+PASSED!
+!Behavior method!
+for: aValue
+	^ [
+	([
+	(self coverAll:
+		{17 to: 20}) new ] valueCoveringAll:
+		{22 to: 24}) initializeFor:
+		(aValue
+			cover: (41 to: 46)
+			declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{26 to: 39}.! !
+!Behavior method!
+initializeFor: aValue
+	(value _ aValue
+		cover: (34 to: 39)
+		declaredAt: (16 to: 21))
+		cover: (25 to: 29)
+		declaredAt: (25 to: 29).! !
+!Behavior method!
+xxx: balance
+	^ [
+	(balance
+		cover: (17 to: 23)
+		declaredAt: (6 to: 12)) -
+		(value
+			cover: (27 to: 31)
+			declaredAt: (27 to: 31)) ] valueCoveringAll:
+		{25 to: 25}.! !
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 5/20/2021 20:04:12'!
+PASSED!
+!Behavior method!
+value
+	^ value
+		cover: (11 to: 15)
+		declaredAt: (11 to: 15).! !
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 5/20/2021 20:04:12'!
+PASSED!
+!Behavior method!
+hasRegistered: aTransaction
+	^ [
+	(transactions
+		cover: (33 to: 44)
+		declaredAt: (33 to: 44)) includes:
+		(aTransaction
+			cover: (56 to: 67)
+			declaredAt: (16 to: 27)) ] valueCoveringAll:
+		{46 to: 54}.! !
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 5/20/2021 20:04:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 5/20/2021 20:04:12'!
+PASSED!
+!Behavior method!
+transactions
+	^ [
+	(transactions
+		cover: (19 to: 30)
+		declaredAt: (19 to: 30)) copy ] valueCoveringAll:
+		{32 to: 35}.! !
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 5/20/2021 20:04:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/20/2021 20:06:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/20/2021 20:06:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/20/2021 20:06:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/20/2021 20:06:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/20/2021 20:06:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/20/2021 20:06:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/20/2021 20:06:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/20/2021 20:06:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/20/2021 20:06:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/20/2021 20:06:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/20/2021 20:06:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/20/2021 20:06:19'!
+PASSED!
+
+Object subclass: #Portfolio
+	instanceVariableNames: ' accounts portfolios'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'ET 5/20/2021 20:14:09'!
+Object subclass: #Portfolio
+	instanceVariableNames: 'accounts portfolios'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/20/2021 20:14:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/20/2021 20:14:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/20/2021 20:14:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/20/2021 20:14:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/20/2021 20:14:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/20/2021 20:14:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/20/2021 20:14:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/20/2021 20:14:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/20/2021 20:14:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/20/2021 20:14:18'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/20/2021 20:14:18'!
+PASSED!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:20:06'!
+test12
+
+	|portfolioParent portfolioChild  account deposit|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	account := Portfolio new.
+	
+	deposit := Deposit.
+	
+	
+		
+	self assert: 200 equals: portfolioParent balance.
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:20:36' prior: 50963572!
+test12
+
+	|portfolioParent portfolioChild  account deposit|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	account := Portfolio new.
+	
+	deposit := Deposit register: 100 on: account.
+	
+		
+	self assert: 100 equals: portfolioParent balance.
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:21:30' prior: 50963583!
+test12
+
+	|portfolioParent portfolioChild  account deposit|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	portfolioParent addPortfolio: portfolioChild.
+	
+	account := Portfolio new.
+	
+	portfolioParent addAccount: account.
+	
+	deposit := Deposit register: 100 on: account.
+	
+		
+	self assert: 100 equals: portfolioParent balance.
+! !
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/20/2021 20:22:12'!
+ERROR!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:22:35' prior: 50963595!
+test12
+
+	|portfolioParent portfolioChild  account deposit|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	portfolioParent addPortfolio: portfolioChild.
+	
+	account := ReceptiveAccount new.
+	
+	portfolioParent addAccount: account.
+	
+	deposit := Deposit register: 100 on: account.
+	
+		
+	self assert: 100 equals: portfolioParent balance.
+! !
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/20/2021 20:22:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/20/2021 20:22:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/20/2021 20:22:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/20/2021 20:22:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/20/2021 20:22:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/20/2021 20:22:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/20/2021 20:22:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/20/2021 20:22:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/20/2021 20:22:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/20/2021 20:22:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/20/2021 20:22:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/20/2021 20:22:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/20/2021 20:22:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/20/2021 20:22:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/20/2021 20:22:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/20/2021 20:22:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/20/2021 20:22:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/20/2021 20:22:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/20/2021 20:22:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/20/2021 20:22:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/20/2021 20:22:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/20/2021 20:22:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/20/2021 20:22:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/20/2021 20:22:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/20/2021 20:22:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/20/2021 20:22:55'!
+PASSED!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:38:38'!
+test13
+
+	|portfolioParent portfolioChild account deposit|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	deposit := Deposit register: 100 on: account.
+	
+	portfolioChild addAccount: account.
+	
+	portfolioParent addPortfolio: portfolioChild.
+	
+	
+	self assert: (portfolioParent hasRegistered: deposit).
+! !
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/20/2021 20:38:39'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:39:27' prior: 50963322!
+hasRegistered: aDeposit 
+	
+	^(accounts anySatisfy: [:anAccount | anAccount hasRegistered: aDeposit])
+	or: [portfolios anySatisfy: [:anAccount | anAccount hasRegistered: aDeposit]].! !
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/20/2021 20:39:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/20/2021 20:39:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/20/2021 20:39:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/20/2021 20:39:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/20/2021 20:39:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/20/2021 20:39:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/20/2021 20:39:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/20/2021 20:39:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/20/2021 20:39:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/20/2021 20:39:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/20/2021 20:39:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/20/2021 20:39:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/20/2021 20:39:29'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/20/2021 20:39:29'!
+PASSED!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:43:04'!
+test14
+
+	|portfolioParent portfolioChild account deposit |
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	deposit := Deposit register: 50 on: account.
+	
+	portfolioChild addAccount: account.
+	
+	portfolioParent addPortfolio: portfolioChild.
+		
+	self assert: 1 equals: portfolioParent transactions size.
+	self assert: (portfolioParent transactions includes: deposit).! !
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/20/2021 20:43:06'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:44:27' prior: 50963335!
+transactions
+
+	|transactions|
+	transactions := OrderedCollection new.
+	accounts do: [:anAccount | transactions addAllFirst: anAccount transactions].
+	portfolios do: [:aPortfolio | transactions addAllFirst: aPortfolio transactions].
+	
+	^transactions.! !
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/20/2021 20:45:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/20/2021 20:45:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/20/2021 20:45:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/20/2021 20:45:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/20/2021 20:45:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/20/2021 20:45:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/20/2021 20:45:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/20/2021 20:45:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/20/2021 20:45:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/20/2021 20:45:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/20/2021 20:45:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/20/2021 20:45:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/20/2021 20:45:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/20/2021 20:45:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/20/2021 20:45:08'!
+PASSED!
+!Behavior method!
+initialize
+	(accounts _ [
+	(OrderedCollection
+		cover: (26 to: 42)
+		declaredAt: (26 to: 42)) new ] valueCoveringAll:
+		{44 to: 46})
+		cover: (14 to: 21)
+		declaredAt: (14 to: 21).
+	(portfolios _ [
+	(OrderedCollection
+		cover: (66 to: 82)
+		declaredAt: (26 to: 42)) new ] valueCoveringAll:
+		{84 to: 86})
+		cover: (52 to: 61)
+		declaredAt: (52 to: 61).! !
+!Behavior method!
+balance
+	^ [
+	([
+	(accounts
+		cover: (14 to: 21)
+		declaredAt: (14 to: 21))
+		sum: [ :anAccount |
+			[
+			(anAccount
+				cover: (42 to: 50)
+				declaredAt: (30 to: 38)) balance ] valueCoveringAll:
+				{52 to: 58} ]
+		ifEmpty: [
+			0 coverAll:
+				{71 to: 71} ]] valueCoveringAll:
+		{23 to: 26. 61 to: 68}) +
+		([
+		(portfolios
+			cover: (78 to: 87)
+			declaredAt: (78 to: 87))
+			sum: [ :aPortfolio |
+				[
+				(aPortfolio
+					cover: (109 to: 118)
+					declaredAt: (96 to: 105)) balance ] valueCoveringAll:
+					{120 to: 126} ]
+			ifEmpty: [
+				0 coverAll:
+					{139 to: 139} ]] valueCoveringAll:
+			{89 to: 92. 129 to: 136}) ] valueCoveringAll:
+		{76 to: 76}.! !
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/20/2021 20:45:32'!
+PASSED!
+!Behavior method!
+initialize
+	(transactions _ [
+	(OrderedCollection
+		cover: (30 to: 46)
+		declaredAt: (30 to: 46)) new ] valueCoveringAll:
+		{48 to: 50})
+		cover: (14 to: 25)
+		declaredAt: (14 to: 25).! !
+!Behavior method!
+register: aValue on: account
+	| transaction |
+	(transaction _ [
+	(self coverAll:
+		{66 to: 69}) for:
+		(aValue
+			cover: (76 to: 81)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{71 to: 74})
+		cover: (51 to: 61)
+		declaredAt: (34 to: 44).
+	[
+	(account
+		cover: (85 to: 91)
+		declaredAt: (22 to: 28)) register:
+		(transaction
+			cover: (103 to: 113)
+			declaredAt: (34 to: 44)) ] valueCoveringAll:
+		{93 to: 101}.
+	^ transaction
+		cover: (122 to: 132)
+		declaredAt: (34 to: 44).! !
+!Behavior method!
+for: aValue
+	^ [
+	([
+	(self coverAll:
+		{17 to: 20}) new ] valueCoveringAll:
+		{22 to: 24}) initializeFor:
+		(aValue
+			cover: (41 to: 46)
+			declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{26 to: 39}.! !
+!Behavior method!
+initializeFor: aValue
+	(value _ aValue
+		cover: (34 to: 39)
+		declaredAt: (16 to: 21))
+		cover: (25 to: 29)
+		declaredAt: (25 to: 29).! !
+!Behavior method!
+register: aTransaction
+	[
+	(transactions
+		cover: (26 to: 37)
+		declaredAt: (26 to: 37)) add:
+		(aTransaction
+			cover: (44 to: 55)
+			declaredAt: (11 to: 22)) ] valueCoveringAll:
+		{39 to: 42}.! !
+!Behavior method!
+addAccount: aReceptiveAccount
+	[
+	(accounts
+		cover: (33 to: 40)
+		declaredAt: (33 to: 40)) add:
+		(aReceptiveAccount
+			cover: (47 to: 63)
+			declaredAt: (13 to: 29)) ] valueCoveringAll:
+		{42 to: 45}.! !
+!Behavior method!
+balance
+	^ [
+	(transactions
+		cover: (12 to: 23)
+		declaredAt: (12 to: 23))
+		inject:
+			(0 coverAll:
+				{33 to: 33})
+		into: [ :balance :aTransaction |
+			[
+			(aTransaction
+				cover: (68 to: 79)
+				declaredAt: (52 to: 63)) xxx:
+				(balance
+					cover: (86 to: 92)
+					declaredAt: (43 to: 49)) ] valueCoveringAll:
+				{81 to: 84} ]] valueCoveringAll:
+		{25 to: 31. 35 to: 39}.! !
+!Behavior method!
+xxx: balance
+	^ [
+	(balance
+		cover: (17 to: 23)
+		declaredAt: (6 to: 12)) +
+		(value
+			cover: (27 to: 31)
+			declaredAt: (27 to: 31)) ] valueCoveringAll:
+		{25 to: 25}.! !
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/20/2021 20:45:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/20/2021 20:45:32'!
+PASSED!
+!Behavior method!
+hasRegistered: aDeposit
+	^ [
+	([
+	(accounts
+		cover: (31 to: 38)
+		declaredAt: (31 to: 38)) anySatisfy: [ :anAccount |
+		[
+		(anAccount
+			cover: (66 to: 74)
+			declaredAt: (54 to: 62)) hasRegistered:
+			(aDeposit
+				cover: (91 to: 98)
+				declaredAt: (16 to: 23)) ] valueCoveringAll:
+			{76 to: 89} ]] valueCoveringAll:
+		{40 to: 50}) or: [
+		[
+		(portfolios
+			cover: (108 to: 117)
+			declaredAt: (108 to: 117)) anySatisfy: [ :anAccount |
+			[
+			(anAccount
+				cover: (145 to: 153)
+				declaredAt: (133 to: 141)) hasRegistered:
+				(aDeposit
+					cover: (170 to: 177)
+					declaredAt: (16 to: 23)) ] valueCoveringAll:
+				{155 to: 168} ]] valueCoveringAll:
+			{119 to: 129} ]] valueCoveringAll:
+		{103 to: 105}.! !
+!Behavior method!
+hasRegistered: aTransaction
+	^ [
+	(transactions
+		cover: (33 to: 44)
+		declaredAt: (33 to: 44)) includes:
+		(aTransaction
+			cover: (56 to: 67)
+			declaredAt: (16 to: 27)) ] valueCoveringAll:
+		{46 to: 54}.! !
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/20/2021 20:45:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/20/2021 20:45:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/20/2021 20:45:32'!
+PASSED!
+!Behavior method!
+transactions
+	| transactions |
+	(transactions _ [
+	(OrderedCollection
+		cover: (48 to: 64)
+		declaredAt: (48 to: 64)) new ] valueCoveringAll:
+		{66 to: 68})
+		cover: (32 to: 43)
+		declaredAt: (17 to: 28).
+	[
+	(accounts
+		cover: (72 to: 79)
+		declaredAt: (72 to: 79)) do: [ :anAccount |
+		[
+		(transactions
+			cover: (99 to: 110)
+			declaredAt: (17 to: 28)) addAllFirst:
+			([
+			(anAccount
+				cover: (125 to: 133)
+				declaredAt: (87 to: 95)) transactions ] valueCoveringAll:
+				{135 to: 146}) ] valueCoveringAll:
+			{112 to: 123} ]] valueCoveringAll:
+		{81 to: 83}.
+	[
+	(portfolios
+		cover: (151 to: 160)
+		declaredAt: (151 to: 160)) do: [ :aPortfolio |
+		[
+		(transactions
+			cover: (181 to: 192)
+			declaredAt: (17 to: 28)) addAllFirst:
+			([
+			(aPortfolio
+				cover: (207 to: 216)
+				declaredAt: (168 to: 177)) transactions ] valueCoveringAll:
+				{218 to: 229}) ] valueCoveringAll:
+			{194 to: 205} ]] valueCoveringAll:
+		{162 to: 164}.
+	^ transactions
+		cover: (237 to: 248)
+		declaredAt: (17 to: 28).! !
+!Behavior method!
+transactions
+	^ [
+	(transactions
+		cover: (19 to: 30)
+		declaredAt: (19 to: 30)) copy ] valueCoveringAll:
+		{32 to: 35}.! !
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/20/2021 20:45:32'!
+PASSED!
+!Behavior method!
+for: aValue
+	^ [
+	([
+	(self coverAll:
+		{17 to: 20}) new ] valueCoveringAll:
+		{22 to: 24}) initializeFor:
+		(aValue
+			cover: (41 to: 46)
+			declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{26 to: 39}.! !
+!Behavior method!
+initializeFor: aValue
+	(value _ aValue
+		cover: (34 to: 39)
+		declaredAt: (16 to: 21))
+		cover: (25 to: 29)
+		declaredAt: (25 to: 29).! !
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/20/2021 20:45:32'!
+PASSED!
+!Behavior method!
+addPortfolio: aPortfolio
+	[
+	(portfolios
+		cover: (30 to: 39)
+		declaredAt: (30 to: 39)) add:
+		(aPortfolio
+			cover: (46 to: 55)
+			declaredAt: (15 to: 24)) ] valueCoveringAll:
+		{41 to: 44}.! !
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/20/2021 20:45:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/20/2021 20:45:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/20/2021 20:45:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/20/2021 20:45:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/20/2021 20:45:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/20/2021 20:45:32'!
+PASSED!
+!Behavior method!
+initialize
+	(transactions _ [
+	(OrderedCollection
+		cover: (30 to: 46)
+		declaredAt: (30 to: 46)) new ] valueCoveringAll:
+		{48 to: 50})
+		cover: (14 to: 25)
+		declaredAt: (14 to: 25).! !
+!Behavior method!
+balance
+	^ [
+	(transactions
+		cover: (12 to: 23)
+		declaredAt: (12 to: 23))
+		inject:
+			(0 coverAll:
+				{33 to: 33})
+		into: [ :balance :aTransaction |
+			[
+			(aTransaction
+				cover: (68 to: 79)
+				declaredAt: (52 to: 63)) xxx:
+				(balance
+					cover: (86 to: 92)
+					declaredAt: (43 to: 49)) ] valueCoveringAll:
+				{81 to: 84} ]] valueCoveringAll:
+		{25 to: 31. 35 to: 39}.! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 5/20/2021 20:49:09'!
+PASSED!
+!Behavior method!
+register: aValue on: account
+	| transaction |
+	(transaction _ [
+	(self coverAll:
+		{66 to: 69}) for:
+		(aValue
+			cover: (76 to: 81)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{71 to: 74})
+		cover: (51 to: 61)
+		declaredAt: (34 to: 44).
+	[
+	(account
+		cover: (85 to: 91)
+		declaredAt: (22 to: 28)) register:
+		(transaction
+			cover: (103 to: 113)
+			declaredAt: (34 to: 44)) ] valueCoveringAll:
+		{93 to: 101}.
+	^ transaction
+		cover: (122 to: 132)
+		declaredAt: (34 to: 44).! !
+!Behavior method!
+for: aValue
+	^ [
+	([
+	(self coverAll:
+		{17 to: 20}) new ] valueCoveringAll:
+		{22 to: 24}) initializeFor:
+		(aValue
+			cover: (41 to: 46)
+			declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{26 to: 39}.! !
+!Behavior method!
+initializeFor: aValue
+	(value _ aValue
+		cover: (34 to: 39)
+		declaredAt: (16 to: 21))
+		cover: (25 to: 29)
+		declaredAt: (25 to: 29).! !
+!Behavior method!
+register: aTransaction
+	[
+	(transactions
+		cover: (26 to: 37)
+		declaredAt: (26 to: 37)) add:
+		(aTransaction
+			cover: (44 to: 55)
+			declaredAt: (11 to: 22)) ] valueCoveringAll:
+		{39 to: 42}.! !
+!Behavior method!
+xxx: balance
+	^ [
+	(balance
+		cover: (17 to: 23)
+		declaredAt: (6 to: 12)) +
+		(value
+			cover: (27 to: 31)
+			declaredAt: (27 to: 31)) ] valueCoveringAll:
+		{25 to: 25}.! !
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 5/20/2021 20:49:09'!
+PASSED!
+!Behavior method!
+for: aValue
+	^ [
+	([
+	(self coverAll:
+		{17 to: 20}) new ] valueCoveringAll:
+		{22 to: 24}) initializeFor:
+		(aValue
+			cover: (41 to: 46)
+			declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{26 to: 39}.! !
+!Behavior method!
+initializeFor: aValue
+	(value _ aValue
+		cover: (34 to: 39)
+		declaredAt: (16 to: 21))
+		cover: (25 to: 29)
+		declaredAt: (25 to: 29).! !
+!Behavior method!
+xxx: balance
+	^ [
+	(balance
+		cover: (17 to: 23)
+		declaredAt: (6 to: 12)) -
+		(value
+			cover: (27 to: 31)
+			declaredAt: (27 to: 31)) ] valueCoveringAll:
+		{25 to: 25}.! !
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 5/20/2021 20:49:09'!
+PASSED!
+!Behavior method!
+value
+	^ value
+		cover: (11 to: 15)
+		declaredAt: (11 to: 15).! !
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 5/20/2021 20:49:10'!
+PASSED!
+!Behavior method!
+hasRegistered: aTransaction
+	^ [
+	(transactions
+		cover: (33 to: 44)
+		declaredAt: (33 to: 44)) includes:
+		(aTransaction
+			cover: (56 to: 67)
+			declaredAt: (16 to: 27)) ] valueCoveringAll:
+		{46 to: 54}.! !
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 5/20/2021 20:49:10'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 5/20/2021 20:49:10'!
+PASSED!
+!Behavior method!
+transactions
+	^ [
+	(transactions
+		cover: (19 to: 30)
+		declaredAt: (19 to: 30)) copy ] valueCoveringAll:
+		{32 to: 35}.! !
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 5/20/2021 20:49:10'!
+PASSED!
+!Behavior method!
+initialize
+	(accounts _ [
+	(OrderedCollection
+		cover: (26 to: 42)
+		declaredAt: (26 to: 42)) new ] valueCoveringAll:
+		{44 to: 46})
+		cover: (14 to: 21)
+		declaredAt: (14 to: 21).
+	(portfolios _ [
+	(OrderedCollection
+		cover: (66 to: 82)
+		declaredAt: (26 to: 42)) new ] valueCoveringAll:
+		{84 to: 86})
+		cover: (52 to: 61)
+		declaredAt: (52 to: 61).! !
+!Behavior method!
+balance
+	^ [
+	([
+	(accounts
+		cover: (14 to: 21)
+		declaredAt: (14 to: 21))
+		sum: [ :anAccount |
+			[
+			(anAccount
+				cover: (42 to: 50)
+				declaredAt: (30 to: 38)) balance ] valueCoveringAll:
+				{52 to: 58} ]
+		ifEmpty: [
+			0 coverAll:
+				{71 to: 71} ]] valueCoveringAll:
+		{23 to: 26. 61 to: 68}) +
+		([
+		(portfolios
+			cover: (78 to: 87)
+			declaredAt: (78 to: 87))
+			sum: [ :aPortfolio |
+				[
+				(aPortfolio
+					cover: (109 to: 118)
+					declaredAt: (96 to: 105)) balance ] valueCoveringAll:
+					{120 to: 126} ]
+			ifEmpty: [
+				0 coverAll:
+					{139 to: 139} ]] valueCoveringAll:
+			{89 to: 92. 129 to: 136}) ] valueCoveringAll:
+		{76 to: 76}.! !
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+!Behavior method!
+initialize
+	(transactions _ [
+	(OrderedCollection
+		cover: (30 to: 46)
+		declaredAt: (30 to: 46)) new ] valueCoveringAll:
+		{48 to: 50})
+		cover: (14 to: 25)
+		declaredAt: (14 to: 25).! !
+!Behavior method!
+register: aValue on: account
+	| transaction |
+	(transaction _ [
+	(self coverAll:
+		{66 to: 69}) for:
+		(aValue
+			cover: (76 to: 81)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{71 to: 74})
+		cover: (51 to: 61)
+		declaredAt: (34 to: 44).
+	[
+	(account
+		cover: (85 to: 91)
+		declaredAt: (22 to: 28)) register:
+		(transaction
+			cover: (103 to: 113)
+			declaredAt: (34 to: 44)) ] valueCoveringAll:
+		{93 to: 101}.
+	^ transaction
+		cover: (122 to: 132)
+		declaredAt: (34 to: 44).! !
+!Behavior method!
+for: aValue
+	^ [
+	([
+	(self coverAll:
+		{17 to: 20}) new ] valueCoveringAll:
+		{22 to: 24}) initializeFor:
+		(aValue
+			cover: (41 to: 46)
+			declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{26 to: 39}.! !
+!Behavior method!
+initializeFor: aValue
+	(value _ aValue
+		cover: (34 to: 39)
+		declaredAt: (16 to: 21))
+		cover: (25 to: 29)
+		declaredAt: (25 to: 29).! !
+!Behavior method!
+register: aTransaction
+	[
+	(transactions
+		cover: (26 to: 37)
+		declaredAt: (26 to: 37)) add:
+		(aTransaction
+			cover: (44 to: 55)
+			declaredAt: (11 to: 22)) ] valueCoveringAll:
+		{39 to: 42}.! !
+!Behavior method!
+addAccount: aReceptiveAccount
+	[
+	(accounts
+		cover: (33 to: 40)
+		declaredAt: (33 to: 40)) add:
+		(aReceptiveAccount
+			cover: (47 to: 63)
+			declaredAt: (13 to: 29)) ] valueCoveringAll:
+		{42 to: 45}.! !
+!Behavior method!
+balance
+	^ [
+	(transactions
+		cover: (12 to: 23)
+		declaredAt: (12 to: 23))
+		inject:
+			(0 coverAll:
+				{33 to: 33})
+		into: [ :balance :aTransaction |
+			[
+			(aTransaction
+				cover: (68 to: 79)
+				declaredAt: (52 to: 63)) xxx:
+				(balance
+					cover: (86 to: 92)
+					declaredAt: (43 to: 49)) ] valueCoveringAll:
+				{81 to: 84} ]] valueCoveringAll:
+		{25 to: 31. 35 to: 39}.! !
+!Behavior method!
+xxx: balance
+	^ [
+	(balance
+		cover: (17 to: 23)
+		declaredAt: (6 to: 12)) +
+		(value
+			cover: (27 to: 31)
+			declaredAt: (27 to: 31)) ] valueCoveringAll:
+		{25 to: 25}.! !
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+!Behavior method!
+hasRegistered: aDeposit
+	^ [
+	([
+	(accounts
+		cover: (31 to: 38)
+		declaredAt: (31 to: 38)) anySatisfy: [ :anAccount |
+		[
+		(anAccount
+			cover: (66 to: 74)
+			declaredAt: (54 to: 62)) hasRegistered:
+			(aDeposit
+				cover: (91 to: 98)
+				declaredAt: (16 to: 23)) ] valueCoveringAll:
+			{76 to: 89} ]] valueCoveringAll:
+		{40 to: 50}) or: [
+		[
+		(portfolios
+			cover: (108 to: 117)
+			declaredAt: (108 to: 117)) anySatisfy: [ :anAccount |
+			[
+			(anAccount
+				cover: (145 to: 153)
+				declaredAt: (133 to: 141)) hasRegistered:
+				(aDeposit
+					cover: (170 to: 177)
+					declaredAt: (16 to: 23)) ] valueCoveringAll:
+				{155 to: 168} ]] valueCoveringAll:
+			{119 to: 129} ]] valueCoveringAll:
+		{103 to: 105}.! !
+!Behavior method!
+hasRegistered: aTransaction
+	^ [
+	(transactions
+		cover: (33 to: 44)
+		declaredAt: (33 to: 44)) includes:
+		(aTransaction
+			cover: (56 to: 67)
+			declaredAt: (16 to: 27)) ] valueCoveringAll:
+		{46 to: 54}.! !
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+!Behavior method!
+transactions
+	| transactions |
+	(transactions _ [
+	(OrderedCollection
+		cover: (48 to: 64)
+		declaredAt: (48 to: 64)) new ] valueCoveringAll:
+		{66 to: 68})
+		cover: (32 to: 43)
+		declaredAt: (17 to: 28).
+	[
+	(accounts
+		cover: (72 to: 79)
+		declaredAt: (72 to: 79)) do: [ :anAccount |
+		[
+		(transactions
+			cover: (99 to: 110)
+			declaredAt: (17 to: 28)) addAllFirst:
+			([
+			(anAccount
+				cover: (125 to: 133)
+				declaredAt: (87 to: 95)) transactions ] valueCoveringAll:
+				{135 to: 146}) ] valueCoveringAll:
+			{112 to: 123} ]] valueCoveringAll:
+		{81 to: 83}.
+	[
+	(portfolios
+		cover: (151 to: 160)
+		declaredAt: (151 to: 160)) do: [ :aPortfolio |
+		[
+		(transactions
+			cover: (181 to: 192)
+			declaredAt: (17 to: 28)) addAllFirst:
+			([
+			(aPortfolio
+				cover: (207 to: 216)
+				declaredAt: (168 to: 177)) transactions ] valueCoveringAll:
+				{218 to: 229}) ] valueCoveringAll:
+			{194 to: 205} ]] valueCoveringAll:
+		{162 to: 164}.
+	^ transactions
+		cover: (237 to: 248)
+		declaredAt: (17 to: 28).! !
+!Behavior method!
+transactions
+	^ [
+	(transactions
+		cover: (19 to: 30)
+		declaredAt: (19 to: 30)) copy ] valueCoveringAll:
+		{32 to: 35}.! !
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+!Behavior method!
+for: aValue
+	^ [
+	([
+	(self coverAll:
+		{17 to: 20}) new ] valueCoveringAll:
+		{22 to: 24}) initializeFor:
+		(aValue
+			cover: (41 to: 46)
+			declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{26 to: 39}.! !
+!Behavior method!
+initializeFor: aValue
+	(value _ aValue
+		cover: (34 to: 39)
+		declaredAt: (16 to: 21))
+		cover: (25 to: 29)
+		declaredAt: (25 to: 29).! !
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+!Behavior method!
+addPortfolio: aPortfolio
+	[
+	(portfolios
+		cover: (30 to: 39)
+		declaredAt: (30 to: 39)) add:
+		(aPortfolio
+			cover: (46 to: 55)
+			declaredAt: (15 to: 24)) ] valueCoveringAll:
+		{41 to: 44}.! !
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+!Behavior method!
+xxx: balance
+	^ [
+	(balance
+		cover: (17 to: 23)
+		declaredAt: (6 to: 12)) -
+		(value
+			cover: (27 to: 31)
+			declaredAt: (27 to: 31)) ] valueCoveringAll:
+		{25 to: 25}.! !
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+!Behavior method!
+value
+	^ value
+		cover: (11 to: 15)
+		declaredAt: (11 to: 15).! !
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 5/20/2021 20:49:44'!
+PASSED!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:56:26'!
+test15
+
+	|portfolio account|
+	
+	portfolio:= Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	portfolio addAccount: account.
+	
+	[portfolio addAccount: account]
+	on: Error
+	do: [].! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:59:01' prior: 50964415!
+test15
+
+	|portfolio account|
+	
+	portfolio:= Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	portfolio addAccount: account.
+	
+	self should:[portfolio addAccount: account]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: Portfolio canNotAddAlreadyAddedAccount ].! !
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/20/2021 20:59:09'!
+FAILURE!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/20/2021 20:59:38'!
+FAILURE!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/20/2021 20:59:51'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 21:02:35' prior: 50963305!
+addAccount: aReceptiveAccount
+	
+	(accounts includes: aReceptiveAccount) ifTrue: [self ].
+	
+	accounts add: aReceptiveAccount.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 21:04:52' prior: 50964444!
+addAccount: aReceptiveAccount
+	
+	(accounts includes: aReceptiveAccount) ifTrue: [self error: self class canNotAddAlreadyAddedAccount].
+	
+	accounts add: aReceptiveAccount.! !
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/20/2021 21:05:03'!
+ERROR!
+!Portfolio class methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 21:05:13'!
+canNotAddAlreadyAddedAccount
+	self shouldBeImplemented.! !
+!Portfolio class methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 21:07:07' prior: 50964462!
+canNotAddAlreadyAddedAccount
+	
+	^'This account has been added in the portfolio before!!!!'! !
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/20/2021 21:07:09'!
+FAILURE!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 21:07:42' prior: 50964424!
+test15
+
+	|portfolio account|
+	
+	portfolio:= Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	portfolio addAccount: account.
+	
+	self should:[portfolio addAccount: account]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedAccount) ].! !
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/20/2021 21:07:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/20/2021 21:07:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/20/2021 21:07:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/20/2021 21:07:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/20/2021 21:07:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/20/2021 21:07:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/20/2021 21:07:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/20/2021 21:07:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/20/2021 21:07:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/20/2021 21:07:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/20/2021 21:07:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/20/2021 21:07:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/20/2021 21:07:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/20/2021 21:07:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/20/2021 21:07:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/20/2021 21:07:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/20/2021 21:39:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/20/2021 21:39:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/20/2021 21:39:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/20/2021 21:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/20/2021 21:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/20/2021 21:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/20/2021 21:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/20/2021 21:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/20/2021 21:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/20/2021 21:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/20/2021 21:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/20/2021 21:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/20/2021 21:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/20/2021 21:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/20/2021 21:39:33'!
+PASSED!
