@@ -345,6 +345,18 @@ test18
 	raise: Error 
 	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedFinancialEntity) ].! !
 
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 19:54:25'!
+test19
+
+	|portfolio|
+	
+	portfolio := Portfolio new.
+	
+	
+	self should:[portfolio addFinancialEntity: portfolio]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedFinancialEntity) ].! !
+
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Ejercicio'!
 TestCase subclass: #ReceptiveAccountTest
@@ -687,15 +699,10 @@ transactions
 	^ transactions copy! !
 
 
-!ReceptiveAccount methodsFor: 'balance' stamp: 'ET 5/22/2021 19:06:59'!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'ET 5/22/2021 20:02:28'!
 addPortfolioParent: aPortfolio
 
 	"esta nada mas para tenerlo como mensaje polimorfico"! !
-
-!ReceptiveAccount methodsFor: 'balance' stamp: 'ET 5/22/2021 18:29:23'!
-assertFinancialEntityHasNotBeenAdded: aFinancialEntity
-
-	self = aFinancialEntity ifTrue: [self error: FinancialEntity canNotAddAlreadyAddedFinancialEntity].! !
 
 !ReceptiveAccount methodsFor: 'balance' stamp: 'ET 5/22/2021 17:33:11'!
 balance
