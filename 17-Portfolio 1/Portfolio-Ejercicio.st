@@ -5,7 +5,7 @@ TestCase subclass: #PortfolioTest
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 20:28:52'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/17/2021 20:28:52'!
 test01
 
 	|portfolio|
@@ -14,7 +14,7 @@ test01
 	
 	self assert: 0 equals: portfolio balance.! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 17:47:05'!
 test02
 
 	|portfolio account|
@@ -28,7 +28,7 @@ test02
 	
 	self assert: 100 equals: portfolio balance.! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 17:47:05'!
 test03
 
 	|portfolio account1 account2|
@@ -46,7 +46,7 @@ test03
 	
 	self assert: 200 equals: portfolio balance.! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 17:47:05'!
 test04
 
 	|portfolio account deposit|
@@ -62,7 +62,7 @@ test04
 	self assert: (portfolio hasRegistered: deposit).
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 17:47:05'!
 test05
 
 	|portfolio account deposit|
@@ -78,7 +78,7 @@ test05
 	self deny: (portfolio hasRegistered: deposit).
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 17:47:05'!
 test06
 
 	|portfolio account1 account2 deposit|
@@ -98,7 +98,7 @@ test06
 	self assert: (portfolio hasRegistered: deposit).
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 17:47:05'!
 test07
 
 	|portfolio account1 deposit1 |
@@ -116,7 +116,7 @@ test07
 	self assert: (portfolio transactions includes: deposit1).
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 17:47:05'!
 test08
 
 	|portfolio account1 account2 deposit withdraw |
@@ -139,7 +139,7 @@ test08
 	self assert: (portfolio transactions includes: withdraw).
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:48:32'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 17:48:32'!
 test09
 
 	|portfolioParent portfolioChild|
@@ -155,7 +155,7 @@ test09
 	self assert: 0 equals: portfolioParent balance.
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:48:42'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 17:48:42'!
 test10
 
 	|portfolioParent portfolioChild account deposit|
@@ -176,7 +176,7 @@ test10
 	self assert: 100 equals: portfolioParent balance.
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:48:57'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 17:48:57'!
 test11
 
 	|portfolioParent portfolioChild1 portfolioChild2 account1 account2 deposit1 deposit2|
@@ -206,7 +206,7 @@ test11
 	self assert: 200 equals: portfolioParent balance.
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:49:07'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 17:49:07'!
 test12
 
 	|portfolioParent portfolioChild  account deposit|
@@ -227,7 +227,7 @@ test12
 	self assert: 100 equals: portfolioParent balance.
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:49:16'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 17:49:16'!
 test13
 
 	|portfolioParent portfolioChild account deposit|
@@ -247,7 +247,7 @@ test13
 	self assert: (portfolioParent hasRegistered: deposit).
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:49:23'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 17:49:23'!
 test14
 
 	|portfolioParent portfolioChild account deposit |
@@ -267,7 +267,7 @@ test14
 	self assert: 1 equals: portfolioParent transactions size.
 	self assert: (portfolioParent transactions includes: deposit).! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 18:16:08'!
 test15
 
 	|portfolio account|
@@ -280,7 +280,70 @@ test15
 	
 	self should:[portfolio addFinancialEntity: account]
 	raise: Error 
-	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedAccount) ].! !
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedFinancialEntity) ].! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 18:19:30'!
+test16
+
+	|portfolioParent portfolioChild account|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	portfolioChild addFinancialEntity: account.
+	
+	portfolioParent addFinancialEntity: portfolioChild.
+	
+	self should:[portfolioParent addFinancialEntity: account]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedFinancialEntity) ].! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 18:34:07'!
+test17
+
+	|portfolioParent portfolioChild portfolioChild2 account|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	portfolioChild2 := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	portfolioChild addFinancialEntity: account.
+	
+	portfolioChild2 addFinancialEntity: account.
+	
+	portfolioParent addFinancialEntity: portfolioChild.
+	
+	
+	self should:[portfolioParent addFinancialEntity: portfolioChild2]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedFinancialEntity) ].! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 5/22/2021 19:01:49'!
+test18
+
+	|portfolioParent portfolioChild account|
+	
+	portfolioParent := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	portfolioParent addFinancialEntity: account.
+	
+	portfolioChild := Portfolio new.
+	
+	portfolioParent addFinancialEntity: portfolioChild.
+	
+	
+	self should:[portfolioChild addFinancialEntity: account]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedFinancialEntity) ].! !
 
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Ejercicio'!
@@ -485,6 +548,11 @@ Object subclass: #FinancialEntity
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
+!FinancialEntity methodsFor: 'balance' stamp: 'ET 5/22/2021 18:28:14'!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+
+	self subclassResponsibility.! !
+
 !FinancialEntity methodsFor: 'balance' stamp: 'ET 5/22/2021 17:35:47'!
 balance
 
@@ -502,10 +570,21 @@ transactions
 
 	self subclassResponsibility.! !
 
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'FinancialEntity class' category: 'Portfolio-Ejercicio'!
+FinancialEntity class
+	instanceVariableNames: ''!
+
+!FinancialEntity class methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:29:10'!
+canNotAddAlreadyAddedFinancialEntity
+	
+	^'This financial entity has been added in this structure before!!!!'! !
+
 
 !classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
 FinancialEntity subclass: #Portfolio
-	instanceVariableNames: 'financialEntities'
+	instanceVariableNames: 'financialEntities portfolioParents'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
@@ -522,39 +601,60 @@ hasRegistered: aTransaction
 	^(financialEntities anySatisfy: [:aFinancialEntity | aFinancialEntity hasRegistered: aTransaction])! !
 
 
-!Portfolio methodsFor: 'transactions' stamp: 'ET 5/22/2021 17:50:31'!
+!Portfolio methodsFor: 'transactions' stamp: 'ET 5/22/2021 19:37:08'!
+putAllTransactionsInto: aTransactionsCollection
+	
+	financialEntities do: [:aFinancialEntity | aFinancialEntity putAllTransactionsInto: aTransactionsCollection].! !
+
+!Portfolio methodsFor: 'transactions' stamp: 'ET 5/22/2021 19:39:30'!
 transactions
 
 	|transactions|
 	transactions := OrderedCollection new.
-	financialEntities do: [:aFinancialEntity | transactions addAllFirst: aFinancialEntity transactions].
+	self putAllTransactionsInto: transactions.
 	
 	^transactions.! !
 
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:28'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 19:04:22'!
 addFinancialEntity: aFinancialEntity
+
+	self assertFinancialEntityHasNotBeenAdded: aFinancialEntity.
 	
-	(financialEntities includes: aFinancialEntity) ifTrue: [self error: self class canNotAddAlreadyAddedAccount].
-	
+	aFinancialEntity addPortfolioParent: self.
 	financialEntities add: aFinancialEntity.! !
 
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 19:04:51'!
+addPortfolioParent: aPortfolio
+	
+	portfolioParents add: aPortfolio.! !
 
-!Portfolio methodsFor: 'initialization' stamp: 'ET 5/22/2021 17:50:15'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 19:48:33'!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+
+	portfolioParents ifEmpty: [aFinancialEntity ensureitDoesntHaveAnythingOn: self]
+	ifNotEmpty: [portfolioParents do: [:aPortfolio | aPortfolio assertFinancialEntityHasNotBeenAdded: aFinancialEntity]].! !
+
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:47:10'!
+ensureitDoesntHaveAnythingOn: aPortfolio
+	
+	(aPortfolio includes: self) ifTrue: [self error: self class canNotAddAlreadyAddedFinancialEntity]
+	ifFalse: [
+		financialEntities do: [:aFinancialEntity | aFinancialEntity ensureitDoesntHaveAnythingOn: aPortfolio]
+		
+		]! !
+
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:48:56'!
+includes: aFinancialEntity
+
+	^ (aFinancialEntity  = self) or: [financialEntities anySatisfy: [:financialEntity | financialEntity includes: aFinancialEntity]].! !
+
+
+!Portfolio methodsFor: 'initialization' stamp: 'ET 5/22/2021 19:03:29'!
 initialize
 
-	financialEntities := OrderedCollection new.! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'Portfolio class' category: 'Portfolio-Ejercicio'!
-Portfolio class
-	instanceVariableNames: ''!
-
-!Portfolio class methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 21:07:07'!
-canNotAddAlreadyAddedAccount
-	
-	^'This account has been added in the portfolio before!!!!'! !
+	financialEntities := OrderedCollection new.
+	portfolioParents := OrderedCollection new.! !
 
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!
@@ -570,6 +670,11 @@ initialize
 	transactions := OrderedCollection new.! !
 
 
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'ET 5/22/2021 19:36:55'!
+putAllTransactionsInto: aTransactionsCollection
+	
+	aTransactionsCollection addAllFirst: (self transactions).! !
+
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HernanWilkinson 7/13/2011 18:37'!
 register: aTransaction
 
@@ -582,14 +687,35 @@ transactions
 	^ transactions copy! !
 
 
+!ReceptiveAccount methodsFor: 'balance' stamp: 'ET 5/22/2021 19:06:59'!
+addPortfolioParent: aPortfolio
+
+	"esta nada mas para tenerlo como mensaje polimorfico"! !
+
+!ReceptiveAccount methodsFor: 'balance' stamp: 'ET 5/22/2021 18:29:23'!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+
+	self = aFinancialEntity ifTrue: [self error: FinancialEntity canNotAddAlreadyAddedFinancialEntity].! !
+
 !ReceptiveAccount methodsFor: 'balance' stamp: 'ET 5/22/2021 17:33:11'!
 balance
 
 	^transactions inject: 0 into: [:balance :aTransaction |  aTransaction modifiesBalance: balance ].! !
+
+!ReceptiveAccount methodsFor: 'balance' stamp: 'ET 5/22/2021 18:52:18'!
+ensureitDoesntHaveAnythingOn: aPortfolio
+	
+	(aPortfolio includes: self) ifTrue: [self error: self class canNotAddAlreadyAddedFinancialEntity]! !
 
 
 !ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/17/2019 03:28:43'!
 hasRegistered: aTransaction
 
 	^ transactions includes: aTransaction 
+! !
+
+!ReceptiveAccount methodsFor: 'testing' stamp: 'ET 5/22/2021 18:57:05'!
+includes: aFinancialEntity
+
+	^self = aFinancialEntity.
 ! !

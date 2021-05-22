@@ -4021,3 +4021,1513 @@ PASSED!
 
 !testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 5/22/2021 17:51:10'!
 PASSED!
+
+----End fileIn of C:\Users\ezequ\Downloads\TDDStateIcon-setBalloonText (1).st----!
+
+----SNAPSHOT----(22 May 2021 17:59:03) CuisUniversity-4532.image priorSource: 20186979!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 5/22/2021 18:06:22'!
+PASSED!
+!Portfolio class methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:16:08'!
+canNotAddAlreadyAddedFinancialEntity
+	
+	^'This account has been added in the portfolio before!!!!'! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:16:08' prior: 50967986!
+test15
+
+	|portfolio account|
+	
+	portfolio:= Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	portfolio addFinancialEntity: account.
+	
+	self should:[portfolio addFinancialEntity: account]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedFinancialEntity) ].! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:16:08' prior: 50968008!
+addFinancialEntity: aFinancialEntity
+	
+	(financialEntities includes: aFinancialEntity) ifTrue: [self error: self class canNotAddAlreadyAddedFinancialEntity].
+	
+	financialEntities add: aFinancialEntity.! !
+
+!methodRemoval: Portfolio class #canNotAddAlreadyAddedAccount stamp: 'ET 5/22/2021 18:16:08'!
+canNotAddAlreadyAddedAccount
+	
+	^'This account has been added in the portfolio before!!!!'!
+!Portfolio class methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:16:38' prior: 50968638!
+canNotAddAlreadyAddedFinancialEntity
+	
+	^'This financial entity has been added in this structure before!!!!'! !
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 5/22/2021 18:16:43'!
+PASSED!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:19:30'!
+test16
+
+	|portfolioParent portfolioChild account|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	portfolioChild addFinancialEntity: account.
+	
+	portfolioParent addFinancialEntity: portfolioChild.
+	
+	self should:[portfolioParent addFinancialEntity: account]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedFinancialEntity) ].! !
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 18:19:52'!
+FAILURE!
+
+financialEntities!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:24:10' prior: 50968659!
+addFinancialEntity: aFinancialEntity
+
+	self assertFinancialEntityHasNotBeenAdded: aFinancialEntity.
+	
+	financialEntities add: aFinancialEntity.! !
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 18:24:22'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 18:24:47'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:27:38'!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+
+	aFinancialEntity  = self ifTrue: [self error: self class canNotAddAlreadyAddedFinancialEntity]
+	ifFalse: [financialEntities do: [:financialEntity | financialEntity assertFinancialEntityHasNotBeenAdded: aFinancialEntity]].! !
+!FinancialEntity methodsFor: 'balance' stamp: 'ET 5/22/2021 18:28:14'!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+
+	self subclassResponsibility.! !
+!ReceptiveAccount methodsFor: 'balance' stamp: 'ET 5/22/2021 18:28:51' overrides: 50968787!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+
+	self = aFinancialEntity ifTrue: [self error: FinancialEntity ].! !
+
+!methodRemoval: Portfolio class #canNotAddAlreadyAddedFinancialEntity stamp: 'ET 5/22/2021 18:29:05'!
+canNotAddAlreadyAddedFinancialEntity
+	
+	^'This financial entity has been added in this structure before!!!!'!
+!FinancialEntity class methodsFor: 'no messages' stamp: 'ET 5/22/2021 18:29:10'!
+canNotAddAlreadyAddedFinancialEntity
+	
+	^'This financial entity has been added in this structure before!!!!'! !
+!ReceptiveAccount methodsFor: 'balance' stamp: 'ET 5/22/2021 18:29:23' prior: 50968793 overrides: 50968787!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+
+	self = aFinancialEntity ifTrue: [self error: FinancialEntity canNotAddAlreadyAddedFinancialEntity].! !
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 5/22/2021 18:29:41'!
+PASSED!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 18:29:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 18:29:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 18:29:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 18:29:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 18:29:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 18:29:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 18:29:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 18:29:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 18:29:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 18:29:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 18:29:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 18:29:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 18:29:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 18:29:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 18:29:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 18:29:49'!
+PASSED!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:34:07'!
+test17
+
+	|portfolioParent portfolioChild portfolioChild2 account|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	portfolioChild2 := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	portfolioChild addFinancialEntity: account.
+	
+	portfolioChild2 addFinancialEntity: account.
+	
+	portfolioParent addFinancialEntity: portfolioChild.
+	
+	
+	self should:[portfolioParent addFinancialEntity: portfolioChild2]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedFinancialEntity) ].! !
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 18:34:10'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:40:17' prior: 50968775 overrides: 50968787!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+
+	aFinancialEntity  = self ifTrue: [self error: self class canNotAddAlreadyAddedFinancialEntity]
+	ifFalse: [financialEntities do: [:financialEntity | financialEntity assertFinancialEntityHasNotBeenAdded: aFinancialEntity].
+		
+		aFinancialEntity ensureitDoesntHaveAnythingOn: self.
+		].! !
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 18:40:59'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:43:30'!
+ensureitDoesntHaveAnythingOn: aPortfolio
+	
+	self = aPortfolio ifTrue: []
+	ifFalse: [
+		financialEntities do: [:aFinancialEntity | aFinancialEntity ensureitDoesntHaveAnythingOn: aPortfolio]
+		
+		]! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:43:52' prior: 50968962!
+ensureitDoesntHaveAnythingOn: aPortfolio
+	
+	aPortfolio includes: self ifTrue: []
+	ifFalse: [
+		financialEntities do: [:aFinancialEntity | aFinancialEntity ensureitDoesntHaveAnythingOn: aPortfolio]
+		
+		]! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:44:30' prior: 50968946 overrides: 50968787!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+
+	aFinancialEntity ensureitDoesntHaveAnythingOn: self.
+
+	aFinancialEntity  = self ifTrue: [self error: self class canNotAddAlreadyAddedFinancialEntity]
+	ifFalse: [financialEntities do: [:financialEntity | financialEntity assertFinancialEntityHasNotBeenAdded: aFinancialEntity].
+		
+		
+		].! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:44:38'!
+includes: aFinancialEntity
+
+	^ aFinancialEntity  = self ifTrue: [self error: self class canNotAddAlreadyAddedFinancialEntity]
+	ifFalse: [financialEntities do: [:financialEntity | financialEntity assertFinancialEntityHasNotBeenAdded: aFinancialEntity].
+		
+		
+		]! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:44:38' prior: 50968982 overrides: 50968787!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+
+	aFinancialEntity ensureitDoesntHaveAnythingOn: self.
+
+	self includes: aFinancialEntity.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:44:57' prior: 50968972!
+ensureitDoesntHaveAnythingOn: aPortfolio
+	
+	(aPortfolio includes: self) ifTrue: []
+	ifFalse: [
+		financialEntities do: [:aFinancialEntity | aFinancialEntity ensureitDoesntHaveAnythingOn: aPortfolio]
+		
+		]! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:45:04' prior: 50969008 overrides: 50968787!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+
+	aFinancialEntity ensureitDoesntHaveAnythingOn: self.
+
+	"self includes: aFinancialEntity."! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:47:10' prior: 50969016!
+ensureitDoesntHaveAnythingOn: aPortfolio
+	
+	(aPortfolio includes: self) ifTrue: [self error: self class canNotAddAlreadyAddedFinancialEntity]
+	ifFalse: [
+		financialEntities do: [:aFinancialEntity | aFinancialEntity ensureitDoesntHaveAnythingOn: aPortfolio]
+		
+		]! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 18:48:56' prior: 50968996!
+includes: aFinancialEntity
+
+	^ (aFinancialEntity  = self) or: [financialEntities anySatisfy: [:financialEntity | financialEntity includes: aFinancialEntity]].! !
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 18:50:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 18:50:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 18:50:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 18:50:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 18:50:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 18:50:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 18:50:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 18:50:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 18:50:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 18:50:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 18:50:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 18:50:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 18:50:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 18:50:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 18:50:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 18:50:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 18:50:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 18:50:26'!
+ERROR!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'ET 5/22/2021 18:52:18'!
+ensureitDoesntHaveAnythingOn: aPortfolio
+	
+	(aPortfolio includes: self) ifTrue: [self error: self class canNotAddAlreadyAddedFinancialEntity]! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 5/22/2021 18:52:34'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 5/22/2021 18:52:34'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 5/22/2021 18:52:34'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 5/22/2021 18:52:34'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 5/22/2021 18:52:34'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 5/22/2021 18:52:34'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 5/22/2021 18:52:34'!
+PASSED!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 18:52:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 18:52:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 18:52:36'!
+ERROR!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 18:52:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 18:52:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 18:52:36'!
+ERROR!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 18:52:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 18:52:36'!
+ERROR!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 18:52:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 18:52:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 18:52:36'!
+ERROR!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 18:52:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 18:52:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 18:52:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 18:52:36'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 18:52:36'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 18:52:36'!
+FAILURE!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 18:52:39'!
+ERROR!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 18:55:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 18:55:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 18:55:19'!
+ERROR!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 18:55:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 18:55:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 18:55:19'!
+ERROR!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 18:55:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 18:55:19'!
+ERROR!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 18:55:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 18:55:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 18:55:19'!
+ERROR!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 18:55:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 18:55:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 18:55:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 18:55:19'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 18:55:19'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 18:55:19'!
+FAILURE!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 18:55:21'!
+ERROR!
+!ReceptiveAccount methodsFor: 'testing' stamp: 'ET 5/22/2021 18:57:05'!
+includes: aFinancialEntity
+
+	^self = aFinancialEntity.
+! !
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 18:57:06'!
+PASSED!
+
+----SNAPSHOT----(22 May 2021 18:57:37) CuisUniversity-4532.image priorSource: 20381529!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 19:01:49'!
+test18
+
+	|portfolioParent portfolioChild account|
+	
+	portfolioParent := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	portfolioParent addFinancialEntity: account.
+	
+	portfolioChild := Portfolio new.
+	
+	portfolioParent addFinancialEntity: portfolioChild.
+	
+	
+	self should:[portfolioChild addFinancialEntity: account]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedFinancialEntity) ].! !
+
+!testRun: #PortfolioTest #test18 stamp: 'ET 5/22/2021 19:01:54'!
+FAILURE!
+
+FinancialEntity subclass: #Portfolio
+	instanceVariableNames: 'financialEntities portfolioParents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'ET 5/22/2021 19:03:17'!
+FinancialEntity subclass: #Portfolio
+	instanceVariableNames: 'financialEntities portfolioParents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'initialization' stamp: 'ET 5/22/2021 19:03:29' prior: 50968474 overrides: 16896425!
+initialize
+
+	financialEntities := OrderedCollection new.
+	portfolioParents := OrderedCollection new.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 19:04:22' prior: 50968763!
+addFinancialEntity: aFinancialEntity
+
+	self assertFinancialEntityHasNotBeenAdded: aFinancialEntity.
+	
+	aFinancialEntity addPortfolioParent: self.
+	financialEntities add: aFinancialEntity.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 19:04:51'!
+addPortfolioParent: aPortfolio
+	
+	portfolioParents add: aPortfolio.! !
+!ReceptiveAccount methodsFor: 'balance' stamp: 'ET 5/22/2021 19:06:59'!
+addPortfolioParent: aPortfolio
+
+	"esta nada mas para tenerlo como mensaje polimorfico"! !
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 19:07:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test18 stamp: 'ET 5/22/2021 19:07:14'!
+FAILURE!
+
+!testRun: #PortfolioTest #test18 stamp: 'ET 5/22/2021 19:07:14'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 19:10:59' prior: 50969027 overrides: 50968787!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+
+	aFinancialEntity ensureitDoesntHaveAnythingOn: self.
+	
+	portfolioParents do: [:aPortfolio | aPortfolio ensureItDoesntinclude: aFinancialEntity excluding: self].
+
+	"self includes: aFinancialEntity."! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 19:11:24'!
+ensureItDoesntinclude: aFinancialEntity excluding: aPortfolioChild
+! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 19:12:50' prior: 50969378!
+ensureItDoesntinclude: aFinancialEntity excluding: aPortfolioChild
+
+	^ (aFinancialEntity  = self) or: [
+		(financialEntities reject: [:financialEntity | financialEntity = aPortfolioChild]) anySatisfy: [:financialEntity | financialEntity includes: aFinancialEntity]].! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 19:22:48' prior: 50969367 overrides: 50968787!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+
+	portfolioParents ifEmpty: [aFinancialEntity ensureitDoesntHaveAnythingOn: self]
+	ifNotEmpty: [portfolioParents do: [:aPortfolio | aPortfolio assertFinancialEntityHasNotBeenAdded: aFinancialEntity]].
+
+	"
+	aFinancialEntity ensureitDoesntHaveAnythingOn: self.
+	
+	portfolioParents do: [:aPortfolio | aPortfolio ensureItDoesntinclude: aFinancialEntity excluding: self].
+"! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 19:23:24' prior: 50969396 overrides: 50968787!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+
+	portfolioParents ifEmpty: [aFinancialEntity ensureitDoesntHaveAnythingOn: self]
+	ifNotEmpty: [portfolioParents do: [:aPortfolio | aPortfolio assertFinancialEntityHasNotBeenAdded: aFinancialEntity]].
+
+	"
+	aFinancialEntity ensureitDoesntHaveAnythingOn: self.
+	
+	portfolioParents do: [:aPortfolio | aPortfolio ensureItDoesntinclude: aFinancialEntity excluding: self].
+"! !
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test18 stamp: 'ET 5/22/2021 19:23:40'!
+PASSED!
+
+!methodRemoval: Portfolio #ensureItDoesntinclude:excluding: stamp: 'ET 5/22/2021 19:23:51'!
+ensureItDoesntinclude: aFinancialEntity excluding: aPortfolioChild
+
+	^ (aFinancialEntity  = self) or: [
+		(financialEntities reject: [:financialEntity | financialEntity = aPortfolioChild]) anySatisfy: [:financialEntity | financialEntity includes: aFinancialEntity]].!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 19:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 19:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 19:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 19:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 19:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 19:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 19:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 19:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 19:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 19:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 19:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 19:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 19:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 19:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 19:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 19:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 19:23:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test18 stamp: 'ET 5/22/2021 19:23:54'!
+PASSED!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 19:25:20'!
+test19
+
+	|portfolioParent portfolioChild1 portfolioChild2 account|
+	
+	portfolioParent := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	portfolioChild1 := Portfolio new.
+	
+	portfolioChild2 := Portfolio new.
+	
+	portfolioParent addFinancialEntity: portfolioChild1.
+	
+	portfolioParent addFinancialEntity: portfolioChild2.
+	
+	portfolioChild1 addFinancialEntity: account.
+	
+	self should:[portfolioChild2 addFinancialEntity: account]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedFinancialEntity) ].! !
+
+!testRun: #PortfolioTest #test19 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test18 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test19 stamp: 'ET 5/22/2021 19:25:35'!
+PASSED!
+
+!methodRemoval: PortfolioTest #test19 stamp: 'ET 5/22/2021 19:26:41'!
+test19
+
+	|portfolioParent portfolioChild1 portfolioChild2 account|
+	
+	portfolioParent := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	portfolioChild1 := Portfolio new.
+	
+	portfolioChild2 := Portfolio new.
+	
+	portfolioParent addFinancialEntity: portfolioChild1.
+	
+	portfolioParent addFinancialEntity: portfolioChild2.
+	
+	portfolioChild1 addFinancialEntity: account.
+	
+	self should:[portfolioChild2 addFinancialEntity: account]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedFinancialEntity) ].!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test18 stamp: 'ET 5/22/2021 19:26:43'!
+PASSED!
+!Portfolio methodsFor: 'transactions' stamp: 'ET 5/22/2021 19:31:55' prior: 50968480 overrides: 50967376!
+transactions
+
+	|transactions|
+	transactions := OrderedCollection new.
+	financialEntities do: [:aFinancialEntity | transactions addAllFirst: (aFinancialEntity putAllTransactionsInto: transactions)].
+	
+	^transactions.! !
+!Portfolio methodsFor: 'transactions' stamp: 'ET 5/22/2021 19:32:46'!
+putAllTransactionsInto: aTransactionsCollection
+	
+	financialEntities do: [:aFinancialEntity | aFinancialEntity putAllTransactionsInto: aTransactionsCollection].! !
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'ET 5/22/2021 19:33:16'!
+putAllTransactionsInto: aTransactionsCollection
+	
+	aTransactionsCollection addAllFirst: (self transactions).! !
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 19:33:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 19:33:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 19:33:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 19:33:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 19:33:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 19:33:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 19:33:26'!
+ERROR!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 19:33:26'!
+ERROR!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 19:33:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 19:33:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 19:33:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 19:33:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 19:33:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 19:33:26'!
+ERROR!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 19:33:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 19:33:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 19:33:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test18 stamp: 'ET 5/22/2021 19:33:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 19:33:36'!
+ERROR!
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'ET 5/22/2021 19:34:34' prior: 50969672!
+putAllTransactionsInto: aTransactionsCollection
+	
+	^aTransactionsCollection addAllFirst: (self transactions).! !
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 19:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 19:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 19:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 19:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 19:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 19:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 19:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 19:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 19:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 19:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 19:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 19:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 19:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 19:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test18 stamp: 'ET 5/22/2021 19:34:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 19:34:39'!
+FAILURE!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 19:34:39'!
+FAILURE!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 19:34:39'!
+ERROR!
+!Portfolio methodsFor: 'transactions' stamp: 'ET 5/22/2021 19:34:56' prior: 50969664!
+putAllTransactionsInto: aTransactionsCollection
+	
+	^financialEntities do: [:aFinancialEntity | aFinancialEntity putAllTransactionsInto: aTransactionsCollection].! !
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 19:34:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 19:34:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 19:34:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 19:34:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 19:34:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 19:34:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 19:34:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 19:34:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 19:34:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 19:34:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 19:34:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 19:34:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 19:34:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 19:34:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test18 stamp: 'ET 5/22/2021 19:34:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 19:34:58'!
+FAILURE!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 19:34:58'!
+FAILURE!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 19:34:58'!
+FAILURE!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 19:35:17'!
+FAILURE!
+
+transactions!
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'ET 5/22/2021 19:36:55' prior: 50969723!
+putAllTransactionsInto: aTransactionsCollection
+	
+	aTransactionsCollection addAllFirst: (self transactions).! !
+!Portfolio methodsFor: 'transactions' stamp: 'ET 5/22/2021 19:37:08' prior: 50969771!
+putAllTransactionsInto: aTransactionsCollection
+	
+	financialEntities do: [:aFinancialEntity | aFinancialEntity putAllTransactionsInto: aTransactionsCollection].! !
+!Portfolio methodsFor: 'transactions' stamp: 'ET 5/22/2021 19:37:53' prior: 50969654 overrides: 50967376!
+transactions
+
+	|transactions|
+	transactions := OrderedCollection new.
+	financialEntities do: [:aFinancialEntity | aFinancialEntity putAllTransactionsInto: transactions].
+	
+	^transactions.! !
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 19:37:57'!
+ERROR!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test18 stamp: 'ET 5/22/2021 19:38:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 19:38:15'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test18 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 19:38:16'!
+PASSED!
+!Portfolio methodsFor: 'transactions' stamp: 'ET 5/22/2021 19:39:30' prior: 50969840 overrides: 50967376!
+transactions
+
+	|transactions|
+	transactions := OrderedCollection new.
+	self putAllTransactionsInto: transactions.
+	
+	^transactions.! !
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 19:39:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test17 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test18 stamp: 'ET 5/22/2021 19:39:33'!
+PASSED!
+
+----SNAPSHOT----(22 May 2021 19:40:11) CuisUniversity-4532.image priorSource: 20403396!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 19:48:33' prior: 50969413 overrides: 50968787!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+
+	portfolioParents ifEmpty: [aFinancialEntity ensureitDoesntHaveAnythingOn: self]
+	ifNotEmpty: [portfolioParents do: [:aPortfolio | aPortfolio assertFinancialEntityHasNotBeenAdded: aFinancialEntity]].! !
+
+----SNAPSHOT----(22 May 2021 19:48:46) CuisUniversity-4532.image priorSource: 20426650!
