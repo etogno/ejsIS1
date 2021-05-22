@@ -381,6 +381,11 @@ Object subclass: #AccountTransaction
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
+!AccountTransaction methodsFor: 'value' stamp: 'ET 5/22/2021 17:32:35'!
+modifiesBalance: balance 
+
+	self subclassResponsibility ! !
+
 !AccountTransaction methodsFor: 'value' stamp: 'HernanWilkinson 9/12/2011 12:25'!
 value 
 
@@ -416,15 +421,15 @@ initializeFor: aValue
 	value := aValue ! !
 
 
+!Deposit methodsFor: 'value' stamp: 'ET 5/22/2021 17:32:09'!
+modifiesBalance: balance
+
+	^balance + value.! !
+
 !Deposit methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:38'!
 value
 
 	^ value! !
-
-!Deposit methodsFor: 'value' stamp: 'ET 5/17/2021 21:45:54'!
-xxx: balance
-
-	^balance + value.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -451,15 +456,15 @@ initializeFor: aValue
 	value := aValue ! !
 
 
+!Withdraw methodsFor: 'value' stamp: 'ET 5/22/2021 17:32:18'!
+modifiesBalance: balance
+
+	^balance - value.! !
+
 !Withdraw methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:33'!
 value
 
 	^ value! !
-
-!Withdraw methodsFor: 'value' stamp: 'ET 5/17/2021 21:46:04'!
-xxx: balance
-
-	^balance - value.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -473,19 +478,76 @@ for: aValue
 	^ self new initializeFor: aValue ! !
 
 
-!classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
-Object subclass: #Portfolio
-	instanceVariableNames: 'accounts portfolios'
+!classDefinition: #FinancialEntity category: 'Portfolio-Ejercicio'!
+Object subclass: #FinancialEntity
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 21:04:52'!
+!FinancialEntity methodsFor: 'balance' stamp: 'ET 5/22/2021 17:35:47'!
+balance
+
+	self subclassResponsibility.! !
+
+
+!FinancialEntity methodsFor: 'testing' stamp: 'ET 5/22/2021 17:36:18'!
+hasRegistered: aTransaction
+
+	self subclassResponsibility.! !
+
+
+!FinancialEntity methodsFor: 'transactions' stamp: 'ET 5/22/2021 17:36:31'!
+transactions
+
+	self subclassResponsibility.! !
+
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
+FinancialEntity subclass: #Portfolio
+	instanceVariableNames: 'financialEntities portfolios'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!Portfolio methodsFor: 'balance' stamp: 'ET 5/22/2021 17:40:12'!
+balance
+	
+	^(financialEntities sum: [:anAccount | anAccount balance] ifEmpty: [0])
+	+(portfolios sum: [:aPortfolio | aPortfolio balance] ifEmpty: [0]).! !
+
+
+!Portfolio methodsFor: 'testing' stamp: 'ET 5/22/2021 17:40:12'!
+hasRegistered: aTransaction 
+	
+	^(financialEntities anySatisfy: [:anAccount | anAccount hasRegistered: aTransaction])
+	or: [portfolios anySatisfy: [:anAccount | anAccount hasRegistered: aTransaction]].! !
+
+
+!Portfolio methodsFor: 'transactions' stamp: 'ET 5/22/2021 17:40:11'!
+transactions
+
+	|transactions|
+	transactions := OrderedCollection new.
+	financialEntities do: [:anAccount | transactions addAllFirst: anAccount transactions].
+	portfolios do: [:aPortfolio | transactions addAllFirst: aPortfolio transactions].
+	
+	^transactions.! !
+
+
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:40:11'!
 addAccount: aReceptiveAccount
 	
-	(accounts includes: aReceptiveAccount) ifTrue: [self error: self class canNotAddAlreadyAddedAccount].
+	(financialEntities includes: aReceptiveAccount) ifTrue: [self error: self class canNotAddAlreadyAddedAccount].
 	
-	accounts add: aReceptiveAccount.! !
+	financialEntities add: aReceptiveAccount.! !
+
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:42:59'!
+addFinancialEntity: aFinancialEntity
+	
+	(financialEntities includes: aFinancialEntity) ifTrue: [self error: self class canNotAddAlreadyAddedAccount].
+	
+	financialEntities add: aFinancialEntity.! !
 
 !Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 21:59:59'!
 addPortfolio: aPortfolio 
@@ -493,34 +555,13 @@ addPortfolio: aPortfolio
 	portfolios add: aPortfolio.
 	! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 22:01:53'!
-balance
-	
-	^(accounts sum: [:anAccount | anAccount balance] ifEmpty: [0])
-	+(portfolios sum: [:aPortfolio | aPortfolio balance] ifEmpty: [0]).! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:39:27'!
-hasRegistered: aDeposit 
-	
-	^(accounts anySatisfy: [:anAccount | anAccount hasRegistered: aDeposit])
-	or: [portfolios anySatisfy: [:anAccount | anAccount hasRegistered: aDeposit]].! !
-
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 22:00:38'!
+!Portfolio methodsFor: 'initialization' stamp: 'ET 5/22/2021 17:40:12'!
 initialize
 
-	accounts := OrderedCollection new.
+	financialEntities := OrderedCollection new.
 	
 	portfolios := OrderedCollection new.! !
-
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:44:27'!
-transactions
-
-	|transactions|
-	transactions := OrderedCollection new.
-	accounts do: [:anAccount | transactions addAllFirst: anAccount transactions].
-	portfolios do: [:aPortfolio | transactions addAllFirst: aPortfolio transactions].
-	
-	^transactions.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -535,7 +576,7 @@ canNotAddAlreadyAddedAccount
 
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!
-Object subclass: #ReceptiveAccount
+FinancialEntity subclass: #ReceptiveAccount
 	instanceVariableNames: 'transactions'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -559,10 +600,10 @@ transactions
 	^ transactions copy! !
 
 
-!ReceptiveAccount methodsFor: 'balance' stamp: 'ET 5/17/2021 21:46:23'!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'ET 5/22/2021 17:33:11'!
 balance
 
-	^transactions inject: 0 into: [:balance :aTransaction |  aTransaction xxx: balance ].! !
+	^transactions inject: 0 into: [:balance :aTransaction |  aTransaction modifiesBalance: balance ].! !
 
 
 !ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/17/2019 03:28:43'!
