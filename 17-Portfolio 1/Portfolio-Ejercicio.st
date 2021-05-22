@@ -14,7 +14,7 @@ test01
 	
 	self assert: 0 equals: portfolio balance.! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 20:31:47'!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
 test02
 
 	|portfolio account|
@@ -24,11 +24,11 @@ test02
 	
 	portfolio := Portfolio new.
 	
-	portfolio addAccount: account.
+	portfolio addFinancialEntity: account.
 	
 	self assert: 100 equals: portfolio balance.! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 20:36:29'!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
 test03
 
 	|portfolio account1 account2|
@@ -41,12 +41,12 @@ test03
 	
 	portfolio := Portfolio new.
 	
-	portfolio addAccount: account1.
-	portfolio addAccount: account2.
+	portfolio addFinancialEntity: account1.
+	portfolio addFinancialEntity: account2.
 	
 	self assert: 200 equals: portfolio balance.! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 20:45:21'!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
 test04
 
 	|portfolio account deposit|
@@ -56,13 +56,13 @@ test04
 	account := ReceptiveAccount new.
 	deposit := Deposit register: 100 on: account.
 	
-	portfolio addAccount: account.
+	portfolio addFinancialEntity: account.
 	
 	
 	self assert: (portfolio hasRegistered: deposit).
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 20:46:54'!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
 test05
 
 	|portfolio account deposit|
@@ -72,13 +72,13 @@ test05
 	account := ReceptiveAccount new.
 	deposit := Deposit for: 100.
 	
-	portfolio addAccount: account.
+	portfolio addFinancialEntity: account.
 	
 	
 	self deny: (portfolio hasRegistered: deposit).
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 20:49:32'!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
 test06
 
 	|portfolio account1 account2 deposit|
@@ -90,15 +90,15 @@ test06
 	
 	deposit := Deposit register: 100 on: account2.
 	
-	portfolio addAccount: account1.
+	portfolio addFinancialEntity: account1.
 	
-	portfolio addAccount: account2.
+	portfolio addFinancialEntity: account2.
 	
 	
 	self assert: (portfolio hasRegistered: deposit).
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 20:54:08'!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
 test07
 
 	|portfolio account1 deposit1 |
@@ -110,13 +110,13 @@ test07
 	
 	deposit1 := Deposit register: 50 on: account1.
 	
-	portfolio addAccount: account1.
+	portfolio addFinancialEntity: account1.
 		
 	self assert: 1 equals: portfolio transactions size.
 	self assert: (portfolio transactions includes: deposit1).
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 20:58:23'!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
 test08
 
 	|portfolio account1 account2 deposit withdraw |
@@ -131,15 +131,15 @@ test08
 	
 	withdraw := Withdraw register: 20 on: account2.
 	
-	portfolio addAccount: account1.
-	portfolio addAccount: account2.
+	portfolio addFinancialEntity: account1.
+	portfolio addFinancialEntity: account2.
 		
 	self assert: 2 equals: portfolio transactions size.
 	self assert: (portfolio transactions includes: deposit).
 	self assert: (portfolio transactions includes: withdraw).
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 21:50:14'!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:48:32'!
 test09
 
 	|portfolioParent portfolioChild|
@@ -148,14 +148,14 @@ test09
 	
 	portfolioChild := Portfolio new.
 	
-	portfolioParent addPortfolio: portfolioChild.
+	portfolioParent addFinancialEntity: portfolioChild.
 	
 	
 		
 	self assert: 0 equals: portfolioParent balance.
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 21:52:04'!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:48:42'!
 test10
 
 	|portfolioParent portfolioChild account deposit|
@@ -167,16 +167,16 @@ test10
 	account := ReceptiveAccount new.
 	deposit := Deposit register: 100 on: account.
 	
-	portfolioChild addAccount: account.
+	portfolioChild addFinancialEntity: account.
 	
-	portfolioParent addPortfolio: portfolioChild.
+	portfolioParent addFinancialEntity: portfolioChild.
 	
 	
 		
 	self assert: 100 equals: portfolioParent balance.
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 21:59:17'!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:48:57'!
 test11
 
 	|portfolioParent portfolioChild1 portfolioChild2 account1 account2 deposit1 deposit2|
@@ -190,23 +190,23 @@ test11
 	account1 := ReceptiveAccount new.
 	deposit1 := Deposit register: 100 on: account1.
 	
-	portfolioChild1 addAccount: account1.
+	portfolioChild1 addFinancialEntity: account1.
 	
 	account2 := ReceptiveAccount new.
 	deposit2 := Deposit register: 100 on: account2.
 	
-	portfolioChild2 addAccount: account2.
+	portfolioChild2 addFinancialEntity: account2.
 	
-	portfolioParent addPortfolio: portfolioChild1.
+	portfolioParent addFinancialEntity: portfolioChild1.
 	
-	portfolioParent addPortfolio: portfolioChild2.
+	portfolioParent addFinancialEntity: portfolioChild2.
 	
 	
 		
 	self assert: 200 equals: portfolioParent balance.
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:22:35'!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:49:07'!
 test12
 
 	|portfolioParent portfolioChild  account deposit|
@@ -215,11 +215,11 @@ test12
 	
 	portfolioChild := Portfolio new.
 	
-	portfolioParent addPortfolio: portfolioChild.
+	portfolioParent addFinancialEntity: portfolioChild.
 	
 	account := ReceptiveAccount new.
 	
-	portfolioParent addAccount: account.
+	portfolioParent addFinancialEntity: account.
 	
 	deposit := Deposit register: 100 on: account.
 	
@@ -227,7 +227,7 @@ test12
 	self assert: 100 equals: portfolioParent balance.
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:38:38'!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:49:16'!
 test13
 
 	|portfolioParent portfolioChild account deposit|
@@ -239,15 +239,15 @@ test13
 	account := ReceptiveAccount new.
 	deposit := Deposit register: 100 on: account.
 	
-	portfolioChild addAccount: account.
+	portfolioChild addFinancialEntity: account.
 	
-	portfolioParent addPortfolio: portfolioChild.
+	portfolioParent addFinancialEntity: portfolioChild.
 	
 	
 	self assert: (portfolioParent hasRegistered: deposit).
 ! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 20:43:04'!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:49:23'!
 test14
 
 	|portfolioParent portfolioChild account deposit |
@@ -260,14 +260,14 @@ test14
 	
 	deposit := Deposit register: 50 on: account.
 	
-	portfolioChild addAccount: account.
+	portfolioChild addFinancialEntity: account.
 	
-	portfolioParent addPortfolio: portfolioChild.
+	portfolioParent addFinancialEntity: portfolioChild.
 		
 	self assert: 1 equals: portfolioParent transactions size.
 	self assert: (portfolioParent transactions includes: deposit).! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/20/2021 21:07:42'!
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
 test15
 
 	|portfolio account|
@@ -276,9 +276,9 @@ test15
 	
 	account := ReceptiveAccount new.
 	
-	portfolio addAccount: account.
+	portfolio addFinancialEntity: account.
 	
-	self should:[portfolio addAccount: account]
+	self should:[portfolio addFinancialEntity: account]
 	raise: Error 
 	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedAccount) ].! !
 
@@ -505,63 +505,45 @@ transactions
 
 !classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
 FinancialEntity subclass: #Portfolio
-	instanceVariableNames: 'financialEntities portfolios'
+	instanceVariableNames: 'financialEntities'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!Portfolio methodsFor: 'balance' stamp: 'ET 5/22/2021 17:40:12'!
+!Portfolio methodsFor: 'balance' stamp: 'ET 5/22/2021 17:51:04'!
 balance
 	
-	^(financialEntities sum: [:anAccount | anAccount balance] ifEmpty: [0])
-	+(portfolios sum: [:aPortfolio | aPortfolio balance] ifEmpty: [0]).! !
+	^(financialEntities sum: [:aFinancialEntity | aFinancialEntity balance] ifEmpty: [0])! !
 
 
-!Portfolio methodsFor: 'testing' stamp: 'ET 5/22/2021 17:40:12'!
+!Portfolio methodsFor: 'testing' stamp: 'ET 5/22/2021 17:50:48'!
 hasRegistered: aTransaction 
 	
-	^(financialEntities anySatisfy: [:anAccount | anAccount hasRegistered: aTransaction])
-	or: [portfolios anySatisfy: [:anAccount | anAccount hasRegistered: aTransaction]].! !
+	^(financialEntities anySatisfy: [:aFinancialEntity | aFinancialEntity hasRegistered: aTransaction])! !
 
 
-!Portfolio methodsFor: 'transactions' stamp: 'ET 5/22/2021 17:40:11'!
+!Portfolio methodsFor: 'transactions' stamp: 'ET 5/22/2021 17:50:31'!
 transactions
 
 	|transactions|
 	transactions := OrderedCollection new.
-	financialEntities do: [:anAccount | transactions addAllFirst: anAccount transactions].
-	portfolios do: [:aPortfolio | transactions addAllFirst: aPortfolio transactions].
+	financialEntities do: [:aFinancialEntity | transactions addAllFirst: aFinancialEntity transactions].
 	
 	^transactions.! !
 
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:40:11'!
-addAccount: aReceptiveAccount
-	
-	(financialEntities includes: aReceptiveAccount) ifTrue: [self error: self class canNotAddAlreadyAddedAccount].
-	
-	financialEntities add: aReceptiveAccount.! !
-
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:42:59'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:28'!
 addFinancialEntity: aFinancialEntity
 	
 	(financialEntities includes: aFinancialEntity) ifTrue: [self error: self class canNotAddAlreadyAddedAccount].
 	
 	financialEntities add: aFinancialEntity.! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/17/2021 21:59:59'!
-addPortfolio: aPortfolio 
-	
-	portfolios add: aPortfolio.
-	! !
 
-
-!Portfolio methodsFor: 'initialization' stamp: 'ET 5/22/2021 17:40:12'!
+!Portfolio methodsFor: 'initialization' stamp: 'ET 5/22/2021 17:50:15'!
 initialize
 
-	financialEntities := OrderedCollection new.
-	
-	portfolios := OrderedCollection new.! !
+	financialEntities := OrderedCollection new.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 

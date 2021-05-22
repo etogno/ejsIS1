@@ -3103,3 +3103,921 @@ PASSED!
 
 !testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 5/22/2021 17:43:03'!
 PASSED!
+
+!methodRemoval: Portfolio #addFinancialEntity: stamp: 'ET 5/22/2021 17:46:36'!
+addFinancialEntity: aFinancialEntity
+	
+	(financialEntities includes: aFinancialEntity) ifTrue: [self error: self class canNotAddAlreadyAddedAccount].
+	
+	financialEntities add: aFinancialEntity.!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05'!
+addFinancialEntity: aReceptiveAccount
+	
+	(financialEntities includes: aReceptiveAccount) ifTrue: [self error: self class canNotAddAlreadyAddedAccount].
+	
+	financialEntities add: aReceptiveAccount.! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05' prior: 50966514!
+test12
+
+	|portfolioParent portfolioChild  account deposit|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	portfolioParent addPortfolio: portfolioChild.
+	
+	account := ReceptiveAccount new.
+	
+	portfolioParent addFinancialEntity: account.
+	
+	deposit := Deposit register: 100 on: account.
+	
+		
+	self assert: 100 equals: portfolioParent balance.
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05' prior: 50966492!
+test11
+
+	|portfolioParent portfolioChild1 portfolioChild2 account1 account2 deposit1 deposit2|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild1 := Portfolio new.
+	
+	portfolioChild2 := Portfolio new.
+	
+	account1 := ReceptiveAccount new.
+	deposit1 := Deposit register: 100 on: account1.
+	
+	portfolioChild1 addFinancialEntity: account1.
+	
+	account2 := ReceptiveAccount new.
+	deposit2 := Deposit register: 100 on: account2.
+	
+	portfolioChild2 addFinancialEntity: account2.
+	
+	portfolioParent addPortfolio: portfolioChild1.
+	
+	portfolioParent addPortfolio: portfolioChild2.
+	
+	
+		
+	self assert: 200 equals: portfolioParent balance.
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05' prior: 50966378!
+test02
+
+	|portfolio account|
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	portfolio := Portfolio new.
+	
+	portfolio addFinancialEntity: account.
+	
+	self assert: 100 equals: portfolio balance.! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05' prior: 50966528!
+test13
+
+	|portfolioParent portfolioChild account deposit|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	deposit := Deposit register: 100 on: account.
+	
+	portfolioChild addFinancialEntity: account.
+	
+	portfolioParent addPortfolio: portfolioChild.
+	
+	
+	self assert: (portfolioParent hasRegistered: deposit).
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05' prior: 50966478!
+test10
+
+	|portfolioParent portfolioChild account deposit|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	deposit := Deposit register: 100 on: account.
+	
+	portfolioChild addFinancialEntity: account.
+	
+	portfolioParent addPortfolio: portfolioChild.
+	
+	
+		
+	self assert: 100 equals: portfolioParent balance.
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05' prior: 50966423!
+test06
+
+	|portfolio account1 account2 deposit|
+	
+	portfolio := Portfolio new.
+	
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	
+	deposit := Deposit register: 100 on: account2.
+	
+	portfolio addFinancialEntity: account1.
+	
+	portfolio addFinancialEntity: account2.
+	
+	
+	self assert: (portfolio hasRegistered: deposit).
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05' prior: 50966402!
+test04
+
+	|portfolio account deposit|
+	
+	portfolio := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	deposit := Deposit register: 100 on: account.
+	
+	portfolio addFinancialEntity: account.
+	
+	
+	self assert: (portfolio hasRegistered: deposit).
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05' prior: 50966449!
+test08
+
+	|portfolio account1 account2 deposit withdraw |
+	
+	portfolio := Portfolio new.
+	
+	account1 := ReceptiveAccount new.
+	
+	account2 := ReceptiveAccount new.
+	
+	deposit := Deposit register: 50 on: account1.
+	
+	withdraw := Withdraw register: 20 on: account2.
+	
+	portfolio addFinancialEntity: account1.
+	portfolio addFinancialEntity: account2.
+		
+	self assert: 2 equals: portfolio transactions size.
+	self assert: (portfolio transactions includes: deposit).
+	self assert: (portfolio transactions includes: withdraw).
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05' prior: 50966436!
+test07
+
+	|portfolio account1 deposit1 |
+	
+	portfolio := Portfolio new.
+	
+	account1 := ReceptiveAccount new.
+	
+	
+	deposit1 := Deposit register: 50 on: account1.
+	
+	portfolio addFinancialEntity: account1.
+		
+	self assert: 1 equals: portfolio transactions size.
+	self assert: (portfolio transactions includes: deposit1).
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05' prior: 50966388!
+test03
+
+	|portfolio account1 account2|
+	
+	account1 := ReceptiveAccount new.
+	Deposit register: 100 on: account1.
+	
+	account2 := ReceptiveAccount new.
+	Deposit register: 100 on: account2.
+	
+	portfolio := Portfolio new.
+	
+	portfolio addFinancialEntity: account1.
+	portfolio addFinancialEntity: account2.
+	
+	self assert: 200 equals: portfolio balance.! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05' prior: 50966413!
+test05
+
+	|portfolio account deposit|
+	
+	portfolio := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	deposit := Deposit for: 100.
+	
+	portfolio addFinancialEntity: account.
+	
+	
+	self deny: (portfolio hasRegistered: deposit).
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05' prior: 50966542!
+test14
+
+	|portfolioParent portfolioChild account deposit |
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	deposit := Deposit register: 50 on: account.
+	
+	portfolioChild addFinancialEntity: account.
+	
+	portfolioParent addPortfolio: portfolioChild.
+		
+	self assert: 1 equals: portfolioParent transactions size.
+	self assert: (portfolioParent transactions includes: deposit).! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:05' prior: 50966559!
+test15
+
+	|portfolio account|
+	
+	portfolio:= Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	portfolio addFinancialEntity: account.
+	
+	self should:[portfolio addFinancialEntity: account]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedAccount) ].! !
+
+!methodRemoval: Portfolio #addAccount: stamp: 'ET 5/22/2021 17:47:05'!
+addAccount: aReceptiveAccount
+	
+	(financialEntities includes: aReceptiveAccount) ifTrue: [self error: self class canNotAddAlreadyAddedAccount].
+	
+	financialEntities add: aReceptiveAccount.!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:47:28' prior: 50967795!
+addFinancialEntity: aFinancialEntity
+	
+	(financialEntities includes: aFinancialEntity) ifTrue: [self error: self class canNotAddAlreadyAddedAccount].
+	
+	financialEntities add: aFinancialEntity.! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:48:32' prior: 50966468!
+test09
+
+	|portfolioParent portfolioChild|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	portfolioParent addFinancialEntity: portfolioChild.
+	
+	
+		
+	self assert: 0 equals: portfolioParent balance.
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:48:42' prior: 50967869!
+test10
+
+	|portfolioParent portfolioChild account deposit|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	deposit := Deposit register: 100 on: account.
+	
+	portfolioChild addFinancialEntity: account.
+	
+	portfolioParent addFinancialEntity: portfolioChild.
+	
+	
+		
+	self assert: 100 equals: portfolioParent balance.
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:48:57' prior: 50967820!
+test11
+
+	|portfolioParent portfolioChild1 portfolioChild2 account1 account2 deposit1 deposit2|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild1 := Portfolio new.
+	
+	portfolioChild2 := Portfolio new.
+	
+	account1 := ReceptiveAccount new.
+	deposit1 := Deposit register: 100 on: account1.
+	
+	portfolioChild1 addFinancialEntity: account1.
+	
+	account2 := ReceptiveAccount new.
+	deposit2 := Deposit register: 100 on: account2.
+	
+	portfolioChild2 addFinancialEntity: account2.
+	
+	portfolioParent addFinancialEntity: portfolioChild1.
+	
+	portfolioParent addFinancialEntity: portfolioChild2.
+	
+	
+		
+	self assert: 200 equals: portfolioParent balance.
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:49:07' prior: 50967805!
+test12
+
+	|portfolioParent portfolioChild  account deposit|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	portfolioParent addFinancialEntity: portfolioChild.
+	
+	account := ReceptiveAccount new.
+	
+	portfolioParent addFinancialEntity: account.
+	
+	deposit := Deposit register: 100 on: account.
+	
+		
+	self assert: 100 equals: portfolioParent balance.
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:49:16' prior: 50967854!
+test13
+
+	|portfolioParent portfolioChild account deposit|
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	deposit := Deposit register: 100 on: account.
+	
+	portfolioChild addFinancialEntity: account.
+	
+	portfolioParent addFinancialEntity: portfolioChild.
+	
+	
+	self assert: (portfolioParent hasRegistered: deposit).
+! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ET 5/22/2021 17:49:23' prior: 50967969!
+test14
+
+	|portfolioParent portfolioChild account deposit |
+	
+	portfolioParent := Portfolio new.
+	
+	portfolioChild := Portfolio new.
+	
+	account := ReceptiveAccount new.
+	
+	deposit := Deposit register: 50 on: account.
+	
+	portfolioChild addFinancialEntity: account.
+	
+	portfolioParent addFinancialEntity: portfolioChild.
+		
+	self assert: 1 equals: portfolioParent transactions size.
+	self assert: (portfolioParent transactions includes: deposit).! !
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 5/22/2021 17:49:30'!
+PASSED!
+!Behavior method!
+initialize
+	(financialEntities _ [
+	(OrderedCollection
+		cover: (35 to: 51)
+		declaredAt: (35 to: 51)) new ] valueCoveringAll:
+		{53 to: 55})
+		cover: (14 to: 30)
+		declaredAt: (14 to: 30).
+	(portfolios _ [
+	(OrderedCollection
+		cover: (75 to: 91)
+		declaredAt: (35 to: 51)) new ] valueCoveringAll:
+		{93 to: 95})
+		cover: (61 to: 70)
+		declaredAt: (61 to: 70).! !
+!Behavior method!
+balance
+	^ [
+	([
+	(financialEntities
+		cover: (14 to: 30)
+		declaredAt: (14 to: 30))
+		sum: [ :anAccount |
+			[
+			(anAccount
+				cover: (51 to: 59)
+				declaredAt: (39 to: 47)) balance ] valueCoveringAll:
+				{61 to: 67} ]
+		ifEmpty: [
+			0 coverAll:
+				{80 to: 80} ]] valueCoveringAll:
+		{32 to: 35. 70 to: 77}) +
+		([
+		(portfolios
+			cover: (87 to: 96)
+			declaredAt: (87 to: 96))
+			sum: [ :aPortfolio |
+				[
+				(aPortfolio
+					cover: (118 to: 127)
+					declaredAt: (105 to: 114)) balance ] valueCoveringAll:
+					{129 to: 135} ]
+			ifEmpty: [
+				0 coverAll:
+					{148 to: 148} ]] valueCoveringAll:
+			{98 to: 101. 138 to: 145}) ] valueCoveringAll:
+		{85 to: 85}.! !
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 17:49:45'!
+PASSED!
+!Behavior method!
+initialize
+	(transactions _ [
+	(OrderedCollection
+		cover: (30 to: 46)
+		declaredAt: (30 to: 46)) new ] valueCoveringAll:
+		{48 to: 50})
+		cover: (14 to: 25)
+		declaredAt: (14 to: 25).! !
+!Behavior method!
+register: aValue on: account
+	| transaction |
+	(transaction _ [
+	(self coverAll:
+		{66 to: 69}) for:
+		(aValue
+			cover: (76 to: 81)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{71 to: 74})
+		cover: (51 to: 61)
+		declaredAt: (34 to: 44).
+	[
+	(account
+		cover: (85 to: 91)
+		declaredAt: (22 to: 28)) register:
+		(transaction
+			cover: (103 to: 113)
+			declaredAt: (34 to: 44)) ] valueCoveringAll:
+		{93 to: 101}.
+	^ transaction
+		cover: (122 to: 132)
+		declaredAt: (34 to: 44).! !
+!Behavior method!
+for: aValue
+	^ [
+	([
+	(self coverAll:
+		{17 to: 20}) new ] valueCoveringAll:
+		{22 to: 24}) initializeFor:
+		(aValue
+			cover: (41 to: 46)
+			declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{26 to: 39}.! !
+!Behavior method!
+initializeFor: aValue
+	(value _ aValue
+		cover: (34 to: 39)
+		declaredAt: (16 to: 21))
+		cover: (25 to: 29)
+		declaredAt: (25 to: 29).! !
+!Behavior method!
+register: aTransaction
+	[
+	(transactions
+		cover: (26 to: 37)
+		declaredAt: (26 to: 37)) add:
+		(aTransaction
+			cover: (44 to: 55)
+			declaredAt: (11 to: 22)) ] valueCoveringAll:
+		{39 to: 42}.! !
+!Behavior method!
+addFinancialEntity: aFinancialEntity
+	[
+	([
+	(financialEntities
+		cover: (42 to: 58)
+		declaredAt: (42 to: 58)) includes:
+		(aFinancialEntity
+			cover: (70 to: 85)
+			declaredAt: (21 to: 36)) ] valueCoveringAll:
+		{60 to: 68}) ifTrue: [
+		[
+		(self coverAll:
+			{97 to: 100}) error:
+			([
+			([
+			(self coverAll:
+				{109 to: 112}) class ] valueCoveringAll:
+				{114 to: 118}) canNotAddAlreadyAddedAccount ] valueCoveringAll:
+				{120 to: 147}) ] valueCoveringAll:
+			{102 to: 107} ]] valueCoveringAll:
+		{88 to: 94}.
+	[
+	(financialEntities
+		cover: (154 to: 170)
+		declaredAt: (42 to: 58)) add:
+		(aFinancialEntity
+			cover: (177 to: 192)
+			declaredAt: (21 to: 36)) ] valueCoveringAll:
+		{172 to: 175}.! !
+!Behavior method!
+balance
+	^ [
+	(transactions
+		cover: (12 to: 23)
+		declaredAt: (12 to: 23))
+		inject:
+			(0 coverAll:
+				{33 to: 33})
+		into: [ :balance :aTransaction |
+			[
+			(aTransaction
+				cover: (68 to: 79)
+				declaredAt: (52 to: 63)) modifiesBalance:
+				(balance
+					cover: (98 to: 104)
+					declaredAt: (43 to: 49)) ] valueCoveringAll:
+				{81 to: 96} ]] valueCoveringAll:
+		{25 to: 31. 35 to: 39}.! !
+!Behavior method!
+modifiesBalance: balance
+	^ [
+	(balance
+		cover: (29 to: 35)
+		declaredAt: (18 to: 24)) +
+		(value
+			cover: (39 to: 43)
+			declaredAt: (39 to: 43)) ] valueCoveringAll:
+		{37 to: 37}.! !
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 17:49:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 17:49:45'!
+PASSED!
+!Behavior method!
+hasRegistered: aTransaction
+	^ [
+	([
+	(financialEntities
+		cover: (35 to: 51)
+		declaredAt: (35 to: 51)) anySatisfy: [ :anAccount |
+		[
+		(anAccount
+			cover: (79 to: 87)
+			declaredAt: (67 to: 75)) hasRegistered:
+			(aTransaction
+				cover: (104 to: 115)
+				declaredAt: (16 to: 27)) ] valueCoveringAll:
+			{89 to: 102} ]] valueCoveringAll:
+		{53 to: 63}) or: [
+		[
+		(portfolios
+			cover: (125 to: 134)
+			declaredAt: (125 to: 134)) anySatisfy: [ :anAccount |
+			[
+			(anAccount
+				cover: (162 to: 170)
+				declaredAt: (150 to: 158)) hasRegistered:
+				(aTransaction
+					cover: (187 to: 198)
+					declaredAt: (16 to: 27)) ] valueCoveringAll:
+				{172 to: 185} ]] valueCoveringAll:
+			{136 to: 146} ]] valueCoveringAll:
+		{120 to: 122}.! !
+!Behavior method!
+hasRegistered: aTransaction
+	^ [
+	(transactions
+		cover: (33 to: 44)
+		declaredAt: (33 to: 44)) includes:
+		(aTransaction
+			cover: (56 to: 67)
+			declaredAt: (16 to: 27)) ] valueCoveringAll:
+		{46 to: 54}.! !
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+!Behavior method!
+transactions
+	| transactions |
+	(transactions _ [
+	(OrderedCollection
+		cover: (48 to: 64)
+		declaredAt: (48 to: 64)) new ] valueCoveringAll:
+		{66 to: 68})
+		cover: (32 to: 43)
+		declaredAt: (17 to: 28).
+	[
+	(financialEntities
+		cover: (72 to: 88)
+		declaredAt: (72 to: 88)) do: [ :anAccount |
+		[
+		(transactions
+			cover: (108 to: 119)
+			declaredAt: (17 to: 28)) addAllFirst:
+			([
+			(anAccount
+				cover: (134 to: 142)
+				declaredAt: (96 to: 104)) transactions ] valueCoveringAll:
+				{144 to: 155}) ] valueCoveringAll:
+			{121 to: 132} ]] valueCoveringAll:
+		{90 to: 92}.
+	[
+	(portfolios
+		cover: (160 to: 169)
+		declaredAt: (160 to: 169)) do: [ :aPortfolio |
+		[
+		(transactions
+			cover: (190 to: 201)
+			declaredAt: (17 to: 28)) addAllFirst:
+			([
+			(aPortfolio
+				cover: (216 to: 225)
+				declaredAt: (177 to: 186)) transactions ] valueCoveringAll:
+				{227 to: 238}) ] valueCoveringAll:
+			{203 to: 214} ]] valueCoveringAll:
+		{171 to: 173}.
+	^ transactions
+		cover: (246 to: 257)
+		declaredAt: (17 to: 28).! !
+!Behavior method!
+transactions
+	^ [
+	(transactions
+		cover: (19 to: 30)
+		declaredAt: (19 to: 30)) copy ] valueCoveringAll:
+		{32 to: 35}.! !
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+!Behavior method!
+for: aValue
+	^ [
+	([
+	(self coverAll:
+		{17 to: 20}) new ] valueCoveringAll:
+		{22 to: 24}) initializeFor:
+		(aValue
+			cover: (41 to: 46)
+			declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{26 to: 39}.! !
+!Behavior method!
+initializeFor: aValue
+	(value _ aValue
+		cover: (34 to: 39)
+		declaredAt: (16 to: 21))
+		cover: (25 to: 29)
+		declaredAt: (25 to: 29).! !
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+!Behavior method!
+canNotAddAlreadyAddedAccount
+	^ 'This account has been added in the portfolio before!!!!' coverAll:
+		{34 to: 88}.! !
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+!Behavior method!
+modifiesBalance: balance
+	^ [
+	(balance
+		cover: (29 to: 35)
+		declaredAt: (18 to: 24)) -
+		(value
+			cover: (39 to: 43)
+			declaredAt: (39 to: 43)) ] valueCoveringAll:
+		{37 to: 37}.! !
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+!Behavior method!
+value
+	^ value
+		cover: (11 to: 15)
+		declaredAt: (11 to: 15).! !
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 5/22/2021 17:49:46'!
+PASSED!
+
+!methodRemoval: Portfolio #addPortfolio: stamp: 'ET 5/22/2021 17:49:56'!
+addPortfolio: aPortfolio 
+	
+	portfolios add: aPortfolio.
+	!
+
+FinancialEntity subclass: #Portfolio
+	instanceVariableNames: 'financialEntities'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'ET 5/22/2021 17:50:09'!
+FinancialEntity subclass: #Portfolio
+	instanceVariableNames: 'financialEntities'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'initialization' stamp: 'ET 5/22/2021 17:50:15' prior: 50967543 overrides: 16896425!
+initialize
+
+	financialEntities := OrderedCollection new.! !
+!Portfolio methodsFor: 'transactions' stamp: 'ET 5/22/2021 17:50:31' prior: 50967531 overrides: 50967376!
+transactions
+
+	|transactions|
+	transactions := OrderedCollection new.
+	financialEntities do: [:aFinancialEntity | transactions addAllFirst: aFinancialEntity transactions].
+	
+	^transactions.! !
+!Portfolio methodsFor: 'testing' stamp: 'ET 5/22/2021 17:50:48' prior: 50967550 overrides: 50967371!
+hasRegistered: aTransaction 
+	
+	^(financialEntities anySatisfy: [:aFinancialEntity | aFinancialEntity hasRegistered: aTransaction])! !
+!Portfolio methodsFor: 'balance' stamp: 'ET 5/22/2021 17:51:04' prior: 50967560 overrides: 50967367!
+balance
+	
+	^(financialEntities sum: [:aFinancialEntity | aFinancialEntity balance] ifEmpty: [0])! !
+
+!testRun: #PortfolioTest #test01 stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test02 stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test03 stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test04 stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test05 stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test06 stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test07 stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test08 stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test09 stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test10 stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test11 stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test12 stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test13 stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test14 stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #PortfolioTest #test15 stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 5/22/2021 17:51:10'!
+PASSED!
