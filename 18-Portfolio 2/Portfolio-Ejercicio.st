@@ -486,6 +486,18 @@ test04
 	self assert: (accountDestino hasRegistered: (aTransfer deposit)).
 	! !
 
+!TransferTest methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 18:01:38'!
+test05
+	| accountDestino accountOrigen aTransfer |
+	accountOrigen := ReceptiveAccount new.
+	accountDestino := ReceptiveAccount new.
+	
+	aTransfer := Transfer from:accountOrigen to:accountDestino amount: 100.
+	
+	self assert: (accountOrigen hasRegistered: (aTransfer deposit transfer withdraw)).
+	self assert: (accountDestino hasRegistered: (aTransfer withdraw transfer deposit)).
+	! !
+
 
 !classDefinition: #AccountTransaction category: 'Portfolio-Ejercicio'!
 Object subclass: #AccountTransaction
@@ -554,6 +566,85 @@ Deposit class
 for: aValue
 
 	^ self new initializeFor: aValue ! !
+
+
+!classDefinition: #TransferDeposit category: 'Portfolio-Ejercicio'!
+AccountTransaction subclass: #TransferDeposit
+	instanceVariableNames: 'transfer receptiveAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!TransferDeposit methodsFor: 'initialization' stamp: 'JA 5/30/2021 18:45:23'!
+initializeFor: aTransfer on: aReceptiveAccount 
+	
+	transfer := aTransfer.
+	receptiveAccount := aReceptiveAccount.! !
+
+
+!TransferDeposit methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 18:53:15'!
+modifiesBalance: balance
+
+	^balance + transfer amount.! !
+
+!TransferDeposit methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 18:45:52'!
+transfer
+	
+	^transfer! !
+
+!TransferDeposit methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 18:57:32'!
+value	
+	^transfer amount.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TransferDeposit class' category: 'Portfolio-Ejercicio'!
+TransferDeposit class
+	instanceVariableNames: ''!
+
+!TransferDeposit class methodsFor: 'instance creation' stamp: 'JA 5/30/2021 18:45:03'!
+for: aTransfer on: aReceptiveAccount 
+	
+	^self new initializeFor: aTransfer on: aReceptiveAccount ! !
+
+
+!classDefinition: #TransferWithdraw category: 'Portfolio-Ejercicio'!
+AccountTransaction subclass: #TransferWithdraw
+	instanceVariableNames: 'transfer receptiveAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!TransferWithdraw methodsFor: 'initialization' stamp: 'JA 5/30/2021 18:44:37'!
+initializeFor: aTransfer on: aReceptiveAccount 
+	
+	transfer := aTransfer.
+	receptiveAccount := aReceptiveAccount.! !
+
+!TransferWithdraw methodsFor: 'initialization' stamp: 'JA 5/30/2021 18:47:09'!
+transfer	
+	^transfer.! !
+
+
+!TransferWithdraw methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 18:54:08'!
+modifiesBalance: balance
+
+	^balance - transfer amount.! !
+
+!TransferWithdraw methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 18:57:43'!
+value	
+	^transfer amount.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TransferWithdraw class' category: 'Portfolio-Ejercicio'!
+TransferWithdraw class
+	instanceVariableNames: ''!
+
+!TransferWithdraw class methodsFor: 'instance creation' stamp: 'JA 5/30/2021 18:38:05'!
+for: aTransfer on: aReceptiveAccount 
+
+	^self new initializeFor: aTransfer on: aReceptiveAccount ! !
 
 
 !classDefinition: #Withdraw category: 'Portfolio-Ejercicio'!
@@ -792,7 +883,7 @@ includes: aFinancialEntity
 
 !classDefinition: #Transfer category: 'Portfolio-Ejercicio'!
 Object subclass: #Transfer
-	instanceVariableNames: 'transferDeposit transferWithdraw'
+	instanceVariableNames: 'transferDeposit transferWithdraw receptiveAccountOrigin receptiveAccountDestiny amount'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
@@ -802,6 +893,21 @@ initializeWith: aTransferDeposit and: aTransferWithdraw
 	transferDeposit := aTransferDeposit.
 	transferWithdraw := aTransferWithdraw.! !
 
+!Transfer methodsFor: 'initialization' stamp: 'JA 5/30/2021 18:52:18'!
+initializeWith: aReceptiveAccountOrigin and: aReceptiveAccountDestiny amount: anAmount 
+	
+	amount := anAmount.	
+	transferWithdraw := TransferWithdraw for: self on: aReceptiveAccountOrigin.
+	transferDeposit := TransferDeposit for: self on: aReceptiveAccountDestiny.
+	aReceptiveAccountOrigin register: transferWithdraw.
+	aReceptiveAccountDestiny register: transferDeposit.
+	! !
+
+
+!Transfer methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 18:53:39'!
+amount
+	
+	^amount! !
 
 !Transfer methodsFor: 'as yet unclassified' stamp: 'JA 5/27/2021 21:39:11'!
 deposit
@@ -821,13 +927,11 @@ Transfer class
 canNotTransferWithInvalidAmount
 	^ 'No se puede transferir con monto no positivo'.! !
 
-!Transfer class methodsFor: 'as yet unclassified' stamp: 'JA 5/27/2021 21:35:31'!
+!Transfer class methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 18:26:36'!
 from: aReceptiveAccountOrigin to: aReceptiveAccountDestiny amount: anAmount 
 	
-	| aTransferDeposit aTransferWithdraw |
+	
 	anAmount <= 0 ifTrue: [self error: self canNotTransferWithInvalidAmount].
 	
-	aTransferWithdraw := Withdraw register: anAmount on: aReceptiveAccountOrigin.
-	aTransferDeposit := Deposit register: anAmount on: aReceptiveAccountDestiny.
 	
-	^ self new initializeWith: aTransferDeposit and: aTransferWithdraw.! !
+	^ self new initializeWith: aReceptiveAccountOrigin and: aReceptiveAccountDestiny amount: anAmount.! !
