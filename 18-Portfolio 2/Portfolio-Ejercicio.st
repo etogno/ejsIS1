@@ -432,6 +432,69 @@ test07AccountKnowsItsTransactions
 	self assert: (account1 transactions includes: deposit1).
 ! !
 
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/30/2021 19:51:08'!
+test08
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	
+	self assert: account accountSummaryReport includes: 'Balance = 0'
+! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/30/2021 19:56:59'!
+test09
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 100 on: account. 
+	
+	self assert: account accountSummaryReport includes: 'Depósito por 100'
+! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/30/2021 20:05:06'!
+test10
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	
+	Withdraw register: 50 on: account. 
+	
+	self assert: account accountSummaryReport includes: 'Extracción por 50'
+! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/30/2021 20:32:21'!
+test11
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	
+	Withdraw register: 50 on: account. 
+	Deposit register: 100 on: account. 
+	
+	self assert: account accountSummaryReport includes: 'Extracción por 50'.
+	self assert: account accountSummaryReport includes: 'Depósito por 100'.
+	self assert: account accountSummaryReport includes: 'Balance = 50'.! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/30/2021 20:43:06'!
+test12
+
+	| accountDestino accountOrigen |
+	
+	accountOrigen := ReceptiveAccount new.
+	accountDestino := ReceptiveAccount new.
+	
+	Transfer from:accountOrigen to:accountDestino amount: 100.
+	
+	self assert: accountOrigen accountSummaryReport includes: 'Salida por transferencia de 100'.
+	self assert: accountDestino accountSummaryReport includes: 'Entrada por transferencia de 100'.
+	self assert: accountOrigen accountSummaryReport includes: 'Balance = -100'.
+	self assert: accountDestino accountSummaryReport includes: 'Balance = 100'.	! !
+
 
 !classDefinition: #TransferTest category: 'Portfolio-Ejercicio'!
 TestCase subclass: #TransferTest
@@ -879,6 +942,23 @@ includes: aFinancialEntity
 
 	^self = aFinancialEntity.
 ! !
+
+
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 20:45:50'!
+accountSummaryReport	
+	|report|
+	report := OrderedCollection with:('Balance = ', self balance asString).
+	transactions do: [:transaction| 
+		(transaction isKindOf: Withdraw) ifTrue: [ report add: 
+				( 'Extracción por ', transaction value asString)].
+		(transaction isKindOf: Deposit) ifTrue: [ report add: 
+				('Depósito por ',transaction value asString)].
+		(transaction isKindOf: TransferDeposit) ifTrue: [ report add: 
+				('Entrada por transferencia de ',transaction value asString)].
+		(transaction isKindOf: TransferWithdraw) ifTrue: [ report add: 
+				('Salida por transferencia de ',transaction value asString)].
+	].
+	^ report.! !
 
 
 !classDefinition: #Transfer category: 'Portfolio-Ejercicio'!

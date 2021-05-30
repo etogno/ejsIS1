@@ -13338,3 +13338,579 @@ PASSED!
 
 
 ----QUIT----(30 May 2021 19:28:20) CuisUniversity-4532.image priorSource: 16956214!
+
+----STARTUP---- (30 May 2021 19:32:49) as /home/julian/facu/ingenieria1/ambientesCuis/Portfolio/CuisUniversity-4532.image!
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/30/2021 19:51:08'!
+test08
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	
+	self assert: account accountSummaryReport includes: 'Balance = 0'
+! !
+
+!testRun: #ReceptiveAccountTest #test08 stamp: 'JA 5/30/2021 19:51:15'!
+ERROR!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 19:51:25'!
+accountSummaryReport
+	self shouldBeImplemented.! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 19:52:19' prior: 50861556!
+accountSummaryReport
+	^ OrderedCollection with: 'Balance = 0'.! !
+
+!testRun: #ReceptiveAccountTest #test08 stamp: 'JA 5/30/2021 19:52:22'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'JA 5/30/2021 19:52:22'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 19:52:22'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 19:52:22'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'JA 5/30/2021 19:52:22'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'JA 5/30/2021 19:52:22'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'JA 5/30/2021 19:52:22'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'JA 5/30/2021 19:52:22'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08 stamp: 'JA 5/30/2021 19:52:22'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/30/2021 19:56:59'!
+test09
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 100 on: account. 
+	
+	self assert: account accountSummaryReport includes: 'Depósito por 100'
+! !
+
+!testRun: #ReceptiveAccountTest #test09 stamp: 'JA 5/30/2021 19:57:03'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 20:02:44' prior: 50861561!
+accountSummaryReport
+	transactions isEmpty ifTrue:[ ^OrderedCollection with: 'Balance = 0' ].
+	^ OrderedCollection with: 'Depósito por 100'.	! !
+
+!testRun: #ReceptiveAccountTest #test09 stamp: 'JA 5/30/2021 20:02:45'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'JA 5/30/2021 20:02:45'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 20:02:45'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 20:02:45'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'JA 5/30/2021 20:02:45'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'JA 5/30/2021 20:02:45'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'JA 5/30/2021 20:02:45'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'JA 5/30/2021 20:02:45'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08 stamp: 'JA 5/30/2021 20:02:45'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09 stamp: 'JA 5/30/2021 20:02:45'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/30/2021 20:05:06'!
+test10
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	
+	Withdraw register: 50 on: account. 
+	
+	self assert: account accountSummaryReport includes: 'Extracción por 50'
+! !
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'JA 5/30/2021 20:05:08'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 20:13:46' prior: 50861609!
+accountSummaryReport	
+	|report|
+	report := OrderedCollection.
+	transactions isEmpty ifTrue:[ report add: 'Balance = 0' ].
+	transactions do: [:transaction| 
+		(transaction isKindOf: Withdraw) ifTrue: [ report add: ('Extracción por ' nextPutAll: transaction value)].
+		(transaction isKindOf: Deposit) ifTrue: [ report add: ('Depósito por ' nextPutAll: transaction value)].
+	].
+	^ report.! !
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'JA 5/30/2021 20:13:48'!
+ERROR!
+
+----End fileIn of /home/julian/facu/ingenieria1/ambientesCuis/Portfolio/Packages/TerseGuide.pck.st----!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 20:22:55' prior: 50861662!
+accountSummaryReport	
+	|report|
+	report := OrderedCollection.
+	transactions isEmpty ifTrue:[ report add: 'Balance = 0' ].
+	transactions do: [:transaction| 
+		(transaction isKindOf: Withdraw) ifTrue: [ report add: 
+				(String streamContents: [ :str |	str nextPutAll: 'Extracción por '. 		
+										str nextPutAll: transaction value asString.])].
+		(transaction isKindOf: Deposit) ifTrue: [ report add: 
+				(String streamContents: [ :str |	str nextPutAll: 'Extracción por '. 		
+										str nextPutAll: transaction value asString.])].
+	].
+	^ report.! !
+
+'qwer' + 43 asString!
+
+'qwer' + 43 !
+
+'qwer' , 43 !
+
+'qwer' , 43 asString !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 20:26:24' prior: 50864606!
+accountSummaryReport	
+	|report|
+	report := OrderedCollection.
+	transactions isEmpty ifTrue:[ report add: 'Balance = 0' ].
+	transactions do: [:transaction| 
+		(transaction isKindOf: Withdraw) ifTrue: [ report add: 
+				( 'Extracción por ', transaction value asString)].
+		(transaction isKindOf: Deposit) ifTrue: [ report add: 
+				('Extracción por ',transaction value asString)].
+	].
+	^ report.! !
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'JA 5/30/2021 20:26:26'!
+ERROR!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 20:27:33' prior: 50864629!
+accountSummaryReport	
+	|report|
+	report := OrderedCollection new.
+	transactions isEmpty ifTrue:[ report add: 'Balance = 0' ].
+	transactions do: [:transaction| 
+		(transaction isKindOf: Withdraw) ifTrue: [ report add: 
+				( 'Extracción por ', transaction value asString)].
+		(transaction isKindOf: Deposit) ifTrue: [ report add: 
+				('Extracción por ',transaction value asString)].
+	].
+	^ report.! !
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'JA 5/30/2021 20:27:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'JA 5/30/2021 20:27:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 20:27:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 20:27:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'JA 5/30/2021 20:27:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'JA 5/30/2021 20:27:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'JA 5/30/2021 20:27:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'JA 5/30/2021 20:27:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08 stamp: 'JA 5/30/2021 20:27:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09 stamp: 'JA 5/30/2021 20:27:50'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'JA 5/30/2021 20:27:50'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09 stamp: 'JA 5/30/2021 20:27:50'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'JA 5/30/2021 20:28:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'JA 5/30/2021 20:28:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 20:28:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 20:28:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'JA 5/30/2021 20:28:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'JA 5/30/2021 20:28:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'JA 5/30/2021 20:28:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'JA 5/30/2021 20:28:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08 stamp: 'JA 5/30/2021 20:28:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09 stamp: 'JA 5/30/2021 20:28:08'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'JA 5/30/2021 20:28:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09 stamp: 'JA 5/30/2021 20:28:08'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 20:28:41' prior: 50864648!
+accountSummaryReport	
+	|report|
+	report := OrderedCollection new.
+	transactions isEmpty ifTrue:[ report add: 'Balance = 0' ].
+	transactions do: [:transaction| 
+		(transaction isKindOf: Withdraw) ifTrue: [ report add: 
+				( 'Extracción por ', transaction value asString)].
+		(transaction isKindOf: Deposit) ifTrue: [ report add: 
+				('Depósito por ',transaction value asString)].
+	].
+	^ report.! !
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'JA 5/30/2021 20:28:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'JA 5/30/2021 20:28:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 20:28:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 20:28:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'JA 5/30/2021 20:28:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'JA 5/30/2021 20:28:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'JA 5/30/2021 20:28:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'JA 5/30/2021 20:28:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08 stamp: 'JA 5/30/2021 20:28:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09 stamp: 'JA 5/30/2021 20:28:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'JA 5/30/2021 20:28:49'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/30/2021 20:32:21'!
+test11
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	
+	Withdraw register: 50 on: account. 
+	Deposit register: 100 on: account. 
+	
+	self assert: account accountSummaryReport includes: 'Extracción por 50'.
+	self assert: account accountSummaryReport includes: 'Depósito por 100'.
+	self assert: account accountSummaryReport includes: 'Balance = 50'.! !
+
+!testRun: #ReceptiveAccountTest #test11 stamp: 'JA 5/30/2021 20:32:32'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 20:34:08' prior: 50864742!
+accountSummaryReport	
+	|report|
+	report := OrderedCollection new.
+	transactions isEmpty ifTrue:[ report add: ('Balance = ', self balance asString) ].
+	transactions do: [:transaction| 
+		(transaction isKindOf: Withdraw) ifTrue: [ report add: 
+				( 'Extracción por ', transaction value asString)].
+		(transaction isKindOf: Deposit) ifTrue: [ report add: 
+				('Depósito por ',transaction value asString)].
+	].
+	^ report.! !
+
+!testRun: #ReceptiveAccountTest #test11 stamp: 'JA 5/30/2021 20:34:10'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 20:35:19' prior: 50864811!
+accountSummaryReport	
+	|report|
+	report := OrderedCollection with:('Balance = ', self balance asString).
+	transactions do: [:transaction| 
+		(transaction isKindOf: Withdraw) ifTrue: [ report add: 
+				( 'Extracción por ', transaction value asString)].
+		(transaction isKindOf: Deposit) ifTrue: [ report add: 
+				('Depósito por ',transaction value asString)].
+	].
+	^ report.! !
+
+!testRun: #ReceptiveAccountTest #test11 stamp: 'JA 5/30/2021 20:35:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'JA 5/30/2021 20:35:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 20:35:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 20:35:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'JA 5/30/2021 20:35:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'JA 5/30/2021 20:35:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'JA 5/30/2021 20:35:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'JA 5/30/2021 20:35:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08 stamp: 'JA 5/30/2021 20:35:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09 stamp: 'JA 5/30/2021 20:35:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'JA 5/30/2021 20:35:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11 stamp: 'JA 5/30/2021 20:35:21'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/30/2021 20:39:02'!
+test12
+
+	| accountDestino accountOrigen |
+	
+	accountOrigen := ReceptiveAccount new.
+	accountDestino := ReceptiveAccount new.
+	
+	Transfer from:accountOrigen to:accountDestino amount: 100.
+	
+	self assert: accountOrigen accountSummaryReport includes: 'Salida por transferencia de 100'.
+	self assert: accountDestino accountSummaryReport includes: 'Entrada por transferencia de 100'.
+	self assert: accountOrigen accountSummaryReport includes: 'Balance = -100'.
+	self assert: accountOrigen accountSummaryReport includes: 'Balance = 100'.	! !
+
+!testRun: #ReceptiveAccountTest #test12 stamp: 'JA 5/30/2021 20:39:04'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 20:40:07' prior: 50864830!
+accountSummaryReport	
+	|report|
+	report := OrderedCollection with:('Balance = ', self balance asString).
+	transactions do: [:transaction| 
+		(transaction isKindOf: Withdraw) ifTrue: [ report add: 
+				( 'Extracción por ', transaction value asString)].
+		(transaction isKindOf: Deposit) ifTrue: [ report add: 
+				('Depósito por ',transaction value asString)].
+		(transaction isKindOf: TransferDeposit) ifTrue: [ report add: 
+				('Salida por transferencia de ',transaction value asString)].
+	].
+	^ report.! !
+
+!testRun: #ReceptiveAccountTest #test12 stamp: 'JA 5/30/2021 20:40:09'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test12 stamp: 'JA 5/30/2021 20:40:16'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 20:42:16' prior: 50864907!
+accountSummaryReport	
+	|report|
+	report := OrderedCollection with:('Balance = ', self balance asString).
+	transactions do: [:transaction| 
+		(transaction isKindOf: Withdraw) ifTrue: [ report add: 
+				( 'Extracción por ', transaction value asString)].
+		(transaction isKindOf: Deposit) ifTrue: [ report add: 
+				('Depósito por ',transaction value asString)].
+		(transaction isKindOf: TransferDeposit) ifTrue: [ report add: 
+				('Entrada por transferencia de ',transaction value asString)].
+		(transaction isKindOf: TransferWithdraw) ifTrue: [ report add: 
+				('Salida por transferencia de ',transaction value asString)].
+	].
+	^ report.! !
+
+!testRun: #ReceptiveAccountTest #test12 stamp: 'JA 5/30/2021 20:42:35'!
+FAILURE!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/30/2021 20:43:06' prior: 50864884!
+test12
+
+	| accountDestino accountOrigen |
+	
+	accountOrigen := ReceptiveAccount new.
+	accountDestino := ReceptiveAccount new.
+	
+	Transfer from:accountOrigen to:accountDestino amount: 100.
+	
+	self assert: accountOrigen accountSummaryReport includes: 'Salida por transferencia de 100'.
+	self assert: accountDestino accountSummaryReport includes: 'Entrada por transferencia de 100'.
+	self assert: accountOrigen accountSummaryReport includes: 'Balance = -100'.
+	self assert: accountDestino accountSummaryReport includes: 'Balance = 100'.	! !
+
+!testRun: #ReceptiveAccountTest #test12 stamp: 'JA 5/30/2021 20:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'JA 5/30/2021 20:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 20:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 20:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'JA 5/30/2021 20:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'JA 5/30/2021 20:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'JA 5/30/2021 20:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'JA 5/30/2021 20:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08 stamp: 'JA 5/30/2021 20:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09 stamp: 'JA 5/30/2021 20:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'JA 5/30/2021 20:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11 stamp: 'JA 5/30/2021 20:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12 stamp: 'JA 5/30/2021 20:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12 stamp: 'JA 5/30/2021 20:45:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'JA 5/30/2021 20:45:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 20:45:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 20:45:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'JA 5/30/2021 20:45:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'JA 5/30/2021 20:45:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'JA 5/30/2021 20:45:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'JA 5/30/2021 20:45:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08 stamp: 'JA 5/30/2021 20:45:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09 stamp: 'JA 5/30/2021 20:45:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'JA 5/30/2021 20:45:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11 stamp: 'JA 5/30/2021 20:45:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12 stamp: 'JA 5/30/2021 20:45:11'!
+PASSED!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 20:45:50' prior: 50864932!
+accountSummaryReport	
+	|report|
+	report := OrderedCollection with:('Balance = ', self balance asString).
+	transactions do: [:transaction| 
+		(transaction isKindOf: Withdraw) ifTrue: [ report add: 
+				( 'Extracción por ', transaction value asString)].
+		(transaction isKindOf: Deposit) ifTrue: [ report add: 
+				('Depósito por ',transaction value asString)].
+		(transaction isKindOf: TransferDeposit) ifTrue: [ report add: 
+				('Entrada por transferencia de ',transaction value asString)].
+		(transaction isKindOf: TransferWithdraw) ifTrue: [ report add: 
+				('Salida por transferencia de ',transaction value asString)].
+	].
+	^ report.! !
+
+!testRun: #ReceptiveAccountTest #test12 stamp: 'JA 5/30/2021 20:49:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'JA 5/30/2021 20:49:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 20:49:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'JA 5/30/2021 20:49:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'JA 5/30/2021 20:49:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'JA 5/30/2021 20:49:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'JA 5/30/2021 20:49:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'JA 5/30/2021 20:49:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08 stamp: 'JA 5/30/2021 20:49:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09 stamp: 'JA 5/30/2021 20:49:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'JA 5/30/2021 20:49:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11 stamp: 'JA 5/30/2021 20:49:17'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12 stamp: 'JA 5/30/2021 20:49:17'!
+PASSED!
+
+----QUIT----(30 May 2021 20:49:22) CuisUniversity-4532.image priorSource: 16956424!
+
+----STARTUP---- (30 May 2021 20:49:51) as /home/julian/facu/ingenieria1/ambientesCuis/Portfolio/CuisUniversity-4532.image!
+
+
+----QUIT----(30 May 2021 20:50:03) CuisUniversity-4532.image priorSource: 17071184!
