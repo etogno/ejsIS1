@@ -13914,3 +13914,421 @@ PASSED!
 
 
 ----QUIT----(30 May 2021 20:50:03) CuisUniversity-4532.image priorSource: 17071184!
+
+----STARTUP---- (31 May 2021 21:37:04) as /home/julian/facu/ingenieria1/ambientesCuis/Portfolio/CuisUniversity-4532.image!
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/31/2021 21:40:11'!
+test13
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 100 on: account. 
+	
+	self assert: 'Balance = 100' equals: account accountSummaryReport last .
+! !
+
+!testRun: #ReceptiveAccountTest #test13 stamp: 'JA 5/31/2021 21:40:12'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/31/2021 21:40:59' prior: 50865061!
+accountSummaryReport	
+	|report|
+	report := OrderedCollection new.
+	transactions do: [:transaction| 
+		(transaction isKindOf: Withdraw) ifTrue: [ report add: 
+				( 'Extracción por ', transaction value asString)].
+		(transaction isKindOf: Deposit) ifTrue: [ report add: 
+				('Depósito por ',transaction value asString)].
+		(transaction isKindOf: TransferDeposit) ifTrue: [ report add: 
+				('Entrada por transferencia de ',transaction value asString)].
+		(transaction isKindOf: TransferWithdraw) ifTrue: [ report add: 
+				('Salida por transferencia de ',transaction value asString)].
+	].
+	report add:('Balance = ', self balance asString).
+	^ report.! !
+
+!testRun: #ReceptiveAccountTest #test13 stamp: 'JA 5/31/2021 21:41:01'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'JA 5/31/2021 21:41:01'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'JA 5/31/2021 21:41:01'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'JA 5/31/2021 21:41:01'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'JA 5/31/2021 21:41:01'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'JA 5/31/2021 21:41:01'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'JA 5/31/2021 21:41:01'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'JA 5/31/2021 21:41:01'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08 stamp: 'JA 5/31/2021 21:41:01'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09 stamp: 'JA 5/31/2021 21:41:01'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'JA 5/31/2021 21:41:01'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11 stamp: 'JA 5/31/2021 21:41:01'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12 stamp: 'JA 5/31/2021 21:41:01'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13 stamp: 'JA 5/31/2021 21:41:01'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'JA 5/31/2021 21:44:29'!
+test20
+
+	| account |
+	
+	account := Portfolio new.
+	
+	self assert: account accountSummaryReport includes: 'Balance = 0'
+! !
+!PortfolioTest methodsFor: 'tests' stamp: 'JA 5/31/2021 21:45:03' prior: 50865217!
+test20
+
+	| portfolio |
+	
+	portfolio := Portfolio new.
+	
+	self assert: portfolio accountSummaryReport includes: 'Balance = 0'
+! !
+
+!testRun: #PortfolioTest #test20 stamp: 'JA 5/31/2021 21:45:05'!
+ERROR!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'JA 5/31/2021 21:45:28'!
+accountSummaryReport
+	self shouldBeImplemented.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'JA 5/31/2021 21:46:03' prior: 50865233!
+accountSummaryReport
+	^ OrderedCollection with:'Balance = 0'.! !
+
+!testRun: #PortfolioTest #test20 stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'JA 5/31/2021 21:46:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'JA 5/31/2021 21:46:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'JA 5/31/2021 21:46:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'JA 5/31/2021 21:46:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test20 stamp: 'JA 5/31/2021 21:46:05'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'JA 5/31/2021 21:51:44'!
+test21
+
+	|portfolio|
+	
+	portfolio := self portfolioWithOneAccountWith100Deposit.
+	
+	
+	self assert: portfolio accountSummaryReport includes: 'Depósito por 100'.
+	self assert: 'Balance = 100' equals: portfolio accountSummaryReport last.
+	self assert: 2 equals: portfolio accountSummaryReport size.! !
+
+!testRun: #PortfolioTest #test21 stamp: 'JA 5/31/2021 21:51:45'!
+FAILURE!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'JA 5/31/2021 22:00:20' prior: 50865238!
+accountSummaryReport	
+	| report |
+	report := OrderedCollection new.
+	financialEntities do:[ :aFinancialEntity |
+			report addAllLast: aFinancialEntity accountSummaryReport .
+		].
+	report add:'Balance = ', self balance asString.
+	^ report.! !
+
+!testRun: #PortfolioTest #test21 stamp: 'JA 5/31/2021 22:00:36'!
+FAILURE!
+!PortfolioTest methodsFor: 'tests' stamp: 'JA 5/31/2021 22:36:58' prior: 50865320!
+test21
+
+	|portfolio|
+	
+	portfolio := self portfolioWithOneAccountWith100Deposit.
+	
+	
+	self assert: portfolio accountSummaryReport includes: 'Depósito por 100'.
+	self assert: 'Balance = 100' equals: portfolio accountSummaryReport last.
+	
+	self assert: 3 equals: portfolio accountSummaryReport size.! !
+!PortfolioTest methodsFor: 'tests' stamp: 'JA 5/31/2021 22:39:48' prior: 50865348!
+test21
+
+	|portfolio|
+	
+	portfolio := self portfolioWithOneAccountWith100Deposit.
+	portfolio addFinancialEntity: self receptiveAccountWith100Deposit .
+	
+	self assert: portfolio accountSummaryReport includes: 'Depósito por 100'.
+	self assert: 'Balance = 100' equals: portfolio accountSummaryReport last.
+	
+	self assert: 3 equals: portfolio accountSummaryReport size.! !
+!PortfolioTest methodsFor: 'tests' stamp: 'JA 5/31/2021 22:49:30' prior: 50865360!
+test21
+
+	|portfolio report |
+	
+	portfolio := self portfolioWithOneAccountWith100Deposit.
+	portfolio addFinancialEntity: self receptiveAccountWith100Deposit .
+	
+	report :=portfolio accountSummaryReport.
+	self assert: 'Balance = 200' equals: report last.
+	report removeLast.	
+	self assert: 'Balance = 100' equals: report last.
+	report removeLast.
+	self assert: 'Depósito por 100' equals: report last.
+	report removeLast.
+	self assert: 'Balance = 100' equals: report last.
+	report removeLast.
+	self assert: 'Depósito por 100' equals: report last.
+	report removeLast.	
+	
+	self assert: 3 equals: portfolio accountSummaryReport size.! !
+!PortfolioTest methodsFor: 'tests' stamp: 'JA 5/31/2021 22:51:00' prior: 50865375!
+test21
+
+	|portfolio report |
+	
+	portfolio := self portfolioWithOneAccountWith100Deposit.
+	portfolio addFinancialEntity: self receptiveAccountWith100Deposit .
+	
+	report :=portfolio accountSummaryReport.
+	
+	self assert: 5 equals: report size.
+	self assert: 'Balance = 200' equals: report last.
+	report removeLast.	
+	self assert: 'Balance = 100' equals: report last.
+	report removeLast.
+	self assert: 'Depósito por 100' equals: report last.
+	report removeLast.
+	self assert: 'Balance = 100' equals: report last.
+	report removeLast.
+	self assert: 'Depósito por 100' equals: report last.
+	
+	
+	! !
+
+!testRun: #PortfolioTest #test21 stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test20 stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test21 stamp: 'JA 5/31/2021 22:51:02'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'JA 5/31/2021 22:53:44' prior: 50865398!
+test21
+
+	|portfolio report |
+	
+	portfolio := self portfolioWithOneAccountWith100Deposit.
+	portfolio addFinancialEntity: self receptiveAccountWith100Deposit .
+	
+	report :=portfolio accountSummaryReport.
+	
+	self assert: 5 equals: report size.
+	self assert: 'Balance = 200' equals: report last.
+	report removeLast.	
+	self assert: 'Balance = 100' equals: report last.
+	report removeLast.
+	self assert: 'Depósito por 100' equals: report last.
+	report removeLast.
+	self assert: 'Balance = 100' equals: report last.
+	report removeLast.
+	self assert: 'Depósito por 100' equals: report last.! !
+
+!testRun: #PortfolioTest #test21 stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test20 stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test21 stamp: 'JA 5/31/2021 22:53:45'!
+PASSED!
+
+----QUIT----(31 May 2021 22:54:03) CuisUniversity-4532.image priorSource: 17071394!
+
+----STARTUP---- (31 May 2021 22:54:27) as /home/julian/facu/ingenieria1/ambientesCuis/Portfolio/CuisUniversity-4532.image!
+
+
+----QUIT----(31 May 2021 22:54:38) CuisUniversity-4532.image priorSource: 17086407!

@@ -341,6 +341,37 @@ test19CannotAddItself
 	raise: Error 
 	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedFinancialEntity) ].! !
 
+!PortfolioTest methodsFor: 'tests' stamp: 'JA 5/31/2021 21:45:03'!
+test20
+
+	| portfolio |
+	
+	portfolio := Portfolio new.
+	
+	self assert: portfolio accountSummaryReport includes: 'Balance = 0'
+! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'JA 5/31/2021 22:53:44'!
+test21
+
+	|portfolio report |
+	
+	portfolio := self portfolioWithOneAccountWith100Deposit.
+	portfolio addFinancialEntity: self receptiveAccountWith100Deposit .
+	
+	report :=portfolio accountSummaryReport.
+	
+	self assert: 5 equals: report size.
+	self assert: 'Balance = 200' equals: report last.
+	report removeLast.	
+	self assert: 'Balance = 100' equals: report last.
+	report removeLast.
+	self assert: 'Depósito por 100' equals: report last.
+	report removeLast.
+	self assert: 'Balance = 100' equals: report last.
+	report removeLast.
+	self assert: 'Depósito por 100' equals: report last.! !
+
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Ejercicio'!
 TestCase subclass: #ReceptiveAccountTest
@@ -494,6 +525,18 @@ test12
 	self assert: accountDestino accountSummaryReport includes: 'Entrada por transferencia de 100'.
 	self assert: accountOrigen accountSummaryReport includes: 'Balance = -100'.
 	self assert: accountDestino accountSummaryReport includes: 'Balance = 100'.	! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/31/2021 21:40:11'!
+test13
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	
+	Deposit register: 100 on: account. 
+	
+	self assert: 'Balance = 100' equals: account accountSummaryReport last .
+! !
 
 
 !classDefinition: #TransferTest category: 'Portfolio-Ejercicio'!
@@ -880,6 +923,17 @@ addFinancialEntity: aFinancialEntity
 	
 	aFinancialEntity isAddedInto: self.! !
 
+
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'JA 5/31/2021 22:00:20'!
+accountSummaryReport	
+	| report |
+	report := OrderedCollection new.
+	financialEntities do:[ :aFinancialEntity |
+			report addAllLast: aFinancialEntity accountSummaryReport .
+		].
+	report add:'Balance = ', self balance asString.
+	^ report.! !
+
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!
 FinancialEntity subclass: #ReceptiveAccount
@@ -944,10 +998,10 @@ includes: aFinancialEntity
 ! !
 
 
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 20:45:50'!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/31/2021 21:40:59'!
 accountSummaryReport	
 	|report|
-	report := OrderedCollection with:('Balance = ', self balance asString).
+	report := OrderedCollection new.
 	transactions do: [:transaction| 
 		(transaction isKindOf: Withdraw) ifTrue: [ report add: 
 				( 'Extracción por ', transaction value asString)].
@@ -958,6 +1012,7 @@ accountSummaryReport
 		(transaction isKindOf: TransferWithdraw) ifTrue: [ report add: 
 				('Salida por transferencia de ',transaction value asString)].
 	].
+	report add:('Balance = ', self balance asString).
 	^ report.! !
 
 
