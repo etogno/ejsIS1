@@ -14332,3 +14332,59 @@ PASSED!
 
 
 ----QUIT----(31 May 2021 22:54:38) CuisUniversity-4532.image priorSource: 17086407!
+!TransferTest methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 01:00:55'!
+test06
+	| account |
+	account := ReceptiveAccount new.
+		
+	self should:[Transfer from:account to:account amount: 100.]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Transfer canNotTransferToTheSameAccount) ].
+	! !
+
+!testRun: #TransferTest #test06 stamp: 'ET 6/2/2021 01:01:00'!
+FAILURE!
+!Transfer class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 01:02:07' prior: 50991559!
+from: aReceptiveAccountOrigin to: aReceptiveAccountDestiny amount: anAmount 
+	
+	
+	anAmount <= 0 ifTrue: [self error: self canNotTransferWithInvalidAmount].
+	
+	aReceptiveAccountOrigin = aReceptiveAccountDestiny ifTrue: [self error: self canNotTransferToTheSameAccount].
+	
+	
+	^ self new initializeWith: aReceptiveAccountOrigin and: aReceptiveAccountDestiny amount: anAmount.! !
+
+!testRun: #TransferTest #test06 stamp: 'ET 6/2/2021 01:02:26'!
+ERROR!
+!Transfer class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 01:02:56'!
+canNotTransferToTheSameAccount
+	self shouldBeImplemented.! !
+!Transfer class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 01:03:34' prior: 50991604!
+canNotTransferToTheSameAccount
+	
+	^'No podes transferir de una cuenta a la misma cuenta'.! !
+
+!testRun: #TransferTest #test06 stamp: 'ET 6/2/2021 01:03:36'!
+FAILURE!
+
+!testRun: #TransferTest #test06 stamp: 'ET 6/2/2021 01:03:40'!
+PASSED!
+
+!testRun: #TransferTest #test01 stamp: 'ET 6/2/2021 01:03:40'!
+PASSED!
+
+!testRun: #TransferTest #test02 stamp: 'ET 6/2/2021 01:03:40'!
+PASSED!
+
+!testRun: #TransferTest #test03 stamp: 'ET 6/2/2021 01:03:40'!
+PASSED!
+
+!testRun: #TransferTest #test04 stamp: 'ET 6/2/2021 01:03:40'!
+PASSED!
+
+!testRun: #TransferTest #test05 stamp: 'ET 6/2/2021 01:03:40'!
+PASSED!
+
+!testRun: #TransferTest #test06 stamp: 'ET 6/2/2021 01:03:40'!
+PASSED!

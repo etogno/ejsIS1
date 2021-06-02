@@ -604,6 +604,16 @@ test05
 	self assert: (accountDestino hasRegistered: (aTransfer withdraw transfer deposit)).
 	! !
 
+!TransferTest methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 01:00:55'!
+test06
+	| account |
+	account := ReceptiveAccount new.
+		
+	self should:[Transfer from:account to:account amount: 100.]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Transfer canNotTransferToTheSameAccount) ].
+	! !
+
 
 !classDefinition: #AccountTransaction category: 'Portfolio-Ejercicio'!
 Object subclass: #AccountTransaction
@@ -1058,15 +1068,22 @@ withdraw
 Transfer class
 	instanceVariableNames: ''!
 
+!Transfer class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 01:03:34'!
+canNotTransferToTheSameAccount
+	
+	^'No podes transferir de una cuenta a la misma cuenta'.! !
+
 !Transfer class methodsFor: 'as yet unclassified' stamp: 'JA 5/27/2021 21:22:26'!
 canNotTransferWithInvalidAmount
 	^ 'No se puede transferir con monto no positivo'.! !
 
-!Transfer class methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 18:26:36'!
+!Transfer class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 01:02:07'!
 from: aReceptiveAccountOrigin to: aReceptiveAccountDestiny amount: anAmount 
 	
 	
 	anAmount <= 0 ifTrue: [self error: self canNotTransferWithInvalidAmount].
+	
+	aReceptiveAccountOrigin = aReceptiveAccountDestiny ifTrue: [self error: self canNotTransferToTheSameAccount].
 	
 	
 	^ self new initializeWith: aReceptiveAccountOrigin and: aReceptiveAccountDestiny amount: anAmount.! !
