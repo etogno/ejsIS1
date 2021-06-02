@@ -372,6 +372,21 @@ test21
 	report removeLast.
 	self assert: 'Depósito por 100' equals: report last.! !
 
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 6/2/2021 01:51:52'!
+test22
+
+	| portfolio accountOrigen accountDestino|
+	
+	portfolio := Portfolio new.
+	accountOrigen := ReceptiveAccount new.
+	accountDestino := ReceptiveAccount new.
+	portfolio addFinancialEntity: accountDestino.
+	
+	Transfer from: accountOrigen to: accountDestino amount: 100.
+	
+	self assert: 100 equals: portfolio transferNetReport.
+! !
+
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Ejercicio'!
 TestCase subclass: #ReceptiveAccountTest
@@ -536,6 +551,40 @@ test13
 	Deposit register: 100 on: account. 
 	
 	self assert: 'Balance = 100' equals: account accountSummaryReport last .
+! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/2/2021 01:06:34'!
+test14
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	
+	self assert: 0 equals: account transferNetReport.
+! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/2/2021 01:42:25'!
+test15
+
+	| accountDestino accountOrigen |
+	
+	accountDestino := ReceptiveAccount new.
+	accountOrigen := ReceptiveAccount new.
+	Transfer from: accountOrigen to: accountDestino amount: 100.
+	
+	self assert: 100 equals: accountDestino transferNetReport.
+	self assert: -100 equals: accountOrigen transferNetReport.
+! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/2/2021 01:46:21'!
+test16
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100  on: account. 
+	
+	self assert: 0 equals: account transferNetReport.
 ! !
 
 
@@ -944,6 +993,10 @@ accountSummaryReport
 	report add:'Balance = ', self balance asString.
 	^ report.! !
 
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 01:53:21'!
+transferNetReport
+	^financialEntities sum: [:aFinancialEntity | aFinancialEntity transferNetReport ] ifEmpty:[0].! !
+
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!
 FinancialEntity subclass: #ReceptiveAccount
@@ -1024,6 +1077,17 @@ accountSummaryReport
 	].
 	report add:('Balance = ', self balance asString).
 	^ report.! !
+
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 01:47:03'!
+transferNetReport
+	|net|
+	net := 0.
+	transactions do: [:transaction |
+		(transaction isKindOf: TransferDeposit) ifTrue: [net := net + transaction value].
+		(transaction isKindOf: TransferWithdraw) ifTrue: [net := net - transaction value]
+		].
+	
+	^net.! !
 
 
 !classDefinition: #Transfer category: 'Portfolio-Ejercicio'!
