@@ -484,6 +484,77 @@ test25PortfolioNameIsWhatItWasNamed
 ! !
 
 
+!PortfolioTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 02:09:08'!
+test26SpecialSummaryReportOfNewPortfolio
+
+	| portfolio report |
+	
+	portfolio := Portfolio named: 'cuenta de la familia'.
+
+	report := SpecialSummaryReport for: portfolio.
+	
+	self assert: report includes: 'cuenta de la familia'.
+	self assert: report includes: String tab, 'Balance = 0'.
+	
+! !
+
+!PortfolioTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 02:09:45'!
+test27SpecialSummaryReportOfPortfolioHasItsName
+
+	| portfolio report |
+	
+	portfolio := Portfolio named: 'cuenta de la ciudad'.
+
+	report := SpecialSummaryReport for: portfolio.
+	
+	self assert: report includes: 'cuenta de la ciudad'.
+	self assert: report includes: String tab, 'Balance = 0'.
+	
+! !
+
+!PortfolioTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 02:10:09'!
+test28SpecialSummaryReportOfPortfolioWithNewAccount
+
+	| portfolio account report |
+	
+	portfolio := Portfolio named: 'cuenta de la familia'.
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	
+	portfolio addFinancialEntity: account.
+
+	report := SpecialSummaryReport for: portfolio.
+	
+	
+	self assert: report first equals: 'cuenta de la familia'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'cuenta de pepe'.
+	report removeFirst.
+	self assert: report first equals: String tab, String tab, 'Balance = 0'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'Balance = 0'.
+	
+! !
+
+!PortfolioTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 02:16:20'!
+test29SpecialSummaryReportOfPortfolioWithAccountWithRegisteredDeposit
+
+	| portfolio account report |
+	
+	portfolio := Portfolio named: 'cuenta de la familia'.
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	Deposit register: 100  on: account.
+	
+	portfolio addFinancialEntity: account.
+
+	report := SpecialSummaryReport for: portfolio.
+	
+	
+	self assert: report last equals: String tab, 'Balance = 100'.
+	
+! !
+
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Ejercicio'!
 TestCase subclass: #ReceptiveAccountTest
@@ -603,8 +674,8 @@ test16NonTransferTransactionsDoesNotModifyTransferNetReport
 ! !
 
 
-!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:11:20'!
-test19
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 02:06:16'!
+test19SpecialSummaryReportOfNewReceptiveAccount
 
 	| account report |
 	
@@ -617,8 +688,8 @@ test19
 	self assert: report includes: String tab, 'Balance = 0'.
 ! !
 
-!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:38:37'!
-test20
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 02:06:55'!
+test20SpecialSummaryReportHasNameOfTheAccount
 
 	| account report |
 	
@@ -631,8 +702,8 @@ test20
 	self assert: report includes: String tab, 'Balance = 0'.
 ! !
 
-!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:22:36'!
-test21
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 02:08:10'!
+test21SpecialSummaryReportOfAccountWithDeposit
 
 	| account report |
 	
@@ -648,8 +719,8 @@ test21
 	self assert: report includes: String tab, 'Balance = 100'.
 ! !
 
-!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:25:24'!
-test22
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 02:08:27'!
+test22SpecialSummaryReportOfAccountWithWithdraw
 
 	| account report |
 	
@@ -665,8 +736,8 @@ test22
 	self assert: report includes: String tab, 'Balance = -100'.
 ! !
 
-!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:38:10'!
-test23
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 02:08:43'!
+test23SpecialSummaryReportOfBothAccountsInTransfer
 
 	| accountDestino accountOrigen reportDestino reportOrigen |
 	
@@ -1542,10 +1613,16 @@ reportDeposit: aDepositTransaction
 
 	^String tab, 'Depósito por ', aDepositTransaction value asString.! !
 
-!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:07:06'!
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 02:04:49'!
 reportPortfolio: aPortfolio
-
-	self subclassResponsibility! !
+	|reports finalReport|
+	finalReport := OrderedCollection with: aPortfolio name.
+	reports := aPortfolio collectionReportsOfItsFinancialEntities: self.
+	
+	reports do: [:aFinancialEntityReport | finalReport addAllLast: (aFinancialEntityReport collect: [:a | String tab, a]  )].
+	
+	finalReport add: String tab, 'Balance = ', aPortfolio balance asString.
+	^finalReport.! !
 
 !SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:36:02'!
 reportTransferDeposit: aTransferDepositTransaction
