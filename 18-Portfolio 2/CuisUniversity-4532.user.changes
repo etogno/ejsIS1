@@ -21629,3 +21629,749 @@ Report subclass: #PortfolioStructureReport
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
+
+NewClassWithInheritedAbstractMessages superclass: Report withClassName: #PortfolioStructureReport!
+
+!classDefinition: #PortfolioStructureReport category: 'Portfolio-Ejercicio' stamp: 'ET 6/3/2021 00:38:51'!
+Report subclass: #PortfolioStructureReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:38:51' overrides: 51006316!
+reportDeposit: aDepositTransaction
+
+	self subclassResponsibility! !
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:38:51' overrides: 51006321!
+reportPortfolio: aPortfolio
+
+	self subclassResponsibility! !
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:38:51' overrides: 51006331!
+reportTransferWithdraw: aTransferWithdrawTransaction
+
+	self subclassResponsibility! !
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:38:51' overrides: 51006311!
+reportAccount: aReceptiveAccount
+
+	self subclassResponsibility! !
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:38:51' overrides: 51006326!
+reportTransferDeposit: aTransferDepositTransaction
+
+	self subclassResponsibility! !
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:38:51' overrides: 51006337!
+reportWithdraw: aWithdrawTransaction
+
+	self subclassResponsibility! !
+!PortfolioTest methodsFor: 'summary report tests' stamp: 'ET 6/3/2021 00:39:36'!
+test26
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	self assert: (PortfolioStructureReport for: portfolio) includes: 'portfolio de la familia'.
+! !
+
+!testRun: #PortfolioTest #test26 stamp: 'ET 6/3/2021 00:39:58'!
+ERROR!
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:40:18' prior: 51006580 overrides: 51006321!
+reportPortfolio: aPortfolio
+
+	^'portfolio de la familia'.! !
+
+!testRun: #PortfolioTest #test26 stamp: 'ET 6/3/2021 00:40:20'!
+FAILURE!
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:40:43' prior: 51006624 overrides: 51006321!
+reportPortfolio: aPortfolio
+
+	^OrderedCollection with: 'portfolio de la familia'.! !
+
+!testRun: #PortfolioTest #test26 stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/3/2021 00:40:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/3/2021 00:40:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/3/2021 00:40:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test20SummaryReportOfNewPortfolio stamp: 'ET 6/3/2021 00:40:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test21SummaryReportOfPortfolioWithTwoAccounts stamp: 'ET 6/3/2021 00:40:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test22TransferNetReportOfPortfolioWithAParticipantOfATransfer stamp: 'ET 6/3/2021 00:40:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test23TransferNetReportOfNewPortfolio stamp: 'ET 6/3/2021 00:40:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioCanBeNamed stamp: 'ET 6/3/2021 00:40:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioNameIsWhatItWasNamed stamp: 'ET 6/3/2021 00:40:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test26 stamp: 'ET 6/3/2021 00:40:46'!
+PASSED!
+!PortfolioTest methodsFor: 'summary report tests' stamp: 'ET 6/3/2021 00:41:05'!
+test27
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'portfolio de la ciudad'.
+	
+	self assert: (PortfolioStructureReport for: portfolio) includes: 'portfolio de la ciudad'.
+! !
+
+!testRun: #PortfolioTest #test27 stamp: 'ET 6/3/2021 00:41:23'!
+FAILURE!
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:41:46' prior: 51006633 overrides: 51006321!
+reportPortfolio: aPortfolio
+
+	^OrderedCollection with: aPortfolio name.! !
+
+!testRun: #PortfolioTest #test27 stamp: 'ET 6/3/2021 00:41:48'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test20SummaryReportOfNewPortfolio stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test21SummaryReportOfPortfolioWithTwoAccounts stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test22TransferNetReportOfPortfolioWithAParticipantOfATransfer stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test23TransferNetReportOfNewPortfolio stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioCanBeNamed stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioNameIsWhatItWasNamed stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test26 stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+
+!testRun: #PortfolioTest #test27 stamp: 'ET 6/3/2021 00:41:49'!
+PASSED!
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 00:43:32' prior: 51006611!
+test26
+
+	| portfolio account report|
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	
+	report := PortfolioStructureReport for: portfolio.
+	
+	self assert: report first equals: 'portfolio de la familia'.
+	report removeFirst.
+	self assert: report first equals: 'cuenta de pepe'.
+! !
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 00:43:47' prior: 51006854!
+test26
+
+	| portfolio account report|
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	
+	portfolio addFinancialEntity: account.
+	
+	report := PortfolioStructureReport for: portfolio.
+	
+	self assert: report first equals: 'portfolio de la familia'.
+	report removeFirst.
+	self assert: report first equals: 'cuenta de pepe'.
+! !
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 00:43:32' prior: 51006869!
+test26
+
+	| portfolio account report|
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	
+	report := PortfolioStructureReport for: portfolio.
+	
+	self assert: report first equals: 'portfolio de la familia'.
+	report removeFirst.
+	self assert: report first equals: 'cuenta de pepe'.
+! !
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 00:39:36' prior: 51006885!
+test26
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	self assert: (PortfolioStructureReport for: portfolio) includes: 'portfolio de la familia'.
+! !
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 00:44:20'!
+test28
+
+	| portfolio account report|
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	
+	portfolio addFinancialEntity: account.
+	
+	report := PortfolioStructureReport for: portfolio.
+	
+	self assert: report first equals: 'portfolio de la familia'.
+	report removeFirst.
+	self assert: report first equals: 'cuenta de pepe'.! !
+
+!testRun: #PortfolioTest #test28 stamp: 'ET 6/3/2021 00:44:26'!
+ERROR!
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 00:45:02' prior: 51006909!
+test28
+
+	| portfolio account report|
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	
+	portfolio addFinancialEntity: account.
+	
+	report := PortfolioStructureReport for: portfolio.
+	
+	self assert: report first equals: 'portfolio de la familia'.
+	report removeFirst.
+	self assert: String tab, report first equals: 'cuenta de pepe'.! !
+
+!testRun: #PortfolioTest #test28 stamp: 'ET 6/3/2021 00:45:11'!
+ERROR!
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:50:17' prior: 51006749 overrides: 51006321!
+reportPortfolio: aPortfolio
+	|reports finalReport|
+	finalReport := OrderedCollection with: aPortfolio name.
+	
+	reports := aPortfolio collectionReportsOfItsFinancialEntities: self.
+	
+	reports do: [:aFinancialEntityReport | finalReport addAllLast: (aFinancialEntityReport collect: [:a | String tab, a]  )].
+	
+	^finalReport.! !
+
+!testRun: #PortfolioTest #test28 stamp: 'ET 6/3/2021 00:50:32'!
+ERROR!
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:50:55' prior: 51006593 overrides: 51006311!
+reportAccount: aReceptiveAccount
+
+	^OrderedCollection with: 'cuenta de pepe'.! !
+
+!testRun: #PortfolioTest #test28 stamp: 'ET 6/3/2021 00:50:56'!
+FAILURE!
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 00:51:25' prior: 51006927!
+test28
+
+	| portfolio account report|
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	
+	portfolio addFinancialEntity: account.
+	
+	report := PortfolioStructureReport for: portfolio.
+	
+	self assert: report first equals: 'portfolio de la familia'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'cuenta de pepe'.! !
+
+!testRun: #PortfolioTest #test28 stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test20SummaryReportOfNewPortfolio stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test21SummaryReportOfPortfolioWithTwoAccounts stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test22TransferNetReportOfPortfolioWithAParticipantOfATransfer stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test23TransferNetReportOfNewPortfolio stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioCanBeNamed stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioNameIsWhatItWasNamed stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test26 stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test27 stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+
+!testRun: #PortfolioTest #test28 stamp: 'ET 6/3/2021 00:51:27'!
+PASSED!
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 00:52:50'!
+test29
+
+	| portfolio accountPepe accountPepa report|
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	accountPepe := ReceptiveAccount named: 'cuenta de pepe'.
+	
+	accountPepa := ReceptiveAccount named: 'cuenta de pepa'.
+	
+	portfolio addFinancialEntity: accountPepe.
+	
+	portfolio addFinancialEntity: accountPepa.
+	
+	report := PortfolioStructureReport for: portfolio.
+	
+	self assert: report first equals: 'portfolio de la familia'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'cuenta de pepe'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'cuenta de pepa'.
+	! !
+
+!testRun: #PortfolioTest #test29 stamp: 'ET 6/3/2021 00:52:51'!
+FAILURE!
+
+aFinancialEntity!
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:53:51' prior: 51006963 overrides: 51006311!
+reportAccount: aReceptiveAccount
+
+	^OrderedCollection with: aReceptiveAccount name.! !
+
+!testRun: #PortfolioTest #test29 stamp: 'ET 6/3/2021 00:53:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/3/2021 00:53:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/3/2021 00:53:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/3/2021 00:53:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/3/2021 00:53:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:53:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/3/2021 00:53:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/3/2021 00:53:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/3/2021 00:53:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/3/2021 00:53:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/3/2021 00:53:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test20SummaryReportOfNewPortfolio stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test21SummaryReportOfPortfolioWithTwoAccounts stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test22TransferNetReportOfPortfolioWithAParticipantOfATransfer stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test23TransferNetReportOfNewPortfolio stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioCanBeNamed stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioNameIsWhatItWasNamed stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test26 stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test27 stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test28 stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test29 stamp: 'ET 6/3/2021 00:53:54'!
+PASSED!
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:54:34' prior: 51006606 overrides: 51006337!
+reportWithdraw: aWithdrawTransaction! !
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:54:39' prior: 51006586 overrides: 51006331!
+reportTransferWithdraw: aTransferWithdrawTransaction! !
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:54:43' prior: 51006599 overrides: 51006326!
+reportTransferDeposit: aTransferDepositTransaction! !
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:54:48' prior: 51006574 overrides: 51006316!
+reportDeposit: aDepositTransaction! !
+!PortfolioStructureReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:55:59' prior: 51006946 overrides: 51006321!
+reportPortfolio: aPortfolio
+	|reports finalReport|
+	finalReport := OrderedCollection with: aPortfolio name.
+	
+	reports := aPortfolio collectionReportsOfItsFinancialEntities: self.
+	
+	reports do: [:aFinancialEntityReport | finalReport addAllLast: (aFinancialEntityReport collect: [:a | String tab, a]  )].
+	
+	^finalReport.! !
+
+----SNAPSHOT----(3 June 2021 00:57:52) CuisUniversity-4532.image priorSource: 21496579!
+
+johnsAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+angiesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+childrenPortfolio := Portfolio named: 'Portfolio de hijos'.
+childrenPortfolio addFinancialEntity: johnsAccount.
+childrenPortfolio addFinancialEntity: angiesAccount.
+
+myAccount := ReceptiveAccount named: 'Cuenta mia'.
+familyPortfolio := Portfolio named: 'Portfolio de la familia'.
+familyPortfolio addFinancialEntity: myAccount.
+familyPortfolio addFinancialEntity: childrenPortfolio.!
+
+PortfolioStructureReport for: familyPortfolio !
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 01:00:21'!
+test26PortfolioStructureReportOfNewPortfolioHasThatPortfolio
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	self assert: (PortfolioStructureReport for: portfolio) includes: 'portfolio de la familia'.
+! !
+
+!methodRemoval: PortfolioTest #test26 stamp: 'ET 6/3/2021 01:00:26'!
+test26
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	self assert: (PortfolioStructureReport for: portfolio) includes: 'portfolio de la familia'.
+!
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 01:01:00'!
+test27PortfolioStructureReportOfNewPortfolioHasTheNameOfThePortfolio
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'portfolio de la ciudad'.
+	
+	self assert: (PortfolioStructureReport for: portfolio) includes: 'portfolio de la ciudad'.
+! !
+
+!methodRemoval: PortfolioTest #test27 stamp: 'ET 6/3/2021 01:01:00'!
+test27
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'portfolio de la ciudad'.
+	
+	self assert: (PortfolioStructureReport for: portfolio) includes: 'portfolio de la ciudad'.
+!
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 01:01:16'!
+test26PortfolioStructureReportOfNewPortfolioHasAName
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	self assert: (PortfolioStructureReport for: portfolio) includes: 'portfolio de la familia'.
+! !
+
+!methodRemoval: PortfolioTest #test26PortfolioStructureReportOfNewPortfolioHasThatPortfolio stamp: 'ET 6/3/2021 01:01:16'!
+test26PortfolioStructureReportOfNewPortfolioHasThatPortfolio
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	self assert: (PortfolioStructureReport for: portfolio) includes: 'portfolio de la familia'.
+!
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 01:01:39'!
+test28PortfolioWithAccountStructureReport
+
+	| portfolio account report|
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	
+	portfolio addFinancialEntity: account.
+	
+	report := PortfolioStructureReport for: portfolio.
+	
+	self assert: report first equals: 'portfolio de la familia'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'cuenta de pepe'.! !
+
+!methodRemoval: PortfolioTest #test28 stamp: 'ET 6/3/2021 01:01:39'!
+test28
+
+	| portfolio account report|
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	
+	portfolio addFinancialEntity: account.
+	
+	report := PortfolioStructureReport for: portfolio.
+	
+	self assert: report first equals: 'portfolio de la familia'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'cuenta de pepe'.!
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 01:01:55'!
+test29PortfolioWithTwoAccountsStructureReport
+
+	| portfolio accountPepe accountPepa report|
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	accountPepe := ReceptiveAccount named: 'cuenta de pepe'.
+	
+	accountPepa := ReceptiveAccount named: 'cuenta de pepa'.
+	
+	portfolio addFinancialEntity: accountPepe.
+	
+	portfolio addFinancialEntity: accountPepa.
+	
+	report := PortfolioStructureReport for: portfolio.
+	
+	self assert: report first equals: 'portfolio de la familia'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'cuenta de pepe'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'cuenta de pepa'.
+	! !
+
+!methodRemoval: PortfolioTest #test29 stamp: 'ET 6/3/2021 01:01:55'!
+test29
+
+	| portfolio accountPepe accountPepa report|
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	accountPepe := ReceptiveAccount named: 'cuenta de pepe'.
+	
+	accountPepa := ReceptiveAccount named: 'cuenta de pepa'.
+	
+	portfolio addFinancialEntity: accountPepe.
+	
+	portfolio addFinancialEntity: accountPepa.
+	
+	report := PortfolioStructureReport for: portfolio.
+	
+	self assert: report first equals: 'portfolio de la familia'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'cuenta de pepe'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'cuenta de pepa'.
+	!

@@ -28,6 +28,68 @@ receptiveAccountWith100Deposit
 	^account.! !
 
 
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 01:01:16'!
+test26PortfolioStructureReportOfNewPortfolioHasAName
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	self assert: (PortfolioStructureReport for: portfolio) includes: 'portfolio de la familia'.
+! !
+
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 01:01:00'!
+test27PortfolioStructureReportOfNewPortfolioHasTheNameOfThePortfolio
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'portfolio de la ciudad'.
+	
+	self assert: (PortfolioStructureReport for: portfolio) includes: 'portfolio de la ciudad'.
+! !
+
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 01:01:39'!
+test28PortfolioWithAccountStructureReport
+
+	| portfolio account report|
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	
+	portfolio addFinancialEntity: account.
+	
+	report := PortfolioStructureReport for: portfolio.
+	
+	self assert: report first equals: 'portfolio de la familia'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'cuenta de pepe'.! !
+
+!PortfolioTest methodsFor: 'portfolio structure tests' stamp: 'ET 6/3/2021 01:01:55'!
+test29PortfolioWithTwoAccountsStructureReport
+
+	| portfolio accountPepe accountPepa report|
+	
+	portfolio := Portfolio named: 'portfolio de la familia'.
+	
+	accountPepe := ReceptiveAccount named: 'cuenta de pepe'.
+	
+	accountPepa := ReceptiveAccount named: 'cuenta de pepa'.
+	
+	portfolio addFinancialEntity: accountPepe.
+	
+	portfolio addFinancialEntity: accountPepa.
+	
+	report := PortfolioStructureReport for: portfolio.
+	
+	self assert: report first equals: 'portfolio de la familia'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'cuenta de pepe'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'cuenta de pepa'.
+	! !
+
+
 !PortfolioTest methodsFor: 'summary report tests' stamp: 'ET 6/2/2021 23:36:01'!
 test20SummaryReportOfNewPortfolio
 
@@ -1322,6 +1384,48 @@ reportWithdraw: aWithdrawTransaction
 
 	^'Extracción por ', aWithdrawTransaction value asString.
 	! !
+
+
+!classDefinition: #PortfolioStructureReport category: 'Portfolio-Ejercicio'!
+Report subclass: #PortfolioStructureReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'PortfolioStructureReport class' category: 'Portfolio-Ejercicio'!
+PortfolioStructureReport class
+	instanceVariableNames: ''!
+
+!PortfolioStructureReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 00:53:51'!
+reportAccount: aReceptiveAccount
+
+	^OrderedCollection with: aReceptiveAccount name.! !
+
+!PortfolioStructureReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 00:54:48'!
+reportDeposit: aDepositTransaction! !
+
+!PortfolioStructureReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 00:55:59'!
+reportPortfolio: aPortfolio
+	|reports finalReport|
+	finalReport := OrderedCollection with: aPortfolio name.
+	
+	reports := aPortfolio collectionReportsOfItsFinancialEntities: self.
+	
+	reports do: [:aFinancialEntityReport | finalReport addAllLast: (aFinancialEntityReport collect: [:a | String tab, a]  )].
+	
+	^finalReport.! !
+
+!PortfolioStructureReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 00:54:43'!
+reportTransferDeposit: aTransferDepositTransaction! !
+
+!PortfolioStructureReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 00:54:39'!
+reportTransferWithdraw: aTransferWithdrawTransaction! !
+
+!PortfolioStructureReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 00:54:34'!
+reportWithdraw: aWithdrawTransaction! !
 
 
 !classDefinition: #TransferNetReport category: 'Portfolio-Ejercicio'!
