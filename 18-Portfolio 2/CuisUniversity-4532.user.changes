@@ -17543,3 +17543,2267 @@ PASSED!
 
 !testRun: #TransferTest #test06 stamp: 'ET 6/2/2021 03:08:05'!
 PASSED!
+
+----SNAPSHOT----(2 June 2021 22:52:32) CuisUniversity-4532.image priorSource: 21229855!
+!Behavior method!
+initialize
+	(financialEntities _ [
+	(OrderedCollection
+		cover: (35 to: 51)
+		declaredAt: (35 to: 51)) new ] valueCoveringAll:
+		{53 to: 55})
+		cover: (14 to: 30)
+		declaredAt: (14 to: 30).
+	(portfolioParents _ [
+	(OrderedCollection
+		cover: (79 to: 95)
+		declaredAt: (35 to: 51)) new ] valueCoveringAll:
+		{97 to: 99})
+		cover: (59 to: 74)
+		declaredAt: (59 to: 74).! !
+!Behavior method!
+balance
+	^ [
+	(financialEntities
+		cover: (14 to: 30)
+		declaredAt: (14 to: 30))
+		sum: [ :aFinancialEntity |
+			[
+			(aFinancialEntity
+				cover: (58 to: 73)
+				declaredAt: (39 to: 54)) balance ] valueCoveringAll:
+				{75 to: 81} ]
+		ifEmpty: [
+			0 coverAll:
+				{94 to: 94} ]] valueCoveringAll:
+		{32 to: 35. 84 to: 91}.! !
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/2/2021 22:52:37'!
+PASSED!
+!Behavior method!
+initialize
+	(transactions _ [
+	(OrderedCollection
+		cover: (30 to: 46)
+		declaredAt: (30 to: 46)) new ] valueCoveringAll:
+		{48 to: 50})
+		cover: (14 to: 25)
+		declaredAt: (14 to: 25).! !
+!Behavior method!
+register: aValue on: account
+	| transaction |
+	(transaction _ [
+	(self coverAll:
+		{66 to: 69}) for:
+		(aValue
+			cover: (76 to: 81)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{71 to: 74})
+		cover: (51 to: 61)
+		declaredAt: (34 to: 44).
+	[
+	(account
+		cover: (85 to: 91)
+		declaredAt: (22 to: 28)) register:
+		(transaction
+			cover: (103 to: 113)
+			declaredAt: (34 to: 44)) ] valueCoveringAll:
+		{93 to: 101}.
+	^ transaction
+		cover: (122 to: 132)
+		declaredAt: (34 to: 44).! !
+!Behavior method!
+for: aValue
+	^ [
+	([
+	(self coverAll:
+		{17 to: 20}) new ] valueCoveringAll:
+		{22 to: 24}) initializeFor:
+		(aValue
+			cover: (41 to: 46)
+			declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{26 to: 39}.! !
+!Behavior method!
+initializeFor: aValue
+	(value _ aValue
+		cover: (34 to: 39)
+		declaredAt: (16 to: 21))
+		cover: (25 to: 29)
+		declaredAt: (25 to: 29).! !
+!Behavior method!
+register: aTransaction
+	[
+	(transactions
+		cover: (26 to: 37)
+		declaredAt: (26 to: 37)) add:
+		(aTransaction
+			cover: (44 to: 55)
+			declaredAt: (11 to: 22)) ] valueCoveringAll:
+		{39 to: 42}.! !
+!Behavior method!
+addFinancialEntity: aFinancialEntity
+	[
+	(self coverAll:
+		{40 to: 43}) assertFinancialEntityHasNotBeenAdded:
+		(aFinancialEntity
+			cover: (83 to: 98)
+			declaredAt: (21 to: 36)) ] valueCoveringAll:
+		{45 to: 81}.
+	[
+	(aFinancialEntity
+		cover: (104 to: 119)
+		declaredAt: (21 to: 36)) isAddedInto:
+		(self coverAll:
+			{134 to: 137}) ] valueCoveringAll:
+		{121 to: 132}.! !
+!Behavior method!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+	[
+	(portfolioParents
+		cover: (58 to: 73)
+		declaredAt: (58 to: 73))
+		ifEmpty: [
+			[
+			(aFinancialEntity
+				cover: (85 to: 100)
+				declaredAt: (39 to: 54)) ensureItDoesntHaveAnythingOn:
+				(self coverAll:
+					{132 to: 135}) ] valueCoveringAll:
+				{102 to: 130} ]
+		ifNotEmpty: [
+			[
+			(portfolioParents
+				cover: (152 to: 167)
+				declaredAt: (58 to: 73)) do: [ :aPortfolio |
+				[
+				(aPortfolio
+					cover: (188 to: 197)
+					declaredAt: (175 to: 184)) assertFinancialEntityHasNotBeenAdded:
+					(aFinancialEntity
+						cover: (237 to: 252)
+						declaredAt: (39 to: 54)) ] valueCoveringAll:
+					{199 to: 235} ]] valueCoveringAll:
+				{169 to: 171} ]] valueCoveringAll:
+		{75 to: 82. 139 to: 149}.! !
+!Behavior method!
+ensureItDoesntHaveAnythingOn: aPortfolio
+	[
+	([
+	(aPortfolio
+		cover: (46 to: 55)
+		declaredAt: (31 to: 40)) includes:
+		(self coverAll:
+			{67 to: 70}) ] valueCoveringAll:
+		{57 to: 65}) ifTrue: [
+		[
+		(self coverAll:
+			{82 to: 85}) error:
+			([
+			([
+			(self coverAll:
+				{94 to: 97}) class ] valueCoveringAll:
+				{99 to: 103}) canNotAddAlreadyAddedFinancialEntity ] valueCoveringAll:
+				{105 to: 140}) ] valueCoveringAll:
+			{87 to: 92} ]] valueCoveringAll:
+		{73 to: 79}.! !
+!Behavior method!
+includes: aFinancialEntity
+	^ [
+	([
+	(aFinancialEntity
+		cover: (33 to: 48)
+		declaredAt: (11 to: 26)) =
+		(self coverAll:
+			{53 to: 56}) ] valueCoveringAll:
+		{51 to: 51}) or: [
+		[
+		(financialEntities
+			cover: (64 to: 80)
+			declaredAt: (64 to: 80)) anySatisfy: [ :financialEntity |
+			[
+			(financialEntity
+				cover: (114 to: 128)
+				declaredAt: (96 to: 110)) includes:
+				(aFinancialEntity
+					cover: (140 to: 155)
+					declaredAt: (11 to: 26)) ] valueCoveringAll:
+				{130 to: 138} ]] valueCoveringAll:
+			{82 to: 92} ]] valueCoveringAll:
+		{59 to: 61}.! !
+!Behavior method!
+isAddedInto: aPortfolio
+	[
+	(aPortfolio
+		cover: (27 to: 36)
+		declaredAt: (14 to: 23)) addAssertedFinancialEntity:
+		(self coverAll:
+			{66 to: 69}) ] valueCoveringAll:
+		{38 to: 64}.! !
+!Behavior method!
+addAssertedFinancialEntity: aFinancialEntity
+	[
+	(financialEntities
+		cover: (48 to: 64)
+		declaredAt: (48 to: 64)) add:
+		(aFinancialEntity
+			cover: (71 to: 86)
+			declaredAt: (29 to: 44)) ] valueCoveringAll:
+		{66 to: 69}.! !
+!Behavior method!
+balance
+	^ [
+	(transactions
+		cover: (12 to: 23)
+		declaredAt: (12 to: 23))
+		inject:
+			(0 coverAll:
+				{33 to: 33})
+		into: [ :balance :aTransaction |
+			[
+			(aTransaction
+				cover: (68 to: 79)
+				declaredAt: (52 to: 63)) modifiesBalance:
+				(balance
+					cover: (98 to: 104)
+					declaredAt: (43 to: 49)) ] valueCoveringAll:
+				{81 to: 96} ]] valueCoveringAll:
+		{25 to: 31. 35 to: 39}.! !
+!Behavior method!
+modifiesBalance: balance
+	^ [
+	(balance
+		cover: (29 to: 35)
+		declaredAt: (18 to: 24)) +
+		(value
+			cover: (39 to: 43)
+			declaredAt: (39 to: 43)) ] valueCoveringAll:
+		{37 to: 37}.! !
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/2/2021 22:52:37'!
+PASSED!
+!Behavior method!
+includes: aFinancialEntity
+	^ [
+	(self coverAll:
+		{31 to: 34}) =
+		(aFinancialEntity
+			cover: (38 to: 53)
+			declaredAt: (11 to: 26)) ] valueCoveringAll:
+		{36 to: 36}.! !
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/2/2021 22:52:37'!
+PASSED!
+!Behavior method!
+hasRegistered: aTransaction
+	^ [
+	(financialEntities
+		cover: (35 to: 51)
+		declaredAt: (35 to: 51)) anySatisfy: [ :aFinancialEntity |
+		[
+		(aFinancialEntity
+			cover: (86 to: 101)
+			declaredAt: (67 to: 82)) hasRegistered:
+			(aTransaction
+				cover: (118 to: 129)
+				declaredAt: (16 to: 27)) ] valueCoveringAll:
+			{103 to: 116} ]] valueCoveringAll:
+		{53 to: 63}.! !
+!Behavior method!
+hasRegistered: aTransaction
+	^ [
+	(transactions
+		cover: (33 to: 44)
+		declaredAt: (33 to: 44)) includes:
+		(aTransaction
+			cover: (56 to: 67)
+			declaredAt: (16 to: 27)) ] valueCoveringAll:
+		{46 to: 54}.! !
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/2/2021 22:52:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/2/2021 22:52:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+!Behavior method!
+transactions
+	| transactions |
+	(transactions _ [
+	(OrderedCollection
+		cover: (48 to: 64)
+		declaredAt: (48 to: 64)) new ] valueCoveringAll:
+		{66 to: 68})
+		cover: (32 to: 43)
+		declaredAt: (17 to: 28).
+	[
+	(self coverAll:
+		{72 to: 75}) putAllTransactionsInto:
+		(transactions
+			cover: (101 to: 112)
+			declaredAt: (17 to: 28)) ] valueCoveringAll:
+		{77 to: 99}.
+	^ transactions
+		cover: (119 to: 130)
+		declaredAt: (17 to: 28).! !
+!Behavior method!
+putAllTransactionsInto: aTransactionsCollection
+	[
+	(financialEntities
+		cover: (52 to: 68)
+		declaredAt: (52 to: 68)) do: [ :aFinancialEntity |
+		[
+		(aFinancialEntity
+			cover: (95 to: 110)
+			declaredAt: (76 to: 91)) putAllTransactionsInto:
+			(aTransactionsCollection
+				cover: (136 to: 158)
+				declaredAt: (25 to: 47)) ] valueCoveringAll:
+			{112 to: 134} ]] valueCoveringAll:
+		{70 to: 72}.! !
+!Behavior method!
+putAllTransactionsInto: aTransactionsCollection
+	[
+	(aTransactionsCollection
+		cover: (52 to: 74)
+		declaredAt: (25 to: 47)) addAllFirst:
+		([
+		(self coverAll:
+			{90 to: 93}) transactions ] valueCoveringAll:
+			{95 to: 106}) ] valueCoveringAll:
+		{76 to: 87}.! !
+!Behavior method!
+transactions
+	^ [
+	(transactions
+		cover: (19 to: 30)
+		declaredAt: (19 to: 30)) copy ] valueCoveringAll:
+		{32 to: 35}.! !
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+!Behavior method!
+for: aValue
+	^ [
+	([
+	(self coverAll:
+		{17 to: 20}) new ] valueCoveringAll:
+		{22 to: 24}) initializeFor:
+		(aValue
+			cover: (41 to: 46)
+			declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{26 to: 39}.! !
+!Behavior method!
+initializeFor: aValue
+	(value _ aValue
+		cover: (34 to: 39)
+		declaredAt: (16 to: 21))
+		cover: (25 to: 29)
+		declaredAt: (25 to: 29).! !
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+!Behavior method!
+ensureItDoesntHaveAnythingOn: aPortfolio
+	[
+	([
+	(aPortfolio
+		cover: (46 to: 55)
+		declaredAt: (31 to: 40)) includes:
+		(self coverAll:
+			{67 to: 70}) ] valueCoveringAll:
+		{57 to: 65})
+		ifTrue: [
+			[
+			(self coverAll:
+				{82 to: 85}) error:
+				([
+				([
+				(self coverAll:
+					{94 to: 97}) class ] valueCoveringAll:
+					{99 to: 103}) canNotAddAlreadyAddedFinancialEntity ] valueCoveringAll:
+					{105 to: 140}) ] valueCoveringAll:
+				{87 to: 92} ]
+		ifFalse: [
+			[
+			(financialEntities
+				cover: (157 to: 173)
+				declaredAt: (157 to: 173)) do: [ :aFinancialEntity |
+				[
+				(aFinancialEntity
+					cover: (200 to: 215)
+					declaredAt: (181 to: 196)) ensureItDoesntHaveAnythingOn:
+					(aPortfolio
+						cover: (247 to: 256)
+						declaredAt: (31 to: 40)) ] valueCoveringAll:
+					{217 to: 245} ]] valueCoveringAll:
+				{175 to: 177} ]] valueCoveringAll:
+		{73 to: 79. 144 to: 151}.! !
+!Behavior method!
+isAddedInto: aPortfolio
+	[
+	(portfolioParents
+		cover: (27 to: 42)
+		declaredAt: (27 to: 42)) add:
+		(aPortfolio
+			cover: (49 to: 58)
+			declaredAt: (14 to: 23)) ] valueCoveringAll:
+		{44 to: 47}.
+	[
+	(aPortfolio
+		cover: (62 to: 71)
+		declaredAt: (14 to: 23)) addAssertedFinancialEntity:
+		(self coverAll:
+			{101 to: 104}) ] valueCoveringAll:
+		{73 to: 99}.! !
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+!Behavior method!
+canNotAddAlreadyAddedFinancialEntity
+	^ 'This financial entity has been added in this structure before!!!!' coverAll:
+		{42 to: 106}.! !
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+!Behavior method!
+for: aFinancialEntity
+	^ [
+	(aFinancialEntity
+		cover: (26 to: 41)
+		declaredAt: (6 to: 21)) report:
+		(self coverAll:
+			{51 to: 54}) ] valueCoveringAll:
+		{43 to: 49}.! !
+!Behavior method!
+report: aReport
+	^ [
+	(aReport
+		cover: (20 to: 26)
+		declaredAt: (9 to: 15)) reportPortfolio:
+		(self coverAll:
+			{45 to: 48}) ] valueCoveringAll:
+		{28 to: 43}.! !
+!Behavior method!
+reportPortfolio: aPortfolio
+	| finalReport reports |
+	(finalReport _ [
+	(OrderedCollection
+		cover: (71 to: 87)
+		declaredAt: (71 to: 87)) new ] valueCoveringAll:
+		{89 to: 91})
+		cover: (56 to: 66)
+		declaredAt: (33 to: 43).
+	(reports _ [
+	(aPortfolio
+		cover: (106 to: 115)
+		declaredAt: (18 to: 27)) collectionReportsOfItsFinancialEntities:
+		(self coverAll:
+			{158 to: 161}) ] valueCoveringAll:
+		{117 to: 156})
+		cover: (95 to: 101)
+		declaredAt: (45 to: 51).
+	[
+	(reports
+		cover: (165 to: 171)
+		declaredAt: (45 to: 51)) do: [ :aFinancialEntityReport |
+		[
+		(finalReport
+			cover: (204 to: 214)
+			declaredAt: (33 to: 43)) addAllLast:
+			(aFinancialEntityReport
+				cover: (228 to: 249)
+				declaredAt: (179 to: 200)) ] valueCoveringAll:
+			{216 to: 226} ]] valueCoveringAll:
+		{173 to: 175}.
+	[
+	(finalReport
+		cover: (256 to: 266)
+		declaredAt: (33 to: 43)) add:
+		([
+		('Balance = ' coverAll:
+			{272 to: 283}) ,
+			([
+			([
+			(aPortfolio
+				cover: (286 to: 295)
+				declaredAt: (18 to: 27)) balance ] valueCoveringAll:
+				{297 to: 303}) asString ] valueCoveringAll:
+				{305 to: 312}) ] valueCoveringAll:
+			{284 to: 284}) ] valueCoveringAll:
+		{268 to: 271}.
+	^ finalReport
+		cover: (318 to: 328)
+		declaredAt: (33 to: 43).! !
+!Behavior method!
+collectionReportsOfItsFinancialEntities: aReport
+	| reports |
+	(reports _ [
+	(OrderedCollection
+		cover: (75 to: 91)
+		declaredAt: (75 to: 91)) new ] valueCoveringAll:
+		{93 to: 95})
+		cover: (64 to: 70)
+		declaredAt: (53 to: 59).
+	[
+	(financialEntities
+		cover: (99 to: 115)
+		declaredAt: (99 to: 115)) do: [ :aFinancialEntity |
+		[
+		(reports
+			cover: (145 to: 151)
+			declaredAt: (53 to: 59)) add:
+			([
+			(aFinancialEntity
+				cover: (159 to: 174)
+				declaredAt: (123 to: 138)) report:
+				(aReport
+					cover: (184 to: 190)
+					declaredAt: (42 to: 48)) ] valueCoveringAll:
+				{176 to: 182}) ] valueCoveringAll:
+			{153 to: 156} ]] valueCoveringAll:
+		{117 to: 119}.
+	^ reports
+		cover: (202 to: 208)
+		declaredAt: (53 to: 59).! !
+
+!testRun: #PortfolioTest #test20 stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+!Behavior method!
+report: aReport
+	^ [
+	(aReport
+		cover: (21 to: 27)
+		declaredAt: (9 to: 15)) reportAccount:
+		(self coverAll:
+			{44 to: 47}) ] valueCoveringAll:
+		{29 to: 42}.! !
+!Behavior method!
+reportAccount: aReceptiveAccount
+	| report |
+	(report _ [
+	(aReceptiveAccount
+		cover: (56 to: 72)
+		declaredAt: (16 to: 32)) collectionReportsOfItsTransactions:
+		(self coverAll:
+			{110 to: 113}) ] valueCoveringAll:
+		{74 to: 108})
+		cover: (46 to: 51)
+		declaredAt: (37 to: 42).
+	[
+	(report
+		cover: (117 to: 122)
+		declaredAt: (37 to: 42)) add:
+		([
+		('Balance = ' coverAll:
+			{129 to: 140}) ,
+			([
+			([
+			(aReceptiveAccount
+				cover: (143 to: 159)
+				declaredAt: (16 to: 32)) balance ] valueCoveringAll:
+				{161 to: 167}) asString ] valueCoveringAll:
+				{169 to: 176}) ] valueCoveringAll:
+			{141 to: 141}) ] valueCoveringAll:
+		{124 to: 127}.
+	^ report
+		cover: (183 to: 188)
+		declaredAt: (37 to: 42).! !
+!Behavior method!
+collectionReportsOfItsTransactions: aReport
+	| reports |
+	(reports _ [
+	(OrderedCollection
+		cover: (72 to: 88)
+		declaredAt: (72 to: 88)) new ] valueCoveringAll:
+		{90 to: 92})
+		cover: (61 to: 67)
+		declaredAt: (49 to: 55).
+	[
+	(transactions
+		cover: (98 to: 109)
+		declaredAt: (98 to: 109)) do: [ :aTransaction |
+		[
+		(reports
+			cover: (132 to: 138)
+			declaredAt: (49 to: 55)) add:
+			([
+			(aTransaction
+				cover: (146 to: 157)
+				declaredAt: (117 to: 128)) report:
+				(aReport
+					cover: (167 to: 173)
+					declaredAt: (37 to: 43)) ] valueCoveringAll:
+				{159 to: 165}) ] valueCoveringAll:
+			{140 to: 143} ]] valueCoveringAll:
+		{111 to: 113}.
+	^ reports
+		cover: (182 to: 188)
+		declaredAt: (49 to: 55).! !
+!Behavior method!
+report: aReport
+	^ [
+	(aReport
+		cover: (20 to: 26)
+		declaredAt: (9 to: 15)) reportDeposit:
+		(self coverAll:
+			{43 to: 46}) ] valueCoveringAll:
+		{28 to: 41}.! !
+!Behavior method!
+reportDeposit: aDepositTransaction
+	^ [
+	('Depósito por ' coverAll:
+		{39 to: 53}) ,
+		([
+		([
+		(aDepositTransaction
+			cover: (56 to: 74)
+			declaredAt: (16 to: 34)) value ] valueCoveringAll:
+			{76 to: 80}) asString ] valueCoveringAll:
+			{82 to: 89}) ] valueCoveringAll:
+		{54 to: 54}.! !
+!Behavior method!
+value
+	^ value
+		cover: (11 to: 15)
+		declaredAt: (11 to: 15).! !
+
+!testRun: #PortfolioTest #test21 stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+!Behavior method!
+from: aReceptiveAccountOrigin to: aReceptiveAccountDestiny amount: anAmount
+	[
+	([
+	(anAmount
+		cover: (83 to: 90)
+		declaredAt: (68 to: 75)) <=
+		(0 coverAll:
+			{95 to: 95}) ] valueCoveringAll:
+		{92 to: 93}) ifTrue: [
+		[
+		(self coverAll:
+			{106 to: 109}) error:
+			([
+			(self coverAll:
+				{118 to: 121}) canNotTransferWithInvalidAmount ] valueCoveringAll:
+				{123 to: 153}) ] valueCoveringAll:
+			{111 to: 116} ]] valueCoveringAll:
+		{97 to: 103}.
+	[
+	([
+	(aReceptiveAccountOrigin
+		cover: (160 to: 182)
+		declaredAt: (7 to: 29)) =
+		(aReceptiveAccountDestiny
+			cover: (186 to: 209)
+			declaredAt: (35 to: 58)) ] valueCoveringAll:
+		{184 to: 184}) ifTrue: [
+		[
+		(self coverAll:
+			{220 to: 223}) error:
+			([
+			(self coverAll:
+				{232 to: 235}) canNotTransferToTheSameAccount ] valueCoveringAll:
+				{237 to: 266}) ] valueCoveringAll:
+			{225 to: 230} ]] valueCoveringAll:
+		{211 to: 217}.
+	^ [
+	([
+	(self coverAll:
+		{277 to: 280}) new ] valueCoveringAll:
+		{282 to: 284})
+		initializeWith:
+			(aReceptiveAccountOrigin
+				cover: (302 to: 324)
+				declaredAt: (7 to: 29))
+		and:
+			(aReceptiveAccountDestiny
+				cover: (331 to: 354)
+				declaredAt: (35 to: 58))
+		amount:
+			(anAmount
+				cover: (364 to: 371)
+				declaredAt: (68 to: 75)) ] valueCoveringAll:
+		{286 to: 300. 326 to: 329. 356 to: 362}.! !
+!Behavior method!
+initializeWith: aReceptiveAccountOrigin and: aReceptiveAccountDestiny amount: anAmount
+	(amount _ anAmount
+		cover: (102 to: 109)
+		declaredAt: (79 to: 86))
+		cover: (92 to: 97)
+		declaredAt: (92 to: 97).
+	(transferWithdraw _ [
+	(TransferWithdraw
+		cover: (134 to: 149)
+		declaredAt: (134 to: 149))
+		for:
+			(self coverAll:
+				{156 to: 159})
+		on:
+			(aReceptiveAccountOrigin
+				cover: (165 to: 187)
+				declaredAt: (17 to: 39)) ] valueCoveringAll:
+		{151 to: 154. 161 to: 163})
+		cover: (114 to: 129)
+		declaredAt: (114 to: 129).
+	(transferDeposit _ [
+	(TransferDeposit
+		cover: (210 to: 224)
+		declaredAt: (210 to: 224))
+		for:
+			(self coverAll:
+				{231 to: 234})
+		on:
+			(aReceptiveAccountDestiny
+				cover: (240 to: 263)
+				declaredAt: (46 to: 69)) ] valueCoveringAll:
+		{226 to: 229. 236 to: 238})
+		cover: (191 to: 205)
+		declaredAt: (191 to: 205).
+	[
+	(aReceptiveAccountOrigin
+		cover: (267 to: 289)
+		declaredAt: (17 to: 39)) register:
+		(transferWithdraw
+			cover: (301 to: 316)
+			declaredAt: (114 to: 129)) ] valueCoveringAll:
+		{291 to: 299}.
+	[
+	(aReceptiveAccountDestiny
+		cover: (320 to: 343)
+		declaredAt: (46 to: 69)) register:
+		(transferDeposit
+			cover: (355 to: 369)
+			declaredAt: (191 to: 205)) ] valueCoveringAll:
+		{345 to: 353}.! !
+!Behavior method!
+for: aTransfer on: aReceptiveAccount
+	^ [
+	([
+	(self coverAll:
+		{42 to: 45}) new ] valueCoveringAll:
+		{47 to: 49})
+		initializeFor:
+			(aTransfer
+				cover: (66 to: 74)
+				declaredAt: (6 to: 14))
+		on:
+			(aReceptiveAccount
+				cover: (80 to: 96)
+				declaredAt: (20 to: 36)) ] valueCoveringAll:
+		{51 to: 64. 76 to: 78}.! !
+!Behavior method!
+initializeFor: aTransfer on: aReceptiveAccount
+	(transfer _ aTransfer
+		cover: (64 to: 72)
+		declaredAt: (16 to: 24))
+		cover: (52 to: 59)
+		declaredAt: (52 to: 59).
+	(receptiveAccount _ aReceptiveAccount
+		cover: (96 to: 112)
+		declaredAt: (30 to: 46))
+		cover: (76 to: 91)
+		declaredAt: (76 to: 91).! !
+!Behavior method!
+for: aTransfer on: aReceptiveAccount
+	^ [
+	([
+	(self coverAll:
+		{43 to: 46}) new ] valueCoveringAll:
+		{48 to: 50})
+		initializeFor:
+			(aTransfer
+				cover: (67 to: 75)
+				declaredAt: (6 to: 14))
+		on:
+			(aReceptiveAccount
+				cover: (81 to: 97)
+				declaredAt: (20 to: 36)) ] valueCoveringAll:
+		{52 to: 65. 77 to: 79}.! !
+!Behavior method!
+initializeFor: aTransfer on: aReceptiveAccount
+	(transfer _ aTransfer
+		cover: (64 to: 72)
+		declaredAt: (16 to: 24))
+		cover: (52 to: 59)
+		declaredAt: (52 to: 59).
+	(receptiveAccount _ aReceptiveAccount
+		cover: (96 to: 112)
+		declaredAt: (30 to: 46))
+		cover: (76 to: 91)
+		declaredAt: (76 to: 91).! !
+!Behavior method!
+reportPortfolio: aPortfolio
+	| reports |
+	(reports _ [
+	(aPortfolio
+		cover: (55 to: 64)
+		declaredAt: (18 to: 27)) collectionReportsOfItsFinancialEntities:
+		(self coverAll:
+			{107 to: 110}) ] valueCoveringAll:
+		{66 to: 105})
+		cover: (44 to: 50)
+		declaredAt: (33 to: 39).
+	^ [
+	(reports
+		cover: (115 to: 121)
+		declaredAt: (33 to: 39))
+		sum: [ :aFinancialEntityReport |
+			aFinancialEntityReport
+				cover: (155 to: 176)
+				declaredAt: (130 to: 151) ]
+		ifEmpty: [
+			0 coverAll:
+				{189 to: 189} ]] valueCoveringAll:
+		{123 to: 126. 179 to: 186}.! !
+!Behavior method!
+reportAccount: aReceptiveAccount
+	| report |
+	(report _ [
+	(aReceptiveAccount
+		cover: (56 to: 72)
+		declaredAt: (16 to: 32)) collectionReportsOfItsTransactions:
+		(self coverAll:
+			{110 to: 113}) ] valueCoveringAll:
+		{74 to: 108})
+		cover: (46 to: 51)
+		declaredAt: (37 to: 42).
+	^ [
+	(report
+		cover: (118 to: 123)
+		declaredAt: (37 to: 42))
+		sum: [ :aTransactionReport |
+			aTransactionReport
+				cover: (153 to: 170)
+				declaredAt: (132 to: 149) ]
+		ifEmpty: [
+			0 coverAll:
+				{184 to: 184} ]] valueCoveringAll:
+		{125 to: 128. 174 to: 181}.! !
+!Behavior method!
+report: aReport
+	^ [
+	(aReport
+		cover: (20 to: 26)
+		declaredAt: (9 to: 15)) reportTransferDeposit:
+		(self coverAll:
+			{51 to: 54}) ] valueCoveringAll:
+		{28 to: 49}.! !
+!Behavior method!
+reportTransferDeposit: aTransferDepositTransaction
+	^ [
+	(aTransferDepositTransaction
+		cover: (55 to: 81)
+		declaredAt: (24 to: 50)) value ] valueCoveringAll:
+		{83 to: 87}.! !
+!Behavior method!
+value
+	^ [
+	(transfer
+		cover: (10 to: 17)
+		declaredAt: (10 to: 17)) amount ] valueCoveringAll:
+		{19 to: 24}.! !
+!Behavior method!
+amount
+	^ amount
+		cover: (12 to: 17)
+		declaredAt: (12 to: 17).! !
+
+!testRun: #PortfolioTest #test22 stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 6/2/2021 22:52:38'!
+PASSED!
+!Behavior method!
+modifiesBalance: balance
+	^ [
+	(balance
+		cover: (29 to: 35)
+		declaredAt: (18 to: 24)) -
+		(value
+			cover: (39 to: 43)
+			declaredAt: (39 to: 43)) ] valueCoveringAll:
+		{37 to: 37}.! !
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+!Behavior method!
+value
+	^ value
+		cover: (11 to: 15)
+		declaredAt: (11 to: 15).! !
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08 stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09 stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+!Behavior method!
+report: aReport
+	^ [
+	(aReport
+		cover: (20 to: 26)
+		declaredAt: (9 to: 15)) reportWithdraw:
+		(self coverAll:
+			{44 to: 47}) ] valueCoveringAll:
+		{28 to: 42}.! !
+!Behavior method!
+reportWithdraw: aWithdrawTransaction
+	^ [
+	('Extracción por ' coverAll:
+		{41 to: 57}) ,
+		([
+		([
+		(aWithdrawTransaction
+			cover: (60 to: 79)
+			declaredAt: (17 to: 36)) value ] valueCoveringAll:
+			{81 to: 85}) asString ] valueCoveringAll:
+			{87 to: 94}) ] valueCoveringAll:
+		{58 to: 58}.! !
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11 stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+!Behavior method!
+report: aReport
+	^ [
+	(aReport
+		cover: (20 to: 26)
+		declaredAt: (9 to: 15)) reportTransferWithdraw:
+		(self coverAll:
+			{52 to: 55}) ] valueCoveringAll:
+		{28 to: 50}.! !
+!Behavior method!
+reportTransferWithdraw: aTransferWithdrawTransaction
+	^ [
+	('Salida por transferencia de ' coverAll:
+		{57 to: 86}) ,
+		([
+		([
+		(aTransferWithdrawTransaction
+			cover: (89 to: 116)
+			declaredAt: (25 to: 52)) value ] valueCoveringAll:
+			{118 to: 122}) asString ] valueCoveringAll:
+			{124 to: 131}) ] valueCoveringAll:
+		{87 to: 87}.! !
+!Behavior method!
+value
+	^ [
+	(transfer
+		cover: (10 to: 17)
+		declaredAt: (10 to: 17)) amount ] valueCoveringAll:
+		{19 to: 24}.! !
+!Behavior method!
+modifiesBalance: balance
+	^ [
+	(balance
+		cover: (29 to: 35)
+		declaredAt: (18 to: 24)) -
+		([
+		(transfer
+			cover: (39 to: 46)
+			declaredAt: (39 to: 46)) amount ] valueCoveringAll:
+			{48 to: 53}) ] valueCoveringAll:
+		{37 to: 37}.! !
+!Behavior method!
+reportTransferDeposit: aTransferDepositTransaction
+	^ [
+	('Entrada por transferencia de ' coverAll:
+		{55 to: 85}) ,
+		([
+		([
+		(aTransferDepositTransaction
+			cover: (88 to: 114)
+			declaredAt: (24 to: 50)) value ] valueCoveringAll:
+			{116 to: 120}) asString ] valueCoveringAll:
+			{122 to: 129}) ] valueCoveringAll:
+		{86 to: 86}.! !
+!Behavior method!
+modifiesBalance: balance
+	^ [
+	(balance
+		cover: (29 to: 35)
+		declaredAt: (18 to: 24)) +
+		([
+		(transfer
+			cover: (39 to: 46)
+			declaredAt: (39 to: 46)) amount ] valueCoveringAll:
+			{48 to: 53}) ] valueCoveringAll:
+		{37 to: 37}.! !
+
+!testRun: #ReceptiveAccountTest #test12 stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13 stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14 stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+!Behavior method!
+reportTransferWithdraw: aTransferWithdrawTransaction
+	^ [
+	([
+	(aTransferWithdrawTransaction
+		cover: (57 to: 84)
+		declaredAt: (25 to: 52)) value ] valueCoveringAll:
+		{86 to: 90}) negated ] valueCoveringAll:
+		{92 to: 98}.! !
+
+!testRun: #ReceptiveAccountTest #test15 stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+!Behavior method!
+reportDeposit: aDepositTransaction
+	^ 0 coverAll:
+		{39 to: 39}.! !
+
+!testRun: #ReceptiveAccountTest #test16 stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+
+!testRun: #TransferTest #test01 stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+!Behavior method!
+canNotTransferWithInvalidAmount
+	^ 'No se puede transferir con monto no positivo' coverAll:
+		{36 to: 81}.! !
+
+!testRun: #TransferTest #test02 stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+
+!testRun: #TransferTest #test03 stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+!Behavior method!
+withdraw
+	^ transferWithdraw
+		cover: (13 to: 28)
+		declaredAt: (13 to: 28).! !
+!Behavior method!
+deposit
+	^ transferDeposit
+		cover: (12 to: 26)
+		declaredAt: (12 to: 26).! !
+
+!testRun: #TransferTest #test04 stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+!Behavior method!
+transfer
+	^ transfer
+		cover: (14 to: 21)
+		declaredAt: (14 to: 21).! !
+!Behavior method!
+transfer
+	^ transfer
+		cover: (13 to: 20)
+		declaredAt: (13 to: 20).! !
+
+!testRun: #TransferTest #test05 stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+!Behavior method!
+canNotTransferToTheSameAccount
+	^ 'No podes transferir de una cuenta a la misma cuenta' coverAll:
+		{36 to: 88}.! !
+
+!testRun: #TransferTest #test06 stamp: 'ET 6/2/2021 22:52:39'!
+PASSED!
+
+!methodRemoval: Deposit #transferNetReport stamp: 'ET 6/2/2021 22:52:56'!
+transferNetReport
+
+	^0!
+
+!methodRemoval: TransferDeposit #transferNetReport stamp: 'ET 6/2/2021 22:53:02'!
+transferNetReport
+
+	^self value.!
+
+!methodRemoval: TransferWithdraw #transferNetReport stamp: 'ET 6/2/2021 22:53:08'!
+transferNetReport
+
+	^self value negated.!
+
+!methodRemoval: Withdraw #transferNetReport stamp: 'ET 6/2/2021 22:53:14'!
+transferNetReport
+
+	^0!
+
+!methodRemoval: Portfolio #accountSummaryReport stamp: 'ET 6/2/2021 22:53:28'!
+accountSummaryReport	
+	| report |
+	report := OrderedCollection new.
+	financialEntities do:[ :aFinancialEntity |
+			report addAllLast: aFinancialEntity accountSummaryReport .
+		].
+	report add:'Balance = ', self balance asString.
+	^ report.!
+
+!methodRemoval: Portfolio #transferNetReport stamp: 'ET 6/2/2021 22:53:38'!
+transferNetReport
+	^financialEntities sum: [:aFinancialEntity | aFinancialEntity transferNetReport ] ifEmpty:[0].!
+
+!methodRemoval: ReceptiveAccount #transferNetReport stamp: 'ET 6/2/2021 22:53:46'!
+transferNetReport
+	|net|
+	net := 0.
+	transactions do: [:transaction |
+		net := net + transaction transferNetReport
+		].
+	
+	^net.!
+
+!methodRemoval: Transfer #initializeWith:and: stamp: 'ET 6/2/2021 22:54:04'!
+initializeWith: aTransferDeposit and: aTransferWithdraw 
+	transferDeposit := aTransferDeposit.
+	transferWithdraw := aTransferWithdraw.!
+
+!methodRemoval: ReceptiveAccount #accountSummaryReport stamp: 'ET 6/2/2021 22:54:50'!
+accountSummaryReport	
+	
+	^AccountSummaryReport reportAccount: self.!
+!Behavior method!
+initialize
+	(financialEntities _ [
+	(OrderedCollection
+		cover: (35 to: 51)
+		declaredAt: (35 to: 51)) new ] valueCoveringAll:
+		{53 to: 55})
+		cover: (14 to: 30)
+		declaredAt: (14 to: 30).
+	(portfolioParents _ [
+	(OrderedCollection
+		cover: (79 to: 95)
+		declaredAt: (35 to: 51)) new ] valueCoveringAll:
+		{97 to: 99})
+		cover: (59 to: 74)
+		declaredAt: (59 to: 74).! !
+!Behavior method!
+balance
+	^ [
+	(financialEntities
+		cover: (14 to: 30)
+		declaredAt: (14 to: 30))
+		sum: [ :aFinancialEntity |
+			[
+			(aFinancialEntity
+				cover: (58 to: 73)
+				declaredAt: (39 to: 54)) balance ] valueCoveringAll:
+				{75 to: 81} ]
+		ifEmpty: [
+			0 coverAll:
+				{94 to: 94} ]] valueCoveringAll:
+		{32 to: 35. 84 to: 91}.! !
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/2/2021 22:55:13'!
+PASSED!
+!Behavior method!
+initialize
+	(transactions _ [
+	(OrderedCollection
+		cover: (30 to: 46)
+		declaredAt: (30 to: 46)) new ] valueCoveringAll:
+		{48 to: 50})
+		cover: (14 to: 25)
+		declaredAt: (14 to: 25).! !
+!Behavior method!
+register: aValue on: account
+	| transaction |
+	(transaction _ [
+	(self coverAll:
+		{66 to: 69}) for:
+		(aValue
+			cover: (76 to: 81)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{71 to: 74})
+		cover: (51 to: 61)
+		declaredAt: (34 to: 44).
+	[
+	(account
+		cover: (85 to: 91)
+		declaredAt: (22 to: 28)) register:
+		(transaction
+			cover: (103 to: 113)
+			declaredAt: (34 to: 44)) ] valueCoveringAll:
+		{93 to: 101}.
+	^ transaction
+		cover: (122 to: 132)
+		declaredAt: (34 to: 44).! !
+!Behavior method!
+for: aValue
+	^ [
+	([
+	(self coverAll:
+		{17 to: 20}) new ] valueCoveringAll:
+		{22 to: 24}) initializeFor:
+		(aValue
+			cover: (41 to: 46)
+			declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{26 to: 39}.! !
+!Behavior method!
+initializeFor: aValue
+	(value _ aValue
+		cover: (34 to: 39)
+		declaredAt: (16 to: 21))
+		cover: (25 to: 29)
+		declaredAt: (25 to: 29).! !
+!Behavior method!
+register: aTransaction
+	[
+	(transactions
+		cover: (26 to: 37)
+		declaredAt: (26 to: 37)) add:
+		(aTransaction
+			cover: (44 to: 55)
+			declaredAt: (11 to: 22)) ] valueCoveringAll:
+		{39 to: 42}.! !
+!Behavior method!
+addFinancialEntity: aFinancialEntity
+	[
+	(self coverAll:
+		{40 to: 43}) assertFinancialEntityHasNotBeenAdded:
+		(aFinancialEntity
+			cover: (83 to: 98)
+			declaredAt: (21 to: 36)) ] valueCoveringAll:
+		{45 to: 81}.
+	[
+	(aFinancialEntity
+		cover: (104 to: 119)
+		declaredAt: (21 to: 36)) isAddedInto:
+		(self coverAll:
+			{134 to: 137}) ] valueCoveringAll:
+		{121 to: 132}.! !
+!Behavior method!
+assertFinancialEntityHasNotBeenAdded: aFinancialEntity
+	[
+	(portfolioParents
+		cover: (58 to: 73)
+		declaredAt: (58 to: 73))
+		ifEmpty: [
+			[
+			(aFinancialEntity
+				cover: (85 to: 100)
+				declaredAt: (39 to: 54)) ensureItDoesntHaveAnythingOn:
+				(self coverAll:
+					{132 to: 135}) ] valueCoveringAll:
+				{102 to: 130} ]
+		ifNotEmpty: [
+			[
+			(portfolioParents
+				cover: (152 to: 167)
+				declaredAt: (58 to: 73)) do: [ :aPortfolio |
+				[
+				(aPortfolio
+					cover: (188 to: 197)
+					declaredAt: (175 to: 184)) assertFinancialEntityHasNotBeenAdded:
+					(aFinancialEntity
+						cover: (237 to: 252)
+						declaredAt: (39 to: 54)) ] valueCoveringAll:
+					{199 to: 235} ]] valueCoveringAll:
+				{169 to: 171} ]] valueCoveringAll:
+		{75 to: 82. 139 to: 149}.! !
+!Behavior method!
+ensureItDoesntHaveAnythingOn: aPortfolio
+	[
+	([
+	(aPortfolio
+		cover: (46 to: 55)
+		declaredAt: (31 to: 40)) includes:
+		(self coverAll:
+			{67 to: 70}) ] valueCoveringAll:
+		{57 to: 65}) ifTrue: [
+		[
+		(self coverAll:
+			{82 to: 85}) error:
+			([
+			([
+			(self coverAll:
+				{94 to: 97}) class ] valueCoveringAll:
+				{99 to: 103}) canNotAddAlreadyAddedFinancialEntity ] valueCoveringAll:
+				{105 to: 140}) ] valueCoveringAll:
+			{87 to: 92} ]] valueCoveringAll:
+		{73 to: 79}.! !
+!Behavior method!
+includes: aFinancialEntity
+	^ [
+	([
+	(aFinancialEntity
+		cover: (33 to: 48)
+		declaredAt: (11 to: 26)) =
+		(self coverAll:
+			{53 to: 56}) ] valueCoveringAll:
+		{51 to: 51}) or: [
+		[
+		(financialEntities
+			cover: (64 to: 80)
+			declaredAt: (64 to: 80)) anySatisfy: [ :financialEntity |
+			[
+			(financialEntity
+				cover: (114 to: 128)
+				declaredAt: (96 to: 110)) includes:
+				(aFinancialEntity
+					cover: (140 to: 155)
+					declaredAt: (11 to: 26)) ] valueCoveringAll:
+				{130 to: 138} ]] valueCoveringAll:
+			{82 to: 92} ]] valueCoveringAll:
+		{59 to: 61}.! !
+!Behavior method!
+isAddedInto: aPortfolio
+	[
+	(aPortfolio
+		cover: (27 to: 36)
+		declaredAt: (14 to: 23)) addAssertedFinancialEntity:
+		(self coverAll:
+			{66 to: 69}) ] valueCoveringAll:
+		{38 to: 64}.! !
+!Behavior method!
+addAssertedFinancialEntity: aFinancialEntity
+	[
+	(financialEntities
+		cover: (48 to: 64)
+		declaredAt: (48 to: 64)) add:
+		(aFinancialEntity
+			cover: (71 to: 86)
+			declaredAt: (29 to: 44)) ] valueCoveringAll:
+		{66 to: 69}.! !
+!Behavior method!
+balance
+	^ [
+	(transactions
+		cover: (12 to: 23)
+		declaredAt: (12 to: 23))
+		inject:
+			(0 coverAll:
+				{33 to: 33})
+		into: [ :balance :aTransaction |
+			[
+			(aTransaction
+				cover: (68 to: 79)
+				declaredAt: (52 to: 63)) modifiesBalance:
+				(balance
+					cover: (98 to: 104)
+					declaredAt: (43 to: 49)) ] valueCoveringAll:
+				{81 to: 96} ]] valueCoveringAll:
+		{25 to: 31. 35 to: 39}.! !
+!Behavior method!
+modifiesBalance: balance
+	^ [
+	(balance
+		cover: (29 to: 35)
+		declaredAt: (18 to: 24)) +
+		(value
+			cover: (39 to: 43)
+			declaredAt: (39 to: 43)) ] valueCoveringAll:
+		{37 to: 37}.! !
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/2/2021 22:55:13'!
+PASSED!
+!Behavior method!
+includes: aFinancialEntity
+	^ [
+	(self coverAll:
+		{31 to: 34}) =
+		(aFinancialEntity
+			cover: (38 to: 53)
+			declaredAt: (11 to: 26)) ] valueCoveringAll:
+		{36 to: 36}.! !
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/2/2021 22:55:13'!
+PASSED!
+!Behavior method!
+hasRegistered: aTransaction
+	^ [
+	(financialEntities
+		cover: (35 to: 51)
+		declaredAt: (35 to: 51)) anySatisfy: [ :aFinancialEntity |
+		[
+		(aFinancialEntity
+			cover: (86 to: 101)
+			declaredAt: (67 to: 82)) hasRegistered:
+			(aTransaction
+				cover: (118 to: 129)
+				declaredAt: (16 to: 27)) ] valueCoveringAll:
+			{103 to: 116} ]] valueCoveringAll:
+		{53 to: 63}.! !
+!Behavior method!
+hasRegistered: aTransaction
+	^ [
+	(transactions
+		cover: (33 to: 44)
+		declaredAt: (33 to: 44)) includes:
+		(aTransaction
+			cover: (56 to: 67)
+			declaredAt: (16 to: 27)) ] valueCoveringAll:
+		{46 to: 54}.! !
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+!Behavior method!
+transactions
+	| transactions |
+	(transactions _ [
+	(OrderedCollection
+		cover: (48 to: 64)
+		declaredAt: (48 to: 64)) new ] valueCoveringAll:
+		{66 to: 68})
+		cover: (32 to: 43)
+		declaredAt: (17 to: 28).
+	[
+	(self coverAll:
+		{72 to: 75}) putAllTransactionsInto:
+		(transactions
+			cover: (101 to: 112)
+			declaredAt: (17 to: 28)) ] valueCoveringAll:
+		{77 to: 99}.
+	^ transactions
+		cover: (119 to: 130)
+		declaredAt: (17 to: 28).! !
+!Behavior method!
+putAllTransactionsInto: aTransactionsCollection
+	[
+	(financialEntities
+		cover: (52 to: 68)
+		declaredAt: (52 to: 68)) do: [ :aFinancialEntity |
+		[
+		(aFinancialEntity
+			cover: (95 to: 110)
+			declaredAt: (76 to: 91)) putAllTransactionsInto:
+			(aTransactionsCollection
+				cover: (136 to: 158)
+				declaredAt: (25 to: 47)) ] valueCoveringAll:
+			{112 to: 134} ]] valueCoveringAll:
+		{70 to: 72}.! !
+!Behavior method!
+putAllTransactionsInto: aTransactionsCollection
+	[
+	(aTransactionsCollection
+		cover: (52 to: 74)
+		declaredAt: (25 to: 47)) addAllFirst:
+		([
+		(self coverAll:
+			{90 to: 93}) transactions ] valueCoveringAll:
+			{95 to: 106}) ] valueCoveringAll:
+		{76 to: 87}.! !
+!Behavior method!
+transactions
+	^ [
+	(transactions
+		cover: (19 to: 30)
+		declaredAt: (19 to: 30)) copy ] valueCoveringAll:
+		{32 to: 35}.! !
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+!Behavior method!
+for: aValue
+	^ [
+	([
+	(self coverAll:
+		{17 to: 20}) new ] valueCoveringAll:
+		{22 to: 24}) initializeFor:
+		(aValue
+			cover: (41 to: 46)
+			declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{26 to: 39}.! !
+!Behavior method!
+initializeFor: aValue
+	(value _ aValue
+		cover: (34 to: 39)
+		declaredAt: (16 to: 21))
+		cover: (25 to: 29)
+		declaredAt: (25 to: 29).! !
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+!Behavior method!
+ensureItDoesntHaveAnythingOn: aPortfolio
+	[
+	([
+	(aPortfolio
+		cover: (46 to: 55)
+		declaredAt: (31 to: 40)) includes:
+		(self coverAll:
+			{67 to: 70}) ] valueCoveringAll:
+		{57 to: 65})
+		ifTrue: [
+			[
+			(self coverAll:
+				{82 to: 85}) error:
+				([
+				([
+				(self coverAll:
+					{94 to: 97}) class ] valueCoveringAll:
+					{99 to: 103}) canNotAddAlreadyAddedFinancialEntity ] valueCoveringAll:
+					{105 to: 140}) ] valueCoveringAll:
+				{87 to: 92} ]
+		ifFalse: [
+			[
+			(financialEntities
+				cover: (157 to: 173)
+				declaredAt: (157 to: 173)) do: [ :aFinancialEntity |
+				[
+				(aFinancialEntity
+					cover: (200 to: 215)
+					declaredAt: (181 to: 196)) ensureItDoesntHaveAnythingOn:
+					(aPortfolio
+						cover: (247 to: 256)
+						declaredAt: (31 to: 40)) ] valueCoveringAll:
+					{217 to: 245} ]] valueCoveringAll:
+				{175 to: 177} ]] valueCoveringAll:
+		{73 to: 79. 144 to: 151}.! !
+!Behavior method!
+isAddedInto: aPortfolio
+	[
+	(portfolioParents
+		cover: (27 to: 42)
+		declaredAt: (27 to: 42)) add:
+		(aPortfolio
+			cover: (49 to: 58)
+			declaredAt: (14 to: 23)) ] valueCoveringAll:
+		{44 to: 47}.
+	[
+	(aPortfolio
+		cover: (62 to: 71)
+		declaredAt: (14 to: 23)) addAssertedFinancialEntity:
+		(self coverAll:
+			{101 to: 104}) ] valueCoveringAll:
+		{73 to: 99}.! !
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+!Behavior method!
+canNotAddAlreadyAddedFinancialEntity
+	^ 'This financial entity has been added in this structure before!!!!' coverAll:
+		{42 to: 106}.! !
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+!Behavior method!
+for: aFinancialEntity
+	^ [
+	(aFinancialEntity
+		cover: (26 to: 41)
+		declaredAt: (6 to: 21)) report:
+		(self coverAll:
+			{51 to: 54}) ] valueCoveringAll:
+		{43 to: 49}.! !
+!Behavior method!
+report: aReport
+	^ [
+	(aReport
+		cover: (20 to: 26)
+		declaredAt: (9 to: 15)) reportPortfolio:
+		(self coverAll:
+			{45 to: 48}) ] valueCoveringAll:
+		{28 to: 43}.! !
+!Behavior method!
+reportPortfolio: aPortfolio
+	| finalReport reports |
+	(finalReport _ [
+	(OrderedCollection
+		cover: (71 to: 87)
+		declaredAt: (71 to: 87)) new ] valueCoveringAll:
+		{89 to: 91})
+		cover: (56 to: 66)
+		declaredAt: (33 to: 43).
+	(reports _ [
+	(aPortfolio
+		cover: (106 to: 115)
+		declaredAt: (18 to: 27)) collectionReportsOfItsFinancialEntities:
+		(self coverAll:
+			{158 to: 161}) ] valueCoveringAll:
+		{117 to: 156})
+		cover: (95 to: 101)
+		declaredAt: (45 to: 51).
+	[
+	(reports
+		cover: (165 to: 171)
+		declaredAt: (45 to: 51)) do: [ :aFinancialEntityReport |
+		[
+		(finalReport
+			cover: (204 to: 214)
+			declaredAt: (33 to: 43)) addAllLast:
+			(aFinancialEntityReport
+				cover: (228 to: 249)
+				declaredAt: (179 to: 200)) ] valueCoveringAll:
+			{216 to: 226} ]] valueCoveringAll:
+		{173 to: 175}.
+	[
+	(finalReport
+		cover: (256 to: 266)
+		declaredAt: (33 to: 43)) add:
+		([
+		('Balance = ' coverAll:
+			{272 to: 283}) ,
+			([
+			([
+			(aPortfolio
+				cover: (286 to: 295)
+				declaredAt: (18 to: 27)) balance ] valueCoveringAll:
+				{297 to: 303}) asString ] valueCoveringAll:
+				{305 to: 312}) ] valueCoveringAll:
+			{284 to: 284}) ] valueCoveringAll:
+		{268 to: 271}.
+	^ finalReport
+		cover: (318 to: 328)
+		declaredAt: (33 to: 43).! !
+!Behavior method!
+collectionReportsOfItsFinancialEntities: aReport
+	| reports |
+	(reports _ [
+	(OrderedCollection
+		cover: (75 to: 91)
+		declaredAt: (75 to: 91)) new ] valueCoveringAll:
+		{93 to: 95})
+		cover: (64 to: 70)
+		declaredAt: (53 to: 59).
+	[
+	(financialEntities
+		cover: (99 to: 115)
+		declaredAt: (99 to: 115)) do: [ :aFinancialEntity |
+		[
+		(reports
+			cover: (145 to: 151)
+			declaredAt: (53 to: 59)) add:
+			([
+			(aFinancialEntity
+				cover: (159 to: 174)
+				declaredAt: (123 to: 138)) report:
+				(aReport
+					cover: (184 to: 190)
+					declaredAt: (42 to: 48)) ] valueCoveringAll:
+				{176 to: 182}) ] valueCoveringAll:
+			{153 to: 156} ]] valueCoveringAll:
+		{117 to: 119}.
+	^ reports
+		cover: (202 to: 208)
+		declaredAt: (53 to: 59).! !
+
+!testRun: #PortfolioTest #test20 stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+!Behavior method!
+report: aReport
+	^ [
+	(aReport
+		cover: (21 to: 27)
+		declaredAt: (9 to: 15)) reportAccount:
+		(self coverAll:
+			{44 to: 47}) ] valueCoveringAll:
+		{29 to: 42}.! !
+!Behavior method!
+reportAccount: aReceptiveAccount
+	| report |
+	(report _ [
+	(aReceptiveAccount
+		cover: (56 to: 72)
+		declaredAt: (16 to: 32)) collectionReportsOfItsTransactions:
+		(self coverAll:
+			{110 to: 113}) ] valueCoveringAll:
+		{74 to: 108})
+		cover: (46 to: 51)
+		declaredAt: (37 to: 42).
+	[
+	(report
+		cover: (117 to: 122)
+		declaredAt: (37 to: 42)) add:
+		([
+		('Balance = ' coverAll:
+			{129 to: 140}) ,
+			([
+			([
+			(aReceptiveAccount
+				cover: (143 to: 159)
+				declaredAt: (16 to: 32)) balance ] valueCoveringAll:
+				{161 to: 167}) asString ] valueCoveringAll:
+				{169 to: 176}) ] valueCoveringAll:
+			{141 to: 141}) ] valueCoveringAll:
+		{124 to: 127}.
+	^ report
+		cover: (183 to: 188)
+		declaredAt: (37 to: 42).! !
+!Behavior method!
+collectionReportsOfItsTransactions: aReport
+	| reports |
+	(reports _ [
+	(OrderedCollection
+		cover: (72 to: 88)
+		declaredAt: (72 to: 88)) new ] valueCoveringAll:
+		{90 to: 92})
+		cover: (61 to: 67)
+		declaredAt: (49 to: 55).
+	[
+	(transactions
+		cover: (98 to: 109)
+		declaredAt: (98 to: 109)) do: [ :aTransaction |
+		[
+		(reports
+			cover: (132 to: 138)
+			declaredAt: (49 to: 55)) add:
+			([
+			(aTransaction
+				cover: (146 to: 157)
+				declaredAt: (117 to: 128)) report:
+				(aReport
+					cover: (167 to: 173)
+					declaredAt: (37 to: 43)) ] valueCoveringAll:
+				{159 to: 165}) ] valueCoveringAll:
+			{140 to: 143} ]] valueCoveringAll:
+		{111 to: 113}.
+	^ reports
+		cover: (182 to: 188)
+		declaredAt: (49 to: 55).! !
+!Behavior method!
+report: aReport
+	^ [
+	(aReport
+		cover: (20 to: 26)
+		declaredAt: (9 to: 15)) reportDeposit:
+		(self coverAll:
+			{43 to: 46}) ] valueCoveringAll:
+		{28 to: 41}.! !
+!Behavior method!
+reportDeposit: aDepositTransaction
+	^ [
+	('Depósito por ' coverAll:
+		{39 to: 53}) ,
+		([
+		([
+		(aDepositTransaction
+			cover: (56 to: 74)
+			declaredAt: (16 to: 34)) value ] valueCoveringAll:
+			{76 to: 80}) asString ] valueCoveringAll:
+			{82 to: 89}) ] valueCoveringAll:
+		{54 to: 54}.! !
+!Behavior method!
+value
+	^ value
+		cover: (11 to: 15)
+		declaredAt: (11 to: 15).! !
+
+!testRun: #PortfolioTest #test21 stamp: 'ET 6/2/2021 22:55:14'!
+PASSED!
+!Behavior method!
+from: aReceptiveAccountOrigin to: aReceptiveAccountDestiny amount: anAmount
+	[
+	([
+	(anAmount
+		cover: (83 to: 90)
+		declaredAt: (68 to: 75)) <=
+		(0 coverAll:
+			{95 to: 95}) ] valueCoveringAll:
+		{92 to: 93}) ifTrue: [
+		[
+		(self coverAll:
+			{106 to: 109}) error:
+			([
+			(self coverAll:
+				{118 to: 121}) canNotTransferWithInvalidAmount ] valueCoveringAll:
+				{123 to: 153}) ] valueCoveringAll:
+			{111 to: 116} ]] valueCoveringAll:
+		{97 to: 103}.
+	[
+	([
+	(aReceptiveAccountOrigin
+		cover: (160 to: 182)
+		declaredAt: (7 to: 29)) =
+		(aReceptiveAccountDestiny
+			cover: (186 to: 209)
+			declaredAt: (35 to: 58)) ] valueCoveringAll:
+		{184 to: 184}) ifTrue: [
+		[
+		(self coverAll:
+			{220 to: 223}) error:
+			([
+			(self coverAll:
+				{232 to: 235}) canNotTransferToTheSameAccount ] valueCoveringAll:
+				{237 to: 266}) ] valueCoveringAll:
+			{225 to: 230} ]] valueCoveringAll:
+		{211 to: 217}.
+	^ [
+	([
+	(self coverAll:
+		{277 to: 280}) new ] valueCoveringAll:
+		{282 to: 284})
+		initializeWith:
+			(aReceptiveAccountOrigin
+				cover: (302 to: 324)
+				declaredAt: (7 to: 29))
+		and:
+			(aReceptiveAccountDestiny
+				cover: (331 to: 354)
+				declaredAt: (35 to: 58))
+		amount:
+			(anAmount
+				cover: (364 to: 371)
+				declaredAt: (68 to: 75)) ] valueCoveringAll:
+		{286 to: 300. 326 to: 329. 356 to: 362}.! !
+!Behavior method!
+initializeWith: aReceptiveAccountOrigin and: aReceptiveAccountDestiny amount: anAmount
+	(amount _ anAmount
+		cover: (102 to: 109)
+		declaredAt: (79 to: 86))
+		cover: (92 to: 97)
+		declaredAt: (92 to: 97).
+	(transferWithdraw _ [
+	(TransferWithdraw
+		cover: (134 to: 149)
+		declaredAt: (134 to: 149))
+		for:
+			(self coverAll:
+				{156 to: 159})
+		on:
+			(aReceptiveAccountOrigin
+				cover: (165 to: 187)
+				declaredAt: (17 to: 39)) ] valueCoveringAll:
+		{151 to: 154. 161 to: 163})
+		cover: (114 to: 129)
+		declaredAt: (114 to: 129).
+	(transferDeposit _ [
+	(TransferDeposit
+		cover: (210 to: 224)
+		declaredAt: (210 to: 224))
+		for:
+			(self coverAll:
+				{231 to: 234})
+		on:
+			(aReceptiveAccountDestiny
+				cover: (240 to: 263)
+				declaredAt: (46 to: 69)) ] valueCoveringAll:
+		{226 to: 229. 236 to: 238})
+		cover: (191 to: 205)
+		declaredAt: (191 to: 205).
+	[
+	(aReceptiveAccountOrigin
+		cover: (267 to: 289)
+		declaredAt: (17 to: 39)) register:
+		(transferWithdraw
+			cover: (301 to: 316)
+			declaredAt: (114 to: 129)) ] valueCoveringAll:
+		{291 to: 299}.
+	[
+	(aReceptiveAccountDestiny
+		cover: (320 to: 343)
+		declaredAt: (46 to: 69)) register:
+		(transferDeposit
+			cover: (355 to: 369)
+			declaredAt: (191 to: 205)) ] valueCoveringAll:
+		{345 to: 353}.! !
+!Behavior method!
+for: aTransfer on: aReceptiveAccount
+	^ [
+	([
+	(self coverAll:
+		{42 to: 45}) new ] valueCoveringAll:
+		{47 to: 49})
+		initializeFor:
+			(aTransfer
+				cover: (66 to: 74)
+				declaredAt: (6 to: 14))
+		on:
+			(aReceptiveAccount
+				cover: (80 to: 96)
+				declaredAt: (20 to: 36)) ] valueCoveringAll:
+		{51 to: 64. 76 to: 78}.! !
+!Behavior method!
+initializeFor: aTransfer on: aReceptiveAccount
+	(transfer _ aTransfer
+		cover: (64 to: 72)
+		declaredAt: (16 to: 24))
+		cover: (52 to: 59)
+		declaredAt: (52 to: 59).
+	(receptiveAccount _ aReceptiveAccount
+		cover: (96 to: 112)
+		declaredAt: (30 to: 46))
+		cover: (76 to: 91)
+		declaredAt: (76 to: 91).! !
+!Behavior method!
+for: aTransfer on: aReceptiveAccount
+	^ [
+	([
+	(self coverAll:
+		{43 to: 46}) new ] valueCoveringAll:
+		{48 to: 50})
+		initializeFor:
+			(aTransfer
+				cover: (67 to: 75)
+				declaredAt: (6 to: 14))
+		on:
+			(aReceptiveAccount
+				cover: (81 to: 97)
+				declaredAt: (20 to: 36)) ] valueCoveringAll:
+		{52 to: 65. 77 to: 79}.! !
+!Behavior method!
+initializeFor: aTransfer on: aReceptiveAccount
+	(transfer _ aTransfer
+		cover: (64 to: 72)
+		declaredAt: (16 to: 24))
+		cover: (52 to: 59)
+		declaredAt: (52 to: 59).
+	(receptiveAccount _ aReceptiveAccount
+		cover: (96 to: 112)
+		declaredAt: (30 to: 46))
+		cover: (76 to: 91)
+		declaredAt: (76 to: 91).! !
+!Behavior method!
+reportPortfolio: aPortfolio
+	| reports |
+	(reports _ [
+	(aPortfolio
+		cover: (55 to: 64)
+		declaredAt: (18 to: 27)) collectionReportsOfItsFinancialEntities:
+		(self coverAll:
+			{107 to: 110}) ] valueCoveringAll:
+		{66 to: 105})
+		cover: (44 to: 50)
+		declaredAt: (33 to: 39).
+	^ [
+	(reports
+		cover: (115 to: 121)
+		declaredAt: (33 to: 39))
+		sum: [ :aFinancialEntityReport |
+			aFinancialEntityReport
+				cover: (155 to: 176)
+				declaredAt: (130 to: 151) ]
+		ifEmpty: [
+			0 coverAll:
+				{189 to: 189} ]] valueCoveringAll:
+		{123 to: 126. 179 to: 186}.! !
+!Behavior method!
+reportAccount: aReceptiveAccount
+	| report |
+	(report _ [
+	(aReceptiveAccount
+		cover: (56 to: 72)
+		declaredAt: (16 to: 32)) collectionReportsOfItsTransactions:
+		(self coverAll:
+			{110 to: 113}) ] valueCoveringAll:
+		{74 to: 108})
+		cover: (46 to: 51)
+		declaredAt: (37 to: 42).
+	^ [
+	(report
+		cover: (118 to: 123)
+		declaredAt: (37 to: 42))
+		sum: [ :aTransactionReport |
+			aTransactionReport
+				cover: (153 to: 170)
+				declaredAt: (132 to: 149) ]
+		ifEmpty: [
+			0 coverAll:
+				{184 to: 184} ]] valueCoveringAll:
+		{125 to: 128. 174 to: 181}.! !
+!Behavior method!
+report: aReport
+	^ [
+	(aReport
+		cover: (20 to: 26)
+		declaredAt: (9 to: 15)) reportTransferDeposit:
+		(self coverAll:
+			{51 to: 54}) ] valueCoveringAll:
+		{28 to: 49}.! !
+!Behavior method!
+reportTransferDeposit: aTransferDepositTransaction
+	^ [
+	(aTransferDepositTransaction
+		cover: (55 to: 81)
+		declaredAt: (24 to: 50)) value ] valueCoveringAll:
+		{83 to: 87}.! !
+!Behavior method!
+value
+	^ [
+	(transfer
+		cover: (10 to: 17)
+		declaredAt: (10 to: 17)) amount ] valueCoveringAll:
+		{19 to: 24}.! !
+!Behavior method!
+amount
+	^ amount
+		cover: (12 to: 17)
+		declaredAt: (12 to: 17).! !
+
+!testRun: #PortfolioTest #test22 stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+!Behavior method!
+modifiesBalance: balance
+	^ [
+	(balance
+		cover: (29 to: 35)
+		declaredAt: (18 to: 24)) -
+		(value
+			cover: (39 to: 43)
+			declaredAt: (39 to: 43)) ] valueCoveringAll:
+		{37 to: 37}.! !
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+!Behavior method!
+value
+	^ value
+		cover: (11 to: 15)
+		declaredAt: (11 to: 15).! !
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08 stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09 stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+!Behavior method!
+report: aReport
+	^ [
+	(aReport
+		cover: (20 to: 26)
+		declaredAt: (9 to: 15)) reportWithdraw:
+		(self coverAll:
+			{44 to: 47}) ] valueCoveringAll:
+		{28 to: 42}.! !
+!Behavior method!
+reportWithdraw: aWithdrawTransaction
+	^ [
+	('Extracción por ' coverAll:
+		{41 to: 57}) ,
+		([
+		([
+		(aWithdrawTransaction
+			cover: (60 to: 79)
+			declaredAt: (17 to: 36)) value ] valueCoveringAll:
+			{81 to: 85}) asString ] valueCoveringAll:
+			{87 to: 94}) ] valueCoveringAll:
+		{58 to: 58}.! !
+
+!testRun: #ReceptiveAccountTest #test10 stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11 stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+!Behavior method!
+report: aReport
+	^ [
+	(aReport
+		cover: (20 to: 26)
+		declaredAt: (9 to: 15)) reportTransferWithdraw:
+		(self coverAll:
+			{52 to: 55}) ] valueCoveringAll:
+		{28 to: 50}.! !
+!Behavior method!
+reportTransferWithdraw: aTransferWithdrawTransaction
+	^ [
+	('Salida por transferencia de ' coverAll:
+		{57 to: 86}) ,
+		([
+		([
+		(aTransferWithdrawTransaction
+			cover: (89 to: 116)
+			declaredAt: (25 to: 52)) value ] valueCoveringAll:
+			{118 to: 122}) asString ] valueCoveringAll:
+			{124 to: 131}) ] valueCoveringAll:
+		{87 to: 87}.! !
+!Behavior method!
+value
+	^ [
+	(transfer
+		cover: (10 to: 17)
+		declaredAt: (10 to: 17)) amount ] valueCoveringAll:
+		{19 to: 24}.! !
+!Behavior method!
+modifiesBalance: balance
+	^ [
+	(balance
+		cover: (29 to: 35)
+		declaredAt: (18 to: 24)) -
+		([
+		(transfer
+			cover: (39 to: 46)
+			declaredAt: (39 to: 46)) amount ] valueCoveringAll:
+			{48 to: 53}) ] valueCoveringAll:
+		{37 to: 37}.! !
+!Behavior method!
+reportTransferDeposit: aTransferDepositTransaction
+	^ [
+	('Entrada por transferencia de ' coverAll:
+		{55 to: 85}) ,
+		([
+		([
+		(aTransferDepositTransaction
+			cover: (88 to: 114)
+			declaredAt: (24 to: 50)) value ] valueCoveringAll:
+			{116 to: 120}) asString ] valueCoveringAll:
+			{122 to: 129}) ] valueCoveringAll:
+		{86 to: 86}.! !
+!Behavior method!
+modifiesBalance: balance
+	^ [
+	(balance
+		cover: (29 to: 35)
+		declaredAt: (18 to: 24)) +
+		([
+		(transfer
+			cover: (39 to: 46)
+			declaredAt: (39 to: 46)) amount ] valueCoveringAll:
+			{48 to: 53}) ] valueCoveringAll:
+		{37 to: 37}.! !
+
+!testRun: #ReceptiveAccountTest #test12 stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13 stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14 stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+!Behavior method!
+reportTransferWithdraw: aTransferWithdrawTransaction
+	^ [
+	([
+	(aTransferWithdrawTransaction
+		cover: (57 to: 84)
+		declaredAt: (25 to: 52)) value ] valueCoveringAll:
+		{86 to: 90}) negated ] valueCoveringAll:
+		{92 to: 98}.! !
+
+!testRun: #ReceptiveAccountTest #test15 stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+!Behavior method!
+reportDeposit: aDepositTransaction
+	^ 0 coverAll:
+		{39 to: 39}.! !
+
+!testRun: #ReceptiveAccountTest #test16 stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+
+!testRun: #TransferTest #test01 stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+!Behavior method!
+canNotTransferWithInvalidAmount
+	^ 'No se puede transferir con monto no positivo' coverAll:
+		{36 to: 81}.! !
+
+!testRun: #TransferTest #test02 stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+
+!testRun: #TransferTest #test03 stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+!Behavior method!
+withdraw
+	^ transferWithdraw
+		cover: (13 to: 28)
+		declaredAt: (13 to: 28).! !
+!Behavior method!
+deposit
+	^ transferDeposit
+		cover: (12 to: 26)
+		declaredAt: (12 to: 26).! !
+
+!testRun: #TransferTest #test04 stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+!Behavior method!
+transfer
+	^ transfer
+		cover: (14 to: 21)
+		declaredAt: (14 to: 21).! !
+!Behavior method!
+transfer
+	^ transfer
+		cover: (13 to: 20)
+		declaredAt: (13 to: 20).! !
+
+!testRun: #TransferTest #test05 stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!
+!Behavior method!
+canNotTransferToTheSameAccount
+	^ 'No podes transferir de una cuenta a la misma cuenta' coverAll:
+		{36 to: 88}.! !
+
+!testRun: #TransferTest #test06 stamp: 'ET 6/2/2021 22:55:15'!
+PASSED!

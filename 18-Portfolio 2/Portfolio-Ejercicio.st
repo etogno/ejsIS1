@@ -723,11 +723,6 @@ report: aReport
 
 	! !
 
-!Deposit methodsFor: 'value' stamp: 'ET 6/2/2021 02:20:38'!
-transferNetReport
-
-	^0! !
-
 !Deposit methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:38'!
 value
 
@@ -774,11 +769,6 @@ transfer
 	
 	^transfer! !
 
-!TransferDeposit methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:19:46'!
-transferNetReport
-
-	^self value.! !
-
 !TransferDeposit methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 18:57:32'!
 value	
 	^transfer amount.! !
@@ -823,11 +813,6 @@ modifiesBalance: balance
 
 	^balance - transfer amount.! !
 
-!TransferWithdraw methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:20:26'!
-transferNetReport
-
-	^self value negated.! !
-
 !TransferWithdraw methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 18:57:43'!
 value	
 	^transfer amount.! !
@@ -866,11 +851,6 @@ report: aReport
 modifiesBalance: balance
 
 	^balance - value.! !
-
-!Withdraw methodsFor: 'value' stamp: 'ET 6/2/2021 02:20:50'!
-transferNetReport
-
-	^0! !
 
 !Withdraw methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:33'!
 value
@@ -1025,16 +1005,6 @@ addFinancialEntity: aFinancialEntity
 	aFinancialEntity isAddedInto: self.! !
 
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'JA 5/31/2021 22:00:20'!
-accountSummaryReport	
-	| report |
-	report := OrderedCollection new.
-	financialEntities do:[ :aFinancialEntity |
-			report addAllLast: aFinancialEntity accountSummaryReport .
-		].
-	report add:'Balance = ', self balance asString.
-	^ report.! !
-
 !Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 03:05:51'!
 collectionReportsOfItsFinancialEntities: aReport
 	| reports |
@@ -1048,10 +1018,6 @@ collectionReportsOfItsFinancialEntities: aReport
 report: aReport
 
 	^aReport reportPortfolio: self.! !
-
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 01:53:21'!
-transferNetReport
-	^financialEntities sum: [:aFinancialEntity | aFinancialEntity transferNetReport ] ifEmpty:[0].! !
 
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!
@@ -1117,11 +1083,6 @@ includes: aFinancialEntity
 ! !
 
 
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:23:48'!
-accountSummaryReport	
-	
-	^AccountSummaryReport reportAccount: self.! !
-
 !ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:43:29'!
 collectionReportsOfItsTransactions: aReport
 	
@@ -1137,16 +1098,6 @@ collectionReportsOfItsTransactions: aReport
 report: aReport
 	
 	^aReport reportAccount: self.! !
-
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:21:25'!
-transferNetReport
-	|net|
-	net := 0.
-	transactions do: [:transaction |
-		net := net + transaction transferNetReport
-		].
-	
-	^net.! !
 
 
 !classDefinition: #Report category: 'Portfolio-Ejercicio'!
@@ -1310,11 +1261,6 @@ Object subclass: #Transfer
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
-
-!Transfer methodsFor: 'initialization' stamp: 'JA 5/27/2021 21:37:46'!
-initializeWith: aTransferDeposit and: aTransferWithdraw 
-	transferDeposit := aTransferDeposit.
-	transferWithdraw := aTransferWithdraw.! !
 
 !Transfer methodsFor: 'initialization' stamp: 'JA 5/30/2021 18:52:18'!
 initializeWith: aReceptiveAccountOrigin and: aReceptiveAccountDestiny amount: anAmount 
