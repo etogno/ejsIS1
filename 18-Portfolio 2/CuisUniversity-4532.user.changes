@@ -20640,3 +20640,992 @@ PASSED!
 
 !testRun: #TransferTest #test06CanNotTransferBetweenTheSameAccount stamp: 'ET 6/2/2021 23:39:29'!
 PASSED!
+!ReceptiveAccountTest methodsFor: 'transfer net report tests' stamp: 'ET 6/2/2021 23:57:10'!
+test17ReceptiveAccountCanBeNamed
+
+	| account |
+	
+	account := ReceptiveAccount named: 'cuenta'.
+
+	
+	self assert: 'cuenta' equals: account name.
+! !
+
+!testRun: #ReceptiveAccountTest #test17ReceptiveAccountCanBeNamed stamp: 'ET 6/2/2021 23:57:14'!
+ERROR!
+!ReceptiveAccount class methodsFor: 'instance creation' stamp: 'ET 6/2/2021 23:57:37'!
+named: aString 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeNamed: aString ! !
+!ReceptiveAccount class methodsFor: 'instance creation' stamp: 'ET 6/2/2021 23:58:03' prior: 51001964!
+named: aString 
+
+	^self new initializeNamed: aString ! !
+
+!testRun: #ReceptiveAccountTest #test17ReceptiveAccountCanBeNamed stamp: 'ET 6/2/2021 23:58:08'!
+ERROR!
+
+!classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio' stamp: 'ET 6/2/2021 23:58:34'!
+FinancialEntity subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions string'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'ET 6/2/2021 23:58:34'!
+initializeNamed: aString 
+	self shouldBeImplemented.
+	string := aString.! !
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'ET 6/2/2021 23:58:43' prior: 51001988!
+initializeNamed: aString 
+
+	string := aString.! !
+
+!testRun: #ReceptiveAccountTest #test17ReceptiveAccountCanBeNamed stamp: 'ET 6/2/2021 23:58:47'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'transactions - private' stamp: 'ET 6/2/2021 23:59:11' overrides: 16882612!
+name
+	
+	^string.! !
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test20SummaryReportOfNewPortfolio stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test21SummaryReportOfPortfolioWithTwoAccounts stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test22TransferNetReportOfPortfolioWithAParticipantOfATransfer stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test23TransferNetReportOfNewPortfolio stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08SummaryReportWithNewReceptiveAccount stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09SummaryReportWithReceptiveAccountWithADeposit stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10SummaryReportWithReceptiveAccountWithAWithdraw stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11SummaryReportWithReceptiveAccountWithDepositAndWithdraw stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12SummaryReportOOfBothAccountsInATransfer stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13BalanceIsAtTheEndOfSummaryReport stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14TransferNetReportWithNewReceptiveAccount stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15TransferNetReportOfBothAccountsInATransfer stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16NonTransferTransactionsDoesNotModifyTransferNetReport stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17ReceptiveAccountCanBeNamed stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #TransferTest #test01TransferChangesBalanceOfBothParticipantAccounts stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #TransferTest #test02CanNotTransferWithZeroAmount stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #TransferTest #test03CanNotTransferNegativeAmount stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #TransferTest #test04TransferLegsAreRegisteredTransactionsOfItsParticipants stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #TransferTest #test05CanTravelBetweenTransferAndItsLegs stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!testRun: #TransferTest #test06CanNotTransferBetweenTheSameAccount stamp: 'ET 6/2/2021 23:59:14'!
+PASSED!
+
+!classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio' stamp: 'ET 6/2/2021 23:59:27'!
+FinancialEntity subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 23:59:27' prior: 51001994!
+initializeNamed: aString 
+
+	name := aString.! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 23:59:28' prior: 51002003 overrides: 16882612!
+name
+	
+	^name.! !
+!ReceptiveAccount methodsFor: 'name' stamp: 'ET 6/3/2021 00:02:54' prior: 51002192 overrides: 16882612!
+name
+	
+	^'cuenta'.! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/3/2021 00:04:54'!
+test18ReceptiveAccountNameIsWhatItWasNamed
+
+	| account |
+	
+	account := ReceptiveAccount named: 'otro'.
+
+	
+	self assert: 'otro' equals: account name.
+! !
+
+!testRun: #ReceptiveAccountTest #test18ReceptiveAccountNameIsWhatItWasNamed stamp: 'ET 6/3/2021 00:04:55'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'name' stamp: 'ET 6/3/2021 00:05:10' prior: 51002196 overrides: 16882612!
+name
+	
+	^name.! !
+
+!testRun: #ReceptiveAccountTest #test18ReceptiveAccountNameIsWhatItWasNamed stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08SummaryReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09SummaryReportWithReceptiveAccountWithADeposit stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10SummaryReportWithReceptiveAccountWithAWithdraw stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11SummaryReportWithReceptiveAccountWithDepositAndWithdraw stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12SummaryReportOOfBothAccountsInATransfer stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13BalanceIsAtTheEndOfSummaryReport stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14TransferNetReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15TransferNetReportOfBothAccountsInATransfer stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16NonTransferTransactionsDoesNotModifyTransferNetReport stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17ReceptiveAccountCanBeNamed stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18ReceptiveAccountNameIsWhatItWasNamed stamp: 'ET 6/3/2021 00:05:12'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 6/3/2021 00:06:45'!
+test20PortfolioCanBeNamed
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'portfolio'.
+
+	
+	self assert: 'portfolio' equals: portfolio name.
+! !
+
+!testRun: #PortfolioTest #test20PortfolioCanBeNamed stamp: 'ET 6/3/2021 00:06:49'!
+ERROR!
+!Portfolio class methodsFor: 'instance creation' stamp: 'ET 6/3/2021 00:07:02'!
+named: aString 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeNamed: aString ! !
+!Portfolio class methodsFor: 'instance creation' stamp: 'ET 6/3/2021 00:07:08' prior: 51002295!
+named: aString 
+	
+	^self new initializeNamed: aString ! !
+
+!testRun: #PortfolioTest #test20PortfolioCanBeNamed stamp: 'ET 6/3/2021 00:07:11'!
+ERROR!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'ET 6/3/2021 00:07:21'!
+FinancialEntity subclass: #Portfolio
+	instanceVariableNames: 'financialEntities portfolioParents string'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'initialization' stamp: 'ET 6/3/2021 00:07:21'!
+initializeNamed: aString 
+	self shouldBeImplemented.
+	string := aString.! !
+!Portfolio methodsFor: 'initialization' stamp: 'ET 6/3/2021 00:07:26' prior: 51002319!
+initializeNamed: aString 
+
+	string := aString.! !
+
+!testRun: #PortfolioTest #test20PortfolioCanBeNamed stamp: 'ET 6/3/2021 00:07:28'!
+FAILURE!
+!Portfolio methodsFor: 'transactions - private' stamp: 'ET 6/3/2021 00:08:01' overrides: 16882612!
+name
+	
+	^'portfolio'.! !
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 6/3/2021 00:08:44'!
+test24PortfolioCanBeNamed
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'portfolio'.
+
+	
+	self assert: 'portfolio' equals: portfolio name.
+! !
+
+!methodRemoval: PortfolioTest #test20PortfolioCanBeNamed stamp: 'ET 6/3/2021 00:08:44'!
+test20PortfolioCanBeNamed
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'portfolio'.
+
+	
+	self assert: 'portfolio' equals: portfolio name.
+!
+
+!testRun: #PortfolioTest #test24PortfolioCanBeNamed stamp: 'ET 6/3/2021 00:08:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/3/2021 00:08:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/3/2021 00:08:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/3/2021 00:08:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/3/2021 00:08:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:08:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/3/2021 00:08:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/3/2021 00:08:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/3/2021 00:08:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/3/2021 00:08:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/3/2021 00:08:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/3/2021 00:08:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/3/2021 00:08:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:08:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:08:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/3/2021 00:08:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/3/2021 00:08:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/3/2021 00:08:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/3/2021 00:08:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/3/2021 00:08:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test20SummaryReportOfNewPortfolio stamp: 'ET 6/3/2021 00:08:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test21SummaryReportOfPortfolioWithTwoAccounts stamp: 'ET 6/3/2021 00:08:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test22TransferNetReportOfPortfolioWithAParticipantOfATransfer stamp: 'ET 6/3/2021 00:08:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test23TransferNetReportOfNewPortfolio stamp: 'ET 6/3/2021 00:08:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioCanBeNamed stamp: 'ET 6/3/2021 00:08:53'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 6/3/2021 00:09:27'!
+test24PortfolioNameIsWhatItWasNamed
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'otroPortfolio'.
+
+	
+	self assert: 'otroPortfolio' equals: portfolio name.
+! !
+
+!testRun: #PortfolioTest #test24PortfolioNameIsWhatItWasNamed stamp: 'ET 6/3/2021 00:09:29'!
+FAILURE!
+!Portfolio methodsFor: 'name' stamp: 'ET 6/3/2021 00:09:41' prior: 51002333 overrides: 16882612!
+name
+	
+	^string.! !
+
+!testRun: #PortfolioTest #test24PortfolioNameIsWhatItWasNamed stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/3/2021 00:09:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/3/2021 00:09:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/3/2021 00:09:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test20SummaryReportOfNewPortfolio stamp: 'ET 6/3/2021 00:09:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test21SummaryReportOfPortfolioWithTwoAccounts stamp: 'ET 6/3/2021 00:09:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test22TransferNetReportOfPortfolioWithAParticipantOfATransfer stamp: 'ET 6/3/2021 00:09:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test23TransferNetReportOfNewPortfolio stamp: 'ET 6/3/2021 00:09:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioCanBeNamed stamp: 'ET 6/3/2021 00:09:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioNameIsWhatItWasNamed stamp: 'ET 6/3/2021 00:09:44'!
+PASSED!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'ET 6/3/2021 00:09:58'!
+FinancialEntity subclass: #Portfolio
+	instanceVariableNames: 'financialEntities portfolioParents name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:09:58' prior: 51002454 overrides: 16882612!
+name
+	
+	^name.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 00:09:58' prior: 51002325!
+initializeNamed: aString 
+
+	name := aString.! !
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'ET 6/3/2021 00:10:10'!
+FinancialEntity subclass: #Portfolio
+	instanceVariableNames: 'portfolioParents name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #FinancialEntity category: 'Portfolio-Ejercicio' stamp: 'ET 6/3/2021 00:10:11'!
+Object subclass: #FinancialEntity
+	instanceVariableNames: 'financialEntities'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+Object subclass: #FinancialEntity
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #FinancialEntity category: 'Portfolio-Ejercicio' stamp: 'ET 6/3/2021 00:10:28'!
+Object subclass: #FinancialEntity
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+FinancialEntity subclass: #Portfolio
+	instanceVariableNames: 'portfolioParents financialEntities name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'ET 6/3/2021 00:10:34'!
+FinancialEntity subclass: #Portfolio
+	instanceVariableNames: 'portfolioParents financialEntities name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'ET 6/3/2021 00:11:41'!
+FinancialEntity subclass: #Portfolio
+	instanceVariableNames: 'financialEntities name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #FinancialEntity category: 'Portfolio-Ejercicio' stamp: 'ET 6/3/2021 00:11:42'!
+Object subclass: #FinancialEntity
+	instanceVariableNames: 'portfolioParents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+Object subclass: #FinancialEntity
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #FinancialEntity category: 'Portfolio-Ejercicio' stamp: 'ET 6/3/2021 00:11:49'!
+Object subclass: #FinancialEntity
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+FinancialEntity subclass: #Portfolio
+	instanceVariableNames: 'financialEntities portfolioParents name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'ET 6/3/2021 00:11:58'!
+FinancialEntity subclass: #Portfolio
+	instanceVariableNames: 'financialEntities portfolioParents name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test20SummaryReportOfNewPortfolio stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test21SummaryReportOfPortfolioWithTwoAccounts stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test22TransferNetReportOfPortfolioWithAParticipantOfATransfer stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test23TransferNetReportOfNewPortfolio stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioCanBeNamed stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioNameIsWhatItWasNamed stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08SummaryReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09SummaryReportWithReceptiveAccountWithADeposit stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10SummaryReportWithReceptiveAccountWithAWithdraw stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11SummaryReportWithReceptiveAccountWithDepositAndWithdraw stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12SummaryReportOOfBothAccountsInATransfer stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13BalanceIsAtTheEndOfSummaryReport stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14TransferNetReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15TransferNetReportOfBothAccountsInATransfer stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16NonTransferTransactionsDoesNotModifyTransferNetReport stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17ReceptiveAccountCanBeNamed stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18ReceptiveAccountNameIsWhatItWasNamed stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #TransferTest #test01TransferChangesBalanceOfBothParticipantAccounts stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #TransferTest #test02CanNotTransferWithZeroAmount stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #TransferTest #test03CanNotTransferNegativeAmount stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #TransferTest #test04TransferLegsAreRegisteredTransactionsOfItsParticipants stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #TransferTest #test05CanTravelBetweenTransferAndItsLegs stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+!testRun: #TransferTest #test06CanNotTransferBetweenTheSameAccount stamp: 'ET 6/3/2021 00:12:03'!
+PASSED!
+
+FinancialEntity subclass: #Portfolio
+	instanceVariableNames: 'financialEntities portfolioParents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio' stamp: 'ET 6/3/2021 00:12:19'!
+FinancialEntity subclass: #Portfolio
+	instanceVariableNames: 'financialEntities portfolioParents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+FinancialEntity subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio' stamp: 'ET 6/3/2021 00:12:24'!
+FinancialEntity subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classDefinition: #FinancialEntity category: 'Portfolio-Ejercicio' stamp: 'ET 6/3/2021 00:12:40'!
+Object subclass: #FinancialEntity
+	instanceVariableNames: 'name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!FinancialEntity methodsFor: 'testing' stamp: 'ET 6/3/2021 00:12:38' overrides: 16882612!
+name
+
+	^name.! !
+
+!methodRemoval: Portfolio #name stamp: 'ET 6/3/2021 00:13:01'!
+name
+	
+	^name.!
+
+!methodRemoval: ReceptiveAccount #name stamp: 'ET 6/3/2021 00:13:07'!
+name
+	
+	^name.!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test20SummaryReportOfNewPortfolio stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test21SummaryReportOfPortfolioWithTwoAccounts stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test22TransferNetReportOfPortfolioWithAParticipantOfATransfer stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test23TransferNetReportOfNewPortfolio stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioCanBeNamed stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioNameIsWhatItWasNamed stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08SummaryReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09SummaryReportWithReceptiveAccountWithADeposit stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10SummaryReportWithReceptiveAccountWithAWithdraw stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11SummaryReportWithReceptiveAccountWithDepositAndWithdraw stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12SummaryReportOOfBothAccountsInATransfer stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13BalanceIsAtTheEndOfSummaryReport stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14TransferNetReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15TransferNetReportOfBothAccountsInATransfer stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16NonTransferTransactionsDoesNotModifyTransferNetReport stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17ReceptiveAccountCanBeNamed stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18ReceptiveAccountNameIsWhatItWasNamed stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #TransferTest #test01TransferChangesBalanceOfBothParticipantAccounts stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #TransferTest #test02CanNotTransferWithZeroAmount stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #TransferTest #test03CanNotTransferNegativeAmount stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #TransferTest #test04TransferLegsAreRegisteredTransactionsOfItsParticipants stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #TransferTest #test05CanTravelBetweenTransferAndItsLegs stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+
+!testRun: #TransferTest #test06CanNotTransferBetweenTheSameAccount stamp: 'ET 6/3/2021 00:13:11'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 6/3/2021 00:15:02'!
+test25PortfolioNameIsWhatItWasNamed
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'otroPortfolio'.
+
+	
+	self assert: 'otroPortfolio' equals: portfolio name.
+! !
+
+!methodRemoval: PortfolioTest #test24PortfolioNameIsWhatItWasNamed stamp: 'ET 6/3/2021 00:15:02'!
+test24PortfolioNameIsWhatItWasNamed
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'otroPortfolio'.
+
+	
+	self assert: 'otroPortfolio' equals: portfolio name.
+!
+
+NewClassWithInheritedAbstractMessages superclass: Report withClassName: #PortfolioStructureReport!
+
+!classDefinition: #PortfolioStructureReport category: 'Portfolio-Ejercicio' stamp: 'ET 6/3/2021 00:16:26'!
+Report subclass: #PortfolioStructureReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!classRemoval: #PortfolioStructureReport stamp: 'ET 6/3/2021 00:17:15'!
+Report subclass: #PortfolioStructureReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!

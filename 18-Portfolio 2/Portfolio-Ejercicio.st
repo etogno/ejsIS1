@@ -399,6 +399,28 @@ test19CannotAddItself
 	raise: Error 
 	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedFinancialEntity) ].! !
 
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 6/3/2021 00:08:44'!
+test24PortfolioCanBeNamed
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'portfolio'.
+
+	
+	self assert: 'portfolio' equals: portfolio name.
+! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 6/3/2021 00:15:02'!
+test25PortfolioNameIsWhatItWasNamed
+
+	| portfolio |
+	
+	portfolio := Portfolio named: 'otroPortfolio'.
+
+	
+	self assert: 'otroPortfolio' equals: portfolio name.
+! !
+
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Ejercicio'!
 TestCase subclass: #ReceptiveAccountTest
@@ -599,6 +621,28 @@ test07AccountKnowsItsTransactions
 		
 	self assert: 1 equals: account1 transactions size.
 	self assert: (account1 transactions includes: deposit1).
+! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/2/2021 23:57:10'!
+test17ReceptiveAccountCanBeNamed
+
+	| account |
+	
+	account := ReceptiveAccount named: 'cuenta'.
+
+	
+	self assert: 'cuenta' equals: account name.
+! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/3/2021 00:04:54'!
+test18ReceptiveAccountNameIsWhatItWasNamed
+
+	| account |
+	
+	account := ReceptiveAccount named: 'otro'.
+
+	
+	self assert: 'otro' equals: account name.
 ! !
 
 
@@ -897,7 +941,7 @@ for: aValue
 
 !classDefinition: #FinancialEntity category: 'Portfolio-Ejercicio'!
 Object subclass: #FinancialEntity
-	instanceVariableNames: ''
+	instanceVariableNames: 'name'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
@@ -906,6 +950,12 @@ Object subclass: #FinancialEntity
 balance
 
 	self subclassResponsibility.! !
+
+
+!FinancialEntity methodsFor: 'name' stamp: 'ET 6/3/2021 00:12:38'!
+name
+
+	^name.! !
 
 
 !FinancialEntity methodsFor: 'testing' stamp: 'ET 5/22/2021 17:36:18'!
@@ -1016,6 +1066,11 @@ initialize
 	financialEntities := OrderedCollection new.
 	portfolioParents := OrderedCollection new.! !
 
+!Portfolio methodsFor: 'initialization' stamp: 'ET 6/3/2021 00:09:58'!
+initializeNamed: aString 
+
+	name := aString.! !
+
 
 !Portfolio methodsFor: 'adding - private' stamp: 'ET 5/25/2021 01:12:13'!
 isAddedInto: aPortfolio
@@ -1052,6 +1107,17 @@ collectionReportsOfItsFinancialEntities: aReport
 		].
 	^ reports.! !
 
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Portfolio class' category: 'Portfolio-Ejercicio'!
+Portfolio class
+	instanceVariableNames: ''!
+
+!Portfolio class methodsFor: 'instance creation' stamp: 'ET 6/3/2021 00:07:08'!
+named: aString 
+	
+	^self new initializeNamed: aString ! !
+
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!
 FinancialEntity subclass: #ReceptiveAccount
@@ -1064,6 +1130,11 @@ FinancialEntity subclass: #ReceptiveAccount
 initialize
 
 	transactions := OrderedCollection new.! !
+
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'ET 6/2/2021 23:59:27'!
+initializeNamed: aString 
+
+	name := aString.! !
 
 
 !ReceptiveAccount methodsFor: 'transactions - private' stamp: 'ET 5/22/2021 19:36:55'!
@@ -1132,6 +1203,17 @@ collectionReportsOfItsTransactions: aReport
 	transactions do: [:aTransaction | reports add: (aTransaction report: aReport)].
 	
 	^reports.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'ReceptiveAccount class' category: 'Portfolio-Ejercicio'!
+ReceptiveAccount class
+	instanceVariableNames: ''!
+
+!ReceptiveAccount class methodsFor: 'instance creation' stamp: 'ET 6/2/2021 23:58:03'!
+named: aString 
+
+	^self new initializeNamed: aString ! !
 
 
 !classDefinition: #Report category: 'Portfolio-Ejercicio'!
