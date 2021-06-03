@@ -22375,3 +22375,1400 @@ test29
 	report removeFirst.
 	self assert: report first equals: String tab, 'cuenta de pepa'.
 	!
+!PortfolioStructureReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:06:38' prior: 51007251 overrides: 51006321!
+reportPortfolio: aPortfolio
+	|reports finalReport|
+	finalReport := OrderedCollection with: aPortfolio name.
+	
+	reports := aPortfolio collectionReportsOfItsFinancialEntities: self.
+	
+	reports do: [:aFinancialEntityReport | finalReport addAllLast: (aFinancialEntityReport collect: [:a | String tab, a]  )].
+	
+	^finalReport.! !
+
+NewClassWithInheritedAbstractMessages superclass: Report withClassName: #SpecialSummaryReport!
+
+!classDefinition: #SpecialSummaryReport category: 'Portfolio-Ejercicio' stamp: 'ET 6/3/2021 01:07:06'!
+Report subclass: #SpecialSummaryReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+!SpecialSummaryReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 01:07:06' overrides: 51006316!
+reportDeposit: aDepositTransaction
+
+	self subclassResponsibility! !
+!SpecialSummaryReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 01:07:06' overrides: 51006321!
+reportPortfolio: aPortfolio
+
+	self subclassResponsibility! !
+!SpecialSummaryReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 01:07:06' overrides: 51006331!
+reportTransferWithdraw: aTransferWithdrawTransaction
+
+	self subclassResponsibility! !
+!SpecialSummaryReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 01:07:06' overrides: 51006311!
+reportAccount: aReceptiveAccount
+
+	self subclassResponsibility! !
+!SpecialSummaryReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 01:07:06' overrides: 51006326!
+reportTransferDeposit: aTransferDepositTransaction
+
+	self subclassResponsibility! !
+!SpecialSummaryReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/3/2021 01:07:06' overrides: 51006337!
+reportWithdraw: aWithdrawTransaction
+
+	self subclassResponsibility! !
+!ReceptiveAccountTest methodsFor: 'summary report tests' stamp: 'ET 6/3/2021 01:11:20'!
+test19
+
+	| account report |
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	
+	report := SpecialSummaryReport for: account.
+	
+	self assert: report first equals: 'cuenta de pepe'.
+	report removeFirst.
+	self assert: report includes: String tab, 'Balance = 0'.
+! !
+
+!testRun: #ReceptiveAccountTest #test19 stamp: 'ET 6/3/2021 01:13:01'!
+ERROR!
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:13:45' prior: 51007464 overrides: 51006311!
+reportAccount: aReceptiveAccount
+
+	^OrderedCollection with: 'cuenta de pepe' with: String tab, 'Balance = 0'.! !
+
+!testRun: #ReceptiveAccountTest #test19 stamp: 'ET 6/3/2021 01:13:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 6/3/2021 01:13:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 01:13:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 01:13:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 6/3/2021 01:13:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 6/3/2021 01:13:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 6/3/2021 01:13:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 6/3/2021 01:13:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08SummaryReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 01:13:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09SummaryReportWithReceptiveAccountWithADeposit stamp: 'ET 6/3/2021 01:13:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10SummaryReportWithReceptiveAccountWithAWithdraw stamp: 'ET 6/3/2021 01:13:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11SummaryReportWithReceptiveAccountWithDepositAndWithdraw stamp: 'ET 6/3/2021 01:13:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12SummaryReportOOfBothAccountsInATransfer stamp: 'ET 6/3/2021 01:13:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13BalanceIsAtTheEndOfSummaryReport stamp: 'ET 6/3/2021 01:13:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14TransferNetReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 01:13:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15TransferNetReportOfBothAccountsInATransfer stamp: 'ET 6/3/2021 01:13:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16NonTransferTransactionsDoesNotModifyTransferNetReport stamp: 'ET 6/3/2021 01:13:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17ReceptiveAccountCanBeNamed stamp: 'ET 6/3/2021 01:13:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18ReceptiveAccountNameIsWhatItWasNamed stamp: 'ET 6/3/2021 01:13:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test19 stamp: 'ET 6/3/2021 01:13:48'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:14:00'!
+test20
+
+	| account report |
+	
+	account := ReceptiveAccount named: 'cuenta de pepa'.
+	
+	report := SpecialSummaryReport for: account.
+	
+	self assert: report first equals: 'cuenta de pepa'.
+	report removeFirst.
+	self assert: report includes: String tab, 'Balance = 0'.
+! !
+
+!testRun: #ReceptiveAccountTest #test20 stamp: 'ET 6/3/2021 01:14:02'!
+FAILURE!
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:14:17' prior: 51007497 overrides: 51006311!
+reportAccount: aReceptiveAccount
+
+	^OrderedCollection with: aReceptiveAccount name with: String tab, 'Balance = 0'.! !
+
+!testRun: #ReceptiveAccountTest #test20 stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08SummaryReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09SummaryReportWithReceptiveAccountWithADeposit stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10SummaryReportWithReceptiveAccountWithAWithdraw stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11SummaryReportWithReceptiveAccountWithDepositAndWithdraw stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12SummaryReportOOfBothAccountsInATransfer stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13BalanceIsAtTheEndOfSummaryReport stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14TransferNetReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15TransferNetReportOfBothAccountsInATransfer stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16NonTransferTransactionsDoesNotModifyTransferNetReport stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17ReceptiveAccountCanBeNamed stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18ReceptiveAccountNameIsWhatItWasNamed stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test19 stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test20 stamp: 'ET 6/3/2021 01:14:19'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:15:50'!
+test21
+
+	| account report |
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	Deposit register: 100 on: account.
+	
+	report := SpecialSummaryReport for: account.
+	
+	self assert: report first equals: 'cuenta de pepa'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'Depósito por 100'.
+	self assert: report includes: String tab, 'Balance = 100'.
+! !
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:15:59' prior: 51007674!
+test21
+
+	| account report |
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	Deposit register: 100 on: account.
+	
+	report := SpecialSummaryReport for: account.
+	
+	self assert: report first equals: 'cuenta de pepe'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'Depósito por 100'.
+	self assert: report includes: String tab, 'Balance = 100'.
+! !
+
+!testRun: #ReceptiveAccountTest #test21 stamp: 'ET 6/3/2021 01:16:02'!
+FAILURE!
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:19:52' prior: 51007592 overrides: 51006311!
+reportAccount: aReceptiveAccount
+	|reports finalReport|
+	
+	finalReport := OrderedCollection with: aReceptiveAccount name.
+	reports := aReceptiveAccount collectionReportsOfItsTransactions: self.
+	
+	finalReport addAllFirst: reports.
+
+	^finalReport.! !
+
+!testRun: #ReceptiveAccountTest #test21 stamp: 'ET 6/3/2021 01:19:56'!
+ERROR!
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:20:11' prior: 51007709 overrides: 51006311!
+reportAccount: aReceptiveAccount
+	|reports finalReport|
+	
+	finalReport := OrderedCollection with: aReceptiveAccount name.
+	reports := aReceptiveAccount collectionReportsOfItsTransactions: self.
+	
+	finalReport addAllLast: reports.
+
+	^finalReport.! !
+
+!testRun: #ReceptiveAccountTest #test21 stamp: 'ET 6/3/2021 01:20:12'!
+ERROR!
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:20:38' prior: 51007445 overrides: 51006316!
+reportDeposit: aDepositTransaction
+
+	^String tab, 'Deposito por 100'.! !
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:20:52' prior: 51007739 overrides: 51006316!
+reportDeposit: aDepositTransaction
+
+	^String tab, 'Deposito por ', aDepositTransaction value asString.! !
+
+!testRun: #ReceptiveAccountTest #test21 stamp: 'ET 6/3/2021 01:20:56'!
+FAILURE!
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:21:23' prior: 51007746 overrides: 51006316!
+reportDeposit: aDepositTransaction
+
+	^String tab, 'Depósito por ', aDepositTransaction value asString.! !
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test20SummaryReportOfNewPortfolio stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test21SummaryReportOfPortfolioWithTwoAccounts stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test22TransferNetReportOfPortfolioWithAParticipantOfATransfer stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test23TransferNetReportOfNewPortfolio stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioCanBeNamed stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioNameIsWhatItWasNamed stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test26PortfolioStructureReportOfNewPortfolioHasAName stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test27PortfolioStructureReportOfNewPortfolioHasTheNameOfThePortfolio stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test28PortfolioWithAccountStructureReport stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #PortfolioTest #test29PortfolioWithTwoAccountsStructureReport stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08SummaryReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09SummaryReportWithReceptiveAccountWithADeposit stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10SummaryReportWithReceptiveAccountWithAWithdraw stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11SummaryReportWithReceptiveAccountWithDepositAndWithdraw stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12SummaryReportOOfBothAccountsInATransfer stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13BalanceIsAtTheEndOfSummaryReport stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14TransferNetReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15TransferNetReportOfBothAccountsInATransfer stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16NonTransferTransactionsDoesNotModifyTransferNetReport stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17ReceptiveAccountCanBeNamed stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18ReceptiveAccountNameIsWhatItWasNamed stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test19 stamp: 'ET 6/3/2021 01:21:25'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test20 stamp: 'ET 6/3/2021 01:21:25'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test21 stamp: 'ET 6/3/2021 01:21:25'!
+FAILURE!
+
+!testRun: #TransferTest #test01TransferChangesBalanceOfBothParticipantAccounts stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #TransferTest #test02CanNotTransferWithZeroAmount stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #TransferTest #test03CanNotTransferNegativeAmount stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #TransferTest #test04TransferLegsAreRegisteredTransactionsOfItsParticipants stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #TransferTest #test05CanTravelBetweenTransferAndItsLegs stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #TransferTest #test06CanNotTransferBetweenTheSameAccount stamp: 'ET 6/3/2021 01:21:25'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test19 stamp: 'ET 6/3/2021 01:21:37'!
+FAILURE!
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:22:08' prior: 51007724 overrides: 51006311!
+reportAccount: aReceptiveAccount
+	|reports finalReport|
+	
+	finalReport := OrderedCollection with: aReceptiveAccount name.
+	reports := aReceptiveAccount collectionReportsOfItsTransactions: self.
+	
+	finalReport addAllLast: reports.
+	
+	finalReport add: 'Balance = ', aReceptiveAccount balance asString.
+
+	^finalReport.! !
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test20SummaryReportOfNewPortfolio stamp: 'ET 6/3/2021 01:22:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test21SummaryReportOfPortfolioWithTwoAccounts stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test22TransferNetReportOfPortfolioWithAParticipantOfATransfer stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test23TransferNetReportOfNewPortfolio stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioCanBeNamed stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioNameIsWhatItWasNamed stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test26PortfolioStructureReportOfNewPortfolioHasAName stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test27PortfolioStructureReportOfNewPortfolioHasTheNameOfThePortfolio stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test28PortfolioWithAccountStructureReport stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #PortfolioTest #test29PortfolioWithTwoAccountsStructureReport stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08SummaryReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09SummaryReportWithReceptiveAccountWithADeposit stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10SummaryReportWithReceptiveAccountWithAWithdraw stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11SummaryReportWithReceptiveAccountWithDepositAndWithdraw stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12SummaryReportOOfBothAccountsInATransfer stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13BalanceIsAtTheEndOfSummaryReport stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14TransferNetReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15TransferNetReportOfBothAccountsInATransfer stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16NonTransferTransactionsDoesNotModifyTransferNetReport stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17ReceptiveAccountCanBeNamed stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18ReceptiveAccountNameIsWhatItWasNamed stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test19 stamp: 'ET 6/3/2021 01:22:12'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test20 stamp: 'ET 6/3/2021 01:22:12'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test21 stamp: 'ET 6/3/2021 01:22:12'!
+FAILURE!
+
+!testRun: #TransferTest #test01TransferChangesBalanceOfBothParticipantAccounts stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #TransferTest #test02CanNotTransferWithZeroAmount stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #TransferTest #test03CanNotTransferNegativeAmount stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #TransferTest #test04TransferLegsAreRegisteredTransactionsOfItsParticipants stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #TransferTest #test05CanTravelBetweenTransferAndItsLegs stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #TransferTest #test06CanNotTransferBetweenTheSameAccount stamp: 'ET 6/3/2021 01:22:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test21 stamp: 'ET 6/3/2021 01:22:23'!
+FAILURE!
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:22:36' prior: 51007690!
+test21
+
+	| account report |
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	Deposit register: 100 on: account.
+	
+	report := SpecialSummaryReport for: account.
+	
+	self assert: report first equals: 'cuenta de pepe'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'Depósito por 100'.
+	report removeFirst.
+	self assert: report includes: String tab, 'Balance = 100'.
+! !
+
+!testRun: #ReceptiveAccountTest #test21 stamp: 'ET 6/3/2021 01:22:38'!
+FAILURE!
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:22:48' prior: 51007969 overrides: 51006311!
+reportAccount: aReceptiveAccount
+	|reports finalReport|
+	
+	finalReport := OrderedCollection with: aReceptiveAccount name.
+	reports := aReceptiveAccount collectionReportsOfItsTransactions: self.
+	
+	finalReport addAllLast: reports.
+	
+	finalReport add: String tab, 'Balance = ', aReceptiveAccount balance asString.
+
+	^finalReport.! !
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test20SummaryReportOfNewPortfolio stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test21SummaryReportOfPortfolioWithTwoAccounts stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test22TransferNetReportOfPortfolioWithAParticipantOfATransfer stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test23TransferNetReportOfNewPortfolio stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioCanBeNamed stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioNameIsWhatItWasNamed stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test26PortfolioStructureReportOfNewPortfolioHasAName stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test27PortfolioStructureReportOfNewPortfolioHasTheNameOfThePortfolio stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test28PortfolioWithAccountStructureReport stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test29PortfolioWithTwoAccountsStructureReport stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08SummaryReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09SummaryReportWithReceptiveAccountWithADeposit stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10SummaryReportWithReceptiveAccountWithAWithdraw stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11SummaryReportWithReceptiveAccountWithDepositAndWithdraw stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12SummaryReportOOfBothAccountsInATransfer stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13BalanceIsAtTheEndOfSummaryReport stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14TransferNetReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15TransferNetReportOfBothAccountsInATransfer stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16NonTransferTransactionsDoesNotModifyTransferNetReport stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17ReceptiveAccountCanBeNamed stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18ReceptiveAccountNameIsWhatItWasNamed stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #TransferTest #test01TransferChangesBalanceOfBothParticipantAccounts stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #TransferTest #test02CanNotTransferWithZeroAmount stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #TransferTest #test03CanNotTransferNegativeAmount stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #TransferTest #test04TransferLegsAreRegisteredTransactionsOfItsParticipants stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #TransferTest #test05CanTravelBetweenTransferAndItsLegs stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #TransferTest #test06CanNotTransferBetweenTheSameAccount stamp: 'ET 6/3/2021 01:22:51'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test19 stamp: 'ET 6/3/2021 01:22:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test20 stamp: 'ET 6/3/2021 01:22:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test21 stamp: 'ET 6/3/2021 01:22:52'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:23:30' prior: 51008188!
+test21
+
+	| account report |
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	Withdraw register: 100 on: account.
+	
+	report := SpecialSummaryReport for: account.
+	
+	self assert: report first equals: 'cuenta de pepe'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'Extracción por 100'.
+	report removeFirst.
+	self assert: report includes: String tab, 'Balance = -100'.
+! !
+
+!testRun: #ReceptiveAccountTest #test21 stamp: 'ET 6/3/2021 01:23:33'!
+ERROR!
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:22:36' prior: 51008424!
+test21
+
+	| account report |
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	Deposit register: 100 on: account.
+	
+	report := SpecialSummaryReport for: account.
+	
+	self assert: report first equals: 'cuenta de pepe'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'Depósito por 100'.
+	report removeFirst.
+	self assert: report includes: String tab, 'Balance = 100'.
+! !
+
+!testRun: #ReceptiveAccountTest #test21 stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test20SummaryReportOfNewPortfolio stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test21SummaryReportOfPortfolioWithTwoAccounts stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test22TransferNetReportOfPortfolioWithAParticipantOfATransfer stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test23TransferNetReportOfNewPortfolio stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioCanBeNamed stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioNameIsWhatItWasNamed stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test26PortfolioStructureReportOfNewPortfolioHasAName stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test27PortfolioStructureReportOfNewPortfolioHasTheNameOfThePortfolio stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test28PortfolioWithAccountStructureReport stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #PortfolioTest #test29PortfolioWithTwoAccountsStructureReport stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08SummaryReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09SummaryReportWithReceptiveAccountWithADeposit stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10SummaryReportWithReceptiveAccountWithAWithdraw stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11SummaryReportWithReceptiveAccountWithDepositAndWithdraw stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12SummaryReportOOfBothAccountsInATransfer stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13BalanceIsAtTheEndOfSummaryReport stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14TransferNetReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15TransferNetReportOfBothAccountsInATransfer stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16NonTransferTransactionsDoesNotModifyTransferNetReport stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17ReceptiveAccountCanBeNamed stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18ReceptiveAccountNameIsWhatItWasNamed stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test19 stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test20 stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test21 stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #TransferTest #test01TransferChangesBalanceOfBothParticipantAccounts stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #TransferTest #test02CanNotTransferWithZeroAmount stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #TransferTest #test03CanNotTransferNegativeAmount stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #TransferTest #test04TransferLegsAreRegisteredTransactionsOfItsParticipants stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #TransferTest #test05CanTravelBetweenTransferAndItsLegs stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+
+!testRun: #TransferTest #test06CanNotTransferBetweenTheSameAccount stamp: 'ET 6/3/2021 01:23:53'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:25:24'!
+test22
+
+	| account report |
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	Withdraw register: 100 on: account.
+	
+	report := SpecialSummaryReport for: account.
+	
+	self assert: report first equals: 'cuenta de pepe'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'Extracción por 100'.
+	report removeFirst.
+	self assert: report includes: String tab, 'Balance = -100'.
+! !
+
+!testRun: #ReceptiveAccountTest #test22 stamp: 'ET 6/3/2021 01:25:26'!
+ERROR!
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:28:37' prior: 51007477 overrides: 51006337!
+reportWithdraw: aWithdrawTransaction
+
+	^String tab, 'Extracción por ', aWithdrawTransaction value negated.! !
+
+!testRun: #ReceptiveAccountTest #test22 stamp: 'ET 6/3/2021 01:28:38'!
+ERROR!
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:28:49' prior: 51008683 overrides: 51006337!
+reportWithdraw: aWithdrawTransaction
+
+	^String tab, 'Extracción por ', aWithdrawTransaction value negated asString.! !
+
+!testRun: #ReceptiveAccountTest #test22 stamp: 'ET 6/3/2021 01:28:50'!
+FAILURE!
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:29:09' prior: 51008693 overrides: 51006337!
+reportWithdraw: aWithdrawTransaction
+
+	^String tab, 'Extracción por ', aWithdrawTransaction value asString.! !
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test20SummaryReportOfNewPortfolio stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test21SummaryReportOfPortfolioWithTwoAccounts stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test22TransferNetReportOfPortfolioWithAParticipantOfATransfer stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test23TransferNetReportOfNewPortfolio stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test24PortfolioCanBeNamed stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test25PortfolioNameIsWhatItWasNamed stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test26PortfolioStructureReportOfNewPortfolioHasAName stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test27PortfolioStructureReportOfNewPortfolioHasTheNameOfThePortfolio stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test28PortfolioWithAccountStructureReport stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test29PortfolioWithTwoAccountsStructureReport stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08SummaryReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09SummaryReportWithReceptiveAccountWithADeposit stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10SummaryReportWithReceptiveAccountWithAWithdraw stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11SummaryReportWithReceptiveAccountWithDepositAndWithdraw stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12SummaryReportOOfBothAccountsInATransfer stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13BalanceIsAtTheEndOfSummaryReport stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14TransferNetReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15TransferNetReportOfBothAccountsInATransfer stamp: 'ET 6/3/2021 01:29:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16NonTransferTransactionsDoesNotModifyTransferNetReport stamp: 'ET 6/3/2021 01:29:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17ReceptiveAccountCanBeNamed stamp: 'ET 6/3/2021 01:29:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18ReceptiveAccountNameIsWhatItWasNamed stamp: 'ET 6/3/2021 01:29:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test19 stamp: 'ET 6/3/2021 01:29:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test20 stamp: 'ET 6/3/2021 01:29:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test21 stamp: 'ET 6/3/2021 01:29:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test22 stamp: 'ET 6/3/2021 01:29:12'!
+PASSED!
+
+!testRun: #TransferTest #test01TransferChangesBalanceOfBothParticipantAccounts stamp: 'ET 6/3/2021 01:29:12'!
+PASSED!
+
+!testRun: #TransferTest #test02CanNotTransferWithZeroAmount stamp: 'ET 6/3/2021 01:29:12'!
+PASSED!
+
+!testRun: #TransferTest #test03CanNotTransferNegativeAmount stamp: 'ET 6/3/2021 01:29:12'!
+PASSED!
+
+!testRun: #TransferTest #test04TransferLegsAreRegisteredTransactionsOfItsParticipants stamp: 'ET 6/3/2021 01:29:12'!
+PASSED!
+
+!testRun: #TransferTest #test05CanTravelBetweenTransferAndItsLegs stamp: 'ET 6/3/2021 01:29:12'!
+PASSED!
+
+!testRun: #TransferTest #test06CanNotTransferBetweenTheSameAccount stamp: 'ET 6/3/2021 01:29:12'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:34:50'!
+test23
+
+	| accountDestino accountOrigen reportDestino reportOrigen |
+	
+	accountDestino := ReceptiveAccount named: 'cuenta de pepe'.
+	accountOrigen := ReceptiveAccount named: 'cuenta de pepa'.
+	Transfer from: accountOrigen  to: accountDestino  amount: 100.
+	
+	reportDestino := SpecialSummaryReport for: accountDestino.
+	reportOrigen := SpecialSummaryReport for: accountOrigen.
+	
+	
+	self assert: (reportOrigen at: 2) equals: String tab, 'Salida por extracción de 100'.
+	self assert: reportOrigen last includes: String tab, 'Balance = -100'.
+	
+	self assert: (reportDestino at: 2) equals: String tab, 'Entrada por depósito de 100'.
+	self assert: reportDestino last includes: String tab, 'Balance = 100'.! !
+
+!testRun: #ReceptiveAccountTest #test23 stamp: 'ET 6/3/2021 01:34:53'!
+ERROR!
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:35:30' prior: 51007470 overrides: 51006326!
+reportTransferDeposit: aTransferDepositTransaction
+
+	^String tab, 'Salida por extracción de ', aTransferDepositTransaction value asString.! !
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:36:02' prior: 51008945 overrides: 51006326!
+reportTransferDeposit: aTransferDepositTransaction
+
+	^String tab, 'Entrada por depósito de ', aTransferDepositTransaction value asString.! !
+
+!testRun: #ReceptiveAccountTest #test23 stamp: 'ET 6/3/2021 01:36:03'!
+ERROR!
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:36:14' prior: 51007457 overrides: 51006331!
+reportTransferWithdraw: aTransferWithdrawTransaction
+
+	^String tab, 'Entrada por depósito de ', aTransferWithdrawTransaction value asString.! !
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:36:24' prior: 51008965 overrides: 51006331!
+reportTransferWithdraw: aTransferWithdrawTransaction
+
+	^String tab, 'Salida por extracción de ', aTransferWithdrawTransaction value asString.! !
+
+!testRun: #ReceptiveAccountTest #test23 stamp: 'ET 6/3/2021 01:36:26'!
+FAILURE!
+
+reportOrigen last!
+
+String tab, 'Balance = -100'!
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:38:10' prior: 51008916!
+test23
+
+	| accountDestino accountOrigen reportDestino reportOrigen |
+	
+	accountDestino := ReceptiveAccount named: 'cuenta de pepe'.
+	accountOrigen := ReceptiveAccount named: 'cuenta de pepa'.
+	Transfer from: accountOrigen  to: accountDestino  amount: 100.
+	
+	reportDestino := SpecialSummaryReport for: accountDestino.
+	reportOrigen := SpecialSummaryReport for: accountOrigen.
+	
+	
+	self assert: (reportOrigen at: 2) equals: String tab, 'Salida por extracción de 100'.
+	self assert: reportOrigen last equals: String tab, 'Balance = -100'.
+	
+	self assert: (reportDestino at: 2) equals: String tab, 'Entrada por depósito de 100'.
+	self assert: reportDestino last equals: String tab, 'Balance = 100'.! !
+
+!testRun: #ReceptiveAccountTest #test23 stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08SummaryReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09SummaryReportWithReceptiveAccountWithADeposit stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10SummaryReportWithReceptiveAccountWithAWithdraw stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11SummaryReportWithReceptiveAccountWithDepositAndWithdraw stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12SummaryReportOOfBothAccountsInATransfer stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13BalanceIsAtTheEndOfSummaryReport stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14TransferNetReportWithNewReceptiveAccount stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15TransferNetReportOfBothAccountsInATransfer stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16NonTransferTransactionsDoesNotModifyTransferNetReport stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17ReceptiveAccountCanBeNamed stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18ReceptiveAccountNameIsWhatItWasNamed stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test19 stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test20 stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test21 stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test22 stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test23 stamp: 'ET 6/3/2021 01:38:12'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:38:37' prior: 51007577!
+test20
+
+	| account report |
+	
+	account := ReceptiveAccount named: 'cuenta de pepa'.
+	
+	report := SpecialSummaryReport for: account.
+	
+	self assert: report first equals: 'cuenta de pepa'.
+	report removeFirst.
+	self assert: report includes: String tab, 'Balance = 0'.
+! !

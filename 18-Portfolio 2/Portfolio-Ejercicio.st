@@ -483,6 +483,7 @@ test25PortfolioNameIsWhatItWasNamed
 	self assert: 'otroPortfolio' equals: portfolio name.
 ! !
 
+
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Ejercicio'!
 TestCase subclass: #ReceptiveAccountTest
@@ -600,6 +601,88 @@ test16NonTransferTransactionsDoesNotModifyTransferNetReport
 	
 	self assert: 0 equals: (TransferNetReport for: account).
 ! !
+
+
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:11:20'!
+test19
+
+	| account report |
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	
+	report := SpecialSummaryReport for: account.
+	
+	self assert: report first equals: 'cuenta de pepe'.
+	report removeFirst.
+	self assert: report includes: String tab, 'Balance = 0'.
+! !
+
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:38:37'!
+test20
+
+	| account report |
+	
+	account := ReceptiveAccount named: 'cuenta de pepa'.
+	
+	report := SpecialSummaryReport for: account.
+	
+	self assert: report first equals: 'cuenta de pepa'.
+	report removeFirst.
+	self assert: report includes: String tab, 'Balance = 0'.
+! !
+
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:22:36'!
+test21
+
+	| account report |
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	Deposit register: 100 on: account.
+	
+	report := SpecialSummaryReport for: account.
+	
+	self assert: report first equals: 'cuenta de pepe'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'Depósito por 100'.
+	report removeFirst.
+	self assert: report includes: String tab, 'Balance = 100'.
+! !
+
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:25:24'!
+test22
+
+	| account report |
+	
+	account := ReceptiveAccount named: 'cuenta de pepe'.
+	Withdraw register: 100 on: account.
+	
+	report := SpecialSummaryReport for: account.
+	
+	self assert: report first equals: 'cuenta de pepe'.
+	report removeFirst.
+	self assert: report first equals: String tab, 'Extracción por 100'.
+	report removeFirst.
+	self assert: report includes: String tab, 'Balance = -100'.
+! !
+
+!ReceptiveAccountTest methodsFor: 'special summary report tests' stamp: 'ET 6/3/2021 01:38:10'!
+test23
+
+	| accountDestino accountOrigen reportDestino reportOrigen |
+	
+	accountDestino := ReceptiveAccount named: 'cuenta de pepe'.
+	accountOrigen := ReceptiveAccount named: 'cuenta de pepa'.
+	Transfer from: accountOrigen  to: accountDestino  amount: 100.
+	
+	reportDestino := SpecialSummaryReport for: accountDestino.
+	reportOrigen := SpecialSummaryReport for: accountOrigen.
+	
+	
+	self assert: (reportOrigen at: 2) equals: String tab, 'Salida por extracción de 100'.
+	self assert: reportOrigen last equals: String tab, 'Balance = -100'.
+	
+	self assert: (reportDestino at: 2) equals: String tab, 'Entrada por depósito de 100'.
+	self assert: reportDestino last equals: String tab, 'Balance = 100'.! !
 
 
 !ReceptiveAccountTest methodsFor: 'tests' stamp: 'NR 11/2/2020 17:13:44'!
@@ -1407,7 +1490,7 @@ reportAccount: aReceptiveAccount
 !PortfolioStructureReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 00:54:48'!
 reportDeposit: aDepositTransaction! !
 
-!PortfolioStructureReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 00:55:59'!
+!PortfolioStructureReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:06:38'!
 reportPortfolio: aPortfolio
 	|reports finalReport|
 	finalReport := OrderedCollection with: aPortfolio name.
@@ -1426,6 +1509,58 @@ reportTransferWithdraw: aTransferWithdrawTransaction! !
 
 !PortfolioStructureReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 00:54:34'!
 reportWithdraw: aWithdrawTransaction! !
+
+
+!classDefinition: #SpecialSummaryReport category: 'Portfolio-Ejercicio'!
+Report subclass: #SpecialSummaryReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'SpecialSummaryReport class' category: 'Portfolio-Ejercicio'!
+SpecialSummaryReport class
+	instanceVariableNames: ''!
+
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:22:48'!
+reportAccount: aReceptiveAccount
+	|reports finalReport|
+	
+	finalReport := OrderedCollection with: aReceptiveAccount name.
+	reports := aReceptiveAccount collectionReportsOfItsTransactions: self.
+	
+	finalReport addAllLast: reports.
+	
+	finalReport add: String tab, 'Balance = ', aReceptiveAccount balance asString.
+
+	^finalReport.! !
+
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:21:23'!
+reportDeposit: aDepositTransaction
+
+	^String tab, 'Depósito por ', aDepositTransaction value asString.! !
+
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:07:06'!
+reportPortfolio: aPortfolio
+
+	self subclassResponsibility! !
+
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:36:02'!
+reportTransferDeposit: aTransferDepositTransaction
+
+	^String tab, 'Entrada por depósito de ', aTransferDepositTransaction value asString.! !
+
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:36:24'!
+reportTransferWithdraw: aTransferWithdrawTransaction
+
+	^String tab, 'Salida por extracción de ', aTransferWithdrawTransaction value asString.! !
+
+!SpecialSummaryReport class methodsFor: 'report - private' stamp: 'ET 6/3/2021 01:29:09'!
+reportWithdraw: aWithdrawTransaction
+
+	^String tab, 'Extracción por ', aWithdrawTransaction value asString.! !
 
 
 !classDefinition: #TransferNetReport category: 'Portfolio-Ejercicio'!
