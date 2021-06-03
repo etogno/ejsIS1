@@ -341,17 +341,17 @@ test19CannotAddItself
 	raise: Error 
 	withExceptionDo: [ :anError | self assert: anError messageText equals: (Portfolio canNotAddAlreadyAddedFinancialEntity) ].! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'JA 5/31/2021 21:45:03'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 6/2/2021 02:09:30'!
 test20
 
 	| portfolio |
 	
 	portfolio := Portfolio new.
 	
-	self assert: portfolio accountSummaryReport includes: 'Balance = 0'
+	self assert: (AccountSummaryReport for: portfolio) includes: 'Balance = 0'
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'JA 5/31/2021 22:53:44'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 6/2/2021 02:09:45'!
 test21
 
 	|portfolio report |
@@ -359,7 +359,7 @@ test21
 	portfolio := self portfolioWithOneAccountWith100Deposit.
 	portfolio addFinancialEntity: self receptiveAccountWith100Deposit .
 	
-	report :=portfolio accountSummaryReport.
+	report := AccountSummaryReport for: portfolio.
 	
 	self assert: 5 equals: report size.
 	self assert: 'Balance = 200' equals: report last.
@@ -372,7 +372,7 @@ test21
 	report removeLast.
 	self assert: 'Depósito por 100' equals: report last.! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'ET 6/2/2021 01:51:52'!
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 6/2/2021 02:18:36'!
 test22
 
 	| portfolio accountOrigen accountDestino|
@@ -384,7 +384,7 @@ test22
 	
 	Transfer from: accountOrigen to: accountDestino amount: 100.
 	
-	self assert: 100 equals: portfolio transferNetReport.
+	self assert: 100 equals: (TransferNetReport for: portfolio).
 ! !
 
 
@@ -478,17 +478,17 @@ test07AccountKnowsItsTransactions
 	self assert: (account1 transactions includes: deposit1).
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/30/2021 19:51:08'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/2/2021 02:07:39'!
 test08
 
 	| account |
 	
 	account := ReceptiveAccount new.
 	
-	self assert: account accountSummaryReport includes: 'Balance = 0'
+	self assert: (AccountSummaryReport for: account)  includes: 'Balance = 0'
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/30/2021 19:56:59'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/2/2021 02:07:52'!
 test09
 
 	| account |
@@ -497,10 +497,10 @@ test09
 	
 	Deposit register: 100 on: account. 
 	
-	self assert: account accountSummaryReport includes: 'Depósito por 100'
+	self assert: (AccountSummaryReport for: account) includes: 'Depósito por 100'
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/30/2021 20:05:06'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/2/2021 02:08:00'!
 test10
 
 	| account |
@@ -509,10 +509,10 @@ test10
 	
 	Withdraw register: 50 on: account. 
 	
-	self assert: account accountSummaryReport includes: 'Extracción por 50'
+	self assert: (AccountSummaryReport for: account) includes: 'Extracción por 50'
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/30/2021 20:32:21'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/2/2021 02:08:13'!
 test11
 
 	| account |
@@ -522,11 +522,11 @@ test11
 	Withdraw register: 50 on: account. 
 	Deposit register: 100 on: account. 
 	
-	self assert: account accountSummaryReport includes: 'Extracción por 50'.
-	self assert: account accountSummaryReport includes: 'Depósito por 100'.
-	self assert: account accountSummaryReport includes: 'Balance = 50'.! !
+	self assert: (AccountSummaryReport for: account) includes: 'Extracción por 50'.
+	self assert: (AccountSummaryReport for: account) includes: 'Depósito por 100'.
+	self assert: (AccountSummaryReport for: account) includes: 'Balance = 50'.! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/30/2021 20:43:06'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/2/2021 02:08:53'!
 test12
 
 	| accountDestino accountOrigen |
@@ -536,12 +536,12 @@ test12
 	
 	Transfer from:accountOrigen to:accountDestino amount: 100.
 	
-	self assert: accountOrigen accountSummaryReport includes: 'Salida por transferencia de 100'.
-	self assert: accountDestino accountSummaryReport includes: 'Entrada por transferencia de 100'.
-	self assert: accountOrigen accountSummaryReport includes: 'Balance = -100'.
-	self assert: accountDestino accountSummaryReport includes: 'Balance = 100'.	! !
+	self assert: (AccountSummaryReport for: accountOrigen) includes: 'Salida por transferencia de 100'.
+	self assert: (AccountSummaryReport for: accountDestino) includes: 'Entrada por transferencia de 100'.
+	self assert: (AccountSummaryReport for: accountOrigen) includes: 'Balance = -100'.
+	self assert: (AccountSummaryReport for: accountDestino) includes: 'Balance = 100'.	! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'JA 5/31/2021 21:40:11'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/2/2021 02:09:03'!
 test13
 
 	| account |
@@ -550,20 +550,20 @@ test13
 	
 	Deposit register: 100 on: account. 
 	
-	self assert: 'Balance = 100' equals: account accountSummaryReport last .
+	self assert: 'Balance = 100' equals: (AccountSummaryReport for: account) last .
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/2/2021 01:06:34'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/2/2021 02:18:01'!
 test14
 
 	| account |
 	
 	account := ReceptiveAccount new.
 	
-	self assert: 0 equals: account transferNetReport.
+	self assert: 0 equals: (TransferNetReport for: account).
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/2/2021 01:42:25'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/2/2021 02:18:16'!
 test15
 
 	| accountDestino accountOrigen |
@@ -572,11 +572,11 @@ test15
 	accountOrigen := ReceptiveAccount new.
 	Transfer from: accountOrigen to: accountDestino amount: 100.
 	
-	self assert: 100 equals: accountDestino transferNetReport.
-	self assert: -100 equals: accountOrigen transferNetReport.
+	self assert: 100 equals: (TransferNetReport for: accountDestino).
+	self assert: -100 equals: (TransferNetReport for: accountOrigen).
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/2/2021 01:46:21'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ET 6/2/2021 02:18:21'!
 test16
 
 	| account |
@@ -584,7 +584,7 @@ test16
 	account := ReceptiveAccount new.
 	Deposit register: 100  on: account. 
 	
-	self assert: 0 equals: account transferNetReport.
+	self assert: 0 equals: (TransferNetReport for: account).
 ! !
 
 
@@ -716,6 +716,18 @@ modifiesBalance: balance
 
 	^balance + value.! !
 
+!Deposit methodsFor: 'value' stamp: 'ET 6/2/2021 02:44:07'!
+report: aReport
+
+	^aReport reportDeposit: self.
+
+	! !
+
+!Deposit methodsFor: 'value' stamp: 'ET 6/2/2021 02:20:38'!
+transferNetReport
+
+	^0! !
+
 !Deposit methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:38'!
 value
 
@@ -746,6 +758,11 @@ initializeFor: aTransfer on: aReceptiveAccount
 	transfer := aTransfer.
 	receptiveAccount := aReceptiveAccount.! !
 
+!TransferDeposit methodsFor: 'initialization' stamp: 'ET 6/2/2021 02:44:18'!
+report: aReport
+
+	^aReport reportTransferDeposit: self.! !
+
 
 !TransferDeposit methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 18:53:15'!
 modifiesBalance: balance
@@ -756,6 +773,11 @@ modifiesBalance: balance
 transfer
 	
 	^transfer! !
+
+!TransferDeposit methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:19:46'!
+transferNetReport
+
+	^self value.! !
 
 !TransferDeposit methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 18:57:32'!
 value	
@@ -786,6 +808,11 @@ initializeFor: aTransfer on: aReceptiveAccount
 	transfer := aTransfer.
 	receptiveAccount := aReceptiveAccount.! !
 
+!TransferWithdraw methodsFor: 'initialization' stamp: 'ET 6/2/2021 02:44:30'!
+report: aReport
+
+	^aReport reportTransferWithdraw: self.! !
+
 !TransferWithdraw methodsFor: 'initialization' stamp: 'JA 5/30/2021 18:47:09'!
 transfer	
 	^transfer.! !
@@ -795,6 +822,11 @@ transfer
 modifiesBalance: balance
 
 	^balance - transfer amount.! !
+
+!TransferWithdraw methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:20:26'!
+transferNetReport
+
+	^self value negated.! !
 
 !TransferWithdraw methodsFor: 'as yet unclassified' stamp: 'JA 5/30/2021 18:57:43'!
 value	
@@ -824,11 +856,21 @@ initializeFor: aValue
 
 	value := aValue ! !
 
+!Withdraw methodsFor: 'initialization' stamp: 'ET 6/2/2021 02:44:39'!
+report: aReport
+
+	^aReport reportWithdraw: self.! !
+
 
 !Withdraw methodsFor: 'value' stamp: 'ET 5/22/2021 17:32:18'!
 modifiesBalance: balance
 
 	^balance - value.! !
+
+!Withdraw methodsFor: 'value' stamp: 'ET 6/2/2021 02:20:50'!
+transferNetReport
+
+	^0! !
 
 !Withdraw methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:33'!
 value
@@ -993,6 +1035,20 @@ accountSummaryReport
 	report add:'Balance = ', self balance asString.
 	^ report.! !
 
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 03:05:51'!
+collectionReportsOfItsFinancialEntities: aReport
+	| reports |
+	reports := OrderedCollection new.
+	financialEntities do:[ :aFinancialEntity |
+			reports add: (aFinancialEntity report: aReport).
+		].
+	^ reports.! !
+
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:40:34'!
+report: aReport
+
+	^aReport reportPortfolio: self.! !
+
 !Portfolio methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 01:53:21'!
 transferNetReport
 	^financialEntities sum: [:aFinancialEntity | aFinancialEntity transferNetReport ] ifEmpty:[0].! !
@@ -1061,33 +1117,191 @@ includes: aFinancialEntity
 ! !
 
 
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JA 5/31/2021 21:40:59'!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:23:48'!
 accountSummaryReport	
-	|report|
-	report := OrderedCollection new.
-	transactions do: [:transaction| 
-		(transaction isKindOf: Withdraw) ifTrue: [ report add: 
-				( 'Extracción por ', transaction value asString)].
-		(transaction isKindOf: Deposit) ifTrue: [ report add: 
-				('Depósito por ',transaction value asString)].
-		(transaction isKindOf: TransferDeposit) ifTrue: [ report add: 
-				('Entrada por transferencia de ',transaction value asString)].
-		(transaction isKindOf: TransferWithdraw) ifTrue: [ report add: 
-				('Salida por transferencia de ',transaction value asString)].
-	].
-	report add:('Balance = ', self balance asString).
-	^ report.! !
+	
+	^AccountSummaryReport reportAccount: self.! !
 
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 01:47:03'!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:43:29'!
+collectionReportsOfItsTransactions: aReport
+	
+	|reports|
+	
+	reports := OrderedCollection new.
+	
+	transactions do: [:aTransaction | reports add: (aTransaction report: aReport)].
+	
+	^reports.! !
+
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:41:10'!
+report: aReport
+	
+	^aReport reportAccount: self.! !
+
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:21:25'!
 transferNetReport
 	|net|
 	net := 0.
 	transactions do: [:transaction |
-		(transaction isKindOf: TransferDeposit) ifTrue: [net := net + transaction value].
-		(transaction isKindOf: TransferWithdraw) ifTrue: [net := net - transaction value]
+		net := net + transaction transferNetReport
 		].
 	
 	^net.! !
+
+
+!classDefinition: #Report category: 'Portfolio-Ejercicio'!
+Object subclass: #Report
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Report class' category: 'Portfolio-Ejercicio'!
+Report class
+	instanceVariableNames: ''!
+
+!Report class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:29:03'!
+for: aFinancialEntity
+
+	^aFinancialEntity report: self.! !
+
+!Report class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:29:33'!
+reportAccount: aReceptiveAccount
+
+	self subclassResponsibility! !
+
+!Report class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:30:51'!
+reportDeposit: aDepositTransaction
+
+	self subclassResponsibility! !
+
+!Report class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:29:46'!
+reportPortfolio: aPortfolio
+
+	self subclassResponsibility! !
+
+!Report class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:31:03'!
+reportTransferDeposit: aTransferDepositTransaction
+
+	self subclassResponsibility! !
+
+!Report class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:31:13'!
+reportTransferWithdraw: aTransferWithdrawTransaction
+
+	self subclassResponsibility! !
+
+!Report class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:30:29'!
+reportWithdraw: aWithdrawTransaction
+
+	self subclassResponsibility! !
+
+
+!classDefinition: #AccountSummaryReport category: 'Portfolio-Ejercicio'!
+Report subclass: #AccountSummaryReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'AccountSummaryReport class' category: 'Portfolio-Ejercicio'!
+AccountSummaryReport class
+	instanceVariableNames: ''!
+
+!AccountSummaryReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:38:54'!
+reportAccount: aReceptiveAccount
+
+	|report|
+	report := aReceptiveAccount collectionReportsOfItsTransactions: self.
+	report add:('Balance = ', aReceptiveAccount balance asString).
+	^ report.
+	! !
+
+!AccountSummaryReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:47:22'!
+reportDeposit: aDepositTransaction
+
+	^'Depósito por ', aDepositTransaction value asString
+	! !
+
+!AccountSummaryReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 03:07:58'!
+reportPortfolio: aPortfolio
+
+	| finalReport reports |
+	finalReport := OrderedCollection new.
+	reports := aPortfolio collectionReportsOfItsFinancialEntities: self.
+	reports do: [:aFinancialEntityReport | finalReport addAllLast: aFinancialEntityReport].
+	
+	finalReport add:'Balance = ', aPortfolio balance asString.
+	^ finalReport.! !
+
+!AccountSummaryReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:47:30'!
+reportTransferDeposit: aTransferDepositTransaction
+
+	^'Entrada por transferencia de ', aTransferDepositTransaction value asString
+	! !
+
+!AccountSummaryReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:47:35'!
+reportTransferWithdraw: aTransferWithdrawTransaction
+
+	^'Salida por transferencia de ', aTransferWithdrawTransaction value asString
+	! !
+
+!AccountSummaryReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:47:49'!
+reportWithdraw: aWithdrawTransaction
+
+	^'Extracción por ', aWithdrawTransaction value asString.
+	! !
+
+
+!classDefinition: #TransferNetReport category: 'Portfolio-Ejercicio'!
+Report subclass: #TransferNetReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TransferNetReport class' category: 'Portfolio-Ejercicio'!
+TransferNetReport class
+	instanceVariableNames: ''!
+
+!TransferNetReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:54:27'!
+reportAccount: aReceptiveAccount
+
+	|report|
+	report := aReceptiveAccount collectionReportsOfItsTransactions: self.
+	^report sum: [:aTransactionReport | aTransactionReport ] ifEmpty: [0].! !
+
+!TransferNetReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:52:43'!
+reportDeposit: aDepositTransaction
+
+	^0.! !
+
+!TransferNetReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 03:07:21'!
+reportPortfolio: aPortfolio
+
+	| reports |
+	reports := aPortfolio collectionReportsOfItsFinancialEntities: self.
+	^reports sum: [:aFinancialEntityReport | aFinancialEntityReport] ifEmpty: [0].! !
+
+!TransferNetReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:52:16'!
+reportTransferDeposit: aTransferDepositTransaction
+
+	^aTransferDepositTransaction value.! !
+
+!TransferNetReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:52:30'!
+reportTransferWithdraw: aTransferWithdrawTransaction
+
+	^aTransferWithdrawTransaction value negated.! !
+
+!TransferNetReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 02:52:00'!
+reportWithdraw: aWithdrawTransaction
+
+	^0.! !
 
 
 !classDefinition: #Transfer category: 'Portfolio-Ejercicio'!
