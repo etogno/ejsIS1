@@ -387,6 +387,16 @@ test22
 	self assert: 100 equals: (TransferNetReport for: portfolio).
 ! !
 
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 6/2/2021 22:57:39'!
+test23
+
+	| portfolio |
+	
+	portfolio := Portfolio new.
+	
+	self assert: 0 equals: (TransferNetReport for: portfolio).
+! !
+
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Ejercicio'!
 TestCase subclass: #ReceptiveAccountTest
@@ -1232,7 +1242,7 @@ reportDeposit: aDepositTransaction
 
 	^0.! !
 
-!TransferNetReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 03:07:21'!
+!TransferNetReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 22:58:03'!
 reportPortfolio: aPortfolio
 
 	| reports |

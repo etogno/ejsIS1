@@ -19807,3 +19807,99 @@ canNotTransferToTheSameAccount
 
 !testRun: #TransferTest #test06 stamp: 'ET 6/2/2021 22:55:15'!
 PASSED!
+!TransferNetReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 22:57:06' prior: 50999097 overrides: 50998963!
+reportPortfolio: aPortfolio
+
+	| reports |
+	reports := aPortfolio collectionReportsOfItsFinancialEntities: self.
+	^reports sum: [:aFinancialEntityReport | aFinancialEntityReport] ifEmpty: [20].! !
+!PortfolioTest methodsFor: 'tests' stamp: 'ET 6/2/2021 22:57:39'!
+test23
+
+	| portfolio |
+	
+	portfolio := Portfolio new.
+	
+	self assert: 0 equals: (TransferNetReport for: portfolio).
+! !
+
+!testRun: #PortfolioTest #test23 stamp: 'ET 6/2/2021 22:57:44'!
+FAILURE!
+!TransferNetReport class methodsFor: 'as yet unclassified' stamp: 'ET 6/2/2021 22:58:03' prior: 51001049 overrides: 50998963!
+reportPortfolio: aPortfolio
+
+	| reports |
+	reports := aPortfolio collectionReportsOfItsFinancialEntities: self.
+	^reports sum: [:aFinancialEntityReport | aFinancialEntityReport] ifEmpty: [0].! !
+
+!testRun: #PortfolioTest #test23 stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test01NewPortfolioHasZeroBalance stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test02PortfolioWithOneAccountHasTheSameBalanceAsTheAccount stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test03PortfolioWithTwoAccountsHasBalanceTheSumOfTheBalancesOfItsAccounts stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioRegistersTransactionsOfItsOnlyAddedAccount stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasOnlyRegisteredTransactionsOfItsAccounts stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioRegistersTransactionsOfAllOfItsAccounts stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioKnowsTransactionOfItsOnlyAccount stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioKnowsTransactionOfAllOfItsAccounts stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioWithEmptyPortfolioHasZeroBalance stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioWithNonEmptyPortfolioHasItsBalance stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioWithTwoPortfoliosHasBalanceTheSumOfTheBalancesOfItsPortfolios stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioWithAnAccountAndAPortfolioHasBalanceSumOfItsEntitiesBalance stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test13PortfolioWithNonEmptyPortfolioKnowsRegisteredTransactionsOfItsAccounts stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test14PortfolioWithNonEmptyPortfolioKnowsTransactionsOfItsAccounts stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test15CannotAddAlreadyAddedAccount stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioXWithNonEmptyPortfolioYCannotAddAccountsOfItsPortfolioY stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test17CannotAddPortfolioWithAccountsAlreadyInside stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test18CannotAddAccountThatHasBeenAddedByAParentPortfolio stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test19CannotAddItself stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test20 stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test21 stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test22 stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
+
+!testRun: #PortfolioTest #test23 stamp: 'ET 6/2/2021 22:58:05'!
+PASSED!
