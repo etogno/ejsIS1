@@ -579,6 +579,12 @@ moveForward: aMarsRover
 
 	self subclassResponsibility ! !
 
+
+!MarsRoverHeading methodsFor: 'observer notification' stamp: 'ET 6/6/2021 20:03:07'!
+notifyObserver: aMarsRoverObserver
+	
+	self subclassResponsibility.! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'MarsRoverHeading class' category: 'MarsRover-WithHeading'!
@@ -634,6 +640,12 @@ rotateRight: aMarsRover
 	
 	^aMarsRover headSouth! !
 
+
+!MarsRoverHeadingEast methodsFor: 'observer notification' stamp: 'ET 6/6/2021 19:53:43'!
+notifyObserver: aMarsRoverObserver
+	
+	aMarsRoverObserver headingChangedToEast: self.! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'MarsRoverHeadingEast class' category: 'MarsRover-WithHeading'!
@@ -662,6 +674,12 @@ moveBackward: aMarsRover
 moveForward: aMarsRover
 	
 	^aMarsRover moveNorth! !
+
+
+!MarsRoverHeadingNorth methodsFor: 'observer notification' stamp: 'ET 6/6/2021 19:53:58'!
+notifyObserver: aMarsRoverObserver
+	
+	aMarsRoverObserver headingChangedToNorth: self.! !
 
 
 !MarsRoverHeadingNorth methodsFor: 'heading' stamp: 'HAW 8/22/2019 12:10:40'!
@@ -704,6 +722,12 @@ moveForward: aMarsRover
 	^aMarsRover moveSouth! !
 
 
+!MarsRoverHeadingSouth methodsFor: 'observer notification' stamp: 'ET 6/6/2021 19:54:07'!
+notifyObserver: aMarsRoverObserver
+	
+	aMarsRoverObserver headingChangedToSouth: self.! !
+
+
 !MarsRoverHeadingSouth methodsFor: 'heading' stamp: 'HAW 8/22/2019 12:11:55'!
 rotateLeft: aMarsRover
 	
@@ -744,6 +768,12 @@ moveForward: aMarsRover
 	^aMarsRover moveWest! !
 
 
+!MarsRoverHeadingWest methodsFor: 'observer notification' stamp: 'ET 6/6/2021 19:54:17'!
+notifyObserver: aMarsRoverObserver
+	
+	aMarsRoverObserver headingChangedToWest: self.! !
+
+
 !MarsRoverHeadingWest methodsFor: 'heading' stamp: 'HAW 8/22/2019 12:12:26'!
 rotateLeft: aMarsRover
 	
@@ -773,8 +803,22 @@ Object subclass: #MarsRoverObserver
 	poolDictionaries: ''
 	category: 'MarsRover-WithHeading'!
 
-!MarsRoverObserver methodsFor: 'notifications' stamp: 'JA 6/6/2021 13:06:14'!
-headingChangedTo: aMarsRoverHeading! !
+!MarsRoverObserver methodsFor: 'notifications' stamp: 'ET 6/6/2021 19:51:06'!
+headingChangedTo: aMarsRoverHeading
+
+	aMarsRoverHeading notifyObserver: self.! !
+
+!MarsRoverObserver methodsFor: 'notifications' stamp: 'ET 6/6/2021 19:57:22'!
+headingChangedToEast: aMarsRoverHeadingEast! !
+
+!MarsRoverObserver methodsFor: 'notifications' stamp: 'ET 6/6/2021 19:57:19'!
+headingChangedToNorth: aMarsRoverHeadingNorth! !
+
+!MarsRoverObserver methodsFor: 'notifications' stamp: 'ET 6/6/2021 19:57:15'!
+headingChangedToSouth: aMarsRoverHeadingSouth! !
+
+!MarsRoverObserver methodsFor: 'notifications' stamp: 'ET 6/6/2021 19:57:10'!
+headingChangedToWest: aMarsRoverHeadingWest! !
 
 !MarsRoverObserver methodsFor: 'notifications' stamp: 'JA 6/6/2021 13:06:28'!
 positionChangedTo: aMarsRoverPosition! !
@@ -792,9 +836,21 @@ lines
 	^lines! !
 
 
-!HeadingLog methodsFor: 'notifications' stamp: 'JA 6/6/2021 13:32:08'!
-headingChangedTo: aMarsRoverHeading 
-	lines add: aMarsRoverHeading class cardinalPoint asString! !
+!HeadingLog methodsFor: 'notifications' stamp: 'ET 6/6/2021 19:56:03'!
+headingChangedToEast: aMarsRoverHeadingEast
+	lines add: 'East'.! !
+
+!HeadingLog methodsFor: 'notifications' stamp: 'ET 6/6/2021 19:56:40'!
+headingChangedToNorth: aMarsRoverHeadingNorth
+	lines add: 'North'.! !
+
+!HeadingLog methodsFor: 'notifications' stamp: 'ET 6/6/2021 19:56:28'!
+headingChangedToSouth: aMarsRoverHeadingSouth
+	lines add: 'South'.! !
+
+!HeadingLog methodsFor: 'notifications' stamp: 'ET 6/6/2021 19:56:15'!
+headingChangedToWest: aMarsRoverHeadingWest
+	lines add: 'West'.! !
 
 
 !HeadingLog methodsFor: 'initialization' stamp: 'JA 6/6/2021 12:25:25'!
@@ -819,9 +875,9 @@ initialize
 	lines := OrderedCollection new! !
 
 
-!PositionLog methodsFor: 'notifications' stamp: 'JA 6/6/2021 13:42:50'!
+!PositionLog methodsFor: 'notifications' stamp: 'ET 6/6/2021 19:58:27'!
 positionChangedTo: aMarsRoverPosition 
-	lines add: aMarsRoverPosition  asString.! !
+	lines add: aMarsRoverPosition  printString.! !
 
 
 !classDefinition: #RoverWindow category: 'MarsRover-WithHeading'!
@@ -831,13 +887,25 @@ MarsRoverObserver subclass: #RoverWindow
 	poolDictionaries: ''
 	category: 'MarsRover-WithHeading'!
 
-!RoverWindow methodsFor: 'notifications' stamp: 'JA 6/6/2021 13:32:36'!
-headingChangedTo: aMarsRoverHeading
-	heading := aMarsRoverHeading class cardinalPoint asString.! !
+!RoverWindow methodsFor: 'notifications' stamp: 'ET 6/6/2021 19:59:05'!
+headingChangedToEast: aMarsRoverHeadingEast
+	heading := 'East'.! !
 
-!RoverWindow methodsFor: 'notifications' stamp: 'JA 6/6/2021 13:42:57'!
+!RoverWindow methodsFor: 'notifications' stamp: 'ET 6/6/2021 19:59:36'!
+headingChangedToNorth: aMarsRoverHeadingNorth
+	heading := 'North'.! !
+
+!RoverWindow methodsFor: 'notifications' stamp: 'ET 6/6/2021 20:00:00'!
+headingChangedToSouth: aMarsRoverHeadingSouth
+	heading := 'South'.! !
+
+!RoverWindow methodsFor: 'notifications' stamp: 'ET 6/6/2021 19:59:26'!
+headingChangedToWest: aMarsRoverHeadingWest
+	heading := 'West'.! !
+
+!RoverWindow methodsFor: 'notifications' stamp: 'ET 6/6/2021 20:00:35'!
 positionChangedTo: aMarsRoverPosition 
-	position := aMarsRoverPosition  asString.! !
+	position := aMarsRoverPosition printString.! !
 
 
 !RoverWindow methodsFor: 'accessing' stamp: 'ET 6/3/2021 21:19:29'!
