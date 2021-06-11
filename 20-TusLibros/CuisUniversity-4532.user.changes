@@ -1,0 +1,2651 @@
+
+
+----STARTUP---- (9 June 2021 00:21:16) as C:\Users\ezequ\Desktop\windows64\CuisUniversity-4532.image!
+
+
+
+Object subclass: #CarritoTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CarritoTest category: #TusLibros stamp: 'ET 6/9/2021 18:26:19'!
+Object subclass: #CarritoTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Cart category: #TusLibros stamp: 'ET 6/9/2021 18:27:43'!
+Object subclass: #Cart
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CarritoTest methodsFor: 'no messages' stamp: 'ET 6/9/2021 18:27:37'!
+test01NewCartisEmpty
+
+	|cart|
+	
+	cart := Cart new.
+	
+	self assert: cart isEmpty.! !
+
+TestCase subclass: #CarritoTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CarritoTest category: #TusLibros stamp: 'ET 6/9/2021 18:27:53'!
+TestCase subclass: #CarritoTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 18:27:55'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:28:01'!
+isEmpty
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:28:08' prior: 51031032!
+isEmpty
+	^true.! !
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 18:28:10'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 18:28:10'!
+PASSED!
+
+!classDefinition: #Book category: #TusLibros stamp: 'ET 6/9/2021 18:31:33'!
+Object subclass: #Book
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:31:29'!
+test02NewCartIsAddedABookAndItsListHasThatBook
+
+	|cart book|
+	
+	cart := Cart new.
+	
+	book := Book new.
+	
+	cart addBook: book.
+	
+	self deny: cart isEmpty.
+	self assert: cart hasBook: book.! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:31:40' prior: 51031051!
+test02NewCartIsAddedABookAndItsListHasThatBook
+
+	|cart book|
+	
+	cart := Cart new.
+	
+	book := Book new.
+	
+	cart addBook: book.
+	
+	self deny: cart isEmpty.
+	self assert: (cart hasBook: book).! !
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:31:42'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:31:48'!
+addBook: aBook 
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:32:12' prior: 51031072!
+addBook: aBook ! !
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:32:14'!
+FAILURE!
+
+!classDefinition: #Cart category: #TusLibros stamp: 'ET 6/9/2021 18:33:31'!
+Object subclass: #Cart
+	instanceVariableNames: 'books'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:33:29' prior: 51031077!
+addBook: aBook 
+
+	books ifNotNil: [books add: aBook].! !
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:33:32'!
+FAILURE!
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:33:50' prior: 51031091!
+addBook: aBook 
+
+	books ifNotNil: [books := OrderedCollection with: aBook].! !
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:33:53'!
+FAILURE!
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:34:45' prior: 51031036!
+isEmpty
+	^books isEmpty.! !
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:34:49'!
+ERROR!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:35:33'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:35:43' prior: 51031099!
+addBook: aBook 
+
+	books ifNotNil: [books := OrderedCollection with: aBook].
+	self halt.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:35:56' prior: 51031119!
+addBook: aBook 
+
+	books ifNil: [books := OrderedCollection with: aBook].
+	self halt.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:36:03' prior: 51031125!
+addBook: aBook 
+
+	books ifNil: [books := OrderedCollection with: aBook].! !
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:36:04'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:36:11'!
+hasBook: aBook 
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:36:27' prior: 51031140!
+hasBook: aBook 
+	^books includes: aBook.! !
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:36:29'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 18:36:29'!
+ERROR!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:36:29'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 18:36:29'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:37:04' prior: 51031108!
+isEmpty
+	^books ifNil: [books := OrderedCollection new.
+		books isEmpty.]! !
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 18:37:06'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:37:10'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:37:41' prior: 51031162!
+isEmpty
+	books ifNil: [books := OrderedCollection new.
+		^books isEmpty.]! !
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:37:43'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:38:03' prior: 51031174!
+isEmpty
+	books ifNil: [books := OrderedCollection new.]
+	
+	^books isEmpty.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:38:05' prior: 51031183!
+isEmpty
+	books ifNil: [books := OrderedCollection new.].
+	
+	^books isEmpty.! !
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:38:06'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 18:38:06'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:38:06'!
+PASSED!
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:39:12' overrides: 16896425!
+initialize
+
+	books := OrderedCollection new.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:39:23' prior: 51031131!
+addBook: aBook 
+
+	books add: aBook.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:39:35' prior: 51031189!
+isEmpty
+	
+	^books isEmpty.! !
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:39:43'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 18:39:43'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:39:43'!
+PASSED!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:43:32'!
+test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks
+
+	|cart book1 book2|
+	
+	cart := Cart new.
+	
+	book1 := Book new.
+	
+	book2 := Book new.
+	
+	cart addBook: book1;
+		addBook: book2.
+	
+	self deny: cart bookList size equals: 2.
+	self assert: (cart bookList includes: book1).
+	self assert: (cart bookList includes: book2).! !
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 18:43:34'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:43:45'!
+bookList
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:43:53' prior: 51031243!
+bookList
+	^books copy.! !
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 18:43:54'!
+ERROR!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:44:07' prior: 51031226!
+test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks
+
+	|cart book1 book2|
+	
+	cart := Cart new.
+	
+	book1 := Book new.
+	
+	book2 := Book new.
+	
+	cart addBook: book1;
+		addBook: book2.
+	
+	self assert: cart bookList size equals: 2.
+	self assert: (cart bookList includes: book1).
+	self assert: (cart bookList includes: book2).! !
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 18:44:13'!
+ERROR!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 18:44:17'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 18:44:17'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:44:17'!
+PASSED!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 18:44:17'!
+PASSED!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:46:19'!
+test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks
+
+	|cart book |
+	
+	cart := Cart new.
+	
+	book := Book new.
+	
+	cart addBook: book;
+		addBook: book.
+	
+	self assert: cart bookList size equals: 2.
+	self assert: (cart bookList first) equals: book.
+	self assert: (cart bookList second) equals: book.! !
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 18:46:21'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 18:46:21'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 18:46:21'!
+PASSED!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 18:46:21'!
+PASSED!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 18:46:21'!
+PASSED!
+
+!classDefinition: #BookCatalog category: #TusLibros stamp: 'ET 6/9/2021 18:54:51'!
+Object subclass: #BookCatalog
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:54:47'!
+test05
+
+	|cart book catalog|
+	
+	catalog := BookCatalog new.
+	
+	cart := Cart new.
+	
+	book := Book new.
+	
+	cart addBook: book;
+		addBook: book.
+	
+	self assert: cart bookList size equals: 2.
+	self assert: (cart bookList first) equals: book.
+	self assert: (cart bookList second) equals: book.! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:55:24' prior: 51031323!
+test05
+
+	|cart book catalog|
+	
+	catalog := BookCatalog new.
+	
+	cart := Cart xxxx: catalog.
+	
+	book := Book new.
+	
+	cart addBook: book;
+		addBook: book.
+	
+	self assert: cart bookList size equals: 2.
+	self assert: (cart bookList first) equals: book.
+	self assert: (cart bookList second) equals: book.! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:55:43' prior: 51031336!
+test05
+
+	|cart book catalog|
+	
+	catalog := BookCatalog new.
+	
+	cart := Cart xxxx: catalog.
+	
+	book := Book new.
+	
+	
+! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:56:50' prior: 51031349!
+test05
+
+	|cart book catalog|
+	
+	catalog := BookCatalog new.
+	
+	cart := Cart xxxx: catalog.
+	
+	book := Book new.
+	
+	self should:[cart addBook: book]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Cart canNotAddBookThatIsNotInTheCatalog) ].
+	
+	
+! !
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 18:56:54'!
+ERROR!
+!Cart class methodsFor: 'instance creation' stamp: 'ET 6/9/2021 18:57:01'!
+xxxx: aBookCatalog 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeXxxx: aBookCatalog ! !
+!Cart class methodsFor: 'instance creation' stamp: 'ET 6/9/2021 18:57:16' prior: 51031370!
+xxxx: aBookCatalog 
+	
+	^self new initializeXxxx: aBookCatalog.! !
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 18:57:19'!
+ERROR!
+
+!classDefinition: #Cart category: #TusLibros stamp: 'ET 6/9/2021 18:57:26'!
+Object subclass: #Cart
+	instanceVariableNames: 'books bookCatalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cart methodsFor: 'initialization' stamp: 'ET 6/9/2021 18:57:26'!
+initializeXxxx: aBookCatalog 
+	self shouldBeImplemented.
+	bookCatalog := aBookCatalog.! !
+!Cart methodsFor: 'initialization' stamp: 'ET 6/9/2021 18:57:40' prior: 51031391!
+initializeXxxx: aBookCatalog 
+
+	bookCatalog := aBookCatalog.
+	books := OrderedCollection new.! !
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 18:57:43'!
+FAILURE!
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:58:19' prior: 51031209!
+addBook: aBook 
+
+	self assertBookIsInCatalog: aBook.
+
+	books add: aBook.! !
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 18:58:22'!
+ERROR!
+!Cart class methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:58:41'!
+canNotAddBookThatIsNotInTheCatalog
+	self shouldBeImplemented.! !
+!Cart class methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:59:07' prior: 51031412!
+canNotAddBookThatIsNotInTheCatalog
+	
+	^'No se puede agregar un libro que no está en el catálogo de compras'.! !
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 18:59:09'!
+FAILURE!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 18:59:22'!
+FAILURE!
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:02:21'!
+assertBookIsInCatalog: aBook
+
+	bookCatalog hasBook: aBook ifFalse: [self error: self class canNotAddBookThatIsNotInTheCatalog ].! !
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:02:31'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:02:31'!
+ERROR!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:02:31'!
+ERROR!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:02:31'!
+ERROR!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:02:31'!
+FAILURE!
+!BookCatalog methodsFor: 'no messages' stamp: 'ET 6/9/2021 19:03:05'!
+hasBook: aBook
+
+	^true! !
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:03:08'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:03:08'!
+ERROR!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:03:08'!
+ERROR!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:03:08'!
+ERROR!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:03:08'!
+FAILURE!
+
+!classDefinition: #BookCatalog category: #TusLibros stamp: 'ET 6/9/2021 19:04:00'!
+Object subclass: #BookCatalog
+	instanceVariableNames: 'books'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!BookCatalog methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:03:59'!
+addBook: aBook
+
+	books add: aBook.! !
+!BookCatalog methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:04:12' overrides: 16896425!
+initialize
+
+	books := OrderedCollection new.! !
+!BookCatalog methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:04:20' prior: 51031483 overrides: 16896425!
+initialize
+
+	books := Set new.! !
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:04:28'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:04:28'!
+ERROR!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:04:28'!
+ERROR!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:04:28'!
+ERROR!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:04:28'!
+FAILURE!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:05:30' prior: 51031060!
+test02NewCartIsAddedABookAndItsListHasThatBook
+
+	|cart book catalog|
+	
+	catalog := BookCatalog new.
+	book := Book new.
+	
+	catalog addBook: book.
+	
+	cart := Cart xxxx: catalog.
+	
+	cart addBook: book.
+	
+	self deny: cart isEmpty.
+	self assert: (cart hasBook: book).! !
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:05:32'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:05:32'!
+ERROR!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:05:32'!
+ERROR!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:05:32'!
+ERROR!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:05:32'!
+FAILURE!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:05:39'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:05:55' prior: 51031428!
+assertBookIsInCatalog: aBook
+
+	(bookCatalog hasBook: aBook) ifFalse: [self error: self class canNotAddBookThatIsNotInTheCatalog ].! !
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:05:57'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:05:59'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:05:59'!
+PASSED!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:05:59'!
+ERROR!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:05:59'!
+ERROR!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:05:59'!
+FAILURE!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:06:34' prior: 51031255!
+test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks
+
+	|cart book1 book2 catalog|
+	
+	catalog := BookCatalog new.
+	book1 := Book new.
+	book2 := Book new.
+	
+	catalog addBook: book1.
+	catalog addBook: book2.
+	
+	cart := Cart xxxx: catalog.
+	
+	cart addBook: book1;
+		addBook: book2.
+	
+	self assert: cart bookList size equals: 2.
+	self assert: (cart bookList includes: book1).
+	self assert: (cart bookList includes: book2).! !
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:06:35'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:06:35'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:06:35'!
+PASSED!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:06:35'!
+PASSED!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:06:35'!
+ERROR!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:06:35'!
+FAILURE!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:07:59' prior: 51031286!
+test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks
+
+	|cart book catalog |
+	
+	catalog := BookCatalog new.
+	book := Book new.
+	catalog addBook: book.
+	cart := Cart xxxx: catalog.
+	
+	cart addBook: book;
+		addBook: book.
+	
+	self assert: cart bookList size equals: 2.
+	self assert: (cart bookList first) equals: book.
+	self assert: (cart bookList second) equals: book.! !
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:08:02'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:08:02'!
+PASSED!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:08:02'!
+PASSED!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:08:02'!
+PASSED!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:08:02'!
+FAILURE!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:08:02'!
+FAILURE!
+!BookCatalog methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:08:51' prior: 51031451!
+hasBook: aBook
+
+	^books includes: aBook.! !
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:08:53'!
+PASSED!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:08:57'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:08:57'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:08:57'!
+PASSED!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:08:57'!
+PASSED!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:08:57'!
+PASSED!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:08:57'!
+PASSED!
+
+TestCase subclass: #CarritoTest
+	instanceVariableNames: 'catalog cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+TestCase subclass: #CarritoTest
+	instanceVariableNames: 'catalogue'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CarritoTest category: #TusLibros stamp: 'ET 6/9/2021 19:14:27'!
+TestCase subclass: #CarritoTest
+	instanceVariableNames: 'catalogue'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:15:34' prior: 51031510!
+test02NewCartIsAddedABookAndItsListHasThatBook
+
+	|cart book catalog|
+	
+	catalog := BookCatalog new.
+	book := Book new.
+	
+	catalog addBook: book.
+	
+	cart := self emptyCartWithEmptyCatalog.
+	
+	cart addBook: book.
+	
+	self deny: cart isEmpty.
+	self assert: (cart hasBook: book).! !
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:15:38'!
+ERROR!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:15:45'!
+emptyCartWithEmptyCatalog
+	self shouldBeImplemented.! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:16:24' prior: 51031695!
+emptyCartWithEmptyCatalog
+	
+	catalogue := BookCatalog new.
+	
+	^Cart xxxx: catalogue.! !
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:16:27'!
+ERROR!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:16:53' prior: 51031680!
+test02NewCartIsAddedABookAndItsListHasThatBook
+
+	|cart book |
+	
+	book := Book new.
+	
+	cart := self emptyCartWithEmptyCatalog.
+	
+	catalogue addBook: book.
+	
+	cart addBook: book.
+	
+	self deny: cart isEmpty.
+	self assert: (cart hasBook: book).! !
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:16:54'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:16:54'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:16:54'!
+PASSED!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:16:54'!
+PASSED!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:16:54'!
+PASSED!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:16:54'!
+PASSED!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:17:46' prior: 51031710!
+test02NewCartIsAddedABookAndItsListHasThatBook
+
+	|cart book |
+	
+	book := Book new.
+	
+	cart := self emptyCartWithCatalogue.
+	
+	catalogue addBook: book.
+	
+	cart addBook: book.
+	
+	self deny: cart isEmpty.
+	self assert: (cart hasBook: book).! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:18:04' prior: 51031741!
+test02NewCartIsAddedABookAndItsListHasThatBook
+
+	|cart book |
+	
+	book := Book new.
+	
+	cart := self emptyCart.
+	
+	catalogue addBook: book.
+	
+	cart addBook: book.
+	
+	self deny: cart isEmpty.
+	self assert: (cart hasBook: book).! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:19:06' overrides: 16927572!
+setUp
+
+	catalogue := BookCatalog new.! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:19:16' prior: 51031700!
+emptyCartWithEmptyCatalog
+	
+	^Cart xxxx: catalogue.! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:19:25'!
+emptyCart
+	
+	^Cart xxxx: catalogue.! !
+
+!methodRemoval: CarritoTest #emptyCartWithEmptyCatalog stamp: 'ET 6/9/2021 19:19:25'!
+emptyCartWithEmptyCatalog
+	
+	^Cart xxxx: catalogue.!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:19:31'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:19:31'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:19:31'!
+PASSED!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:19:31'!
+PASSED!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:19:31'!
+PASSED!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:19:31'!
+PASSED!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:19:39' prior: 51031013!
+test01NewCartisEmpty
+
+	|cart|
+	
+	cart := self emptyCart.
+	
+	self assert: cart isEmpty.! !
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:20:08'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:20:08'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:20:08'!
+PASSED!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:20:08'!
+PASSED!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:20:08'!
+PASSED!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:20:08'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:20:25'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:20:25'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:20:25'!
+PASSED!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:20:25'!
+PASSED!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:20:25'!
+PASSED!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:20:25'!
+PASSED!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:20:55' prior: 51031752!
+test02NewCartIsAddedABookAndItsListHasThatBook
+
+	|cart book |
+	
+	book := Book new.
+	catalogue addBook: book.
+	cart := self emptyCart.
+	
+	cart addBook: book.
+	
+	self deny: cart isEmpty.
+	self assert: (cart hasBook: book).! !
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:21:04'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:21:04'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:21:04'!
+PASSED!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:21:04'!
+PASSED!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:21:04'!
+PASSED!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:21:04'!
+PASSED!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:22:03' prior: 51031568!
+test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks
+
+	|cart book1 book2 |
+	
+	book1 := Book new.
+	book2 := Book new.
+	catalogue 
+		addBook: book1;
+		addBook: book2.
+
+	cart := self emptyCart.
+	cart addBook: book1;
+		addBook: book2.
+	
+	self assert: cart bookList size equals: 2.
+	self assert: (cart bookList includes: book1).
+	self assert: (cart bookList includes: book2).! !
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:22:07'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:22:07'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:22:07'!
+PASSED!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:22:07'!
+PASSED!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:22:07'!
+PASSED!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:22:07'!
+PASSED!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:22:35' prior: 51031605!
+test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks
+
+	|cart book |
+	
+	book := Book new.
+	catalogue addBook: book.
+	cart := self emptyCart.
+	
+	cart addBook: book;
+		addBook: book.
+	
+	self assert: cart bookList size equals: 2.
+	self assert: (cart bookList first) equals: book.
+	self assert: (cart bookList second) equals: book.! !
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:22:37'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:22:37'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:22:37'!
+PASSED!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:22:37'!
+PASSED!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:22:37'!
+PASSED!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:22:37'!
+PASSED!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:22:58' prior: 51031356!
+test05
+
+	|cart book |
+	
+	cart := self emptyCart.
+	book := Book new.
+	
+	self should:[cart addBook: book]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Cart canNotAddBookThatIsNotInTheCatalog) ].
+	
+	
+! !
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:23:00'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:23:00'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:23:00'!
+PASSED!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:23:00'!
+PASSED!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:23:00'!
+PASSED!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:23:00'!
+PASSED!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:26:02' prior: 51031910!
+test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks
+
+	|cart book |
+	
+	book := Book new.
+	catalogue addBook: book.
+	cart := self emptyCart.
+	
+	cart addBook: book;
+		addBook: book.
+	
+	self assert: cart bookList size equals: 2.
+	self assert: (cart bookList occurrencesOf: book) equals: 2.! !
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:26:03'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:26:03'!
+PASSED!
+
+!testRun: #CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:26:03'!
+PASSED!
+
+!testRun: #CarritoTest #test03NewCartIsAddedTwoDifferentBooksAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:26:03'!
+PASSED!
+
+!testRun: #CarritoTest #test04NewCartIsAddedTheSameBookTwiceAndItsListHasThoseBooks stamp: 'ET 6/9/2021 19:26:03'!
+PASSED!
+
+!testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 19:26:03'!
+PASSED!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:33:05'!
+test05NewCartCannotAddBookThatIsNotInTheCatalog
+
+	|cart book |
+	
+	cart := self emptyCart.
+	book := Book new.
+	
+	self should:[cart addBook: book]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Cart canNotAddBookThatIsNotInTheCatalog) ].
+	
+	
+! !
+
+!methodRemoval: CarritoTest #test05 stamp: 'ET 6/9/2021 19:33:05'!
+test05
+
+	|cart book |
+	
+	cart := self emptyCart.
+	book := Book new.
+	
+	self should:[cart addBook: book]
+	raise: Error 
+	withExceptionDo: [ :anError | self assert: anError messageText equals: (Cart canNotAddBookThatIsNotInTheCatalog) ].
+	
+	
+!
+!Cart methodsFor: 'initialization' stamp: 'ET 6/9/2021 19:34:15'!
+initializeWithCatalog: aBookCatalog 
+
+	bookCatalog := aBookCatalog.
+	books := OrderedCollection new.! !
+!Cart class methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:34:15' prior: 51031378!
+xxxx: aBookCatalog 
+	
+	^self new initializeWithCatalog: aBookCatalog.! !
+
+!methodRemoval: Cart #initializeXxxx: stamp: 'ET 6/9/2021 19:34:15'!
+initializeXxxx: aBookCatalog 
+
+	bookCatalog := aBookCatalog.
+	books := OrderedCollection new.!
+!Cart class methodsFor: 'instance creation' stamp: 'ET 6/9/2021 19:34:45'!
+withCatalog: aBookCatalog 
+	
+	^self new initializeWithCatalog: aBookCatalog.! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 19:34:45' prior: 51031773!
+emptyCart
+	
+	^Cart withCatalog: catalogue.! !
+
+!methodRemoval: Cart class #xxxx: stamp: 'ET 6/9/2021 19:34:45'!
+xxxx: aBookCatalog 
+	
+	^self new initializeWithCatalog: aBookCatalog.!
+
+!methodRemoval: Cart #initialize stamp: 'ET 6/9/2021 19:35:51'!
+initialize
+
+	books := OrderedCollection new.!
+!CarritoTest methodsFor: 'tests' stamp: 'ET 6/9/2021 19:37:57'!
+test01NewCartIsEmpty
+
+	|cart|
+	
+	cart := self emptyCart.
+	
+	self assert: cart isEmpty.! !
+
+!methodRemoval: CarritoTest #test01NewCartisEmpty stamp: 'ET 6/9/2021 19:37:57'!
+test01NewCartisEmpty
+
+	|cart|
+	
+	cart := self emptyCart.
+	
+	self assert: cart isEmpty.!
+!CarritoTest methodsFor: 'tests' stamp: 'ET 6/9/2021 19:38:21'!
+test02NewCartIsAddedABookAndItHasThatBook
+
+	|cart book |
+	
+	book := Book new.
+	catalogue addBook: book.
+	cart := self emptyCart.
+	
+	cart addBook: book.
+	
+	self deny: cart isEmpty.
+	self assert: (cart hasBook: book).! !
+
+!methodRemoval: CarritoTest #test02NewCartIsAddedABookAndItsListHasThatBook stamp: 'ET 6/9/2021 19:38:21'!
+test02NewCartIsAddedABookAndItsListHasThatBook
+
+	|cart book |
+	
+	book := Book new.
+	catalogue addBook: book.
+	cart := self emptyCart.
+	
+	cart addBook: book.
+	
+	self deny: cart isEmpty.
+	self assert: (cart hasBook: book).!
+
+----SNAPSHOT----(9 June 2021 19:42:05) CuisUniversity-4532.image priorSource: 22378975!
+
+----STARTUP---- (10 June 2021 17:24:02) as C:\Users\ezequ\Desktop\windows64\CuisUniversity-4532.image!
+
+
+!classRemoval: #Cart stamp: 'ET 6/10/2021 18:22:26'!
+Object subclass: #Cart
+	instanceVariableNames: 'books bookCatalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #BookCatalog stamp: 'ET 6/10/2021 18:22:26'!
+Object subclass: #BookCatalog
+	instanceVariableNames: 'books'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Book stamp: 'ET 6/10/2021 18:22:26'!
+Object subclass: #Book
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CarritoTest stamp: 'ET 6/10/2021 18:22:27'!
+TestCase subclass: #CarritoTest
+	instanceVariableNames: 'catalogue'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+----End fileIn of C:\Users\ezequ\Desktop\windows64\TusLibros.st----!
+
+----SNAPSHOT----(10 June 2021 18:22:47) CuisUniversity-4532.image priorSource: 22414116!
+!Behavior method!
+acceptingItemsOf: aCatalog
+	^ [
+	([
+	(self coverAll:
+		{31 to: 34}) new ] valueCoveringAll:
+		{36 to: 38}) initializeAcceptingItemsOf:
+		(aCatalog
+			cover: (68 to: 75)
+			declaredAt: (19 to: 26)) ] valueCoveringAll:
+		{40 to: 66}.! !
+!Behavior method!
+initializeAcceptingItemsOf: aCatalog
+	(catalog _ aCatalog
+		cover: (51 to: 58)
+		declaredAt: (29 to: 36))
+		cover: (40 to: 46)
+		declaredAt: (40 to: 46).
+	(items _ [
+	(OrderedCollection
+		cover: (71 to: 87)
+		declaredAt: (71 to: 87)) new ] valueCoveringAll:
+		{89 to: 91})
+		cover: (62 to: 66)
+		declaredAt: (62 to: 66).! !
+!Behavior method!
+isEmpty
+	^ [
+	(items
+		cover: (13 to: 17)
+		declaredAt: (13 to: 17)) isEmpty ] valueCoveringAll:
+		{19 to: 25}.! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'ET 6/10/2021 19:31:19'!
+PASSED!
+!Behavior method!
+add: anItem
+	^ [
+	(self coverAll:
+		{17 to: 20})
+		add:
+			(1 coverAll:
+				{27 to: 27})
+		of:
+			(anItem
+				cover: (33 to: 38)
+				declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{22 to: 25. 29 to: 31}.! !
+!Behavior method!
+add: aQuantity of: anItem
+	[
+	(self coverAll:
+		{29 to: 32}) assertIsValidQuantity:
+		(aQuantity
+			cover: (57 to: 65)
+			declaredAt: (6 to: 14)) ] valueCoveringAll:
+		{34 to: 55}.
+	[
+	(self coverAll:
+		{69 to: 72}) assertIsValidItem:
+		(anItem
+			cover: (93 to: 98)
+			declaredAt: (20 to: 25)) ] valueCoveringAll:
+		{74 to: 91}.
+	[
+	(1 coverAll:
+		{103 to: 103})
+		to:
+			(aQuantity
+				cover: (109 to: 117)
+				declaredAt: (6 to: 14))
+		do: [ :aNumber |
+			[
+			(items
+				cover: (136 to: 140)
+				declaredAt: (136 to: 140)) add:
+				(anItem
+					cover: (147 to: 152)
+					declaredAt: (20 to: 25)) ] valueCoveringAll:
+				{142 to: 145} ]] valueCoveringAll:
+		{105 to: 107. 119 to: 121}.! !
+!Behavior method!
+assertIsValidQuantity: aQuantity
+	[
+	([
+	(aQuantity
+		cover: (36 to: 44)
+		declaredAt: (24 to: 32)) strictlyPositive ] valueCoveringAll:
+		{46 to: 61}) ifFalse: [
+		[
+		(self coverAll:
+			{74 to: 77}) error:
+			([
+			(self coverAll:
+				{86 to: 89}) invalidQuantityErrorMessage ] valueCoveringAll:
+				{91 to: 117}) ] valueCoveringAll:
+			{79 to: 84} ]] valueCoveringAll:
+		{63 to: 70}.! !
+!Behavior method!
+assertIsValidItem: anItem
+	[
+	([
+	(catalog
+		cover: (30 to: 36)
+		declaredAt: (30 to: 36)) includes:
+		(anItem
+			cover: (48 to: 53)
+			declaredAt: (20 to: 25)) ] valueCoveringAll:
+		{38 to: 46}) ifFalse: [
+		[
+		(self coverAll:
+			{67 to: 70}) error:
+			([
+			(self coverAll:
+				{79 to: 82}) invalidItemErrorMessage ] valueCoveringAll:
+				{84 to: 106}) ] valueCoveringAll:
+			{72 to: 77} ]] valueCoveringAll:
+		{56 to: 63}.! !
+!Behavior method!
+invalidItemErrorMessage
+	^ 'Item is not in catalog' coverAll:
+		{29 to: 52}.! !
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'ET 6/10/2021 19:31:19'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'ET 6/10/2021 19:31:19'!
+PASSED!
+!Behavior method!
+invalidQuantityErrorMessage
+	^ 'Invalid number of items' coverAll:
+		{33 to: 57}.! !
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'ET 6/10/2021 19:31:19'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'ET 6/10/2021 19:31:19'!
+PASSED!
+!Behavior method!
+includes: anItem
+	^ [
+	(items
+		cover: (21 to: 25)
+		declaredAt: (21 to: 25)) includes:
+		(anItem
+			cover: (37 to: 42)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{27 to: 35}.! !
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'ET 6/10/2021 19:31:19'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'ET 6/10/2021 19:31:19'!
+PASSED!
+!Behavior method!
+occurrencesOf: anItem
+	^ [
+	(items
+		cover: (26 to: 30)
+		declaredAt: (26 to: 30)) occurrencesOf:
+		(anItem
+			cover: (47 to: 52)
+			declaredAt: (16 to: 21)) ] valueCoveringAll:
+		{32 to: 45}.! !
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'ET 6/10/2021 19:31:19'!
+PASSED!
+
+TestCase subclass: #CashierTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CashierTest category: 'TusLibros' stamp: 'ET 6/10/2021 19:39:46'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'no messages' stamp: 'ET 6/10/2021 19:40:58'!
+test01
+
+	|cart catalog|
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.! !
+
+!classDefinition: #Cashier category: 'TusLibros' stamp: 'ET 6/10/2021 19:45:25'!
+Object subclass: #Cashier
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 19:45:18' prior: 51032447!
+test01
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	
+	priceList := Dictionary new.
+	
+	cashier := Cashier with: priceList.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 19:46:31' prior: 51032460!
+test01
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	
+	priceList := Dictionary new.
+	
+	cashier := Cashier with: priceList.
+	
+	self should: [cashier checkout: cart]
+	 raise: Error
+	 withExceptionDo: [].! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 19:47:35' prior: 51032470!
+test01
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	
+	priceList := Dictionary new.
+	
+	cashier := Cashier with: priceList.
+	
+	self should: [cashier checkout: cart]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CanNotCheckoutEmptyCart. ]! !
+
+!testRun: #CashierTest #test01 stamp: 'ET 6/10/2021 19:47:53'!
+ERROR!
+!Cashier class methodsFor: 'instance creation' stamp: 'ET 6/10/2021 19:48:01'!
+with: aDictionary 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeWith: aDictionary ! !
+!Cashier class methodsFor: 'instance creation' stamp: 'ET 6/10/2021 19:48:18' prior: 51032498!
+with: aPriceList 
+	^self new initializeWith: aPriceList! !
+
+!testRun: #CashierTest #test01 stamp: 'ET 6/10/2021 19:48:20'!
+ERROR!
+
+!classDefinition: #Cashier category: 'TusLibros' stamp: 'ET 6/10/2021 19:48:29'!
+Object subclass: #Cashier
+	instanceVariableNames: 'priceList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cashier methodsFor: 'initialization' stamp: 'ET 6/10/2021 19:48:29'!
+initializeWith: aPriceList 
+	self shouldBeImplemented.
+	priceList := aPriceList.! !
+!Cashier methodsFor: 'initialization' stamp: 'ET 6/10/2021 19:48:32' prior: 51032519!
+initializeWith: aPriceList 
+
+	priceList := aPriceList.! !
+
+!testRun: #CashierTest #test01 stamp: 'ET 6/10/2021 19:48:34'!
+ERROR!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 19:48:52'!
+CanNotCheckoutEmptyCart
+	self shouldBeImplemented.! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 19:49:19' prior: 51032532!
+CanNotCheckoutEmptyCart
+	^'The cart is empty'.! !
+
+!testRun: #CashierTest #test01 stamp: 'ET 6/10/2021 19:49:20'!
+FAILURE!
+!Cashier methodsFor: 'initialization' stamp: 'ET 6/10/2021 19:50:50'!
+checkout: aCart
+
+	self error: self class CanNotCheckoutEmptyCart.! !
+
+!testRun: #CashierTest #test01 stamp: 'ET 6/10/2021 19:50:56'!
+PASSED!
+
+!testRun: #CashierTest #test01 stamp: 'ET 6/10/2021 19:50:56'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 19:53:10'!
+test02
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	
+	cart add: 'book'.
+	catalog add: 'book'.
+	
+	priceList := Dictionary new.
+	
+	cashier := Cashier with: priceList.
+	
+	self should: [cashier checkout: cart]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier AnItemIsNotInThePriceList. ]! !
+
+!testRun: #CashierTest #test02 stamp: 'ET 6/10/2021 19:53:13'!
+ERROR!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 19:53:24' prior: 51032554!
+test02
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	cashier := Cashier with: priceList.
+	
+	self should: [cashier checkout: cart]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier AnItemIsNotInThePriceList. ]! !
+
+!testRun: #CashierTest #test02 stamp: 'ET 6/10/2021 19:53:31'!
+ERROR!
+
+!testRun: #CashierTest #test02 stamp: 'ET 6/10/2021 19:53:37'!
+ERROR!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 19:53:46'!
+AnItemIsNotInThePriceList
+	self shouldBeImplemented.! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 19:54:00' prior: 51032592!
+AnItemIsNotInThePriceList
+	^'An item in the cart is not in the price list'.! !
+
+!testRun: #CashierTest #test02 stamp: 'ET 6/10/2021 19:54:03'!
+FAILURE!
+!Cashier methodsFor: 'initialization' stamp: 'ET 6/10/2021 19:55:09' prior: 51032544!
+checkout: aCart
+
+	aCart isEmpty ifTrue: [	self error: self class CanNotCheckoutEmptyCart] 
+	ifFalse: [self error: self class AnItemIsNotInThePriceList ].! !
+
+!testRun: #CashierTest #test02 stamp: 'ET 6/10/2021 19:55:13'!
+PASSED!
+
+!testRun: #CashierTest #test01 stamp: 'ET 6/10/2021 19:55:13'!
+PASSED!
+
+!testRun: #CashierTest #test02 stamp: 'ET 6/10/2021 19:55:13'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 19:58:09'!
+test03
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	
+	self assert: 1 equals:  (cashier checkout: cart).! !
+
+!testRun: #CashierTest #test03 stamp: 'ET 6/10/2021 19:58:13'!
+ERROR!
+!Cashier methodsFor: 'initialization' stamp: 'ET 6/10/2021 20:08:33' prior: 51032605!
+checkout: aCart
+	|totalPrice|
+	aCart isEmpty ifTrue: [	self error: self class CanNotCheckoutEmptyCart].
+	totalPrice := 0.
+	[aCart do: [:anElement | totalPrice := priceList includesKey: anElement + totalPrice]]
+	on: Error
+	do: [:anError | 
+		self halt.
+		self error: self class AnItemIsNotInThePriceList ].! !
+!Cart methodsFor: 'adding' stamp: 'ET 6/10/2021 20:09:25'!
+do: aBlockClosure
+
+	items do: aBlockClosure.! !
+!Cashier methodsFor: 'initialization' stamp: 'ET 6/10/2021 20:10:10' prior: 51032636!
+checkout: aCart
+	|totalPrice|
+	aCart isEmpty ifTrue: [	self error: self class CanNotCheckoutEmptyCart].
+	totalPrice := 0.
+	[aCart do: [:anElement | totalPrice := totalPrice + priceList includesKey: anElement ]]
+	on: Error
+	do: [:anError | 
+		self halt.
+		self error: self class AnItemIsNotInThePriceList ].! !
+
+!testRun: #CashierTest #test03 stamp: 'ET 6/10/2021 20:10:12'!
+FAILURE!
+
+!testRun: #CashierTest #test03 stamp: 'ET 6/10/2021 20:10:19'!
+FAILURE!
+!Cashier methodsFor: 'initialization' stamp: 'ET 6/10/2021 20:10:57' prior: 51032653!
+checkout: aCart
+	|totalPrice|
+	aCart isEmpty ifTrue: [	self error: self class CanNotCheckoutEmptyCart].
+	totalPrice := 0.
+	[aCart do: [:anElement | totalPrice := totalPrice + priceList includesKey: anElement ]]
+	on: Error
+	do: [:anError | 
+		self halt.
+		self error: self class AnItemIsNotInThePriceList ].
+	
+	^totalPrice.! !
+
+!testRun: #CashierTest #test03 stamp: 'ET 6/10/2021 20:11:00'!
+FAILURE!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:11:34' prior: 51032572!
+test02
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	priceList := Dictionary new.
+	
+	cashier := Cashier with: priceList.
+	
+	self should: [cashier checkout: cart]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier AnItemIsNotInThePriceList. ]! !
+
+!testRun: #CashierTest #test02 stamp: 'ET 6/10/2021 20:11:35'!
+FAILURE!
+!Cashier methodsFor: 'initialization' stamp: 'ET 6/10/2021 20:13:49' prior: 51032670!
+checkout: aCart
+	|totalPrice|
+	aCart isEmpty ifTrue: [	self error: self class CanNotCheckoutEmptyCart].
+	totalPrice := 0.
+	aCart do: [:anElement | totalPrice := totalPrice + priceList at: anElement ifAbsent: [self error: self class AnItemIsNotInThePriceList ].].
+	
+	^totalPrice.! !
+
+!testRun: #CashierTest #test02 stamp: 'ET 6/10/2021 20:13:51'!
+PASSED!
+
+!testRun: #CashierTest #test01 stamp: 'ET 6/10/2021 20:13:51'!
+PASSED!
+
+!testRun: #CashierTest #test02 stamp: 'ET 6/10/2021 20:13:51'!
+PASSED!
+
+!testRun: #CashierTest #test03 stamp: 'ET 6/10/2021 20:13:51'!
+PASSED!
+!Cashier methodsFor: 'initialization' stamp: 'ET 6/10/2021 20:14:38'!
+assertCartIsNotEmpty: aCart
+
+	^ aCart isEmpty ifTrue: [	self error: self class CanNotCheckoutEmptyCart]! !
+!Cashier methodsFor: 'initialization' stamp: 'ET 6/10/2021 20:14:38' prior: 51032704!
+checkout: aCart
+	|totalPrice|
+	self assertCartIsNotEmpty: aCart.
+	totalPrice := 0.
+	aCart do: [:anElement | totalPrice := totalPrice + priceList at: anElement ifAbsent: [self error: self class AnItemIsNotInThePriceList ].].
+	
+	^totalPrice.! !
+!Cashier methodsFor: 'initialization' stamp: 'ET 6/10/2021 20:14:57'!
+itemNotInPriceListError
+
+	^ self error: self class AnItemIsNotInThePriceList! !
+!Cashier methodsFor: 'initialization' stamp: 'ET 6/10/2021 20:14:57' prior: 51032731!
+checkout: aCart
+	|totalPrice|
+	self assertCartIsNotEmpty: aCart.
+	totalPrice := 0.
+	aCart do: [:anElement | totalPrice := totalPrice + priceList at: anElement ifAbsent: [self itemNotInPriceListError ].].
+	
+	^totalPrice.! !
+!Cashier methodsFor: 'initialization' stamp: 'ET 6/10/2021 20:15:01' prior: 51032747!
+checkout: aCart
+	|totalPrice|
+	self assertCartIsNotEmpty: aCart.
+	totalPrice := 0.
+	aCart do: [:anElement | totalPrice := totalPrice + priceList at: anElement ifAbsent: [self itemNotInPriceListError].].
+	
+	^totalPrice.! !
+
+!testRun: #CashierTest #test03 stamp: 'ET 6/10/2021 20:15:04'!
+PASSED!
+
+!testRun: #CashierTest #test01 stamp: 'ET 6/10/2021 20:15:04'!
+PASSED!
+
+!testRun: #CashierTest #test02 stamp: 'ET 6/10/2021 20:15:04'!
+PASSED!
+
+!testRun: #CashierTest #test03 stamp: 'ET 6/10/2021 20:15:04'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:15:26' prior: 51032620!
+test03
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	
+	self assert: 1 equals:  (cashier checkout: cart).! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:17:04' prior: 51032776!
+test03
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	
+	self assert: 2 equals:  (cashier checkout: cart).! !
+
+!testRun: #CashierTest #test03 stamp: 'ET 6/10/2021 20:17:05'!
+PASSED!
+
+!testRun: #CashierTest #test01 stamp: 'ET 6/10/2021 20:17:05'!
+PASSED!
+
+!testRun: #CashierTest #test02 stamp: 'ET 6/10/2021 20:17:05'!
+PASSED!
+
+!testRun: #CashierTest #test03 stamp: 'ET 6/10/2021 20:17:05'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:15:26' prior: 51032790!
+test03
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	
+	self assert: 1 equals:  (cashier checkout: cart).! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:17:20' prior: 51032813!
+test03
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	
+	self assert: 1 equals:  (cashier checkout: cart).! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:17:22'!
+test04
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	
+	self assert: 1 equals:  (cashier checkout: cart).! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:17:29' prior: 51032840!
+test04
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	
+	self assert: 2 equals:  (cashier checkout: cart).! !
+
+!testRun: #CashierTest #test04 stamp: 'ET 6/10/2021 20:17:31'!
+PASSED!
+
+!testRun: #CashierTest #test01 stamp: 'ET 6/10/2021 20:17:31'!
+PASSED!
+
+!testRun: #CashierTest #test02 stamp: 'ET 6/10/2021 20:17:31'!
+PASSED!
+
+!testRun: #CashierTest #test03 stamp: 'ET 6/10/2021 20:17:31'!
+PASSED!
+
+!testRun: #CashierTest #test04 stamp: 'ET 6/10/2021 20:17:31'!
+PASSED!
+
+!testRun: #CashierTest #test04 stamp: 'ET 6/10/2021 20:17:42'!
+PASSED!
+
+!testRun: #CashierTest #test01 stamp: 'ET 6/10/2021 20:17:42'!
+PASSED!
+
+!testRun: #CashierTest #test02 stamp: 'ET 6/10/2021 20:17:42'!
+PASSED!
+
+!testRun: #CashierTest #test03 stamp: 'ET 6/10/2021 20:17:42'!
+PASSED!
+
+!testRun: #CashierTest #test04 stamp: 'ET 6/10/2021 20:17:42'!
+PASSED!
+
+2021 / 01!
+
+2021 \ 01!
+
+!classDefinition: #CreditCard category: 'TusLibros' stamp: 'ET 6/10/2021 20:29:28'!
+Object subclass: #CreditCard
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:29:22'!
+test05
+
+	|cart catalog cashier priceList creditCard |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	creditCard := CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current next.
+
+	
+	self assert: 2 equals:  (cashier checkout: cart withCreditCard: creditCard).! !
+
+!testRun: #CashierTest #test05 stamp: 'ET 6/10/2021 20:31:08'!
+ERROR!
+!CreditCard class methodsFor: 'instance creation' stamp: 'ET 6/10/2021 20:31:15'!
+owner: aString number: aString2 expiration: aGregorianMonthOfYear 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeOwner: aString number: aString2 expiration: aGregorianMonthOfYear ! !
+!CreditCard class methodsFor: 'instance creation' stamp: 'ET 6/10/2021 20:32:05' prior: 51032919!
+owner: anOwnerString number: aCreditCardNumber expiration: aGregorianMonthOfYear 
+	
+	^self new initializeOwner: anOwnerString number: aCreditCardNumber expiration: aGregorianMonthOfYear ! !
+!CreditCard class methodsFor: 'instance creation' stamp: 'ET 6/10/2021 20:32:45' prior: 51032930!
+owner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear 
+	self assertCreditCardNumberIsValid: aCreditCardNumberString.
+	^self new initializeOwner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear ! !
+
+!testRun: #CashierTest #test05 stamp: 'ET 6/10/2021 20:32:50'!
+ERROR!
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:32:58'!
+assertCreditCardNumberIsValid: aString 
+	self shouldBeImplemented.! !
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:33:37' prior: 51032953!
+assertCreditCardNumberIsValid: aString 
+	
+	aString size = 16 ifFalse: [self error: self creditCardIsInvalid]! !
+
+!testRun: #CashierTest #test05 stamp: 'ET 6/10/2021 20:33:41'!
+ERROR!
+
+!classDefinition: #CreditCard category: 'TusLibros' stamp: 'ET 6/10/2021 20:33:52'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'ownerString'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CreditCard category: 'TusLibros' stamp: 'ET 6/10/2021 20:33:53'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'ownerString creditCardNumberString'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CreditCard category: 'TusLibros' stamp: 'ET 6/10/2021 20:33:53'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'ownerString creditCardNumberString gregorianMonthOfYear'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CreditCard methodsFor: 'initialization' stamp: 'ET 6/10/2021 20:33:53'!
+initializeOwner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear 
+	self shouldBeImplemented.
+	ownerString := anOwnerString.
+	creditCardNumberString := aCreditCardNumberString.
+	gregorianMonthOfYear := aGregorianMonthOfYear.! !
+!CreditCard methodsFor: 'initialization' stamp: 'ET 6/10/2021 20:34:00' prior: 51032990!
+initializeOwner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear 
+
+	ownerString := anOwnerString.
+	creditCardNumberString := aCreditCardNumberString.
+	gregorianMonthOfYear := aGregorianMonthOfYear.! !
+
+!testRun: #CashierTest #test05 stamp: 'ET 6/10/2021 20:34:02'!
+ERROR!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:34:09'!
+checkout: aCart withCreditCard: aCreditCard 
+	self shouldBeImplemented.! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:34:25' prior: 51033013!
+checkout: aCart withCreditCard: aCreditCard 
+	^1.! !
+
+!testRun: #CashierTest #test05 stamp: 'ET 6/10/2021 20:34:27'!
+FAILURE!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:34:36' prior: 51032898!
+test05
+
+	|cart catalog cashier priceList creditCard |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	creditCard := CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current next.
+
+	
+	self assert: 1 equals:  (cashier checkout: cart withCreditCard: creditCard).! !
+
+!testRun: #CashierTest #test05 stamp: 'ET 6/10/2021 20:34:38'!
+PASSED!
+
+!testRun: #CashierTest #test01 stamp: 'ET 6/10/2021 20:34:38'!
+PASSED!
+
+!testRun: #CashierTest #test02 stamp: 'ET 6/10/2021 20:34:38'!
+PASSED!
+
+!testRun: #CashierTest #test03 stamp: 'ET 6/10/2021 20:34:38'!
+PASSED!
+
+!testRun: #CashierTest #test04 stamp: 'ET 6/10/2021 20:34:38'!
+PASSED!
+
+!testRun: #CashierTest #test05 stamp: 'ET 6/10/2021 20:34:38'!
+PASSED!
+
+!methodRemoval: Cashier #checkout:withCreditCard: stamp: 'ET 6/10/2021 20:37:02'!
+checkout: aCart withCreditCard: aCreditCard 
+	^1.!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:38:13'!
+checkout: aCart withCreditCard: aCreditCard 
+	|totalPrice|
+	self assertCartIsNotEmpty: aCart.
+	totalPrice := 0.
+	aCart do: [:anElement | totalPrice := totalPrice + priceList at: anElement ifAbsent: [self itemNotInPriceListError].].
+	
+	^totalPrice.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:38:13' prior: 51032854!
+test04
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	
+	self assert: 2 equals:  (cashier checkout: cart withCreditCard: withCreditCard).! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:38:13' prior: 51032827!
+test03
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	
+	self assert: 1 equals:  (cashier checkout: cart withCreditCard: withCreditCard).! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:38:13' prior: 51032482!
+test01
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	
+	priceList := Dictionary new.
+	
+	cashier := Cashier with: priceList.
+	
+	self should: [cashier checkout: cart withCreditCard: withCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CanNotCheckoutEmptyCart. ]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:38:13' prior: 51032686!
+test02
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	priceList := Dictionary new.
+	
+	cashier := Cashier with: priceList.
+	
+	self should: [cashier checkout: cart withCreditCard: withCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier AnItemIsNotInThePriceList. ]! !
+
+!methodRemoval: Cashier #checkout: stamp: 'ET 6/10/2021 20:38:13'!
+checkout: aCart
+	|totalPrice|
+	self assertCartIsNotEmpty: aCart.
+	totalPrice := 0.
+	aCart do: [:anElement | totalPrice := totalPrice + priceList at: anElement ifAbsent: [self itemNotInPriceListError].].
+	
+	^totalPrice.!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:38:58'!
+validCreditCard
+
+	^ CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current next! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:38:58' prior: 51033026!
+test05
+
+	|cart catalog cashier priceList creditCard |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	creditCard := self validCreditCard.
+
+	
+	self assert: 1 equals:  (cashier checkout: cart withCreditCard: creditCard).! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:39:17' prior: 51033073!
+test04
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	
+	self assert: 2 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:39:23' prior: 51033088!
+test03
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	
+	self assert: 1 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:39:30' prior: 51033119!
+test02
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	priceList := Dictionary new.
+	
+	cashier := Cashier with: priceList.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard.]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier AnItemIsNotInThePriceList. ]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:39:31' prior: 51033197!
+test02
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	priceList := Dictionary new.
+	
+	cashier := Cashier with: priceList.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier AnItemIsNotInThePriceList. ]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:39:38' prior: 51033103!
+test01
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	
+	priceList := Dictionary new.
+	
+	cashier := Cashier with: priceList.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard.]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CanNotCheckoutEmptyCart. ]! !
+
+!testRun: #CashierTest #test01 stamp: 'ET 6/10/2021 20:39:39'!
+PASSED!
+
+!testRun: #CashierTest #test01 stamp: 'ET 6/10/2021 20:39:39'!
+PASSED!
+
+!testRun: #CashierTest #test02 stamp: 'ET 6/10/2021 20:39:39'!
+PASSED!
+
+!testRun: #CashierTest #test03 stamp: 'ET 6/10/2021 20:39:39'!
+PASSED!
+
+!testRun: #CashierTest #test04 stamp: 'ET 6/10/2021 20:39:39'!
+PASSED!
+
+!testRun: #CashierTest #test05 stamp: 'ET 6/10/2021 20:39:39'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:40:39'!
+invalidCreditCard
+
+	^ CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current previous.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:40:54'!
+expiredCreditCard
+
+	^ CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current previous.! !
+
+!methodRemoval: CashierTest #invalidCreditCard stamp: 'ET 6/10/2021 20:40:59'!
+invalidCreditCard
+
+	^ CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current previous.!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:41:26' prior: 51033151!
+test05
+
+	|cart catalog cashier priceList creditCard |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	creditCard := self validCreditCard.
+
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error
+	withExceptionDo: [] .! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:42:06' prior: 51033281!
+test05
+
+	|cart catalog cashier priceList creditCard |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	creditCard := self validCreditCard.
+
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier ExpiredCreditCardError ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test05 stamp: 'ET 6/10/2021 20:42:12'!
+FAILURE!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:42:40' prior: 51033298!
+test05
+
+	|cart catalog cashier priceList creditCard |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	creditCard := self expiredCreditCard.
+
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier ExpiredCreditCardError ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test05 stamp: 'ET 6/10/2021 20:42:46'!
+FAILURE!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:43:17' prior: 51033062!
+checkout: aCart withCreditCard: aCreditCard 
+	|totalPrice|
+	self assertCartIsNotEmpty: aCart.
+	self assertCreditCardIsValid: aCreditCard.
+	totalPrice := 0.
+	aCart do: [:anElement | totalPrice := totalPrice + priceList at: anElement ifAbsent: [self itemNotInPriceListError].].
+	
+	^totalPrice.! !
+
+!testRun: #CashierTest #test05 stamp: 'ET 6/10/2021 20:43:26'!
+ERROR!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:43:33'!
+ExpiredCreditCardError
+	self shouldBeImplemented.! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:43:48' prior: 51033356!
+ExpiredCreditCardError
+	^'The credit card is expired'.! !
+
+!testRun: #CashierTest #test05 stamp: 'ET 6/10/2021 20:43:49'!
+FAILURE!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:45:42'!
+assertCreditCardIsValid: aCreditCard
+	
+	aCreditCard expirationDate < GregorianMonthOfYear current ifTrue: [self error: self class ExpiredCreditCardError].! !
+!CreditCard methodsFor: 'initialization' stamp: 'ET 6/10/2021 20:46:08'!
+expirationDate
+
+	^gregorianMonthOfYear! !
+
+!testRun: #CashierTest #test05 stamp: 'ET 6/10/2021 20:46:14'!
+PASSED!
+
+!testRun: #CashierTest #test01 stamp: 'ET 6/10/2021 20:46:14'!
+PASSED!
+
+!testRun: #CashierTest #test02 stamp: 'ET 6/10/2021 20:46:14'!
+PASSED!
+
+!testRun: #CashierTest #test03 stamp: 'ET 6/10/2021 20:46:14'!
+PASSED!
+
+!testRun: #CashierTest #test04 stamp: 'ET 6/10/2021 20:46:14'!
+PASSED!
+
+!testRun: #CashierTest #test05 stamp: 'ET 6/10/2021 20:46:14'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:49:28' prior: 51033320!
+test05
+
+	|cart catalog cashier priceList creditCard |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	creditCard := self expiredCreditCard.
+
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier ExpiredCreditCardError ]	.
+		
+		
+		! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:50:24'!
+test01CanNotCheckoutEmptyCart
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	
+	priceList := Dictionary new.
+	
+	cashier := Cashier with: priceList.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard.]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CanNotCheckoutEmptyCart. ]! !
+
+!methodRemoval: CashierTest #test01 stamp: 'ET 6/10/2021 20:50:24'!
+test01
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	
+	priceList := Dictionary new.
+	
+	cashier := Cashier with: priceList.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard.]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CanNotCheckoutEmptyCart. ]!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:51:03'!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	priceList := Dictionary new.
+	
+	cashier := Cashier with: priceList.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier AnItemIsNotInThePriceList. ]! !
+
+!methodRemoval: CashierTest #test02 stamp: 'ET 6/10/2021 20:51:03'!
+test02
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	priceList := Dictionary new.
+	
+	cashier := Cashier with: priceList.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier AnItemIsNotInThePriceList. ]!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:51:53'!
+test03CheckoutCartWithOneItemReturnsThePriceOfThatItem
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	
+	self assert: 1 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).! !
+
+!methodRemoval: CashierTest #test03 stamp: 'ET 6/10/2021 20:51:53'!
+test03
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	
+	self assert: 1 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:52:25'!
+test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	
+	self assert: 2 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).! !
+
+!methodRemoval: CashierTest #test04 stamp: 'ET 6/10/2021 20:52:25'!
+test04
+
+	|cart catalog cashier priceList |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	
+	self assert: 2 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:52:47'!
+test05CanNotCheckoutWithExpiratedCreditCard
+
+	|cart catalog cashier priceList creditCard |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	creditCard := self expiredCreditCard.
+
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier ExpiredCreditCardError ]	.
+		
+		
+		! !
+
+!methodRemoval: CashierTest #test05 stamp: 'ET 6/10/2021 20:52:47'!
+test05
+
+	|cart catalog cashier priceList creditCard |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	creditCard := self expiredCreditCard.
+
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier ExpiredCreditCardError ]	.
+		
+		
+		!
