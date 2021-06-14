@@ -2649,3 +2649,66 @@ test05
 		
 		
 		!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/14/2021 17:06:54'!
+test05CanNotCheckoutWithExpiredCreditCard
+
+	|cart catalog cashier priceList creditCard |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	creditCard := self expiredCreditCard.
+
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier ExpiredCreditCardError ]	.
+		
+		
+		! !
+
+!methodRemoval: CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/14/2021 17:06:54'!
+test05CanNotCheckoutWithExpiratedCreditCard
+
+	|cart catalog cashier priceList creditCard |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	cashier := Cashier with: priceList.
+	
+	creditCard := self expiredCreditCard.
+
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier ExpiredCreditCardError ]	.
+		
+		
+		!
+
+014!
+
+014!
