@@ -2712,3 +2712,3146 @@ test05CanNotCheckoutWithExpiratedCreditCard
 014!
 
 014!
+
+----STARTUP---- (14 June 2021 18:38:42) as /home/julian/facu/ingenieria1/ambientesCuis/TusLibros1/CuisUniversity-4532.image!
+
+
+----End fileIn of /home/julian/facu/ingenieria1/ejsIS1/20-TusLibros/TusLibros.st----!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/14/2021 18:41:24'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/14/2021 18:41:24'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/14/2021 18:41:24'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/14/2021 18:41:24'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/14/2021 18:41:24'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/14/2021 18:41:24'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/14/2021 18:41:24'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/14/2021 18:41:24'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 18:41:24'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 18:41:24'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 18:41:24'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 18:41:24'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 18:41:24'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 18:44:57' prior: 50859653!
+test01CanNotCheckoutEmptyCart
+
+	|cart catalog cashier priceList aSalesBook |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	
+	priceList := Dictionary new.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard.]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CanNotCheckoutEmptyCart. 
+			self assert: aSalesBook isEmpty.]! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 18:45:05'!
+ERROR!
+!Cashier class methodsFor: 'instance creation' stamp: 'JA 6/14/2021 18:45:25'!
+with: aDictionary registerSalesOn: anOrderedCollection 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeWith: aDictionary registerSalesOn: anOrderedCollection ! !
+!Cashier class methodsFor: 'instance creation' stamp: 'JA 6/14/2021 18:46:32' prior: 50860025!
+with: aPriceList registerSalesOn: aSalesBook 
+	
+	^self new initializeWith: aPriceList registerSalesOn: aSalesBook! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 18:46:37'!
+ERROR!
+
+!classDefinition: #Cashier category: 'TusLibros' stamp: 'JA 6/14/2021 18:46:54'!
+Object subclass: #Cashier
+	instanceVariableNames: 'priceList salesBook'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cashier methodsFor: 'initialization' stamp: 'JA 6/14/2021 18:46:54'!
+initializeWith: aPriceList registerSalesOn: aSalesBook 
+	self shouldBeImplemented.
+	priceList := aPriceList.
+	salesBook := aSalesBook.! !
+!Cashier methodsFor: 'initialization' stamp: 'JA 6/14/2021 18:47:05' prior: 50860052!
+initializeWith: aPriceList registerSalesOn: aSalesBook 	
+	priceList := aPriceList.
+	salesBook := aSalesBook.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 18:47:06'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 18:47:06'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 18:47:06'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 18:47:06'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 18:47:06'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 18:47:06'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 18:47:29'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 18:47:29'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 18:47:29'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 18:47:29'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 18:47:29'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 18:47:29'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 18:50:22' prior: 50859669!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart catalog cashier priceList aSalesBook |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	priceList := Dictionary new.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier AnItemIsNotInThePriceList. 
+			self assert: aSalesBook isEmpty]! !
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 18:50:25'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 18:50:25'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 18:50:25'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 18:50:25'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 18:50:25'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 18:50:25'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 18:52:29' prior: 50859687!
+test03CheckoutCartWithOneItemReturnsThePriceOfThatItem
+
+	|cart catalog cashier priceList aSalesBook |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook.
+	
+	
+	self assert: 1 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).
+	self assert: 1 equals: aSalesBook size.
+	self assert: 1 equals: aSalesBook first.! !
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 18:52:32'!
+FAILURE!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 18:53:33' prior: 50859857!
+checkout: aCart withCreditCard: aCreditCard 
+	|totalPrice|
+	self assertCartIsNotEmpty: aCart.
+	self assertCreditCardIsValid: aCreditCard.
+	totalPrice := 0.
+	aCart do: [:anElement | totalPrice := totalPrice + priceList at: anElement ifAbsent: [self itemNotInPriceListError].].
+	salesBook add: totalPrice .
+	^totalPrice.! !
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 18:53:34'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 18:53:34'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 18:53:34'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 18:53:34'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 18:53:34'!
+ERROR!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 18:53:34'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 18:53:34'!
+ERROR!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 18:54:11'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 18:55:18' prior: 50859703!
+test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
+
+	|cart catalog cashier priceList aSalesBook |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook.
+		
+	self assert: 2 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).
+	self assert: 1 equals: aSalesBook size.
+	self assert: 2 equals: aSalesBook first.! !
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 18:55:22'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 18:55:22'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 18:55:22'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 18:55:22'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 18:55:22'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 18:55:22'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 18:55:33'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 18:55:33'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 18:55:33'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 18:55:33'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 18:55:33'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 18:55:33'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 18:56:06' prior: 50859720!
+test05CanNotCheckoutWithExpiratedCreditCard
+
+	|cart catalog cashier priceList creditCard aSalesBook |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook.
+		
+	creditCard := self expiredCreditCard.
+
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier ExpiredCreditCardError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 18:56:09'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 18:56:09'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 18:56:09'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 18:56:09'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 18:56:09'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 18:56:09'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/14/2021 18:56:15'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/14/2021 18:56:15'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/14/2021 18:56:15'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/14/2021 18:56:15'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/14/2021 18:56:15'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/14/2021 18:56:15'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/14/2021 18:56:15'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/14/2021 18:56:15'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 18:56:15'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 18:56:15'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 18:56:15'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 18:56:15'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 18:56:15'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 18:58:19'!
+test06
+
+	|cart catalog cashier priceList creditCard aSalesBook |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook.
+		
+	creditCard := self expiredCreditCard.
+
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier ExpiredCreditCardError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:01:39' prior: 50860371!
+test06
+
+	|cart catalog cashier priceList creditCard aSalesBook |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CreditCardWithotCreditError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:01:45'!
+FAILURE!
+
+!classDefinition: #MerchantProcessorSimulator category: 'TusLibros' stamp: 'JA 6/14/2021 19:05:11'!
+Object subclass: #MerchantProcessorSimulator
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:05:02' prior: 50860394!
+test06
+
+	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CreditCardWithotCreditError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:05:19'!
+ERROR!
+!Cashier class methodsFor: 'instance creation' stamp: 'JA 6/14/2021 19:05:29'!
+with: aDictionary registerSalesOn: anOrderedCollection merchantProcessor: aMerchantProcessorSimulator 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeWith: aDictionary registerSalesOn: anOrderedCollection merchantProcessor: aMerchantProcessorSimulator ! !
+!Cashier class methodsFor: 'instance creation' stamp: 'JA 6/14/2021 19:06:11' prior: 50860457!
+with: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessorSimulator 
+	^self new initializeWith: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessorSimulator ! !
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:06:12'!
+ERROR!
+
+!classDefinition: #Cashier category: 'TusLibros' stamp: 'JA 6/14/2021 19:06:22'!
+Object subclass: #Cashier
+	instanceVariableNames: 'priceList salesBook merchantProcessorSimulator'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cashier methodsFor: 'initialization' stamp: 'JA 6/14/2021 19:06:22'!
+initializeWith: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessorSimulator 
+	self shouldBeImplemented.
+	priceList := aPriceList.
+	salesBook := aSalesBook.
+	merchantProcessorSimulator := aMerchantProcessorSimulator.! !
+!Cashier methodsFor: 'initialization' stamp: 'JA 6/14/2021 19:06:29' prior: 50860490!
+initializeWith: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessorSimulator 
+	
+	priceList := aPriceList.
+	salesBook := aSalesBook.
+	merchantProcessorSimulator := aMerchantProcessorSimulator.! !
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:06:32'!
+FAILURE!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:08:26' prior: 50860175!
+checkout: aCart withCreditCard: aCreditCard 
+	|totalPrice|
+	self assertCartIsNotEmpty: aCart.
+	self assertCreditCardIsValid: aCreditCard.
+	totalPrice := 0.
+	aCart do: [:anElement | totalPrice := totalPrice + priceList at: anElement ifAbsent: [self itemNotInPriceListError].].
+	merchantProcessorSimulator charge: totalPrice  on: aCreditCard .
+	salesBook add: totalPrice .
+	^totalPrice.! !
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:08:41'!
+ERROR!
+!MerchantProcessorSimulator methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:08:51'!
+charge: aSmallInteger on: aCreditCard 
+	self shouldBeImplemented.! !
+!MerchantProcessorSimulator methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:10:49' prior: 50860531!
+charge: aCharge on: aCreditCard 
+	self error: Cashier CreditCardWithoutCredit.! !
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:10:54'!
+ERROR!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:11:08'!
+CreditCardWithoutCredit
+	self shouldBeImplemented.! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:11:45' prior: 50860545!
+CreditCardWithoutCredit
+	^ 'La tarjeta no tiene suficiente crédito.'! !
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:11:47'!
+ERROR!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:12:32' prior: 50860428!
+test06
+
+	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CreditCardWithoutCreditError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:13:08'!
+CreditCardWithoutCreditError
+	^ 'La tarjeta no tiene suficiente crédito.'! !
+
+!methodRemoval: Cashier class #CreditCardWithoutCredit stamp: 'JA 6/14/2021 19:13:08'!
+CreditCardWithoutCredit
+	^ 'La tarjeta no tiene suficiente crédito.'!
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:13:22'!
+ERROR!
+!MerchantProcessorSimulator methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:13:45' prior: 50860537!
+charge: aCharge on: aCreditCard 
+	self error: Cashier CreditCardWithoutCreditError.! !
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:13:54'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 19:13:54'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 19:13:54'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 19:13:54'!
+ERROR!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 19:13:54'!
+ERROR!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 19:13:54'!
+PASSED!
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:13:54'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 19:14:33'!
+ERROR!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:15:17' prior: 50860002!
+test01CanNotCheckoutEmptyCart
+
+	|cart catalog cashier priceList aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	
+	priceList := Dictionary new.
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard.]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CanNotCheckoutEmptyCart. 
+			self assert: aSalesBook isEmpty.]! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 19:15:22'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 19:15:22'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 19:15:22'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 19:15:22'!
+ERROR!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 19:15:22'!
+ERROR!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 19:15:22'!
+PASSED!
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:15:22'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:15:34' prior: 50860107!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart catalog cashier priceList aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	priceList := Dictionary new.
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier AnItemIsNotInThePriceList. 
+			self assert: aSalesBook isEmpty]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:15:47' prior: 50860150!
+test03CheckoutCartWithOneItemReturnsThePriceOfThatItem
+
+	|cart catalog cashier priceList aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.	
+	
+	self assert: 1 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).
+	self assert: 1 equals: aSalesBook size.
+	self assert: 1 equals: aSalesBook first.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:16:03' prior: 50860218!
+test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
+
+	|cart catalog cashier priceList aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.		
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.		
+	self assert: 2 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).
+	self assert: 1 equals: aSalesBook size.
+	self assert: 2 equals: aSalesBook first.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:16:14' prior: 50860283!
+test05CanNotCheckoutWithExpiratedCreditCard
+
+	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self expiredCreditCard.
+
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier ExpiredCreditCardError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:19:34' prior: 50860558!
+test06
+
+	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: Cashier CreditCardWithoutCreditError.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CreditCardWithoutCreditError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:19:43'!
+ERROR!
+!MerchantProcessorSimulator methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:19:51'!
+raiseErrorOnCharge: aString 
+	self shouldBeImplemented.! !
+
+!classDefinition: #MerchantProcessorSimulator category: 'TusLibros' stamp: 'JA 6/14/2021 19:20:22'!
+Object subclass: #MerchantProcessorSimulator
+	instanceVariableNames: 'messageError'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!MerchantProcessorSimulator methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:20:19' prior: 50860812!
+raiseErrorOnCharge: aMessageError 
+	messageError := aMessageError.! !
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:20:24'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 19:20:24'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 19:20:24'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 19:20:24'!
+ERROR!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 19:20:24'!
+ERROR!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 19:20:24'!
+PASSED!
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:20:24'!
+PASSED!
+!MerchantProcessorSimulator methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:21:11' prior: 50860598!
+charge: aCharge on: aCreditCard 
+	messageError ifNotNil: [	self error: messageError].! !
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:21:19'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 19:21:19'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 19:21:19'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 19:21:19'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 19:21:19'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 19:21:19'!
+PASSED!
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:21:19'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:30:06'!
+test07
+
+	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: Cashier StolenCreditCardError.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier StolenCreditCardError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test07 stamp: 'JA 6/14/2021 19:30:10'!
+ERROR!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:30:26'!
+StolenCreditCardError
+	self shouldBeImplemented.! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:31:11' prior: 50860913!
+StolenCreditCardError
+ 	^ 'La tarjeta de crédito es robada'! !
+
+!testRun: #CashierTest #test07 stamp: 'JA 6/14/2021 19:31:13'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 19:31:13'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 19:31:13'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 19:31:13'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 19:31:13'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 19:31:13'!
+PASSED!
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:31:13'!
+PASSED!
+
+!testRun: #CashierTest #test07 stamp: 'JA 6/14/2021 19:31:13'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:31:41'!
+test08
+
+	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: Cashier FakeCreditCardError.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier FakeCreditCardError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test08 stamp: 'JA 6/14/2021 19:31:48'!
+ERROR!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:31:56'!
+FakeCreditCardError
+	self shouldBeImplemented.! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:32:16' prior: 50860978!
+FakeCreditCardError
+	^'La tarjeta de crédito es falsa'! !
+
+!testRun: #CashierTest #test08 stamp: 'JA 6/14/2021 19:32:17'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 19:32:17'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 19:32:17'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 19:32:17'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 19:32:17'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 19:32:17'!
+PASSED!
+
+!testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:32:17'!
+PASSED!
+
+!testRun: #CashierTest #test07 stamp: 'JA 6/14/2021 19:32:17'!
+PASSED!
+
+!testRun: #CashierTest #test08 stamp: 'JA 6/14/2021 19:32:17'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:34:50'!
+test06CanNotCheckoutWithACreditCardWithoutCredit
+
+	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: Cashier CreditCardWithoutCreditError.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CreditCardWithoutCreditError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!methodRemoval: CashierTest #test06 stamp: 'JA 6/14/2021 19:34:50'!
+test06
+
+	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: Cashier CreditCardWithoutCreditError.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CreditCardWithoutCreditError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:35:28'!
+test07CanNotCheckoutWithAStolenCreditCard
+
+	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: Cashier StolenCreditCardError.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier StolenCreditCardError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!methodRemoval: CashierTest #test07 stamp: 'JA 6/14/2021 19:35:28'!
+test07
+
+	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: Cashier StolenCreditCardError.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier StolenCreditCardError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:35:59'!
+test08CanNotCheckoutWithAFakeCreditCard
+
+	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: Cashier FakeCreditCardError.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier FakeCreditCardError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!methodRemoval: CashierTest #test08 stamp: 'JA 6/14/2021 19:35:59'!
+test08
+
+	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: Cashier FakeCreditCardError.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier FakeCreditCardError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		!
+
+!testRun: #CashierTest #test08CanNotCheckoutWithAFakeCreditCard stamp: 'JA 6/14/2021 19:36:06'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 19:36:06'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 19:36:06'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 19:36:06'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 19:36:06'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 19:36:06'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutWithACreditCardWithoutCredit stamp: 'JA 6/14/2021 19:36:06'!
+PASSED!
+
+!testRun: #CashierTest #test07CanNotCheckoutWithAStolenCreditCard stamp: 'JA 6/14/2021 19:36:06'!
+PASSED!
+
+!testRun: #CashierTest #test08CanNotCheckoutWithAFakeCreditCard stamp: 'JA 6/14/2021 19:36:06'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/14/2021 19:36:10'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/14/2021 19:36:10'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/14/2021 19:36:10'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/14/2021 19:36:10'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/14/2021 19:36:10'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/14/2021 19:36:10'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/14/2021 19:36:10'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/14/2021 19:36:10'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 19:36:10'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 19:36:10'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 19:36:10'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 19:36:10'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 19:36:10'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutWithACreditCardWithoutCredit stamp: 'JA 6/14/2021 19:36:10'!
+PASSED!
+
+!testRun: #CashierTest #test07CanNotCheckoutWithAStolenCreditCard stamp: 'JA 6/14/2021 19:36:10'!
+PASSED!
+
+!testRun: #CashierTest #test08CanNotCheckoutWithAFakeCreditCard stamp: 'JA 6/14/2021 19:36:10'!
+PASSED!
+
+TestCase subclass: #CreditCardTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CreditCardTest category: 'TusLibros' stamp: 'JA 6/14/2021 19:40:39'!
+TestCase subclass: #CreditCardTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CreditCardTest methodsFor: 'no messages' stamp: 'JA 6/14/2021 19:44:26'!
+test01
+	self should: [ CreditCard owner: 'Juan' number: '1234' expiration: GregorianMonthOfYear current.]
+	 	raise:  Error
+		withExceptionDo:[ :anException | self assert: CreditCard  	] ! !
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:46:55' prior: 50861286!
+test01
+	self should: [ CreditCard owner: 'Juan' number: '1234' expiration: GregorianMonthOfYear current.]
+	 	raise:  Error
+		withExceptionDo:[ :anException | self assert: CreditCard InvalidCreditCardError equals: anException messageText	] ! !
+
+!testRun: #CreditCardTest #test01 stamp: 'JA 6/14/2021 19:47:00'!
+ERROR!
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:47:11'!
+InvalidCreditCardError
+	self shouldBeImplemented.! !
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:47:59' prior: 50861308!
+InvalidCreditCardError
+	^'Los datos de la tarjeta de crédito son inválidos'! !
+
+!testRun: #CreditCardTest #test01 stamp: 'JA 6/14/2021 19:48:01'!
+FAILURE!
+
+!testRun: #CreditCardTest #test01 stamp: 'JA 6/14/2021 19:48:32'!
+FAILURE!
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:49:05' prior: 50859949!
+assertCreditCardNumberIsValid: aString 
+	
+	aString size = 16 ifFalse: [self error: self InvalidCreditCardError ]! !
+
+!testRun: #CreditCardTest #test01 stamp: 'JA 6/14/2021 19:49:10'!
+PASSED!
+
+!testRun: #CreditCardTest #test01 stamp: 'JA 6/14/2021 19:49:10'!
+PASSED!
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:50:52'!
+test02
+	self should: [ CreditCard owner: 'Juan' number: '1234567890ABCDEF' expiration: GregorianMonthOfYear current.]
+	 	raise:  Error
+		withExceptionDo:[ :anException | self assert: CreditCard InvalidCreditCardError equals: anException messageText	] ! !
+
+!testRun: #CreditCardTest #test02 stamp: 'JA 6/14/2021 19:50:53'!
+FAILURE!
+
+!testRun: #CreditCardTest #test02 stamp: 'JA 6/14/2021 19:51:32'!
+FAILURE!
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:56:53' prior: 50861324!
+assertCreditCardNumberIsValid: aString 
+	
+	aString size = 16 ifFalse: [self error: self InvalidCreditCardError ].
+	(aString allSatisfy: [:aDigit | aDigit isDigit]	) ifFalse: [self error: self InvalidCreditCardError ].! !
+
+!testRun: #CreditCardTest #test02 stamp: 'JA 6/14/2021 19:56:54'!
+PASSED!
+
+!testRun: #CreditCardTest #test01 stamp: 'JA 6/14/2021 19:56:54'!
+PASSED!
+
+!testRun: #CreditCardTest #test02 stamp: 'JA 6/14/2021 19:56:54'!
+PASSED!
+
+!testRun: #CreditCardTest #test02 stamp: 'JA 6/14/2021 19:56:57'!
+PASSED!
+
+!testRun: #CreditCardTest #test01 stamp: 'JA 6/14/2021 19:56:57'!
+PASSED!
+
+!testRun: #CreditCardTest #test02 stamp: 'JA 6/14/2021 19:56:57'!
+PASSED!
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:57:43'!
+test03
+	self should: [ CreditCard owner: '    ' number: '1234567890123456' expiration: GregorianMonthOfYear current.]
+	 	raise:  Error
+		withExceptionDo:[ :anException | self assert: CreditCard InvalidCreditCardError equals: anException messageText	] ! !
+
+!testRun: #CreditCardTest #test03 stamp: 'JA 6/14/2021 19:57:44'!
+FAILURE!
+!CreditCard class methodsFor: 'instance creation' stamp: 'JA 6/14/2021 19:58:44' prior: 50859938!
+owner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear 
+	self assertCreditCardNumberIsValid: aCreditCardNumberString.
+	self assertNonBlankOwner.
+	^self new initializeOwner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear ! !
+
+!testRun: #CreditCardTest #test03 stamp: 'JA 6/14/2021 19:58:48'!
+FAILURE!
+!CreditCard class methodsFor: 'instance creation' stamp: 'JA 6/14/2021 19:59:51' prior: 50861389!
+owner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear 
+	self assertCreditCardNumberIsValid: aCreditCardNumberString.
+	self assertNonBlankOwner: anOwnerString.
+	^self new initializeOwner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear ! !
+
+!testRun: #CreditCardTest #test03 stamp: 'JA 6/14/2021 19:59:54'!
+FAILURE!
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 20:00:22' prior: 50861375!
+test03
+	self should: [ CreditCard owner: '    ' number: '1234567890123456' expiration: GregorianMonthOfYear current.]
+	 	raise:  Error - MessageNotUnderstood 
+		withExceptionDo:[ :anException | self assert: CreditCard InvalidCreditCardError equals: anException messageText	] ! !
+
+!testRun: #CreditCardTest #test03 stamp: 'JA 6/14/2021 20:00:23'!
+ERROR!
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 20:00:37'!
+assertNonBlankOwner: aString 
+	self shouldBeImplemented.! !
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 20:53:24' prior: 50861433!
+assertNonBlankOwner: anOwnerString
+	anOwnerString withBlanksTrimmed isEmpty
+	
+	! !
+
+!testRun: #CreditCardTest #test03 stamp: 'JA 6/14/2021 20:53:25'!
+FAILURE!
+
+'   ' withBlanksTrimmed !
+
+'   ' withBlanksTrimmed  isEmpty!
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 20:57:02' prior: 50861438!
+assertNonBlankOwner: anOwnerString
+	anOwnerString withBlanksTrimmed isEmpty ifTrue: [self error: self InvalidCreditCardError ]
+	
+	! !
+
+!testRun: #CreditCardTest #test03 stamp: 'JA 6/14/2021 20:57:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test01 stamp: 'JA 6/14/2021 20:57:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test02 stamp: 'JA 6/14/2021 20:57:21'!
+PASSED!
+
+!testRun: #CreditCardTest #test03 stamp: 'JA 6/14/2021 20:57:21'!
+PASSED!
+!Behavior method!
+acceptingItemsOf: aCatalog
+	^ [
+	([
+	(self coverAll:
+		{31 to: 34}) new ] valueCoveringAll:
+		{36 to: 38}) initializeAcceptingItemsOf:
+		(aCatalog
+			cover: (68 to: 75)
+			declaredAt: (19 to: 26)) ] valueCoveringAll:
+		{40 to: 66}.! !
+!Behavior method!
+initializeAcceptingItemsOf: aCatalog
+	(catalog _ aCatalog
+		cover: (51 to: 58)
+		declaredAt: (29 to: 36))
+		cover: (40 to: 46)
+		declaredAt: (40 to: 46).
+	(items _ [
+	(OrderedCollection
+		cover: (71 to: 87)
+		declaredAt: (71 to: 87)) new ] valueCoveringAll:
+		{89 to: 91})
+		cover: (62 to: 66)
+		declaredAt: (62 to: 66).! !
+!Behavior method!
+isEmpty
+	^ [
+	(items
+		cover: (13 to: 17)
+		declaredAt: (13 to: 17)) isEmpty ] valueCoveringAll:
+		{19 to: 25}.! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/14/2021 20:59:34'!
+PASSED!
+!Behavior method!
+add: anItem
+	^ [
+	(self coverAll:
+		{17 to: 20})
+		add:
+			(1 coverAll:
+				{27 to: 27})
+		of:
+			(anItem
+				cover: (33 to: 38)
+				declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{22 to: 25. 29 to: 31}.! !
+!Behavior method!
+add: aQuantity of: anItem
+	[
+	(self coverAll:
+		{29 to: 32}) assertIsValidQuantity:
+		(aQuantity
+			cover: (57 to: 65)
+			declaredAt: (6 to: 14)) ] valueCoveringAll:
+		{34 to: 55}.
+	[
+	(self coverAll:
+		{69 to: 72}) assertIsValidItem:
+		(anItem
+			cover: (93 to: 98)
+			declaredAt: (20 to: 25)) ] valueCoveringAll:
+		{74 to: 91}.
+	[
+	(1 coverAll:
+		{103 to: 103})
+		to:
+			(aQuantity
+				cover: (109 to: 117)
+				declaredAt: (6 to: 14))
+		do: [ :aNumber |
+			[
+			(items
+				cover: (136 to: 140)
+				declaredAt: (136 to: 140)) add:
+				(anItem
+					cover: (147 to: 152)
+					declaredAt: (20 to: 25)) ] valueCoveringAll:
+				{142 to: 145} ]] valueCoveringAll:
+		{105 to: 107. 119 to: 121}.! !
+!Behavior method!
+assertIsValidQuantity: aQuantity
+	[
+	([
+	(aQuantity
+		cover: (36 to: 44)
+		declaredAt: (24 to: 32)) strictlyPositive ] valueCoveringAll:
+		{46 to: 61}) ifFalse: [
+		[
+		(self coverAll:
+			{74 to: 77}) error:
+			([
+			(self coverAll:
+				{86 to: 89}) invalidQuantityErrorMessage ] valueCoveringAll:
+				{91 to: 117}) ] valueCoveringAll:
+			{79 to: 84} ]] valueCoveringAll:
+		{63 to: 70}.! !
+!Behavior method!
+assertIsValidItem: anItem
+	[
+	([
+	(catalog
+		cover: (30 to: 36)
+		declaredAt: (30 to: 36)) includes:
+		(anItem
+			cover: (48 to: 53)
+			declaredAt: (20 to: 25)) ] valueCoveringAll:
+		{38 to: 46}) ifFalse: [
+		[
+		(self coverAll:
+			{67 to: 70}) error:
+			([
+			(self coverAll:
+				{79 to: 82}) invalidItemErrorMessage ] valueCoveringAll:
+				{84 to: 106}) ] valueCoveringAll:
+			{72 to: 77} ]] valueCoveringAll:
+		{56 to: 63}.! !
+!Behavior method!
+invalidItemErrorMessage
+	^ 'Item is not in catalog' coverAll:
+		{29 to: 52}.! !
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/14/2021 20:59:34'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/14/2021 20:59:34'!
+PASSED!
+!Behavior method!
+invalidQuantityErrorMessage
+	^ 'Invalid number of items' coverAll:
+		{33 to: 57}.! !
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/14/2021 20:59:34'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/14/2021 20:59:34'!
+PASSED!
+!Behavior method!
+includes: anItem
+	^ [
+	(items
+		cover: (21 to: 25)
+		declaredAt: (21 to: 25)) includes:
+		(anItem
+			cover: (37 to: 42)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{27 to: 35}.! !
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/14/2021 20:59:34'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/14/2021 20:59:34'!
+PASSED!
+!Behavior method!
+occurrencesOf: anItem
+	^ [
+	(items
+		cover: (26 to: 30)
+		declaredAt: (26 to: 30)) occurrencesOf:
+		(anItem
+			cover: (47 to: 52)
+			declaredAt: (16 to: 21)) ] valueCoveringAll:
+		{32 to: 45}.! !
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/14/2021 20:59:34'!
+PASSED!
+!Behavior method!
+with: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessorSimulator
+	^ [
+	([
+	(self coverAll:
+		{96 to: 99}) new ] valueCoveringAll:
+		{101 to: 103})
+		initializeWith:
+			(aPriceList
+				cover: (121 to: 130)
+				declaredAt: (7 to: 16))
+		registerSalesOn:
+			(aSalesBook
+				cover: (149 to: 158)
+				declaredAt: (35 to: 44))
+		merchantProcessor:
+			(aMerchantProcessorSimulator
+				cover: (179 to: 205)
+				declaredAt: (65 to: 91)) ] valueCoveringAll:
+		{105 to: 119. 132 to: 147. 160 to: 177}.! !
+!Behavior method!
+initializeWith: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessorSimulator
+	(priceList _ aPriceList
+		cover: (120 to: 129)
+		declaredAt: (17 to: 26))
+		cover: (107 to: 115)
+		declaredAt: (107 to: 115).
+	(salesBook _ aSalesBook
+		cover: (146 to: 155)
+		declaredAt: (45 to: 54))
+		cover: (133 to: 141)
+		declaredAt: (133 to: 141).
+	(merchantProcessorSimulator _ aMerchantProcessorSimulator
+		cover: (189 to: 215)
+		declaredAt: (75 to: 101))
+		cover: (159 to: 184)
+		declaredAt: (159 to: 184).! !
+!Behavior method!
+owner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear
+	[
+	(self coverAll:
+		{90 to: 93}) assertCreditCardNumberIsValid:
+		(aCreditCardNumberString
+			cover: (126 to: 148)
+			declaredAt: (30 to: 52)) ] valueCoveringAll:
+		{95 to: 124}.
+	[
+	(self coverAll:
+		{152 to: 155}) assertNonBlankOwner:
+		(anOwnerString
+			cover: (178 to: 190)
+			declaredAt: (8 to: 20)) ] valueCoveringAll:
+		{157 to: 176}.
+	^ [
+	([
+	(self coverAll:
+		{195 to: 198}) new ] valueCoveringAll:
+		{200 to: 202})
+		initializeOwner:
+			(anOwnerString
+				cover: (221 to: 233)
+				declaredAt: (8 to: 20))
+		number:
+			(aCreditCardNumberString
+				cover: (243 to: 265)
+				declaredAt: (30 to: 52))
+		expiration:
+			(aGregorianMonthOfYear
+				cover: (279 to: 299)
+				declaredAt: (66 to: 86)) ] valueCoveringAll:
+		{204 to: 219. 235 to: 241. 267 to: 277}.! !
+!Behavior method!
+assertCreditCardNumberIsValid: aString
+	[
+	([
+	([
+	(aString
+		cover: (44 to: 50)
+		declaredAt: (32 to: 38)) size ] valueCoveringAll:
+		{52 to: 55}) =
+		(16 coverAll:
+			{59 to: 60}) ] valueCoveringAll:
+		{57 to: 57}) ifFalse: [
+		[
+		(self coverAll:
+			{72 to: 75}) error:
+			([
+			(self coverAll:
+				{84 to: 87}) InvalidCreditCardError ] valueCoveringAll:
+				{89 to: 110}) ] valueCoveringAll:
+			{77 to: 82} ]] valueCoveringAll:
+		{62 to: 69}.
+	[
+	([
+	(aString
+		cover: (117 to: 123)
+		declaredAt: (32 to: 38)) allSatisfy: [ :aDigit |
+		[
+		(aDigit
+			cover: (148 to: 153)
+			declaredAt: (139 to: 144)) isDigit ] valueCoveringAll:
+			{155 to: 161} ]] valueCoveringAll:
+		{125 to: 135}) ifFalse: [
+		[
+		(self coverAll:
+			{176 to: 179}) error:
+			([
+			(self coverAll:
+				{188 to: 191}) InvalidCreditCardError ] valueCoveringAll:
+				{193 to: 214}) ] valueCoveringAll:
+			{181 to: 186} ]] valueCoveringAll:
+		{166 to: 173}.! !
+!Behavior method!
+assertNonBlankOwner: anOwnerString
+	[
+	([
+	([
+	(anOwnerString
+		cover: (37 to: 49)
+		declaredAt: (22 to: 34)) withBlanksTrimmed ] valueCoveringAll:
+		{51 to: 67}) isEmpty ] valueCoveringAll:
+		{69 to: 75}) ifTrue: [
+		[
+		(self coverAll:
+			{86 to: 89}) error:
+			([
+			(self coverAll:
+				{98 to: 101}) InvalidCreditCardError ] valueCoveringAll:
+				{103 to: 124}) ] valueCoveringAll:
+			{91 to: 96} ]] valueCoveringAll:
+		{77 to: 83}.! !
+!Behavior method!
+initializeOwner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear
+	(ownerString _ anOwnerString
+		cover: (116 to: 128)
+		declaredAt: (18 to: 30))
+		cover: (101 to: 111)
+		declaredAt: (101 to: 111).
+	(creditCardNumberString _ aCreditCardNumberString
+		cover: (158 to: 180)
+		declaredAt: (40 to: 62))
+		cover: (132 to: 153)
+		declaredAt: (132 to: 153).
+	(gregorianMonthOfYear _ aGregorianMonthOfYear
+		cover: (208 to: 228)
+		declaredAt: (76 to: 96))
+		cover: (184 to: 203)
+		declaredAt: (184 to: 203).! !
+!Behavior method!
+checkout: aCart withCreditCard: aCreditCard
+	| totalPrice |
+	[
+	(self coverAll:
+		{61 to: 64}) assertCartIsNotEmpty:
+		(aCart
+			cover: (88 to: 92)
+			declaredAt: (11 to: 15)) ] valueCoveringAll:
+		{66 to: 86}.
+	[
+	(self coverAll:
+		{96 to: 99}) assertCreditCardIsValid:
+		(aCreditCard
+			cover: (126 to: 136)
+			declaredAt: (33 to: 43)) ] valueCoveringAll:
+		{101 to: 124}.
+	(totalPrice _ 0 coverAll:
+		{154 to: 154})
+		cover: (140 to: 149)
+		declaredAt: (48 to: 57).
+	[
+	(aCart
+		cover: (158 to: 162)
+		declaredAt: (11 to: 15)) do: [ :anElement |
+		(totalPrice _ [
+		([
+		(totalPrice
+			cover: (182 to: 191)
+			declaredAt: (48 to: 57)) +
+			(priceList
+				cover: (209 to: 217)
+				declaredAt: (209 to: 217)) ] valueCoveringAll:
+			{207 to: 207})
+			at:
+				(anElement
+					cover: (223 to: 231)
+					declaredAt: (170 to: 178))
+			ifAbsent: [
+				[
+				(self coverAll:
+					{244 to: 247}) itemNotInPriceListError ] valueCoveringAll:
+					{249 to: 271} ]] valueCoveringAll:
+			{219 to: 221. 233 to: 241})
+			cover: (196 to: 205)
+			declaredAt: (48 to: 57) ]] valueCoveringAll:
+		{164 to: 166}.
+	[
+	(merchantProcessorSimulator
+		cover: (278 to: 303)
+		declaredAt: (278 to: 303))
+		charge:
+			(totalPrice
+				cover: (313 to: 322)
+				declaredAt: (48 to: 57))
+		on:
+			(aCreditCard
+				cover: (329 to: 339)
+				declaredAt: (33 to: 43)) ] valueCoveringAll:
+		{305 to: 311. 325 to: 327}.
+	[
+	(salesBook
+		cover: (344 to: 352)
+		declaredAt: (344 to: 352)) add:
+		(totalPrice
+			cover: (359 to: 368)
+			declaredAt: (48 to: 57)) ] valueCoveringAll:
+		{354 to: 357}.
+	^ totalPrice
+		cover: (374 to: 383)
+		declaredAt: (48 to: 57).! !
+!Behavior method!
+assertCartIsNotEmpty: aCart
+	^ [
+	([
+	(aCart
+		cover: (33 to: 37)
+		declaredAt: (23 to: 27)) isEmpty ] valueCoveringAll:
+		{39 to: 45}) ifTrue: [
+		[
+		(self coverAll:
+			{57 to: 60}) error:
+			([
+			([
+			(self coverAll:
+				{69 to: 72}) class ] valueCoveringAll:
+				{74 to: 78}) CanNotCheckoutEmptyCart ] valueCoveringAll:
+				{80 to: 102}) ] valueCoveringAll:
+			{62 to: 67} ]] valueCoveringAll:
+		{47 to: 53}.! !
+!Behavior method!
+CanNotCheckoutEmptyCart
+	^ 'The cart is empty' coverAll:
+		{27 to: 45}.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 20:59:34'!
+PASSED!
+!Behavior method!
+assertCreditCardIsValid: aCreditCard
+	[
+	([
+	([
+	(aCreditCard
+		cover: (41 to: 51)
+		declaredAt: (26 to: 36)) expirationDate ] valueCoveringAll:
+		{53 to: 66}) <
+		([
+		(GregorianMonthOfYear
+			cover: (70 to: 89)
+			declaredAt: (70 to: 89)) current ] valueCoveringAll:
+			{91 to: 97}) ] valueCoveringAll:
+		{68 to: 68}) ifTrue: [
+		[
+		(self coverAll:
+			{108 to: 111}) error:
+			([
+			([
+			(self coverAll:
+				{120 to: 123}) class ] valueCoveringAll:
+				{125 to: 129}) ExpiredCreditCardError ] valueCoveringAll:
+				{131 to: 152}) ] valueCoveringAll:
+			{113 to: 118} ]] valueCoveringAll:
+		{99 to: 105}.! !
+!Behavior method!
+expirationDate
+	^ gregorianMonthOfYear
+		cover: (19 to: 38)
+		declaredAt: (19 to: 38).! !
+!Behavior method!
+do: aBlockClosure
+	[
+	(items
+		cover: (21 to: 25)
+		declaredAt: (21 to: 25)) do:
+		(aBlockClosure
+			cover: (31 to: 43)
+			declaredAt: (5 to: 17)) ] valueCoveringAll:
+		{27 to: 29}.! !
+!Behavior method!
+itemNotInPriceListError
+	^ [
+	(self coverAll:
+		{29 to: 32}) error:
+		([
+		([
+		(self coverAll:
+			{41 to: 44}) class ] valueCoveringAll:
+			{46 to: 50}) AnItemIsNotInThePriceList ] valueCoveringAll:
+			{52 to: 76}) ] valueCoveringAll:
+		{34 to: 39}.! !
+!Behavior method!
+AnItemIsNotInThePriceList
+	^ 'An item in the cart is not in the price list' coverAll:
+		{29 to: 74}.! !
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 20:59:34'!
+PASSED!
+!Behavior method!
+charge: aCharge on: aCreditCard
+	[
+	(messageError
+		cover: (35 to: 46)
+		declaredAt: (35 to: 46)) ifNotNil: [
+		[
+		(self coverAll:
+			{60 to: 63}) error:
+			(messageError
+				cover: (72 to: 83)
+				declaredAt: (35 to: 46)) ] valueCoveringAll:
+			{65 to: 70} ]] valueCoveringAll:
+		{48 to: 56}.! !
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 20:59:34'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 20:59:35'!
+PASSED!
+!Behavior method!
+ExpiredCreditCardError
+	^ 'The credit card is expired' coverAll:
+		{26 to: 53}.! !
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 20:59:35'!
+PASSED!
+!Behavior method!
+CreditCardWithoutCreditError
+	^ 'La tarjeta no tiene suficiente crédito.' coverAll:
+		{33 to: 73}.! !
+!Behavior method!
+raiseErrorOnCharge: aMessageError
+	(messageError _ aMessageError
+		cover: (53 to: 65)
+		declaredAt: (21 to: 33))
+		cover: (37 to: 48)
+		declaredAt: (37 to: 48).! !
+
+!testRun: #CashierTest #test06CanNotCheckoutWithACreditCardWithoutCredit stamp: 'JA 6/14/2021 20:59:35'!
+PASSED!
+!Behavior method!
+StolenCreditCardError
+	^ 'La tarjeta de crédito es robada' coverAll:
+		{27 to: 59}.! !
+
+!testRun: #CashierTest #test07CanNotCheckoutWithAStolenCreditCard stamp: 'JA 6/14/2021 20:59:35'!
+PASSED!
+!Behavior method!
+FakeCreditCardError
+	^ 'La tarjeta de crédito es falsa' coverAll:
+		{23 to: 54}.! !
+
+!testRun: #CashierTest #test08CanNotCheckoutWithAFakeCreditCard stamp: 'JA 6/14/2021 20:59:35'!
+PASSED!
+!Behavior method!
+InvalidCreditCardError
+	^ 'Los datos de la tarjeta de crédito son inválidos' coverAll:
+		{26 to: 75}.! !
+
+!testRun: #CreditCardTest #test01 stamp: 'JA 6/14/2021 20:59:35'!
+PASSED!
+
+!testRun: #CreditCardTest #test02 stamp: 'JA 6/14/2021 20:59:35'!
+PASSED!
+
+!testRun: #CreditCardTest #test03 stamp: 'JA 6/14/2021 20:59:35'!
+PASSED!
+
+!methodRemoval: Cashier class #with: stamp: 'JA 6/14/2021 21:07:34'!
+with: aPriceList 
+	^self new initializeWith: aPriceList!
+
+!methodRemoval: Cashier class #with:registerSalesOn: stamp: 'JA 6/14/2021 21:07:36'!
+with: aPriceList registerSalesOn: aSalesBook 
+	
+	^self new initializeWith: aPriceList registerSalesOn: aSalesBook!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 21:07:39'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 21:07:39'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 21:07:39'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 21:07:39'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 21:07:39'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutWithACreditCardWithoutCredit stamp: 'JA 6/14/2021 21:07:39'!
+PASSED!
+
+!testRun: #CashierTest #test07CanNotCheckoutWithAStolenCreditCard stamp: 'JA 6/14/2021 21:07:39'!
+PASSED!
+
+!testRun: #CashierTest #test08CanNotCheckoutWithAFakeCreditCard stamp: 'JA 6/14/2021 21:07:39'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 21:07:44'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 21:07:44'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 21:07:44'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 21:07:44'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 21:07:44'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutWithACreditCardWithoutCredit stamp: 'JA 6/14/2021 21:07:44'!
+PASSED!
+
+!testRun: #CashierTest #test07CanNotCheckoutWithAStolenCreditCard stamp: 'JA 6/14/2021 21:07:44'!
+PASSED!
+
+!testRun: #CashierTest #test08CanNotCheckoutWithAFakeCreditCard stamp: 'JA 6/14/2021 21:07:44'!
+PASSED!
+!Behavior method!
+acceptingItemsOf: aCatalog
+	^ [
+	([
+	(self coverAll:
+		{31 to: 34}) new ] valueCoveringAll:
+		{36 to: 38}) initializeAcceptingItemsOf:
+		(aCatalog
+			cover: (68 to: 75)
+			declaredAt: (19 to: 26)) ] valueCoveringAll:
+		{40 to: 66}.! !
+!Behavior method!
+initializeAcceptingItemsOf: aCatalog
+	(catalog _ aCatalog
+		cover: (51 to: 58)
+		declaredAt: (29 to: 36))
+		cover: (40 to: 46)
+		declaredAt: (40 to: 46).
+	(items _ [
+	(OrderedCollection
+		cover: (71 to: 87)
+		declaredAt: (71 to: 87)) new ] valueCoveringAll:
+		{89 to: 91})
+		cover: (62 to: 66)
+		declaredAt: (62 to: 66).! !
+!Behavior method!
+isEmpty
+	^ [
+	(items
+		cover: (13 to: 17)
+		declaredAt: (13 to: 17)) isEmpty ] valueCoveringAll:
+		{19 to: 25}.! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+!Behavior method!
+add: anItem
+	^ [
+	(self coverAll:
+		{17 to: 20})
+		add:
+			(1 coverAll:
+				{27 to: 27})
+		of:
+			(anItem
+				cover: (33 to: 38)
+				declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{22 to: 25. 29 to: 31}.! !
+!Behavior method!
+add: aQuantity of: anItem
+	[
+	(self coverAll:
+		{29 to: 32}) assertIsValidQuantity:
+		(aQuantity
+			cover: (57 to: 65)
+			declaredAt: (6 to: 14)) ] valueCoveringAll:
+		{34 to: 55}.
+	[
+	(self coverAll:
+		{69 to: 72}) assertIsValidItem:
+		(anItem
+			cover: (93 to: 98)
+			declaredAt: (20 to: 25)) ] valueCoveringAll:
+		{74 to: 91}.
+	[
+	(1 coverAll:
+		{103 to: 103})
+		to:
+			(aQuantity
+				cover: (109 to: 117)
+				declaredAt: (6 to: 14))
+		do: [ :aNumber |
+			[
+			(items
+				cover: (136 to: 140)
+				declaredAt: (136 to: 140)) add:
+				(anItem
+					cover: (147 to: 152)
+					declaredAt: (20 to: 25)) ] valueCoveringAll:
+				{142 to: 145} ]] valueCoveringAll:
+		{105 to: 107. 119 to: 121}.! !
+!Behavior method!
+assertIsValidQuantity: aQuantity
+	[
+	([
+	(aQuantity
+		cover: (36 to: 44)
+		declaredAt: (24 to: 32)) strictlyPositive ] valueCoveringAll:
+		{46 to: 61}) ifFalse: [
+		[
+		(self coverAll:
+			{74 to: 77}) error:
+			([
+			(self coverAll:
+				{86 to: 89}) invalidQuantityErrorMessage ] valueCoveringAll:
+				{91 to: 117}) ] valueCoveringAll:
+			{79 to: 84} ]] valueCoveringAll:
+		{63 to: 70}.! !
+!Behavior method!
+assertIsValidItem: anItem
+	[
+	([
+	(catalog
+		cover: (30 to: 36)
+		declaredAt: (30 to: 36)) includes:
+		(anItem
+			cover: (48 to: 53)
+			declaredAt: (20 to: 25)) ] valueCoveringAll:
+		{38 to: 46}) ifFalse: [
+		[
+		(self coverAll:
+			{67 to: 70}) error:
+			([
+			(self coverAll:
+				{79 to: 82}) invalidItemErrorMessage ] valueCoveringAll:
+				{84 to: 106}) ] valueCoveringAll:
+			{72 to: 77} ]] valueCoveringAll:
+		{56 to: 63}.! !
+!Behavior method!
+invalidItemErrorMessage
+	^ 'Item is not in catalog' coverAll:
+		{29 to: 52}.! !
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+!Behavior method!
+invalidQuantityErrorMessage
+	^ 'Invalid number of items' coverAll:
+		{33 to: 57}.! !
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+!Behavior method!
+includes: anItem
+	^ [
+	(items
+		cover: (21 to: 25)
+		declaredAt: (21 to: 25)) includes:
+		(anItem
+			cover: (37 to: 42)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{27 to: 35}.! !
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+!Behavior method!
+occurrencesOf: anItem
+	^ [
+	(items
+		cover: (26 to: 30)
+		declaredAt: (26 to: 30)) occurrencesOf:
+		(anItem
+			cover: (47 to: 52)
+			declaredAt: (16 to: 21)) ] valueCoveringAll:
+		{32 to: 45}.! !
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+!Behavior method!
+with: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessorSimulator
+	^ [
+	([
+	(self coverAll:
+		{96 to: 99}) new ] valueCoveringAll:
+		{101 to: 103})
+		initializeWith:
+			(aPriceList
+				cover: (121 to: 130)
+				declaredAt: (7 to: 16))
+		registerSalesOn:
+			(aSalesBook
+				cover: (149 to: 158)
+				declaredAt: (35 to: 44))
+		merchantProcessor:
+			(aMerchantProcessorSimulator
+				cover: (179 to: 205)
+				declaredAt: (65 to: 91)) ] valueCoveringAll:
+		{105 to: 119. 132 to: 147. 160 to: 177}.! !
+!Behavior method!
+initializeWith: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessorSimulator
+	(priceList _ aPriceList
+		cover: (120 to: 129)
+		declaredAt: (17 to: 26))
+		cover: (107 to: 115)
+		declaredAt: (107 to: 115).
+	(salesBook _ aSalesBook
+		cover: (146 to: 155)
+		declaredAt: (45 to: 54))
+		cover: (133 to: 141)
+		declaredAt: (133 to: 141).
+	(merchantProcessorSimulator _ aMerchantProcessorSimulator
+		cover: (189 to: 215)
+		declaredAt: (75 to: 101))
+		cover: (159 to: 184)
+		declaredAt: (159 to: 184).! !
+!Behavior method!
+owner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear
+	[
+	(self coverAll:
+		{90 to: 93}) assertCreditCardNumberIsValid:
+		(aCreditCardNumberString
+			cover: (126 to: 148)
+			declaredAt: (30 to: 52)) ] valueCoveringAll:
+		{95 to: 124}.
+	[
+	(self coverAll:
+		{152 to: 155}) assertNonBlankOwner:
+		(anOwnerString
+			cover: (178 to: 190)
+			declaredAt: (8 to: 20)) ] valueCoveringAll:
+		{157 to: 176}.
+	^ [
+	([
+	(self coverAll:
+		{195 to: 198}) new ] valueCoveringAll:
+		{200 to: 202})
+		initializeOwner:
+			(anOwnerString
+				cover: (221 to: 233)
+				declaredAt: (8 to: 20))
+		number:
+			(aCreditCardNumberString
+				cover: (243 to: 265)
+				declaredAt: (30 to: 52))
+		expiration:
+			(aGregorianMonthOfYear
+				cover: (279 to: 299)
+				declaredAt: (66 to: 86)) ] valueCoveringAll:
+		{204 to: 219. 235 to: 241. 267 to: 277}.! !
+!Behavior method!
+assertCreditCardNumberIsValid: aString
+	[
+	([
+	([
+	(aString
+		cover: (44 to: 50)
+		declaredAt: (32 to: 38)) size ] valueCoveringAll:
+		{52 to: 55}) =
+		(16 coverAll:
+			{59 to: 60}) ] valueCoveringAll:
+		{57 to: 57}) ifFalse: [
+		[
+		(self coverAll:
+			{72 to: 75}) error:
+			([
+			(self coverAll:
+				{84 to: 87}) InvalidCreditCardError ] valueCoveringAll:
+				{89 to: 110}) ] valueCoveringAll:
+			{77 to: 82} ]] valueCoveringAll:
+		{62 to: 69}.
+	[
+	([
+	(aString
+		cover: (117 to: 123)
+		declaredAt: (32 to: 38)) allSatisfy: [ :aDigit |
+		[
+		(aDigit
+			cover: (148 to: 153)
+			declaredAt: (139 to: 144)) isDigit ] valueCoveringAll:
+			{155 to: 161} ]] valueCoveringAll:
+		{125 to: 135}) ifFalse: [
+		[
+		(self coverAll:
+			{176 to: 179}) error:
+			([
+			(self coverAll:
+				{188 to: 191}) InvalidCreditCardError ] valueCoveringAll:
+				{193 to: 214}) ] valueCoveringAll:
+			{181 to: 186} ]] valueCoveringAll:
+		{166 to: 173}.! !
+!Behavior method!
+assertNonBlankOwner: anOwnerString
+	[
+	([
+	([
+	(anOwnerString
+		cover: (37 to: 49)
+		declaredAt: (22 to: 34)) withBlanksTrimmed ] valueCoveringAll:
+		{51 to: 67}) isEmpty ] valueCoveringAll:
+		{69 to: 75}) ifTrue: [
+		[
+		(self coverAll:
+			{86 to: 89}) error:
+			([
+			(self coverAll:
+				{98 to: 101}) InvalidCreditCardError ] valueCoveringAll:
+				{103 to: 124}) ] valueCoveringAll:
+			{91 to: 96} ]] valueCoveringAll:
+		{77 to: 83}.! !
+!Behavior method!
+initializeOwner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear
+	(ownerString _ anOwnerString
+		cover: (116 to: 128)
+		declaredAt: (18 to: 30))
+		cover: (101 to: 111)
+		declaredAt: (101 to: 111).
+	(creditCardNumberString _ aCreditCardNumberString
+		cover: (158 to: 180)
+		declaredAt: (40 to: 62))
+		cover: (132 to: 153)
+		declaredAt: (132 to: 153).
+	(gregorianMonthOfYear _ aGregorianMonthOfYear
+		cover: (208 to: 228)
+		declaredAt: (76 to: 96))
+		cover: (184 to: 203)
+		declaredAt: (184 to: 203).! !
+!Behavior method!
+checkout: aCart withCreditCard: aCreditCard
+	| totalPrice |
+	[
+	(self coverAll:
+		{61 to: 64}) assertCartIsNotEmpty:
+		(aCart
+			cover: (88 to: 92)
+			declaredAt: (11 to: 15)) ] valueCoveringAll:
+		{66 to: 86}.
+	[
+	(self coverAll:
+		{96 to: 99}) assertCreditCardIsValid:
+		(aCreditCard
+			cover: (126 to: 136)
+			declaredAt: (33 to: 43)) ] valueCoveringAll:
+		{101 to: 124}.
+	(totalPrice _ 0 coverAll:
+		{154 to: 154})
+		cover: (140 to: 149)
+		declaredAt: (48 to: 57).
+	[
+	(aCart
+		cover: (158 to: 162)
+		declaredAt: (11 to: 15)) do: [ :anElement |
+		(totalPrice _ [
+		([
+		(totalPrice
+			cover: (182 to: 191)
+			declaredAt: (48 to: 57)) +
+			(priceList
+				cover: (209 to: 217)
+				declaredAt: (209 to: 217)) ] valueCoveringAll:
+			{207 to: 207})
+			at:
+				(anElement
+					cover: (223 to: 231)
+					declaredAt: (170 to: 178))
+			ifAbsent: [
+				[
+				(self coverAll:
+					{244 to: 247}) itemNotInPriceListError ] valueCoveringAll:
+					{249 to: 271} ]] valueCoveringAll:
+			{219 to: 221. 233 to: 241})
+			cover: (196 to: 205)
+			declaredAt: (48 to: 57) ]] valueCoveringAll:
+		{164 to: 166}.
+	[
+	(merchantProcessorSimulator
+		cover: (278 to: 303)
+		declaredAt: (278 to: 303))
+		charge:
+			(totalPrice
+				cover: (313 to: 322)
+				declaredAt: (48 to: 57))
+		on:
+			(aCreditCard
+				cover: (329 to: 339)
+				declaredAt: (33 to: 43)) ] valueCoveringAll:
+		{305 to: 311. 325 to: 327}.
+	[
+	(salesBook
+		cover: (344 to: 352)
+		declaredAt: (344 to: 352)) add:
+		(totalPrice
+			cover: (359 to: 368)
+			declaredAt: (48 to: 57)) ] valueCoveringAll:
+		{354 to: 357}.
+	^ totalPrice
+		cover: (374 to: 383)
+		declaredAt: (48 to: 57).! !
+!Behavior method!
+assertCartIsNotEmpty: aCart
+	^ [
+	([
+	(aCart
+		cover: (33 to: 37)
+		declaredAt: (23 to: 27)) isEmpty ] valueCoveringAll:
+		{39 to: 45}) ifTrue: [
+		[
+		(self coverAll:
+			{57 to: 60}) error:
+			([
+			([
+			(self coverAll:
+				{69 to: 72}) class ] valueCoveringAll:
+				{74 to: 78}) CanNotCheckoutEmptyCart ] valueCoveringAll:
+				{80 to: 102}) ] valueCoveringAll:
+			{62 to: 67} ]] valueCoveringAll:
+		{47 to: 53}.! !
+!Behavior method!
+CanNotCheckoutEmptyCart
+	^ 'The cart is empty' coverAll:
+		{27 to: 45}.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+!Behavior method!
+assertCreditCardIsValid: aCreditCard
+	[
+	([
+	([
+	(aCreditCard
+		cover: (41 to: 51)
+		declaredAt: (26 to: 36)) expirationDate ] valueCoveringAll:
+		{53 to: 66}) <
+		([
+		(GregorianMonthOfYear
+			cover: (70 to: 89)
+			declaredAt: (70 to: 89)) current ] valueCoveringAll:
+			{91 to: 97}) ] valueCoveringAll:
+		{68 to: 68}) ifTrue: [
+		[
+		(self coverAll:
+			{108 to: 111}) error:
+			([
+			([
+			(self coverAll:
+				{120 to: 123}) class ] valueCoveringAll:
+				{125 to: 129}) ExpiredCreditCardError ] valueCoveringAll:
+				{131 to: 152}) ] valueCoveringAll:
+			{113 to: 118} ]] valueCoveringAll:
+		{99 to: 105}.! !
+!Behavior method!
+expirationDate
+	^ gregorianMonthOfYear
+		cover: (19 to: 38)
+		declaredAt: (19 to: 38).! !
+!Behavior method!
+do: aBlockClosure
+	[
+	(items
+		cover: (21 to: 25)
+		declaredAt: (21 to: 25)) do:
+		(aBlockClosure
+			cover: (31 to: 43)
+			declaredAt: (5 to: 17)) ] valueCoveringAll:
+		{27 to: 29}.! !
+!Behavior method!
+itemNotInPriceListError
+	^ [
+	(self coverAll:
+		{29 to: 32}) error:
+		([
+		([
+		(self coverAll:
+			{41 to: 44}) class ] valueCoveringAll:
+			{46 to: 50}) AnItemIsNotInThePriceList ] valueCoveringAll:
+			{52 to: 76}) ] valueCoveringAll:
+		{34 to: 39}.! !
+!Behavior method!
+AnItemIsNotInThePriceList
+	^ 'An item in the cart is not in the price list' coverAll:
+		{29 to: 74}.! !
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+!Behavior method!
+charge: aCharge on: aCreditCard
+	[
+	(messageError
+		cover: (35 to: 46)
+		declaredAt: (35 to: 46)) ifNotNil: [
+		[
+		(self coverAll:
+			{60 to: 63}) error:
+			(messageError
+				cover: (72 to: 83)
+				declaredAt: (35 to: 46)) ] valueCoveringAll:
+			{65 to: 70} ]] valueCoveringAll:
+		{48 to: 56}.! !
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+!Behavior method!
+ExpiredCreditCardError
+	^ 'The credit card is expired' coverAll:
+		{26 to: 53}.! !
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+!Behavior method!
+CreditCardWithoutCreditError
+	^ 'La tarjeta no tiene suficiente crédito.' coverAll:
+		{33 to: 73}.! !
+!Behavior method!
+raiseErrorOnCharge: aMessageError
+	(messageError _ aMessageError
+		cover: (53 to: 65)
+		declaredAt: (21 to: 33))
+		cover: (37 to: 48)
+		declaredAt: (37 to: 48).! !
+
+!testRun: #CashierTest #test06CanNotCheckoutWithACreditCardWithoutCredit stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+!Behavior method!
+StolenCreditCardError
+	^ 'La tarjeta de crédito es robada' coverAll:
+		{27 to: 59}.! !
+
+!testRun: #CashierTest #test07CanNotCheckoutWithAStolenCreditCard stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+!Behavior method!
+FakeCreditCardError
+	^ 'La tarjeta de crédito es falsa' coverAll:
+		{23 to: 54}.! !
+
+!testRun: #CashierTest #test08CanNotCheckoutWithAFakeCreditCard stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+!Behavior method!
+InvalidCreditCardError
+	^ 'Los datos de la tarjeta de crédito son inválidos' coverAll:
+		{26 to: 75}.! !
+
+!testRun: #CreditCardTest #test01 stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+
+!testRun: #CreditCardTest #test02 stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+
+!testRun: #CreditCardTest #test03 stamp: 'JA 6/14/2021 21:07:56'!
+PASSED!
+
+!methodRemoval: Cashier #initializeWith: stamp: 'JA 6/14/2021 21:09:47'!
+initializeWith: aPriceList 
+
+	priceList := aPriceList.!
+
+!methodRemoval: Cashier #initializeWith:registerSalesOn: stamp: 'JA 6/14/2021 21:09:49'!
+initializeWith: aPriceList registerSalesOn: aSalesBook 	
+	priceList := aPriceList.
+	salesBook := aSalesBook.!
+!Behavior method!
+acceptingItemsOf: aCatalog
+	^ [
+	([
+	(self coverAll:
+		{31 to: 34}) new ] valueCoveringAll:
+		{36 to: 38}) initializeAcceptingItemsOf:
+		(aCatalog
+			cover: (68 to: 75)
+			declaredAt: (19 to: 26)) ] valueCoveringAll:
+		{40 to: 66}.! !
+!Behavior method!
+initializeAcceptingItemsOf: aCatalog
+	(catalog _ aCatalog
+		cover: (51 to: 58)
+		declaredAt: (29 to: 36))
+		cover: (40 to: 46)
+		declaredAt: (40 to: 46).
+	(items _ [
+	(OrderedCollection
+		cover: (71 to: 87)
+		declaredAt: (71 to: 87)) new ] valueCoveringAll:
+		{89 to: 91})
+		cover: (62 to: 66)
+		declaredAt: (62 to: 66).! !
+!Behavior method!
+isEmpty
+	^ [
+	(items
+		cover: (13 to: 17)
+		declaredAt: (13 to: 17)) isEmpty ] valueCoveringAll:
+		{19 to: 25}.! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+!Behavior method!
+add: anItem
+	^ [
+	(self coverAll:
+		{17 to: 20})
+		add:
+			(1 coverAll:
+				{27 to: 27})
+		of:
+			(anItem
+				cover: (33 to: 38)
+				declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{22 to: 25. 29 to: 31}.! !
+!Behavior method!
+add: aQuantity of: anItem
+	[
+	(self coverAll:
+		{29 to: 32}) assertIsValidQuantity:
+		(aQuantity
+			cover: (57 to: 65)
+			declaredAt: (6 to: 14)) ] valueCoveringAll:
+		{34 to: 55}.
+	[
+	(self coverAll:
+		{69 to: 72}) assertIsValidItem:
+		(anItem
+			cover: (93 to: 98)
+			declaredAt: (20 to: 25)) ] valueCoveringAll:
+		{74 to: 91}.
+	[
+	(1 coverAll:
+		{103 to: 103})
+		to:
+			(aQuantity
+				cover: (109 to: 117)
+				declaredAt: (6 to: 14))
+		do: [ :aNumber |
+			[
+			(items
+				cover: (136 to: 140)
+				declaredAt: (136 to: 140)) add:
+				(anItem
+					cover: (147 to: 152)
+					declaredAt: (20 to: 25)) ] valueCoveringAll:
+				{142 to: 145} ]] valueCoveringAll:
+		{105 to: 107. 119 to: 121}.! !
+!Behavior method!
+assertIsValidQuantity: aQuantity
+	[
+	([
+	(aQuantity
+		cover: (36 to: 44)
+		declaredAt: (24 to: 32)) strictlyPositive ] valueCoveringAll:
+		{46 to: 61}) ifFalse: [
+		[
+		(self coverAll:
+			{74 to: 77}) error:
+			([
+			(self coverAll:
+				{86 to: 89}) invalidQuantityErrorMessage ] valueCoveringAll:
+				{91 to: 117}) ] valueCoveringAll:
+			{79 to: 84} ]] valueCoveringAll:
+		{63 to: 70}.! !
+!Behavior method!
+assertIsValidItem: anItem
+	[
+	([
+	(catalog
+		cover: (30 to: 36)
+		declaredAt: (30 to: 36)) includes:
+		(anItem
+			cover: (48 to: 53)
+			declaredAt: (20 to: 25)) ] valueCoveringAll:
+		{38 to: 46}) ifFalse: [
+		[
+		(self coverAll:
+			{67 to: 70}) error:
+			([
+			(self coverAll:
+				{79 to: 82}) invalidItemErrorMessage ] valueCoveringAll:
+				{84 to: 106}) ] valueCoveringAll:
+			{72 to: 77} ]] valueCoveringAll:
+		{56 to: 63}.! !
+!Behavior method!
+invalidItemErrorMessage
+	^ 'Item is not in catalog' coverAll:
+		{29 to: 52}.! !
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+!Behavior method!
+invalidQuantityErrorMessage
+	^ 'Invalid number of items' coverAll:
+		{33 to: 57}.! !
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+!Behavior method!
+includes: anItem
+	^ [
+	(items
+		cover: (21 to: 25)
+		declaredAt: (21 to: 25)) includes:
+		(anItem
+			cover: (37 to: 42)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{27 to: 35}.! !
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+!Behavior method!
+occurrencesOf: anItem
+	^ [
+	(items
+		cover: (26 to: 30)
+		declaredAt: (26 to: 30)) occurrencesOf:
+		(anItem
+			cover: (47 to: 52)
+			declaredAt: (16 to: 21)) ] valueCoveringAll:
+		{32 to: 45}.! !
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+!Behavior method!
+with: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessorSimulator
+	^ [
+	([
+	(self coverAll:
+		{96 to: 99}) new ] valueCoveringAll:
+		{101 to: 103})
+		initializeWith:
+			(aPriceList
+				cover: (121 to: 130)
+				declaredAt: (7 to: 16))
+		registerSalesOn:
+			(aSalesBook
+				cover: (149 to: 158)
+				declaredAt: (35 to: 44))
+		merchantProcessor:
+			(aMerchantProcessorSimulator
+				cover: (179 to: 205)
+				declaredAt: (65 to: 91)) ] valueCoveringAll:
+		{105 to: 119. 132 to: 147. 160 to: 177}.! !
+!Behavior method!
+initializeWith: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessorSimulator
+	(priceList _ aPriceList
+		cover: (120 to: 129)
+		declaredAt: (17 to: 26))
+		cover: (107 to: 115)
+		declaredAt: (107 to: 115).
+	(salesBook _ aSalesBook
+		cover: (146 to: 155)
+		declaredAt: (45 to: 54))
+		cover: (133 to: 141)
+		declaredAt: (133 to: 141).
+	(merchantProcessorSimulator _ aMerchantProcessorSimulator
+		cover: (189 to: 215)
+		declaredAt: (75 to: 101))
+		cover: (159 to: 184)
+		declaredAt: (159 to: 184).! !
+!Behavior method!
+owner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear
+	[
+	(self coverAll:
+		{90 to: 93}) assertCreditCardNumberIsValid:
+		(aCreditCardNumberString
+			cover: (126 to: 148)
+			declaredAt: (30 to: 52)) ] valueCoveringAll:
+		{95 to: 124}.
+	[
+	(self coverAll:
+		{152 to: 155}) assertNonBlankOwner:
+		(anOwnerString
+			cover: (178 to: 190)
+			declaredAt: (8 to: 20)) ] valueCoveringAll:
+		{157 to: 176}.
+	^ [
+	([
+	(self coverAll:
+		{195 to: 198}) new ] valueCoveringAll:
+		{200 to: 202})
+		initializeOwner:
+			(anOwnerString
+				cover: (221 to: 233)
+				declaredAt: (8 to: 20))
+		number:
+			(aCreditCardNumberString
+				cover: (243 to: 265)
+				declaredAt: (30 to: 52))
+		expiration:
+			(aGregorianMonthOfYear
+				cover: (279 to: 299)
+				declaredAt: (66 to: 86)) ] valueCoveringAll:
+		{204 to: 219. 235 to: 241. 267 to: 277}.! !
+!Behavior method!
+assertCreditCardNumberIsValid: aString
+	[
+	([
+	([
+	(aString
+		cover: (44 to: 50)
+		declaredAt: (32 to: 38)) size ] valueCoveringAll:
+		{52 to: 55}) =
+		(16 coverAll:
+			{59 to: 60}) ] valueCoveringAll:
+		{57 to: 57}) ifFalse: [
+		[
+		(self coverAll:
+			{72 to: 75}) error:
+			([
+			(self coverAll:
+				{84 to: 87}) InvalidCreditCardError ] valueCoveringAll:
+				{89 to: 110}) ] valueCoveringAll:
+			{77 to: 82} ]] valueCoveringAll:
+		{62 to: 69}.
+	[
+	([
+	(aString
+		cover: (117 to: 123)
+		declaredAt: (32 to: 38)) allSatisfy: [ :aDigit |
+		[
+		(aDigit
+			cover: (148 to: 153)
+			declaredAt: (139 to: 144)) isDigit ] valueCoveringAll:
+			{155 to: 161} ]] valueCoveringAll:
+		{125 to: 135}) ifFalse: [
+		[
+		(self coverAll:
+			{176 to: 179}) error:
+			([
+			(self coverAll:
+				{188 to: 191}) InvalidCreditCardError ] valueCoveringAll:
+				{193 to: 214}) ] valueCoveringAll:
+			{181 to: 186} ]] valueCoveringAll:
+		{166 to: 173}.! !
+!Behavior method!
+assertNonBlankOwner: anOwnerString
+	[
+	([
+	([
+	(anOwnerString
+		cover: (37 to: 49)
+		declaredAt: (22 to: 34)) withBlanksTrimmed ] valueCoveringAll:
+		{51 to: 67}) isEmpty ] valueCoveringAll:
+		{69 to: 75}) ifTrue: [
+		[
+		(self coverAll:
+			{86 to: 89}) error:
+			([
+			(self coverAll:
+				{98 to: 101}) InvalidCreditCardError ] valueCoveringAll:
+				{103 to: 124}) ] valueCoveringAll:
+			{91 to: 96} ]] valueCoveringAll:
+		{77 to: 83}.! !
+!Behavior method!
+initializeOwner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear
+	(ownerString _ anOwnerString
+		cover: (116 to: 128)
+		declaredAt: (18 to: 30))
+		cover: (101 to: 111)
+		declaredAt: (101 to: 111).
+	(creditCardNumberString _ aCreditCardNumberString
+		cover: (158 to: 180)
+		declaredAt: (40 to: 62))
+		cover: (132 to: 153)
+		declaredAt: (132 to: 153).
+	(gregorianMonthOfYear _ aGregorianMonthOfYear
+		cover: (208 to: 228)
+		declaredAt: (76 to: 96))
+		cover: (184 to: 203)
+		declaredAt: (184 to: 203).! !
+!Behavior method!
+checkout: aCart withCreditCard: aCreditCard
+	| totalPrice |
+	[
+	(self coverAll:
+		{61 to: 64}) assertCartIsNotEmpty:
+		(aCart
+			cover: (88 to: 92)
+			declaredAt: (11 to: 15)) ] valueCoveringAll:
+		{66 to: 86}.
+	[
+	(self coverAll:
+		{96 to: 99}) assertCreditCardIsValid:
+		(aCreditCard
+			cover: (126 to: 136)
+			declaredAt: (33 to: 43)) ] valueCoveringAll:
+		{101 to: 124}.
+	(totalPrice _ 0 coverAll:
+		{154 to: 154})
+		cover: (140 to: 149)
+		declaredAt: (48 to: 57).
+	[
+	(aCart
+		cover: (158 to: 162)
+		declaredAt: (11 to: 15)) do: [ :anElement |
+		(totalPrice _ [
+		([
+		(totalPrice
+			cover: (182 to: 191)
+			declaredAt: (48 to: 57)) +
+			(priceList
+				cover: (209 to: 217)
+				declaredAt: (209 to: 217)) ] valueCoveringAll:
+			{207 to: 207})
+			at:
+				(anElement
+					cover: (223 to: 231)
+					declaredAt: (170 to: 178))
+			ifAbsent: [
+				[
+				(self coverAll:
+					{244 to: 247}) itemNotInPriceListError ] valueCoveringAll:
+					{249 to: 271} ]] valueCoveringAll:
+			{219 to: 221. 233 to: 241})
+			cover: (196 to: 205)
+			declaredAt: (48 to: 57) ]] valueCoveringAll:
+		{164 to: 166}.
+	[
+	(merchantProcessorSimulator
+		cover: (278 to: 303)
+		declaredAt: (278 to: 303))
+		charge:
+			(totalPrice
+				cover: (313 to: 322)
+				declaredAt: (48 to: 57))
+		on:
+			(aCreditCard
+				cover: (329 to: 339)
+				declaredAt: (33 to: 43)) ] valueCoveringAll:
+		{305 to: 311. 325 to: 327}.
+	[
+	(salesBook
+		cover: (344 to: 352)
+		declaredAt: (344 to: 352)) add:
+		(totalPrice
+			cover: (359 to: 368)
+			declaredAt: (48 to: 57)) ] valueCoveringAll:
+		{354 to: 357}.
+	^ totalPrice
+		cover: (374 to: 383)
+		declaredAt: (48 to: 57).! !
+!Behavior method!
+assertCartIsNotEmpty: aCart
+	^ [
+	([
+	(aCart
+		cover: (33 to: 37)
+		declaredAt: (23 to: 27)) isEmpty ] valueCoveringAll:
+		{39 to: 45}) ifTrue: [
+		[
+		(self coverAll:
+			{57 to: 60}) error:
+			([
+			([
+			(self coverAll:
+				{69 to: 72}) class ] valueCoveringAll:
+				{74 to: 78}) CanNotCheckoutEmptyCart ] valueCoveringAll:
+				{80 to: 102}) ] valueCoveringAll:
+			{62 to: 67} ]] valueCoveringAll:
+		{47 to: 53}.! !
+!Behavior method!
+CanNotCheckoutEmptyCart
+	^ 'The cart is empty' coverAll:
+		{27 to: 45}.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+!Behavior method!
+assertCreditCardIsValid: aCreditCard
+	[
+	([
+	([
+	(aCreditCard
+		cover: (41 to: 51)
+		declaredAt: (26 to: 36)) expirationDate ] valueCoveringAll:
+		{53 to: 66}) <
+		([
+		(GregorianMonthOfYear
+			cover: (70 to: 89)
+			declaredAt: (70 to: 89)) current ] valueCoveringAll:
+			{91 to: 97}) ] valueCoveringAll:
+		{68 to: 68}) ifTrue: [
+		[
+		(self coverAll:
+			{108 to: 111}) error:
+			([
+			([
+			(self coverAll:
+				{120 to: 123}) class ] valueCoveringAll:
+				{125 to: 129}) ExpiredCreditCardError ] valueCoveringAll:
+				{131 to: 152}) ] valueCoveringAll:
+			{113 to: 118} ]] valueCoveringAll:
+		{99 to: 105}.! !
+!Behavior method!
+expirationDate
+	^ gregorianMonthOfYear
+		cover: (19 to: 38)
+		declaredAt: (19 to: 38).! !
+!Behavior method!
+do: aBlockClosure
+	[
+	(items
+		cover: (21 to: 25)
+		declaredAt: (21 to: 25)) do:
+		(aBlockClosure
+			cover: (31 to: 43)
+			declaredAt: (5 to: 17)) ] valueCoveringAll:
+		{27 to: 29}.! !
+!Behavior method!
+itemNotInPriceListError
+	^ [
+	(self coverAll:
+		{29 to: 32}) error:
+		([
+		([
+		(self coverAll:
+			{41 to: 44}) class ] valueCoveringAll:
+			{46 to: 50}) AnItemIsNotInThePriceList ] valueCoveringAll:
+			{52 to: 76}) ] valueCoveringAll:
+		{34 to: 39}.! !
+!Behavior method!
+AnItemIsNotInThePriceList
+	^ 'An item in the cart is not in the price list' coverAll:
+		{29 to: 74}.! !
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+!Behavior method!
+charge: aCharge on: aCreditCard
+	[
+	(messageError
+		cover: (35 to: 46)
+		declaredAt: (35 to: 46)) ifNotNil: [
+		[
+		(self coverAll:
+			{60 to: 63}) error:
+			(messageError
+				cover: (72 to: 83)
+				declaredAt: (35 to: 46)) ] valueCoveringAll:
+			{65 to: 70} ]] valueCoveringAll:
+		{48 to: 56}.! !
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+!Behavior method!
+ExpiredCreditCardError
+	^ 'The credit card is expired' coverAll:
+		{26 to: 53}.! !
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+!Behavior method!
+CreditCardWithoutCreditError
+	^ 'La tarjeta no tiene suficiente crédito.' coverAll:
+		{33 to: 73}.! !
+!Behavior method!
+raiseErrorOnCharge: aMessageError
+	(messageError _ aMessageError
+		cover: (53 to: 65)
+		declaredAt: (21 to: 33))
+		cover: (37 to: 48)
+		declaredAt: (37 to: 48).! !
+
+!testRun: #CashierTest #test06CanNotCheckoutWithACreditCardWithoutCredit stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+!Behavior method!
+StolenCreditCardError
+	^ 'La tarjeta de crédito es robada' coverAll:
+		{27 to: 59}.! !
+
+!testRun: #CashierTest #test07CanNotCheckoutWithAStolenCreditCard stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+!Behavior method!
+FakeCreditCardError
+	^ 'La tarjeta de crédito es falsa' coverAll:
+		{23 to: 54}.! !
+
+!testRun: #CashierTest #test08CanNotCheckoutWithAFakeCreditCard stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+!Behavior method!
+InvalidCreditCardError
+	^ 'Los datos de la tarjeta de crédito son inválidos' coverAll:
+		{26 to: 75}.! !
+
+!testRun: #CreditCardTest #test01 stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+
+!testRun: #CreditCardTest #test02 stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+
+!testRun: #CreditCardTest #test03 stamp: 'JA 6/14/2021 21:09:57'!
+PASSED!
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 21:26:34'!
+test01CanNotCreateCreditCardWithNumberOfIncorrectSize
+	self should: [ CreditCard owner: 'Juan' number: '1234' expiration: GregorianMonthOfYear current.]
+	 	raise:  Error
+		withExceptionDo:[ :anException | self assert: CreditCard InvalidCreditCardError equals: anException messageText	] ! !
+
+!methodRemoval: CreditCardTest #test01 stamp: 'JA 6/14/2021 21:26:34'!
+test01
+	self should: [ CreditCard owner: 'Juan' number: '1234' expiration: GregorianMonthOfYear current.]
+	 	raise:  Error
+		withExceptionDo:[ :anException | self assert: CreditCard InvalidCreditCardError equals: anException messageText	] !
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 21:27:03'!
+test01CanNotCreateCreditCardWithIncorrectSizeNumber
+	self should: [ CreditCard owner: 'Juan' number: '1234' expiration: GregorianMonthOfYear current.]
+	 	raise:  Error
+		withExceptionDo:[ :anException | self assert: CreditCard InvalidCreditCardError equals: anException messageText	] ! !
+
+!methodRemoval: CreditCardTest #test01CanNotCreateCreditCardWithNumberOfIncorrectSize stamp: 'JA 6/14/2021 21:27:03'!
+test01CanNotCreateCreditCardWithNumberOfIncorrectSize
+	self should: [ CreditCard owner: 'Juan' number: '1234' expiration: GregorianMonthOfYear current.]
+	 	raise:  Error
+		withExceptionDo:[ :anException | self assert: CreditCard InvalidCreditCardError equals: anException messageText	] !
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 21:28:29'!
+test02CanNotCreateCreditCardWithAlphaNumericNumber
+	self should: [ CreditCard owner: 'Juan' number: '1234567890ABCDEF' expiration: GregorianMonthOfYear current.]
+	 	raise:  Error
+		withExceptionDo:[ :anException | self assert: CreditCard InvalidCreditCardError equals: anException messageText	] ! !
+
+!methodRemoval: CreditCardTest #test02 stamp: 'JA 6/14/2021 21:28:29'!
+test02
+	self should: [ CreditCard owner: 'Juan' number: '1234567890ABCDEF' expiration: GregorianMonthOfYear current.]
+	 	raise:  Error
+		withExceptionDo:[ :anException | self assert: CreditCard InvalidCreditCardError equals: anException messageText	] !
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 21:29:10'!
+test03CanNotCreateCreditCardWithBlankOwner
+	self should: [ CreditCard owner: '    ' number: '1234567890123456' expiration: GregorianMonthOfYear current.]
+	 	raise:  Error - MessageNotUnderstood 
+		withExceptionDo:[ :anException | self assert: CreditCard InvalidCreditCardError equals: anException messageText	] ! !
+
+!methodRemoval: CreditCardTest #test03 stamp: 'JA 6/14/2021 21:29:10'!
+test03
+	self should: [ CreditCard owner: '    ' number: '1234567890123456' expiration: GregorianMonthOfYear current.]
+	 	raise:  Error - MessageNotUnderstood 
+		withExceptionDo:[ :anException | self assert: CreditCard InvalidCreditCardError equals: anException messageText	] !
+
+----QUIT----(14 June 2021 21:33:09) CuisUniversity-4532.image priorSource: 16891931!
