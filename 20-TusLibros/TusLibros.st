@@ -251,10 +251,10 @@ test05CanNotCheckoutWithExpiratedCreditCard
 		
 		! !
 
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:34:50'!
-test06CanNotCheckoutWithACreditCardWithoutCredit
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:04:45'!
+test06CanNotCheckoutIfMerchantProcessorRaisesError
 
-	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor |
+	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor messageError |
 	
 	catalog := OrderedCollection new.
 	
@@ -267,10 +267,11 @@ test06CanNotCheckoutWithACreditCardWithoutCredit
 	
 	priceList add: 'book'->1.
 	
+	messageError := 'Something unexpected happened'.
 	
 	aSalesBook := OrderedCollection new.
 	aMerchantProcessor := MerchantProcessorSimulator new.
-	aMerchantProcessor raiseErrorOnCharge: Cashier CreditCardWithoutCreditError.
+	aMerchantProcessor raiseErrorOnCharge: messageError.
 	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
 		
 	creditCard := self validCreditCard.
@@ -279,75 +280,7 @@ test06CanNotCheckoutWithACreditCardWithoutCredit
 	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
 	raise: Error - MessageNotUnderstood
 	withExceptionDo: [ :anError |
-			self assert: anError messageText = Cashier CreditCardWithoutCreditError.
-			self assert: aSalesBook isEmpty ]	.
-		
-		
-		! !
-
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:35:28'!
-test07CanNotCheckoutWithAStolenCreditCard
-
-	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor |
-	
-	catalog := OrderedCollection new.
-	
-	cart := Cart acceptingItemsOf: catalog.
-	catalog add: 'book'.
-	cart add: 'book'.
-	
-	
-	priceList := Dictionary new.
-	
-	priceList add: 'book'->1.
-	
-	
-	aSalesBook := OrderedCollection new.
-	aMerchantProcessor := MerchantProcessorSimulator new.
-	aMerchantProcessor raiseErrorOnCharge: Cashier StolenCreditCardError.
-	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
-		
-	creditCard := self validCreditCard.
-	
-	
-	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
-	raise: Error - MessageNotUnderstood
-	withExceptionDo: [ :anError |
-			self assert: anError messageText = Cashier StolenCreditCardError.
-			self assert: aSalesBook isEmpty ]	.
-		
-		
-		! !
-
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:35:59'!
-test08CanNotCheckoutWithAFakeCreditCard
-
-	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor |
-	
-	catalog := OrderedCollection new.
-	
-	cart := Cart acceptingItemsOf: catalog.
-	catalog add: 'book'.
-	cart add: 'book'.
-	
-	
-	priceList := Dictionary new.
-	
-	priceList add: 'book'->1.
-	
-	
-	aSalesBook := OrderedCollection new.
-	aMerchantProcessor := MerchantProcessorSimulator new.
-	aMerchantProcessor raiseErrorOnCharge: Cashier FakeCreditCardError.
-	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
-		
-	creditCard := self validCreditCard.
-	
-	
-	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
-	raise: Error - MessageNotUnderstood
-	withExceptionDo: [ :anError |
-			self assert: anError messageText = Cashier FakeCreditCardError.
+			self assert: anError messageText = messageError.
 			self assert: aSalesBook isEmpty ]	.
 		
 		
@@ -536,14 +469,6 @@ CreditCardWithoutCreditError
 !Cashier class methodsFor: 'as yet unclassified' stamp: 'ET 6/10/2021 20:43:48'!
 ExpiredCreditCardError
 	^'The credit card is expired'.! !
-
-!Cashier class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:32:16'!
-FakeCreditCardError
-	^'La tarjeta de crédito es falsa'! !
-
-!Cashier class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:31:11'!
-StolenCreditCardError
- 	^ 'La tarjeta de crédito es robada'! !
 
 
 !classDefinition: #CreditCard category: 'TusLibros'!
