@@ -6064,3 +6064,2119 @@ StolenCreditCardError
 !methodRemoval: Cashier class #FakeCreditCardError stamp: 'ET 6/16/2021 17:05:20'!
 FakeCreditCardError
 	^'La tarjeta de crédito es falsa'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:11:03' prior: 51044120!
+test01CanNotCheckoutEmptyCart
+
+	|cart catalog cashier priceList aSalesBook aMerchantProcessor |
+	
+	catalog := OrderedCollection new.
+	priceList := Dictionary new.
+	cart := Cart acceptingItemsOf: priceList keys.
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard.]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CanNotCheckoutEmptyCart. 
+			self assert: aSalesBook isEmpty.]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:11:17' prior: 51045578!
+test01CanNotCheckoutEmptyCart
+
+	|cart cashier priceList aSalesBook aMerchantProcessor |
+
+	priceList := Dictionary new.
+	cart := Cart acceptingItemsOf: priceList keys.
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard.]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CanNotCheckoutEmptyCart. 
+			self assert: aSalesBook isEmpty.]! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 17:11:18'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 17:11:18'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 17:11:18'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 17:11:18'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 17:11:18'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/16/2021 17:11:18'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 17:11:18'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:12:13' prior: 51045444!
+test06CanNotCheckoutIfMerchantProcessorRaisesError
+
+	|cart catalog cashier priceList creditCard aSalesBook aMerchantProcessor messageError |
+	
+	catalog := OrderedCollection new.
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: catalog.
+	catalog add: 'book'.
+	cart add: 'book'.
+	
+	
+	
+	
+	messageError := 'Something unexpected happened'.
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: messageError.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = messageError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:12:26' prior: 51045649!
+test06CanNotCheckoutIfMerchantProcessorRaisesError
+
+	|cart cashier priceList creditCard aSalesBook aMerchantProcessor messageError |
+
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	
+	
+	
+	
+	messageError := 'Something unexpected happened'.
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: messageError.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = messageError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 17:12:29'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 17:12:29'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 17:12:29'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 17:12:29'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 17:12:29'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/16/2021 17:12:29'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 17:12:29'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:12:57' prior: 51044217!
+test05CanNotCheckoutWithExpiratedCreditCard
+
+	|cart cashier priceList creditCard aSalesBook aMerchantProcessor |
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self expiredCreditCard.
+
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier ExpiredCreditCardError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:13:04' prior: 51045736!
+test05CanNotCheckoutWithExpiratedCreditCard
+
+	|cart cashier priceList creditCard aSalesBook aMerchantProcessor |
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self expiredCreditCard.
+
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier ExpiredCreditCardError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/16/2021 17:13:05'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 17:13:05'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 17:13:05'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 17:13:05'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 17:13:05'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/16/2021 17:13:05'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 17:13:05'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:13:37' prior: 51044192!
+test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
+
+	|cart cashier priceList aSalesBook aMerchantProcessor |
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	cart add: 'book'.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.		
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.		
+	self assert: 2 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).
+	self assert: 1 equals: aSalesBook size.
+	self assert: 2 equals: aSalesBook first.! !
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 17:13:40'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 17:13:40'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 17:13:40'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 17:13:40'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 17:13:40'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/16/2021 17:13:40'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 17:13:40'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:14:31' prior: 51044168!
+test03CheckoutCartWithOneItemReturnsThePriceOfThatItem
+
+	|cart cashier priceList aSalesBook aMerchantProcessor |
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	cart add: 'book'.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.	
+	
+	self assert: 1 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).
+	self assert: 1 equals: aSalesBook size.
+	self assert: 1 equals: aSalesBook first.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:14:37' prior: 51045864!
+test03CheckoutCartWithOneItemReturnsThePriceOfThatItem
+
+	|cart cashier priceList aSalesBook aMerchantProcessor |
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.	
+	
+	self assert: 1 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).
+	self assert: 1 equals: aSalesBook size.
+	self assert: 1 equals: aSalesBook first.! !
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 17:14:37'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 17:14:37'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 17:14:37'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 17:14:38'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 17:14:38'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/16/2021 17:14:38'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 17:14:38'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:16:08' prior: 51044143!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart cashier priceList aSalesBook aMerchantProcessor |
+	
+	cart := Cart acceptingItemsOf: (Array with: 'book').
+	cart add: 'book'.
+	priceList := Dictionary new.
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier AnItemIsNotInThePriceList. 
+			self assert: aSalesBook isEmpty]! !
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 17:16:08'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 17:16:08'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 17:16:08'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 17:16:08'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 17:16:08'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/16/2021 17:16:08'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 17:16:08'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:16:41' prior: 51045681!
+test06CanNotCheckoutIfMerchantProcessorRaisesError
+
+	|cart cashier priceList creditCard aSalesBook aMerchantProcessor messageError |
+
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+
+	messageError := 'Something unexpected happened'.
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: messageError.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = messageError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:19:41'!
+newCashierWithPriceList: aPriceList salesBook: aSalesBook
+	
+	^Cashier with: aPriceList registerSalesOn: aSalesBook merchantProcessor: MerchantProcessorSimulator new.
+		
+		! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:20:50' prior: 51045764!
+test05CanNotCheckoutWithExpiratedCreditCard
+
+	|cart cashier priceList creditCard aSalesBook |
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+		
+	creditCard := self expiredCreditCard.
+
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier ExpiredCreditCardError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:21:08' prior: 51045815!
+test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
+
+	|cart cashier priceList aSalesBook |
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	cart add: 'book'.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	self assert: 2 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).
+	self assert: 1 equals: aSalesBook size.
+	self assert: 2 equals: aSalesBook first.! !
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 17:21:11'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 17:21:11'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 17:21:11'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 17:21:11'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 17:21:11'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/16/2021 17:21:11'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 17:21:11'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:21:22' prior: 51045887!
+test03CheckoutCartWithOneItemReturnsThePriceOfThatItem
+
+	|cart cashier priceList aSalesBook |
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	
+	self assert: 1 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).
+	self assert: 1 equals: aSalesBook size.
+	self assert: 1 equals: aSalesBook first.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:21:34' prior: 51045935!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart cashier priceList aSalesBook |
+	
+	cart := Cart acceptingItemsOf: (Array with: 'book').
+	cart add: 'book'.
+	priceList := Dictionary new.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier AnItemIsNotInThePriceList. 
+			self assert: aSalesBook isEmpty]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:21:41' prior: 51045602!
+test01CanNotCheckoutEmptyCart
+
+	|cart cashier priceList aSalesBook |
+
+	priceList := Dictionary new.
+	cart := Cart acceptingItemsOf: priceList keys.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard.]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CanNotCheckoutEmptyCart. 
+			self assert: aSalesBook isEmpty.]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:31:51'!
+assertCashier: aCashier checkout: aCart  with: aCreditCard raisesErrorMessage: anErrorMessage forSalesBook: aSalesBook
+	self should: [aCashier checkout: aCart  withCreditCard: aCreditCard]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = anErrorMessage.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:33:34' prior: 51046130!
+test01CanNotCheckoutEmptyCart
+
+	|cart cashier priceList aSalesBook |
+
+	priceList := Dictionary new.
+	cart := Cart acceptingItemsOf: priceList keys.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	
+	self 
+		assertCashier: cashier  
+		checkout: cart
+		with: self validCreditCard
+		raisesErrorMessage: Cashier CanNotCheckoutEmptyCart
+		forSalesBook: aSalesBook.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 17:33:36'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 17:33:36'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 17:33:36'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 17:33:36'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 17:33:36'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/16/2021 17:33:36'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 17:33:36'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:33:52' prior: 51046110!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart cashier priceList aSalesBook |
+	
+	cart := Cart acceptingItemsOf: (Array with: 'book').
+	cart add: 'book'.
+	priceList := Dictionary new.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	self 	assertCashier: cashier  
+		checkout: cart
+		with: self validCreditCard
+		raisesErrorMessage: Cashier CanNotCheckoutEmptyCart
+		forSalesBook: aSalesBook.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:34:02' prior: 51046205!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart cashier priceList aSalesBook |
+	
+	cart := Cart acceptingItemsOf: (Array with: 'book').
+	cart add: 'book'.
+	priceList := Dictionary new.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	self 	assertCashier: cashier  
+		checkout: cart
+		with: self validCreditCard
+		raisesErrorMessage: Cashier AnItemIsNotInThePriceList 
+		forSalesBook: aSalesBook.! !
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 17:34:04'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 17:34:04'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 17:34:04'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 17:34:04'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 17:34:04'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/16/2021 17:34:04'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 17:34:04'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:34:38' prior: 51045983!
+test06CanNotCheckoutIfMerchantProcessorRaisesError
+
+	|cart cashier priceList creditCard aSalesBook aMerchantProcessor messageError |
+
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+
+	messageError := 'Something unexpected happened'.
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: messageError.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self 	assertCashier: cashier  
+		checkout: cart
+		with: self validCreditCard
+		raisesErrorMessage: messageError
+		forSalesBook: aSalesBook.
+		
+		
+		! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:34:55' prior: 51046266!
+test06CanNotCheckoutIfMerchantProcessorRaisesError
+
+	|cart cashier priceList aSalesBook aMerchantProcessor messageError |
+
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+
+	messageError := 'Something unexpected happened'.
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: messageError.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+	
+	
+	self 	assertCashier: cashier  
+		checkout: cart
+		with: self validCreditCard
+		raisesErrorMessage: messageError
+		forSalesBook: aSalesBook.
+		
+		
+		! !
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 17:34:56'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 17:34:56'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 17:34:56'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 17:34:56'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 17:34:56'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/16/2021 17:34:56'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 17:34:56'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:35:27' prior: 51046021!
+test05CanNotCheckoutWithExpiratedCreditCard
+
+	|cart cashier priceList creditCard aSalesBook |
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+		
+	creditCard := self expiredCreditCard.
+
+	
+	self 	assertCashier: cashier  
+		checkout: cart
+		with: self expiredCreditCard 
+		raisesErrorMessage: Cashier ExpiredCreditCardError 
+		forSalesBook: aSalesBook.
+		
+		
+		! !
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/16/2021 17:35:31'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 17:35:31'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 17:35:31'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 17:35:31'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 17:35:31'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/16/2021 17:35:31'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 17:35:31'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:35:40' prior: 51046343!
+test05CanNotCheckoutWithExpiratedCreditCard
+
+	|cart cashier priceList aSalesBook |
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	
+	self 	assertCashier: cashier  
+		checkout: cart
+		with: self expiredCreditCard 
+		raisesErrorMessage: Cashier ExpiredCreditCardError 
+		forSalesBook: aSalesBook.
+		
+		
+		! !
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/16/2021 17:35:45'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 17:35:45'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 17:35:45'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 17:35:45'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 17:35:45'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/16/2021 17:35:45'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 17:35:45'!
+PASSED!
+
+!methodRemoval: Cashier class #CreditCardWithoutCreditError stamp: 'ET 6/16/2021 17:36:06'!
+CreditCardWithoutCreditError
+	^ 'La tarjeta no tiene suficiente crédito.'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:36:27'!
+test05CanNotCheckoutWithExpiredCreditCard
+
+	|cart cashier priceList aSalesBook |
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	
+	self 	assertCashier: cashier  
+		checkout: cart
+		with: self expiredCreditCard 
+		raisesErrorMessage: Cashier ExpiredCreditCardError 
+		forSalesBook: aSalesBook.
+		
+		
+		! !
+
+!methodRemoval: CashierTest #test05CanNotCheckoutWithExpiratedCreditCard stamp: 'ET 6/16/2021 17:36:27'!
+test05CanNotCheckoutWithExpiratedCreditCard
+
+	|cart cashier priceList aSalesBook |
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	
+	self 	assertCashier: cashier  
+		checkout: cart
+		with: self expiredCreditCard 
+		raisesErrorMessage: Cashier ExpiredCreditCardError 
+		forSalesBook: aSalesBook.
+		
+		
+		!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:37:13'!
+anItemIsNotInThePriceList
+	^'An item in the cart is not in the price list'.! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:37:13' prior: 51044508!
+itemNotInPriceListError
+
+	^ self error: self class anItemIsNotInThePriceList! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:37:13' prior: 51046223!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart cashier priceList aSalesBook |
+	
+	cart := Cart acceptingItemsOf: (Array with: 'book').
+	cart add: 'book'.
+	priceList := Dictionary new.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	self 	assertCashier: cashier  
+		checkout: cart
+		with: self validCreditCard
+		raisesErrorMessage: Cashier anItemIsNotInThePriceList 
+		forSalesBook: aSalesBook.! !
+
+!methodRemoval: Cashier class #AnItemIsNotInThePriceList stamp: 'ET 6/16/2021 17:37:13'!
+AnItemIsNotInThePriceList
+	^'An item in the cart is not in the price list'.!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:37:23'!
+expiredCreditCardError
+	^'The credit card is expired'.! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:37:23' prior: 51044519!
+assertCreditCardIsValid: aCreditCard
+	
+	aCreditCard expirationDate < GregorianMonthOfYear current ifTrue: [self error: self class expiredCreditCardError].! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:37:23' prior: 51046438!
+test05CanNotCheckoutWithExpiredCreditCard
+
+	|cart cashier priceList aSalesBook |
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	
+	self 	assertCashier: cashier  
+		checkout: cart
+		with: self expiredCreditCard 
+		raisesErrorMessage: Cashier expiredCreditCardError 
+		forSalesBook: aSalesBook.
+		
+		
+		! !
+
+!methodRemoval: Cashier class #ExpiredCreditCardError stamp: 'ET 6/16/2021 17:37:23'!
+ExpiredCreditCardError
+	^'The credit card is expired'.!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:37:33'!
+canNotCheckoutEmptyCart
+	^'The cart is empty'.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:37:33' prior: 51046164!
+test01CanNotCheckoutEmptyCart
+
+	|cart cashier priceList aSalesBook |
+
+	priceList := Dictionary new.
+	cart := Cart acceptingItemsOf: priceList keys.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	
+	self 
+		assertCashier: cashier  
+		checkout: cart
+		with: self validCreditCard
+		raisesErrorMessage: Cashier canNotCheckoutEmptyCart
+		forSalesBook: aSalesBook.! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:37:33' prior: 51044513!
+assertCartIsNotEmpty: aCart
+
+	^ aCart isEmpty ifTrue: [	self error: self class canNotCheckoutEmptyCart]! !
+
+!methodRemoval: Cashier class #CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 17:37:33'!
+CanNotCheckoutEmptyCart
+	^'The cart is empty'.!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:38:56'!
+itemNotInPriceListErrorDescription
+	^'An item in the cart is not in the price list'.! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:38:57' prior: 51046482!
+itemNotInPriceListError
+
+	^ self error: self class itemNotInPriceListErrorDescription! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:38:57' prior: 51046488!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart cashier priceList aSalesBook |
+	
+	cart := Cart acceptingItemsOf: (Array with: 'book').
+	cart add: 'book'.
+	priceList := Dictionary new.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	self 	assertCashier: cashier  
+		checkout: cart
+		with: self validCreditCard
+		raisesErrorMessage: Cashier itemNotInPriceListErrorDescription 
+		forSalesBook: aSalesBook.! !
+
+!methodRemoval: Cashier class #anItemIsNotInThePriceList stamp: 'ET 6/16/2021 17:38:57'!
+anItemIsNotInThePriceList
+	^'An item in the cart is not in the price list'.!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:39:07'!
+expiredCreditCardErrorDescription
+	^'The credit card is expired'.! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:39:07' prior: 51046516!
+assertCreditCardIsValid: aCreditCard
+	
+	aCreditCard expirationDate < GregorianMonthOfYear current ifTrue: [self error: self class expiredCreditCardErrorDescription].! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:39:07' prior: 51046524!
+test05CanNotCheckoutWithExpiredCreditCard
+
+	|cart cashier priceList aSalesBook |
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	
+	self 	assertCashier: cashier  
+		checkout: cart
+		with: self expiredCreditCard 
+		raisesErrorMessage: Cashier expiredCreditCardErrorDescription 
+		forSalesBook: aSalesBook.
+		
+		
+		! !
+
+!methodRemoval: Cashier class #expiredCreditCardError stamp: 'ET 6/16/2021 17:39:07'!
+expiredCreditCardError
+	^'The credit card is expired'.!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:39:23'!
+emptyCartErrorDescription
+	^'The cart is empty'.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:39:23' prior: 51046552!
+test01CanNotCheckoutEmptyCart
+
+	|cart cashier priceList aSalesBook |
+
+	priceList := Dictionary new.
+	cart := Cart acceptingItemsOf: priceList keys.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	
+	self 
+		assertCashier: cashier  
+		checkout: cart
+		with: self validCreditCard
+		raisesErrorMessage: Cashier emptyCartErrorDescription
+		forSalesBook: aSalesBook.! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:39:23' prior: 51046569!
+assertCartIsNotEmpty: aCart
+
+	^ aCart isEmpty ifTrue: [	self error: self class emptyCartErrorDescription]! !
+
+!methodRemoval: Cashier class #canNotCheckoutEmptyCart stamp: 'ET 6/16/2021 17:39:23'!
+canNotCheckoutEmptyCart
+	^'The cart is empty'.!
+!Cashier methodsFor: 'assertions' stamp: 'ET 6/16/2021 17:40:18'!
+assertCreditCardIsNotExpired: aCreditCard
+	
+	aCreditCard expirationDate < GregorianMonthOfYear current ifTrue: [self error: self class expiredCreditCardErrorDescription].! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:40:18' prior: 51044493!
+checkout: aCart withCreditCard: aCreditCard 
+	|totalPrice|
+	self assertCartIsNotEmpty: aCart.
+	self assertCreditCardIsNotExpired: aCreditCard.
+	totalPrice := 0.
+	aCart do: [:anElement | totalPrice := totalPrice + priceList at: anElement ifAbsent: [self itemNotInPriceListError].].
+	merchantProcessorSimulator charge: totalPrice  on: aCreditCard .
+	salesBook add: totalPrice .
+	^totalPrice.! !
+
+!methodRemoval: Cashier #assertCreditCardIsValid: stamp: 'ET 6/16/2021 17:40:18'!
+assertCreditCardIsValid: aCreditCard
+	
+	aCreditCard expirationDate < GregorianMonthOfYear current ifTrue: [self error: self class expiredCreditCardErrorDescription].!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:42:04'!
+raiseItemNotInPriceListError
+
+	^ self error: self class itemNotInPriceListErrorDescription! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:42:04' prior: 51046693!
+checkout: aCart withCreditCard: aCreditCard 
+	|totalPrice|
+	self assertCartIsNotEmpty: aCart.
+	self assertCreditCardIsNotExpired: aCreditCard.
+	totalPrice := 0.
+	aCart do: [:anElement | totalPrice := totalPrice + priceList at: anElement ifAbsent: [self raiseItemNotInPriceListError].].
+	merchantProcessorSimulator charge: totalPrice  on: aCreditCard .
+	salesBook add: totalPrice .
+	^totalPrice.! !
+
+!methodRemoval: Cashier #itemNotInPriceListError stamp: 'ET 6/16/2021 17:42:04'!
+itemNotInPriceListError
+
+	^ self error: self class itemNotInPriceListErrorDescription!
+
+!classDefinition: #Cashier category: 'TusLibros' stamp: 'ET 6/16/2021 17:42:56'!
+Object subclass: #Cashier
+	instanceVariableNames: 'priceList salesBook merchantProcessor'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:42:56' prior: 51044483!
+initializeWith: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessorSimulator 
+	
+	priceList := aPriceList.
+	salesBook := aSalesBook.
+	merchantProcessor := aMerchantProcessorSimulator.! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:42:56' prior: 51046722!
+checkout: aCart withCreditCard: aCreditCard 
+	|totalPrice|
+	self assertCartIsNotEmpty: aCart.
+	self assertCreditCardIsNotExpired: aCreditCard.
+	totalPrice := 0.
+	aCart do: [:anElement | totalPrice := totalPrice + priceList at: anElement ifAbsent: [self raiseItemNotInPriceListError].].
+	merchantProcessor charge: totalPrice  on: aCreditCard .
+	salesBook add: totalPrice .
+	^totalPrice.! !
+!Cashier methodsFor: 'initialization' stamp: 'ET 6/16/2021 17:43:07' prior: 51046751!
+initializeWith: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor 
+	
+	priceList := aPriceList.
+	salesBook := aSalesBook.
+	merchantProcessor := aMerchantProcessor.! !
+!Cashier class methodsFor: 'instance creation' stamp: 'ET 6/16/2021 17:43:19' prior: 51044534!
+with: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor 
+	^self new initializeWith: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor ! !
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:44:16'!
+invalidCreditCardErrorDescription
+	^'Los datos de la tarjeta de crédito son inválidos'! !
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:44:16' prior: 51044629!
+assertCreditCardNumberIsValid: aString 
+	
+	aString size = 16 ifFalse: [self error: self invalidCreditCardErrorDescription ].
+	(aString allSatisfy: [:aDigit | aDigit isDigit]	) ifFalse: [self error: self invalidCreditCardErrorDescription ].! !
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:44:16' prior: 51044639!
+assertNonBlankOwner: anOwnerString
+	anOwnerString withBlanksTrimmed isEmpty ifTrue: [self error: self invalidCreditCardErrorDescription ]
+	
+	! !
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:44:16' prior: 51044353!
+test01CanNotCreateCreditCardWithIncorrectSizeNumber
+	self should: [ CreditCard owner: 'Juan' number: '1234' expiration: GregorianMonthOfYear current.]
+	 	raise:  Error
+		withExceptionDo:[ :anException | self assert: CreditCard invalidCreditCardErrorDescription equals: anException messageText	] ! !
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:44:16' prior: 51044377!
+test03CanNotCreateCreditCardWithBlankOwner
+	self should: [ CreditCard owner: '    ' number: '1234567890123456' expiration: GregorianMonthOfYear current.]
+	 	raise:  Error - MessageNotUnderstood 
+		withExceptionDo:[ :anException | self assert: CreditCard invalidCreditCardErrorDescription equals: anException messageText	] ! !
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:44:16' prior: 51044365!
+test02CanNotCreateCreditCardWithAlphaNumericNumber
+	self should: [ CreditCard owner: 'Juan' number: '1234567890ABCDEF' expiration: GregorianMonthOfYear current.]
+	 	raise:  Error
+		withExceptionDo:[ :anException | self assert: CreditCard invalidCreditCardErrorDescription equals: anException messageText	] ! !
+
+!methodRemoval: CreditCard class #InvalidCreditCardError stamp: 'ET 6/16/2021 17:44:16'!
+InvalidCreditCardError
+	^'Los datos de la tarjeta de crédito son inválidos'!
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:47:39'!
+newCreditCardOwnedBy: anOwner withNumber: aString
+	^CreditCard owner: anOwner number: aString expiration: GregorianMonthOfYear current.! !
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:48:19' prior: 51046819!
+test01CanNotCreateCreditCardWithIncorrectSizeNumber
+	self should: [self newCreditCardOwnedBy: 'Juan' withNumber: 1234]
+	 	raise:  Error
+		withExceptionDo:[ :anException | self assert: CreditCard invalidCreditCardErrorDescription equals: anException messageText	] ! !
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'ET 6/16/2021 17:48:21'!
+FAILURE!
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:48:38' prior: 51046872!
+test01CanNotCreateCreditCardWithIncorrectSizeNumber
+	self should: [self newCreditCardOwnedBy: 'Juan' withNumber: '1234']
+	 	raise:  Error
+		withExceptionDo:[ :anException | self assert: CreditCard invalidCreditCardErrorDescription equals: anException messageText	] ! !
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'ET 6/16/2021 17:48:39'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'ET 6/16/2021 17:48:39'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'ET 6/16/2021 17:48:39'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/16/2021 17:48:39'!
+PASSED!
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:49:07' prior: 51046846!
+test02CanNotCreateCreditCardWithAlphaNumericNumber
+	self should: [ self newCreditCardOwnedBy: 'Juan' withNumber: '1234567890ABCDEF']
+	 	raise:  Error
+		withExceptionDo:[ :anException | self assert: CreditCard invalidCreditCardErrorDescription equals: anException messageText	] ! !
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/16/2021 17:49:12'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/16/2021 17:49:14'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'ET 6/16/2021 17:49:14'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'ET 6/16/2021 17:49:14'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/16/2021 17:49:14'!
+PASSED!
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:49:46' prior: 51046832!
+test03CanNotCreateCreditCardWithBlankOwner
+	self should: [ self newCreditCardOwnedBy: '    '  withNumber: '1234567890123456']
+	 	raise:  Error - MessageNotUnderstood 
+		withExceptionDo:[ :anException | self assert: CreditCard invalidCreditCardErrorDescription equals: anException messageText	] ! !
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/16/2021 17:49:47'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'ET 6/16/2021 17:49:47'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'ET 6/16/2021 17:49:47'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/16/2021 17:49:47'!
+PASSED!
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:56:41'!
+assertNewCreditCardRaisesErrorOwnedBy: anOwner withNumber: aStringNumber
+	self should: [CreditCard owner: anOwner  number: aStringNumber expiration: GregorianMonthOfYear current]
+	 	raise: Error - MessageNotUnderstood
+		withExceptionDo:[ :anError| self assert: CreditCard invalidCreditCardErrorDescription equals: anError messageText	] ! !
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:57:08' prior: 51046888!
+test01CanNotCreateCreditCardWithIncorrectSizeNumber
+	
+	self assertNewCreditCardRaisesErrorOwnedBy: 'Juan' withNumber: '1234'.! !
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:57:30' prior: 51046915!
+test02CanNotCreateCreditCardWithAlphaNumericNumber
+
+	self assertNewCreditCardRaisesErrorOwnedBy: 'Juan' withNumber: '1234567890ABCDEF'.! !
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:57:57' prior: 51046945!
+test03CanNotCreateCreditCardWithBlankOwner
+
+	self assertNewCreditCardRaisesErrorOwnedBy: '    '  withNumber: '1234567890123456'.! !
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:58:00' prior: 51047002!
+test03CanNotCreateCreditCardWithBlankOwner
+
+	self assertNewCreditCardRaisesErrorOwnedBy: '    ' withNumber: '1234567890123456'.! !
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/16/2021 17:58:01'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'ET 6/16/2021 17:58:01'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'ET 6/16/2021 17:58:01'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/16/2021 17:58:01'!
+PASSED!
+
+!methodRemoval: CreditCardTest #newCreditCardOwnedBy:withNumber: stamp: 'ET 6/16/2021 17:58:06'!
+newCreditCardOwnedBy: anOwner withNumber: aString
+	^CreditCard owner: anOwner number: aString expiration: GregorianMonthOfYear current.!
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:58:33'!
+assertCreditCardInstanceCreationRaisesErrorWhenOwnedBy: anOwner withNumber: aStringNumber
+	self should: [CreditCard owner: anOwner  number: aStringNumber expiration: GregorianMonthOfYear current]
+	 	raise: Error - MessageNotUnderstood
+		withExceptionDo:[ :anError| self assert: CreditCard invalidCreditCardErrorDescription equals: anError messageText	] ! !
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:58:33' prior: 51046986!
+test01CanNotCreateCreditCardWithIncorrectSizeNumber
+	
+	self assertCreditCardInstanceCreationRaisesErrorWhenOwnedBy: 'Juan' withNumber: '1234'.! !
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:58:33' prior: 51046994!
+test02CanNotCreateCreditCardWithAlphaNumericNumber
+
+	self assertCreditCardInstanceCreationRaisesErrorWhenOwnedBy: 'Juan' withNumber: '1234567890ABCDEF'.! !
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:58:33' prior: 51047010!
+test03CanNotCreateCreditCardWithBlankOwner
+
+	self assertCreditCardInstanceCreationRaisesErrorWhenOwnedBy: '    ' withNumber: '1234567890123456'.! !
+
+!methodRemoval: CreditCardTest #assertNewCreditCardRaisesErrorOwnedBy:withNumber: stamp: 'ET 6/16/2021 17:58:33'!
+assertNewCreditCardRaisesErrorOwnedBy: anOwner withNumber: aStringNumber
+	self should: [CreditCard owner: anOwner  number: aStringNumber expiration: GregorianMonthOfYear current]
+	 	raise: Error - MessageNotUnderstood
+		withExceptionDo:[ :anError| self assert: CreditCard invalidCreditCardErrorDescription equals: anError messageText	] !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:02:15'!
+assertCashier: aCashier checkout: aCart  with: aCreditCard raisesErrorMessage: anErrorMessage assertingSalesBookIsNotModified: aSalesBook
+	self should: [aCashier checkout: aCart  withCreditCard: aCreditCard]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = anErrorMessage.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:02:15' prior: 51046592!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart cashier priceList aSalesBook |
+	
+	cart := Cart acceptingItemsOf: (Array with: 'book').
+	cart add: 'book'.
+	priceList := Dictionary new.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	self 	assertCashier: cashier  
+		checkout: cart
+		with: self validCreditCard
+		raisesErrorMessage: Cashier itemNotInPriceListErrorDescription 
+		assertingSalesBookIsNotModified: aSalesBook.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:02:15' prior: 51046657!
+test01CanNotCheckoutEmptyCart
+
+	|cart cashier priceList aSalesBook |
+
+	priceList := Dictionary new.
+	cart := Cart acceptingItemsOf: priceList keys.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	
+	self 
+		assertCashier: cashier  
+		checkout: cart
+		with: self validCreditCard
+		raisesErrorMessage: Cashier emptyCartErrorDescription
+		assertingSalesBookIsNotModified: aSalesBook.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:02:15' prior: 51046629!
+test05CanNotCheckoutWithExpiredCreditCard
+
+	|cart cashier priceList aSalesBook |
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	
+	self 	assertCashier: cashier  
+		checkout: cart
+		with: self expiredCreditCard 
+		raisesErrorMessage: Cashier expiredCreditCardErrorDescription 
+		assertingSalesBookIsNotModified: aSalesBook.
+		
+		
+		! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:02:15' prior: 51046293!
+test06CanNotCheckoutIfMerchantProcessorRaisesError
+
+	|cart cashier priceList aSalesBook aMerchantProcessor messageError |
+
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+
+	messageError := 'Something unexpected happened'.
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: messageError.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+	
+	
+	self 	assertCashier: cashier  
+		checkout: cart
+		with: self validCreditCard
+		raisesErrorMessage: messageError
+		assertingSalesBookIsNotModified: aSalesBook.
+		
+		
+		! !
+
+!methodRemoval: CashierTest #assertCashier:checkout:with:raisesErrorMessage:forSalesBook: stamp: 'ET 6/16/2021 18:02:15'!
+assertCashier: aCashier checkout: aCart  with: aCreditCard raisesErrorMessage: anErrorMessage forSalesBook: aSalesBook
+	self should: [aCashier checkout: aCart  withCreditCard: aCreditCard]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = anErrorMessage.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:21:41' prior: 51047126!
+test01CanNotCheckoutEmptyCart
+
+	|cart cashier priceList aSalesBook |
+
+	priceList := Dictionary new.
+	cart := Cart acceptingItemsOf: priceList keys.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard.]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier CanNotCheckoutEmptyCart. 
+			self assert: aSalesBook isEmpty.]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:33:52' prior: 51047107!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart cashier priceList aSalesBook |
+	
+	cart := Cart acceptingItemsOf: (Array with: 'book').
+	cart add: 'book'.
+	priceList := Dictionary new.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	self 	assertCashier: cashier  
+		checkout: cart
+		with: self validCreditCard
+		raisesErrorMessage: Cashier CanNotCheckoutEmptyCart
+		forSalesBook: aSalesBook.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:21:34' prior: 51047224!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart cashier priceList aSalesBook |
+	
+	cart := Cart acceptingItemsOf: (Array with: 'book').
+	cart add: 'book'.
+	priceList := Dictionary new.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier AnItemIsNotInThePriceList. 
+			self assert: aSalesBook isEmpty]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:16:41' prior: 51047164!
+test06CanNotCheckoutIfMerchantProcessorRaisesError
+
+	|cart cashier priceList creditCard aSalesBook aMerchantProcessor messageError |
+
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+
+	messageError := 'Something unexpected happened'.
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: messageError.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+		
+	creditCard := self validCreditCard.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: creditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = messageError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:05:37' prior: 51047144!
+test05CanNotCheckoutWithExpiredCreditCard
+
+	|cart cashier priceList aSalesBook |
+	
+	priceList := Dictionary new.
+	
+	priceList add: 'book'->1.
+	cart := Cart acceptingItemsOf: priceList keys.
+	cart add: 'book'.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	
+	self should: [ (cashier checkout: cart withCreditCard: self expiredCreditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier expiredCreditCardErrorDescription.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:05:41'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:05:41'!
+ERROR!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:05:41'!
+ERROR!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:05:41'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:05:41'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:05:41'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:05:41'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:05:54' prior: 51047205!
+test01CanNotCheckoutEmptyCart
+
+	|cart cashier priceList aSalesBook |
+
+	priceList := Dictionary new.
+	cart := Cart acceptingItemsOf: priceList keys.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard.]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier emptyCartErrorDescription. 
+			self assert: aSalesBook isEmpty.]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:06:02' prior: 51047242!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart cashier priceList aSalesBook |
+	
+	cart := Cart acceptingItemsOf: (Array with: 'book').
+	cart add: 'book'.
+	priceList := Dictionary new.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: priceList salesBook: aSalesBook.
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier itemNotInPriceListErrorDescription. 
+			self assert: aSalesBook isEmpty]! !
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:06:03'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:06:03'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:06:03'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:06:03'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:06:03'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:06:03'!
+PASSED!
+
+!methodRemoval: CashierTest #assertCashier:checkout:with:raisesErrorMessage:assertingSalesBookIsNotModified: stamp: 'ET 6/16/2021 18:06:12'!
+assertCashier: aCashier checkout: aCart  with: aCreditCard raisesErrorMessage: anErrorMessage assertingSalesBookIsNotModified: aSalesBook
+	self should: [aCashier checkout: aCart  withCreditCard: aCreditCard]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = anErrorMessage.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:10:59'!
+createCart
+
+	^Cart acceptingItemsOf: self createPriceList keys.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:11:30' prior: 51047415!
+createCart
+
+	^Cart acceptingItemsOf: self defaultPriceList keys.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:12:36'!
+defaultPriceList
+
+	^Dictionary with: self itemInStore -> self itemInStorePrice.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:12:56'!
+itemInStore
+
+	^'book in store'.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:13:19'!
+itemInStorePrice
+
+	^1.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:14:09' prior: 51047339!
+test01CanNotCheckoutEmptyCart
+
+	|cart cashier aSalesBook |
+
+	cart := self createCart.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: self defaultPriceList salesBook: aSalesBook.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard.]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier emptyCartErrorDescription. 
+			self assert: aSalesBook isEmpty.]! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:14:14'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:14:14'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:14:14'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:14:14'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:14:14'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:14:14'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:14:14'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:14:53' prior: 51047358!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart cashier aSalesBook |
+	
+	cart := self createCart.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: Dictionary new salesBook: aSalesBook.
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier itemNotInPriceListErrorDescription. 
+			self assert: aSalesBook isEmpty]! !
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:14:57'!
+FAILURE!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:15:40'!
+FAILURE!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:16:22' prior: 51047421!
+createCart
+
+	^Cart acceptingItemsOf: self defaultPriceList keys.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:16:46' prior: 51047482!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart cashier aSalesBook |
+	
+	cart := self createCart.
+	cart add: self itemInStore.
+	
+	aSalesBook := OrderedCollection new.
+	
+	cashier := self newCashierWithPriceList: Dictionary new salesBook: aSalesBook.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier itemNotInPriceListErrorDescription. 
+			self assert: aSalesBook isEmpty]! !
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:16:50'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:16:50'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:16:50'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:16:50'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:16:50'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:16:50'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:16:50'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:17:55' prior: 51046090!
+test03CheckoutCartWithOneItemReturnsThePriceOfThatItem
+
+	|cart cashier aSalesBook |
+	
+	cart := self createCart.
+	cart add: self itemInStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: self defaultPriceList salesBook: aSalesBook.
+	
+	self assert: 1 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).
+	self assert: 1 equals: aSalesBook size.
+	self assert: self itemInStorePrice equals: aSalesBook first.! !
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:18:00'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:18:00'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:18:00'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:18:00'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:18:00'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:18:00'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:18:00'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:19:19' prior: 51046044!
+test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
+
+	|cart cashier aSalesBook |
+
+	cart := self createCart.
+	cart add: 2 of: self itemInStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: self defaultPriceList salesBook: aSalesBook.
+	self assert: 2 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).
+	self assert: 1 equals: aSalesBook size.
+	self assert: 2 * self itemInStore equals: aSalesBook first.! !
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:19:22'!
+ERROR!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:19:34' prior: 51047600!
+test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
+
+	|cart cashier aSalesBook |
+
+	cart := self createCart.
+	cart add: 2 of: self itemInStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: self defaultPriceList salesBook: aSalesBook.
+	self assert: 2 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).
+	self assert: 1 equals: aSalesBook size.
+	self assert: 2 * self itemInStorePrice equals: aSalesBook first.! !
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:19:35'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:19:35'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:19:35'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:19:35'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:19:35'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:19:35'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:19:35'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:19:59' prior: 51047292!
+test05CanNotCheckoutWithExpiredCreditCard
+
+	|cart cashier aSalesBook |
+	
+	cart := self createCart.
+	cart add: 'book'.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: self defaultPriceList salesBook: aSalesBook.
+	
+	self should: [ (cashier checkout: cart withCreditCard: self expiredCreditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier expiredCreditCardErrorDescription.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:20:10'!
+ERROR!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:20:33'!
+ERROR!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:20:47' prior: 51047667!
+test05CanNotCheckoutWithExpiredCreditCard
+
+	|cart cashier aSalesBook |
+	
+	cart := self createCart.
+	cart add: self itemInStore.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithPriceList: self defaultPriceList salesBook: aSalesBook.
+	
+	self should: [ (cashier checkout: cart withCreditCard: self expiredCreditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier expiredCreditCardErrorDescription.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:20:47'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:20:47'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:20:47'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:20:47'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:20:47'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:20:47'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:20:47'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:21:38'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:21:38'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:21:38'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:21:38'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:21:38'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:21:38'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:21:38'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:23:59' prior: 51047262!
+test06CanNotCheckoutIfMerchantProcessorRaisesError
+
+	|cart cashier aSalesBook aMerchantProcessor messageError |
+
+	cart := self createCart.
+	cart add: 'book'.
+
+	messageError := 'Something unexpected happened'.
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: messageError.
+	cashier := Cashier with: self defaultPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: self validCreditCard )]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = messageError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:24:28'!
+ERROR!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 18:24:40' prior: 51047763!
+test06CanNotCheckoutIfMerchantProcessorRaisesError
+
+	|cart cashier aSalesBook aMerchantProcessor messageError |
+
+	cart := self createCart.
+	cart add: self itemInStore.
+
+	messageError := 'Something unexpected happened'.
+	
+	aSalesBook := OrderedCollection new.
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: messageError.
+	cashier := Cashier with: self defaultPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor.
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: self validCreditCard )]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = messageError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:24:40'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:24:40'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:24:41'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:24:41'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:24:41'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:24:41'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:24:41'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/16/2021 18:25:39'!
+newCashierWithsalesBook: aSalesBook
+	
+	^Cashier with: self defaultPriceList registerSalesOn: aSalesBook merchantProcessor: MerchantProcessorSimulator new.
+		
+		! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:25:42'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:25:42'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:25:42'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:25:42'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:25:42'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:25:42'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/16/2021 18:25:49'!
+newCashierWithSalesBook: aSalesBook
+	
+	^Cashier with: self defaultPriceList registerSalesOn: aSalesBook merchantProcessor: MerchantProcessorSimulator new.
+		
+		! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/16/2021 18:26:03' prior: 51047440!
+test01CanNotCheckoutEmptyCart
+
+	|cart cashier aSalesBook |
+
+	cart := self createCart.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard.]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier emptyCartErrorDescription. 
+			self assert: aSalesBook isEmpty.]! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:26:04'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:26:04'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:26:04'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:26:04'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:26:04'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:26:04'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:26:04'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/16/2021 18:27:08' prior: 51047557!
+test03CheckoutCartWithOneItemReturnsThePriceOfThatItem
+
+	|cart cashier aSalesBook |
+	
+	cart := self createCart.
+	cart add: self itemInStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	
+	self assert: 1 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).
+	self assert: 1 equals: aSalesBook size.
+	self assert: self itemInStorePrice equals: aSalesBook first.! !
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:27:09'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:27:09'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:27:10'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:27:10'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:27:10'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:27:10'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:27:10'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/16/2021 18:27:16' prior: 51047623!
+test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
+
+	|cart cashier aSalesBook |
+
+	cart := self createCart.
+	cart add: 2 of: self itemInStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	self assert: 2 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).
+	self assert: 1 equals: aSalesBook size.
+	self assert: 2 * self itemInStorePrice equals: aSalesBook first.! !
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:27:16'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:27:16'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:27:16'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:27:16'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:27:16'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:27:16'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:27:16'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/16/2021 18:27:26' prior: 51047694!
+test05CanNotCheckoutWithExpiredCreditCard
+
+	|cart cashier aSalesBook |
+	
+	cart := self createCart.
+	cart add: self itemInStore.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	
+	self should: [ (cashier checkout: cart withCreditCard: self expiredCreditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier expiredCreditCardErrorDescription.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:27:26'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:27:26'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:27:26'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:27:26'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:27:26'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:27:26'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:27:26'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/16/2021 18:28:26' prior: 51047793!
+test06CanNotCheckoutIfMerchantProcessorRaisesError
+
+	|cart cashier aSalesBook messageError |
+
+	cart := self createCart.
+	cart add: self itemInStore.
+
+	messageError := 'Something unexpected happened'.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: self defaultPriceList registerSalesOn: aSalesBook merchantProcessor: (self createMerchantProcessorThatRaisesError: messageError).
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: self validCreditCard )]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = messageError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/16/2021 18:29:03'!
+createMerchantProcessorThatRaisesError: messageError
+	|aMerchantProcessor|
+	aMerchantProcessor := MerchantProcessorSimulator new.
+	aMerchantProcessor raiseErrorOnCharge: messageError.
+	^aMerchantProcessor
+
+		
+		
+		! !
+
+!methodRemoval: CashierTest #newCashierWithsalesBook: stamp: 'ET 6/16/2021 18:29:12'!
+newCashierWithsalesBook: aSalesBook
+	
+	^Cashier with: self defaultPriceList registerSalesOn: aSalesBook merchantProcessor: MerchantProcessorSimulator new.
+		
+		!
+!CashierTest methodsFor: 'support' stamp: 'ET 6/16/2021 18:35:23' prior: 51047872!
+newCashierWithSalesBook: aSalesBook
+	
+	^self newCashierWithPriceList: self defaultPriceList salesBook: aSalesBook.
+		
+		! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 18:35:24'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 18:35:24'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 18:35:24'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 18:35:24'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 18:35:24'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:35:24'!
+PASSED!
