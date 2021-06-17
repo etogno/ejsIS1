@@ -436,7 +436,7 @@ canNotAddBookThatIsNotInTheCatalog
 !Cart class methodsFor: 'as yet unclassified' stamp: 'ET 6/9/2021 18:59:07' prior: 51031412!
 canNotAddBookThatIsNotInTheCatalog
 	
-	^'No se puede agregar un libro que no está en el catálogo de compras'.! !
+	^'No se puede agregar un libro que no estï¿½ en el catï¿½logo de compras'.! !
 
 !testRun: #CarritoTest #test05 stamp: 'ET 6/9/2021 18:59:09'!
 FAILURE!
@@ -3256,7 +3256,7 @@ CreditCardWithoutCredit
 	self shouldBeImplemented.! !
 !Cashier class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:11:45' prior: 50860545!
 CreditCardWithoutCredit
-	^ 'La tarjeta no tiene suficiente crédito.'! !
+	^ 'La tarjeta no tiene suficiente crï¿½dito.'! !
 
 !testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:11:47'!
 ERROR!
@@ -3294,11 +3294,11 @@ test06
 		! !
 !Cashier class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:13:08'!
 CreditCardWithoutCreditError
-	^ 'La tarjeta no tiene suficiente crédito.'! !
+	^ 'La tarjeta no tiene suficiente crï¿½dito.'! !
 
 !methodRemoval: Cashier class #CreditCardWithoutCredit stamp: 'JA 6/14/2021 19:13:08'!
 CreditCardWithoutCredit
-	^ 'La tarjeta no tiene suficiente crédito.'!
+	^ 'La tarjeta no tiene suficiente crï¿½dito.'!
 
 !testRun: #CashierTest #test06 stamp: 'JA 6/14/2021 19:13:22'!
 ERROR!
@@ -3606,7 +3606,7 @@ StolenCreditCardError
 	self shouldBeImplemented.! !
 !Cashier class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:31:11' prior: 50860913!
 StolenCreditCardError
- 	^ 'La tarjeta de crédito es robada'! !
+ 	^ 'La tarjeta de crï¿½dito es robada'! !
 
 !testRun: #CashierTest #test07 stamp: 'JA 6/14/2021 19:31:13'!
 PASSED!
@@ -3672,7 +3672,7 @@ FakeCreditCardError
 	self shouldBeImplemented.! !
 !Cashier class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:32:16' prior: 50860978!
 FakeCreditCardError
-	^'La tarjeta de crédito es falsa'! !
+	^'La tarjeta de crï¿½dito es falsa'! !
 
 !testRun: #CashierTest #test08 stamp: 'JA 6/14/2021 19:32:17'!
 PASSED!
@@ -4007,7 +4007,7 @@ InvalidCreditCardError
 	self shouldBeImplemented.! !
 !CreditCard class methodsFor: 'as yet unclassified' stamp: 'JA 6/14/2021 19:47:59' prior: 50861308!
 InvalidCreditCardError
-	^'Los datos de la tarjeta de crédito son inválidos'! !
+	^'Los datos de la tarjeta de crï¿½dito son invï¿½lidos'! !
 
 !testRun: #CreditCardTest #test01 stamp: 'JA 6/14/2021 19:48:01'!
 FAILURE!
@@ -4623,7 +4623,7 @@ ExpiredCreditCardError
 PASSED!
 !Behavior method!
 CreditCardWithoutCreditError
-	^ 'La tarjeta no tiene suficiente crédito.' coverAll:
+	^ 'La tarjeta no tiene suficiente crï¿½dito.' coverAll:
 		{33 to: 73}.! !
 !Behavior method!
 raiseErrorOnCharge: aMessageError
@@ -4637,21 +4637,21 @@ raiseErrorOnCharge: aMessageError
 PASSED!
 !Behavior method!
 StolenCreditCardError
-	^ 'La tarjeta de crédito es robada' coverAll:
+	^ 'La tarjeta de crï¿½dito es robada' coverAll:
 		{27 to: 59}.! !
 
 !testRun: #CashierTest #test07CanNotCheckoutWithAStolenCreditCard stamp: 'JA 6/14/2021 20:59:35'!
 PASSED!
 !Behavior method!
 FakeCreditCardError
-	^ 'La tarjeta de crédito es falsa' coverAll:
+	^ 'La tarjeta de crï¿½dito es falsa' coverAll:
 		{23 to: 54}.! !
 
 !testRun: #CashierTest #test08CanNotCheckoutWithAFakeCreditCard stamp: 'JA 6/14/2021 20:59:35'!
 PASSED!
 !Behavior method!
 InvalidCreditCardError
-	^ 'Los datos de la tarjeta de crédito son inválidos' coverAll:
+	^ 'Los datos de la tarjeta de crï¿½dito son invï¿½lidos' coverAll:
 		{26 to: 75}.! !
 
 !testRun: #CreditCardTest #test01 stamp: 'JA 6/14/2021 20:59:35'!
@@ -5220,7 +5220,7 @@ ExpiredCreditCardError
 PASSED!
 !Behavior method!
 CreditCardWithoutCreditError
-	^ 'La tarjeta no tiene suficiente crédito.' coverAll:
+	^ 'La tarjeta no tiene suficiente crï¿½dito.' coverAll:
 		{33 to: 73}.! !
 !Behavior method!
 raiseErrorOnCharge: aMessageError
@@ -5234,21 +5234,21 @@ raiseErrorOnCharge: aMessageError
 PASSED!
 !Behavior method!
 StolenCreditCardError
-	^ 'La tarjeta de crédito es robada' coverAll:
+	^ 'La tarjeta de crï¿½dito es robada' coverAll:
 		{27 to: 59}.! !
 
 !testRun: #CashierTest #test07CanNotCheckoutWithAStolenCreditCard stamp: 'JA 6/14/2021 21:07:56'!
 PASSED!
 !Behavior method!
 FakeCreditCardError
-	^ 'La tarjeta de crédito es falsa' coverAll:
+	^ 'La tarjeta de crï¿½dito es falsa' coverAll:
 		{23 to: 54}.! !
 
 !testRun: #CashierTest #test08CanNotCheckoutWithAFakeCreditCard stamp: 'JA 6/14/2021 21:07:56'!
 PASSED!
 !Behavior method!
 InvalidCreditCardError
-	^ 'Los datos de la tarjeta de crédito son inválidos' coverAll:
+	^ 'Los datos de la tarjeta de crï¿½dito son invï¿½lidos' coverAll:
 		{26 to: 75}.! !
 
 !testRun: #CreditCardTest #test01 stamp: 'JA 6/14/2021 21:07:56'!
@@ -5770,7 +5770,7 @@ ExpiredCreditCardError
 PASSED!
 !Behavior method!
 CreditCardWithoutCreditError
-	^ 'La tarjeta no tiene suficiente crédito.' coverAll:
+	^ 'La tarjeta no tiene suficiente crï¿½dito.' coverAll:
 		{33 to: 73}.! !
 !Behavior method!
 raiseErrorOnCharge: aMessageError
@@ -5784,21 +5784,21 @@ raiseErrorOnCharge: aMessageError
 PASSED!
 !Behavior method!
 StolenCreditCardError
-	^ 'La tarjeta de crédito es robada' coverAll:
+	^ 'La tarjeta de crï¿½dito es robada' coverAll:
 		{27 to: 59}.! !
 
 !testRun: #CashierTest #test07CanNotCheckoutWithAStolenCreditCard stamp: 'JA 6/14/2021 21:09:57'!
 PASSED!
 !Behavior method!
 FakeCreditCardError
-	^ 'La tarjeta de crédito es falsa' coverAll:
+	^ 'La tarjeta de crï¿½dito es falsa' coverAll:
 		{23 to: 54}.! !
 
 !testRun: #CashierTest #test08CanNotCheckoutWithAFakeCreditCard stamp: 'JA 6/14/2021 21:09:57'!
 PASSED!
 !Behavior method!
 InvalidCreditCardError
-	^ 'Los datos de la tarjeta de crédito son inválidos' coverAll:
+	^ 'Los datos de la tarjeta de crï¿½dito son invï¿½lidos' coverAll:
 		{26 to: 75}.! !
 
 !testRun: #CreditCardTest #test01 stamp: 'JA 6/14/2021 21:09:57'!
@@ -6059,11 +6059,11 @@ test08CanNotCheckoutWithAFakeCreditCard
 
 !methodRemoval: Cashier class #StolenCreditCardError stamp: 'ET 6/16/2021 17:05:17'!
 StolenCreditCardError
- 	^ 'La tarjeta de crédito es robada'!
+ 	^ 'La tarjeta de crï¿½dito es robada'!
 
 !methodRemoval: Cashier class #FakeCreditCardError stamp: 'ET 6/16/2021 17:05:20'!
 FakeCreditCardError
-	^'La tarjeta de crédito es falsa'!
+	^'La tarjeta de crï¿½dito es falsa'!
 !CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:11:03' prior: 51044120!
 test01CanNotCheckoutEmptyCart
 
@@ -6843,7 +6843,7 @@ PASSED!
 
 !methodRemoval: Cashier class #CreditCardWithoutCreditError stamp: 'ET 6/16/2021 17:36:06'!
 CreditCardWithoutCreditError
-	^ 'La tarjeta no tiene suficiente crédito.'!
+	^ 'La tarjeta no tiene suficiente crï¿½dito.'!
 !CashierTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:36:27'!
 test05CanNotCheckoutWithExpiredCreditCard
 
@@ -7137,7 +7137,7 @@ with: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcess
 	^self new initializeWith: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor ! !
 !CreditCard class methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:44:16'!
 invalidCreditCardErrorDescription
-	^'Los datos de la tarjeta de crédito son inválidos'! !
+	^'Los datos de la tarjeta de crï¿½dito son invï¿½lidos'! !
 !CreditCard class methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:44:16' prior: 51044629!
 assertCreditCardNumberIsValid: aString 
 	
@@ -7166,7 +7166,7 @@ test02CanNotCreateCreditCardWithAlphaNumericNumber
 
 !methodRemoval: CreditCard class #InvalidCreditCardError stamp: 'ET 6/16/2021 17:44:16'!
 InvalidCreditCardError
-	^'Los datos de la tarjeta de crédito son inválidos'!
+	^'Los datos de la tarjeta de crï¿½dito son invï¿½lidos'!
 !CreditCardTest methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 17:47:39'!
 newCreditCardOwnedBy: anOwner withNumber: aString
 	^CreditCard owner: anOwner number: aString expiration: GregorianMonthOfYear current.! !
@@ -8180,3 +8180,239 @@ PASSED!
 
 !testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 18:35:24'!
 PASSED!
+
+----SNAPSHOT----(16 June 2021 18:43:31) CuisUniversity-4532.image priorSource: 22816683!
+
+----STARTUP---- (16 June 2021 20:21:50) as C:\Users\ezequ\Desktop\windows64\CuisUniversity-4532.image!
+
+
+!CreditCardTest methodsFor: 'tests' stamp: 'ET 6/16/2021 20:44:18'!
+test04ExpiredCreditCardIsExpired
+
+	self assertCreditCardInstanceCreationRaisesErrorWhenOwnedBy: '    ' withNumber: '1234567890123456'.! !
+!CreditCardTest methodsFor: 'tests' stamp: 'ET 6/16/2021 20:45:02' prior: 51048272!
+test04ExpiredCreditCardIsExpired
+
+	CreditCard owner: 'Juan'  number: '1234567890123456' expiration: GregorianMonthOfYear current previous.! !
+!CreditCardTest methodsFor: 'tests' stamp: 'ET 6/16/2021 20:45:47' prior: 51048279!
+test04ExpiredCreditCardIsExpired
+
+	| creditCard |
+	creditCard := CreditCard owner: 'Juan'  number: '1234567890123456' expiration: GregorianMonthOfYear current previous.
+	
+	
+	self assert: (creditCard isExpiredOn: Date today).
+	! !
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/16/2021 20:45:52'!
+ERROR!
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 20:46:01'!
+isExpiredOn: aDate 
+	self shouldBeImplemented.! !
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 20:47:33' prior: 51048300!
+isExpiredOn: aDate 
+	
+	^(GregorianMonthOfYear year: aDate year month: aDate month) < gregorianMonthOfYear.! !
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/16/2021 20:47:36'!
+ERROR!
+
+aDate year!
+
+aDate year!
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 20:49:04' prior: 51048305!
+isExpiredOn: aDate 
+	
+	^(GregorianMonthOfYear yearNumber: aDate yearNumber monthNumber: aDate monthNumber) < gregorianMonthOfYear.! !
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/16/2021 20:49:06'!
+ERROR!
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 20:51:07' prior: 51048316!
+isExpiredOn: aDate 
+	
+	^(GregorianMonthOfYear yearNumber: aDate yearNumber monthNumber: aDate monthIndex) < gregorianMonthOfYear.! !
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/16/2021 20:51:09'!
+FAILURE!
+!CreditCardTest methodsFor: 'tests' stamp: 'ET 6/16/2021 20:51:20' prior: 51048287!
+test04ExpiredCreditCardIsExpired
+
+	| creditCard |
+	creditCard := CreditCard owner: 'Juan'  number: '1234567890123456' expiration: GregorianMonthOfYear current next.
+	
+	
+	self assert: (creditCard isExpiredOn: Date today).
+	! !
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/16/2021 20:51:22'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'ET 6/16/2021 20:51:22'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'ET 6/16/2021 20:51:22'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/16/2021 20:51:22'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/16/2021 20:51:22'!
+PASSED!
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 20:51:37' prior: 51048327!
+isExpiredOn: aDate 
+	
+	^true.! !
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/16/2021 20:51:41'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'ET 6/16/2021 20:51:41'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'ET 6/16/2021 20:51:41'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/16/2021 20:51:41'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/16/2021 20:51:41'!
+PASSED!
+!CreditCardTest methodsFor: 'tests' stamp: 'ET 6/16/2021 20:52:35'!
+test05NonExpiredCreditCardIsNotExpired
+
+	| creditCard |
+	creditCard := CreditCard owner: 'Juan'  number: '1234567890123456' expiration: GregorianMonthOfYear current previous.
+	
+	
+	self deny: (creditCard isExpiredOn: Date today).
+	! !
+!CreditCardTest methodsFor: 'tests' stamp: 'ET 6/16/2021 20:53:01' prior: 51048386!
+test05NonExpiredCreditCardIsNotExpired
+
+	| creditCard |
+	creditCard := CreditCard owner: 'Juan'  number: '1234567890123456' expiration: GregorianMonthOfYear current next.
+	
+	
+	self deny: (creditCard isExpiredOn: Date today).
+	! !
+!CreditCardTest methodsFor: 'tests' stamp: 'ET 6/16/2021 20:53:07' prior: 51048337!
+test04ExpiredCreditCardIsExpired
+
+	| creditCard |
+	creditCard := CreditCard owner: 'Juan'  number: '1234567890123456' expiration: GregorianMonthOfYear current previous.
+	
+	
+	self assert: (creditCard isExpiredOn: Date today).
+	! !
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/16/2021 20:53:08'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'ET 6/16/2021 20:53:08'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'ET 6/16/2021 20:53:08'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/16/2021 20:53:08'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/16/2021 20:53:08'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'ET 6/16/2021 20:53:08'!
+FAILURE!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'ET 6/16/2021 20:53:08'!
+FAILURE!
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 20:53:32' prior: 51048365!
+isExpiredOn: aDate 
+	
+	^(GregorianMonthOfYear yearNumber: aDate yearNumber monthNumber: aDate monthIndex) > gregorianMonthOfYear.! !
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'ET 6/16/2021 20:53:43'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/16/2021 20:55:34'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'ET 6/16/2021 20:55:34'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'ET 6/16/2021 20:55:34'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/16/2021 20:55:34'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/16/2021 20:55:34'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'ET 6/16/2021 20:55:34'!
+PASSED!
+!Cashier methodsFor: 'assertions' stamp: 'ET 6/16/2021 20:56:27' prior: 51046684!
+assertCreditCardIsNotExpired: aCreditCard
+	
+	(aCreditCard isExpiredOn: Date today) ifTrue: [self error: self class expiredCreditCardErrorDescription].! !
+
+!methodRemoval: CreditCard #expirationDate stamp: 'ET 6/16/2021 20:56:34'!
+expirationDate
+
+	^gregorianMonthOfYear!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'ET 6/16/2021 20:56:39'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'ET 6/16/2021 20:56:39'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'ET 6/16/2021 20:56:39'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/16/2021 20:56:39'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/16/2021 20:56:39'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'ET 6/16/2021 20:56:39'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 20:56:43'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/16/2021 20:56:43'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/16/2021 20:56:43'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/16/2021 20:56:43'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/16/2021 20:56:43'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/16/2021 20:56:43'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/16/2021 20:56:43'!
+PASSED!
+
+!classDefinition: #CreditCard category: 'TusLibros' stamp: 'ET 6/16/2021 20:57:10'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'ownerString creditCardNumberString expirationMonthOfYear'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 20:57:10' prior: 51048441!
+isExpiredOn: aDate 
+	
+	^(GregorianMonthOfYear yearNumber: aDate yearNumber monthNumber: aDate monthIndex) > expirationMonthOfYear.! !
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 20:57:10' prior: 51044592!
+initializeOwner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear 
+
+	ownerString := anOwnerString.
+	creditCardNumberString := aCreditCardNumberString.
+	expirationMonthOfYear := aGregorianMonthOfYear.! !
+

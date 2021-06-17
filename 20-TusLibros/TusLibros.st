@@ -307,6 +307,26 @@ test03CanNotCreateCreditCardWithBlankOwner
 
 	self assertCreditCardInstanceCreationRaisesErrorWhenOwnedBy: '    ' withNumber: '1234567890123456'.! !
 
+!CreditCardTest methodsFor: 'tests' stamp: 'ET 6/16/2021 20:53:07'!
+test04ExpiredCreditCardIsExpired
+
+	| creditCard |
+	creditCard := CreditCard owner: 'Juan'  number: '1234567890123456' expiration: GregorianMonthOfYear current previous.
+	
+	
+	self assert: (creditCard isExpiredOn: Date today).
+	! !
+
+!CreditCardTest methodsFor: 'tests' stamp: 'ET 6/16/2021 20:53:01'!
+test05NonExpiredCreditCardIsNotExpired
+
+	| creditCard |
+	creditCard := CreditCard owner: 'Juan'  number: '1234567890123456' expiration: GregorianMonthOfYear current next.
+	
+	
+	self deny: (creditCard isExpiredOn: Date today).
+	! !
+
 
 !CreditCardTest methodsFor: 'assertions' stamp: 'ET 6/16/2021 17:58:33'!
 assertCreditCardInstanceCreationRaisesErrorWhenOwnedBy: anOwner withNumber: aStringNumber
@@ -436,10 +456,10 @@ assertCartIsNotEmpty: aCart
 
 	^ aCart isEmpty ifTrue: [	self error: self class emptyCartErrorDescription]! !
 
-!Cashier methodsFor: 'assertions' stamp: 'ET 6/16/2021 17:40:18'!
+!Cashier methodsFor: 'assertions' stamp: 'ET 6/16/2021 20:56:27'!
 assertCreditCardIsNotExpired: aCreditCard
 	
-	aCreditCard expirationDate < GregorianMonthOfYear current ifTrue: [self error: self class expiredCreditCardErrorDescription].! !
+	(aCreditCard isExpiredOn: Date today) ifTrue: [self error: self class expiredCreditCardErrorDescription].! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -467,22 +487,23 @@ itemNotInPriceListErrorDescription
 
 !classDefinition: #CreditCard category: 'TusLibros'!
 Object subclass: #CreditCard
-	instanceVariableNames: 'ownerString creditCardNumberString gregorianMonthOfYear'
+	instanceVariableNames: 'ownerString creditCardNumberString expirationMonthOfYear'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!CreditCard methodsFor: 'initialization' stamp: 'ET 6/10/2021 20:46:08'!
-expirationDate
-
-	^gregorianMonthOfYear! !
-
-!CreditCard methodsFor: 'initialization' stamp: 'ET 6/10/2021 20:34:00'!
+!CreditCard methodsFor: 'initialization' stamp: 'ET 6/16/2021 20:57:10'!
 initializeOwner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear 
 
 	ownerString := anOwnerString.
 	creditCardNumberString := aCreditCardNumberString.
-	gregorianMonthOfYear := aGregorianMonthOfYear.! !
+	expirationMonthOfYear := aGregorianMonthOfYear.! !
+
+
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'ET 6/16/2021 20:57:10'!
+isExpiredOn: aDate 
+	
+	^(GregorianMonthOfYear yearNumber: aDate yearNumber monthNumber: aDate monthIndex) > expirationMonthOfYear.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
