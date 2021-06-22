@@ -9542,3 +9542,267 @@ test05CanNotListNonIdentifiedCart
 	
 	
 		! !
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:58:36'!
+test06StoreCanCreateMoreThanOneCart
+
+	| store cartID1 cartID2 |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self assert: cartID1 ~= cartID2.
+	self assert: (store listCart: cartID1) ~= (store listCart: cartID2).
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/22/2021 00:58:38'!
+FAILURE!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:59:25' prior: 51056084!
+test06StoreCanCreateMoreThanOneCart
+
+	| store cartID1 cartID2 |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self deny: cartID1 == cartID2.
+	self deny: (store listCart: cartID1) == (store listCart: cartID2).
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/22/2021 00:59:27'!
+FAILURE!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/22/2021 00:59:35'!
+FAILURE!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 01:00:04' prior: 51056104!
+test06StoreCanCreateMoreThanOneCart
+
+	| store cartID1 cartID2 |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self deny: cartID1 = cartID2.
+	self deny: (store listCart: cartID1) == (store listCart: cartID2).
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/22/2021 01:00:06'!
+FAILURE!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 01:00:19' prior: 51056127!
+test06StoreCanCreateMoreThanOneCart
+
+	| store cartID1 cartID2 |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self deny: (store listCart: cartID1) == (store listCart: cartID2).
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/22/2021 01:00:20'!
+FAILURE!
+
+(store listCart: cartID1)!
+
+(store listCart: cartID2)!
+
+(store listCart: cartID1) == (store listCart: cartID2)!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 01:01:29' prior: 51056147!
+test06StoreCanCreateMoreThanOneCart
+
+	| store cartID1 cartID2 |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self deny: (store listCart: cartID1) = (store listCart: cartID2).
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/22/2021 01:01:31'!
+FAILURE!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 01:01:54' prior: 51056169!
+test06StoreCanCreateMoreThanOneCart
+
+	| store cartID1 cartID2 |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self deny: (store listCart: cartID1) == (store listCart: cartID2).
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/22/2021 01:01:55'!
+FAILURE!
+
+(store listCart: cartID1)!
+
+| cartID1 store |
+store:= Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.!
+
+| cartID1 store cart |
+store:= Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+cart := store listCart: cartID1.!
+
+| cartID1 store cart |
+store:= Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+cart := store listCart: cartID1.
+
+cart class!
+
+| cartID1 store cart |
+store:= Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+cart := store listCart: cartID1.
+
+cart class!
+
+| cartID1 store cart |
+store:= Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+cart := store listCart: cartID1.
+
+cart == self.!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 01:04:29' prior: 51056188!
+test06StoreCanCreateMoreThanOneCart
+
+	| store cartID1 cartID2 |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self deny: (store listCart: cartID1) = (store listCart: cartID2).
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/22/2021 01:04:31'!
+FAILURE!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 01:05:19' prior: 51055668!
+createCartFor: aUserId authenticatedWith: aPassword
+	clientAuthenticator athenticateUser: aUserId withPassword: aPassword. 
+	
+	carts add: (Cart acceptingItemsOf: itemCatalog).
+	^carts size.
+	
+	! !
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/22/2021 01:05:21'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/22/2021 01:05:21'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/22/2021 01:05:21'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/22/2021 01:05:21'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/22/2021 01:05:21'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/22/2021 01:05:21'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/22/2021 01:05:21'!
+PASSED!
+!Store methodsFor: 'initialization' stamp: 'ET 6/22/2021 01:05:52' prior: 51055659!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog
+	clientAuthenticator := aClientAuthenticator.
+	carts := OrderedCollection new.
+	itemCatalog := aCatalog! !
+
+Object subclass: #Store
+	instanceVariableNames: 'clientAuthenticator carts itemCatalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Store category: 'TusLibros' stamp: 'ET 6/22/2021 01:05:58'!
+Object subclass: #Store
+	instanceVariableNames: 'clientAuthenticator carts itemCatalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 01:07:48' prior: 51056243!
+test06StoreCanCreateMoreThanOneCart
+
+	| store cartID1 cartID2 |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	
+	self deny: cartID1 = cartID2.
+	self assert: (store hasCartIdentified: cartID1).
+	self assert: (store hasCartIdentified: cartID2).
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/22/2021 01:07:50'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/22/2021 01:07:50'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/22/2021 01:07:50'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/22/2021 01:07:50'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/22/2021 01:07:50'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/22/2021 01:07:50'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/22/2021 01:07:50'!
+PASSED!

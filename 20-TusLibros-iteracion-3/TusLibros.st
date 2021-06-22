@@ -425,6 +425,24 @@ test05CanNotListNonIdentifiedCart
 	
 		! !
 
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 01:07:48'!
+test06StoreCanCreateMoreThanOneCart
+
+	| store cartID1 cartID2 |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	
+	self deny: cartID1 = cartID2.
+	self assert: (store hasCartIdentified: cartID1).
+	self assert: (store hasCartIdentified: cartID2).
+
+	
+	
+	
+		! !
+
 
 !classDefinition: #Cart category: 'TusLibros'!
 Object subclass: #Cart
@@ -662,16 +680,16 @@ raiseErrorOnCharge: aMessageError
 
 !classDefinition: #Store category: 'TusLibros'!
 Object subclass: #Store
-	instanceVariableNames: 'clientAuthenticator carts itemCatalog catalog'
+	instanceVariableNames: 'clientAuthenticator carts itemCatalog'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Store methodsFor: 'initialization' stamp: 'JA 6/17/2021 21:20:42'!
+!Store methodsFor: 'initialization' stamp: 'ET 6/22/2021 01:05:52'!
 initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog
 	clientAuthenticator := aClientAuthenticator.
 	carts := OrderedCollection new.
-	catalog := aCatalog! !
+	itemCatalog := aCatalog! !
 
 
 !Store methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:51:28'!
@@ -679,12 +697,12 @@ assertCartIDIsValid: cartID
 	
 	(self hasCartIdentified: cartID) ifFalse: [self error: self class invalidCartIDErrorDescription ]! !
 
-!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/17/2021 21:44:00'!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 01:05:19'!
 createCartFor: aUserId authenticatedWith: aPassword
 	clientAuthenticator athenticateUser: aUserId withPassword: aPassword. 
 	
 	carts add: (Cart acceptingItemsOf: itemCatalog).
-	^ 1
+	^carts size.
 	
 	! !
 
