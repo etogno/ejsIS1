@@ -9164,3 +9164,381 @@ PASSED!
 
 
 ----QUIT----(18 June 2021 09:27:16) CuisUniversity-4532.image priorSource: 17023100!
+
+!classRenamed: #TusLibrosMarket as: #Store stamp: 'ET 6/22/2021 00:42:54'!
+Smalltalk renameClassNamed: #TusLibrosMarket as: #Store!
+!XxxTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:42:55' prior: 51055326!
+test02
+
+	| tusLibrosMarket aCartId |
+	tusLibrosMarket := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	aCartId := tusLibrosMarket createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self assert: tusLibrosMarket hasCarts.
+	self assert: (tusLibrosMarket hasCartIdentified: aCartId).
+
+	
+	
+	
+		! !
+!XxxTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:42:55' prior: 51055340!
+test03
+
+	| tusLibrosMarket |
+	tusLibrosMarket := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	
+	self deny: tusLibrosMarket hasCarts.
+	self deny: (tusLibrosMarket hasCartIdentified: 1).
+
+	
+	
+	
+		! !
+!XxxTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:42:55' prior: 51055302!
+test01
+
+	| tusLibrosMarket errorMessage clientAuthenticatorSimulator |
+	errorMessage _ 'Username or password invalid'.
+	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
+	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
+	tusLibrosMarket := Store withClientAuthenticator: clientAuthenticatorSimulator catalog: OrderedCollection new.
+	
+	
+	self should: [
+		tusLibrosMarket createCartFor: 123 authenticatedWith: 'passwd'
+		] 
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo: [ :exception | 
+	
+	self assert: errorMessage  equals: exception messageText.
+			self deny: tusLibrosMarket hasCarts.
+		]
+	
+	
+	
+		! !
+
+!classRenamed: #XxxTest as: #StoreTest stamp: 'ET 6/22/2021 00:43:03'!
+Smalltalk renameClassNamed: #XxxTest as: #StoreTest!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:43:25'!
+test01CanNotCreateCartWhenCredentialsCantBeAuthenticated
+
+	| tusLibrosMarket errorMessage clientAuthenticatorSimulator |
+	errorMessage _ 'Username or password invalid'.
+	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
+	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
+	tusLibrosMarket := Store withClientAuthenticator: clientAuthenticatorSimulator catalog: OrderedCollection new.
+	
+	
+	self should: [
+		tusLibrosMarket createCartFor: 123 authenticatedWith: 'passwd'
+		] 
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo: [ :exception | 
+	
+	self assert: errorMessage  equals: exception messageText.
+			self deny: tusLibrosMarket hasCarts.
+		]
+	
+	
+	
+		! !
+
+!methodRemoval: StoreTest #test01 stamp: 'ET 6/22/2021 00:43:25'!
+test01
+
+	| tusLibrosMarket errorMessage clientAuthenticatorSimulator |
+	errorMessage _ 'Username or password invalid'.
+	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
+	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
+	tusLibrosMarket := Store withClientAuthenticator: clientAuthenticatorSimulator catalog: OrderedCollection new.
+	
+	
+	self should: [
+		tusLibrosMarket createCartFor: 123 authenticatedWith: 'passwd'
+		] 
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo: [ :exception | 
+	
+	self assert: errorMessage  equals: exception messageText.
+			self deny: tusLibrosMarket hasCarts.
+		]
+	
+	
+	
+		!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:43:38'!
+test02StoreHasNewCreatedCart
+
+	| tusLibrosMarket aCartId |
+	tusLibrosMarket := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	aCartId := tusLibrosMarket createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self assert: tusLibrosMarket hasCarts.
+	self assert: (tusLibrosMarket hasCartIdentified: aCartId).
+
+	
+	
+	
+		! !
+
+!methodRemoval: StoreTest #test02 stamp: 'ET 6/22/2021 00:43:38'!
+test02
+
+	| tusLibrosMarket aCartId |
+	tusLibrosMarket := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	aCartId := tusLibrosMarket createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self assert: tusLibrosMarket hasCarts.
+	self assert: (tusLibrosMarket hasCartIdentified: aCartId).
+
+	
+	
+	
+		!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:43:50'!
+test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts
+
+	| tusLibrosMarket |
+	tusLibrosMarket := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	
+	self deny: tusLibrosMarket hasCarts.
+	self deny: (tusLibrosMarket hasCartIdentified: 1).
+
+	
+	
+	
+		! !
+
+!methodRemoval: StoreTest #test03 stamp: 'ET 6/22/2021 00:43:50'!
+test03
+
+	| tusLibrosMarket |
+	tusLibrosMarket := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	
+	self deny: tusLibrosMarket hasCarts.
+	self deny: (tusLibrosMarket hasCartIdentified: 1).
+
+	
+	
+	
+		!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:43:55' prior: 51055836!
+test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts
+
+	| tusLibrosMarket |
+	tusLibrosMarket := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	
+	self deny: tusLibrosMarket hasCarts.
+	self deny: (tusLibrosMarket hasCartIdentified: -1).
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/22/2021 00:43:56'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/22/2021 00:43:56'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/22/2021 00:43:56'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/22/2021 00:43:56'!
+PASSED!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:46:36'!
+test04NewCreatedCartIsEmpty
+
+	| tusLibrosMarket aCartId |
+	tusLibrosMarket := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	aCartId := tusLibrosMarket createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self assert: (tusLibrosMarket listCart: aCartId) isEmpty.
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/22/2021 00:46:39'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:46:48'!
+listCart: aSmallInteger 
+	self shouldBeImplemented.! !
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:47:08' prior: 51055901!
+listCart: cartID
+	^carts at: cartID.! !
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/22/2021 00:47:11'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/22/2021 00:47:11'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/22/2021 00:47:11'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/22/2021 00:47:11'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/22/2021 00:47:11'!
+PASSED!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:49:15'!
+test05CanNotListNonIdentifiedCart
+
+	| tusLibrosMarket aCartId |
+	tusLibrosMarket := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+
+	self should: [tusLibrosMarket listCart: aCartId]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]
+	
+	
+	
+		! !
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:49:29' prior: 51055926!
+test05CanNotListNonIdentifiedCart
+
+	| tusLibrosMarket |
+	tusLibrosMarket := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+
+	self should: [tusLibrosMarket listCart: -1]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/22/2021 00:49:33'!
+ERROR!
+!Store class methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:49:50'!
+invalidCartIDErrorDescription
+	self shouldBeImplemented.! !
+!Store class methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:50:04' prior: 51055958!
+invalidCartIDErrorDescription
+	^'Cart ID is not in the system'! !
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/22/2021 00:50:06'!
+FAILURE!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:50:44' prior: 51055906!
+listCart: cartID
+	
+	self assertCartIDIsValid: cartID.
+
+	^carts at: cartID.! !
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/22/2021 00:50:47'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:50:51'!
+assertCartIDIsValid: aSmallInteger 
+	self shouldBeImplemented.! !
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:51:28' prior: 51055979!
+assertCartIDIsValid: cartID
+	
+	(self hasCartIdentified: cartID) ifFalse: [self error: self class invalidCartIDErrorDescription ]! !
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/22/2021 00:51:30'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/22/2021 00:51:30'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/22/2021 00:51:30'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/22/2021 00:51:30'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/22/2021 00:51:30'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/22/2021 00:51:30'!
+PASSED!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:52:06' prior: 51055761!
+test01CanNotCreateCartWhenCredentialsCantBeAuthenticated
+
+	| store errorMessage clientAuthenticatorSimulator |
+	errorMessage _ 'Username or password invalid'.
+	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
+	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
+	store := Store withClientAuthenticator: clientAuthenticatorSimulator catalog: OrderedCollection new.
+	
+	
+	self should: [
+		store createCartFor: 123 authenticatedWith: 'passwd'
+		] 
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo: [ :exception | 
+	
+	self assert: errorMessage  equals: exception messageText.
+			self deny: store hasCarts.
+		]
+	
+	
+	
+		! !
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:52:20' prior: 51055809!
+test02StoreHasNewCreatedCart
+
+	| store aCartId |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	aCartId := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self assert: store hasCarts.
+	self assert: (store hasCartIdentified: aCartId).
+
+	
+	
+	
+		! !
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:52:28' prior: 51055859!
+test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts
+
+	| store |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	
+	self deny: store hasCarts.
+	self deny: (store hasCartIdentified: -1).
+
+	
+	
+	
+		! !
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:52:35' prior: 51055885!
+test04NewCreatedCartIsEmpty
+
+	| store aCartId |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	aCartId := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self assert: (store listCart: aCartId) isEmpty.
+	
+	
+	
+		! !
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:52:47' prior: 51055941!
+test05CanNotListNonIdentifiedCart
+
+	| store |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+
+	self should: [store listCart: -1]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]
+	
+	
+	
+		! !

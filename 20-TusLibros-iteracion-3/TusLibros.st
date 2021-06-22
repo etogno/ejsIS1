@@ -335,63 +335,91 @@ assertCreditCardInstanceCreationRaisesErrorWhenOwnedBy: anOwner withNumber: aStr
 		withExceptionDo:[ :anError| self assert: CreditCard invalidCreditCardErrorDescription equals: anError messageText	] ! !
 
 
-!classDefinition: #XxxTest category: 'TusLibros'!
-TestCase subclass: #XxxTest
+!classDefinition: #StoreTest category: 'TusLibros'!
+TestCase subclass: #StoreTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!XxxTest methodsFor: 'as yet unclassified' stamp: 'JA 6/17/2021 21:22:56'!
-test01
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:52:06'!
+test01CanNotCreateCartWhenCredentialsCantBeAuthenticated
 
-	| tusLibrosMarket errorMessage clientAuthenticatorSimulator |
+	| store errorMessage clientAuthenticatorSimulator |
 	errorMessage _ 'Username or password invalid'.
 	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
 	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
-	tusLibrosMarket := TusLibrosMarket withClientAuthenticator: clientAuthenticatorSimulator catalog: OrderedCollection new.
+	store := Store withClientAuthenticator: clientAuthenticatorSimulator catalog: OrderedCollection new.
 	
 	
 	self should: [
-		tusLibrosMarket createCartFor: 123 authenticatedWith: 'passwd'
+		store createCartFor: 123 authenticatedWith: 'passwd'
 		] 
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo: [ :exception | 
 	
 	self assert: errorMessage  equals: exception messageText.
-			self deny: tusLibrosMarket hasCarts.
+			self deny: store hasCarts.
 		]
 	
 	
 	
 		! !
 
-!XxxTest methodsFor: 'as yet unclassified' stamp: 'JA 6/17/2021 21:22:56'!
-test02
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:52:20'!
+test02StoreHasNewCreatedCart
 
-	| tusLibrosMarket aCartId |
-	tusLibrosMarket := TusLibrosMarket withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	| store aCartId |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
 	
-	aCartId := tusLibrosMarket createCartFor: 123 authenticatedWith: 'passwd'.
+	aCartId := store createCartFor: 123 authenticatedWith: 'passwd'.
 
-	self assert: tusLibrosMarket hasCarts.
-	self assert: (tusLibrosMarket hasCartIdentified: aCartId).
+	self assert: store hasCarts.
+	self assert: (store hasCartIdentified: aCartId).
 
 	
 	
 	
 		! !
 
-!XxxTest methodsFor: 'as yet unclassified' stamp: 'JA 6/17/2021 21:27:23'!
-test03
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:52:28'!
+test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts
 
-	| tusLibrosMarket |
-	tusLibrosMarket := TusLibrosMarket withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	| store |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
 	
 	
-	self deny: tusLibrosMarket hasCarts.
-	self deny: (tusLibrosMarket hasCartIdentified: 1).
+	self deny: store hasCarts.
+	self deny: (store hasCartIdentified: -1).
 
+	
+	
+	
+		! !
+
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:52:35'!
+test04NewCreatedCartIsEmpty
+
+	| store aCartId |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+	
+	aCartId := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self assert: (store listCart: aCartId) isEmpty.
+	
+	
+	
+		! !
+
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:52:47'!
+test05CanNotListNonIdentifiedCart
+
+	| store |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: OrderedCollection new.
+
+	self should: [store listCart: -1]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]
 	
 	
 	
@@ -632,21 +660,26 @@ raiseErrorOnCharge: aMessageError
 	messageError := aMessageError.! !
 
 
-!classDefinition: #TusLibrosMarket category: 'TusLibros'!
-Object subclass: #TusLibrosMarket
+!classDefinition: #Store category: 'TusLibros'!
+Object subclass: #Store
 	instanceVariableNames: 'clientAuthenticator carts itemCatalog catalog'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!TusLibrosMarket methodsFor: 'initialization' stamp: 'JA 6/17/2021 21:20:42'!
+!Store methodsFor: 'initialization' stamp: 'JA 6/17/2021 21:20:42'!
 initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog
 	clientAuthenticator := aClientAuthenticator.
 	carts := OrderedCollection new.
 	catalog := aCatalog! !
 
 
-!TusLibrosMarket methodsFor: 'as yet unclassified' stamp: 'JA 6/17/2021 21:44:00'!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:51:28'!
+assertCartIDIsValid: cartID
+	
+	(self hasCartIdentified: cartID) ifFalse: [self error: self class invalidCartIDErrorDescription ]! !
+
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/17/2021 21:44:00'!
 createCartFor: aUserId authenticatedWith: aPassword
 	clientAuthenticator athenticateUser: aUserId withPassword: aPassword. 
 	
@@ -655,21 +688,33 @@ createCartFor: aUserId authenticatedWith: aPassword
 	
 	! !
 
-!TusLibrosMarket methodsFor: 'as yet unclassified' stamp: 'JA 6/17/2021 21:39:48'!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/17/2021 21:39:48'!
 hasCartIdentified: aCartId 
  	carts at: aCartId ifAbsent: [^ false].
 	^true.! !
 
-!TusLibrosMarket methodsFor: 'as yet unclassified' stamp: 'JA 6/17/2021 21:25:00'!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/17/2021 21:25:00'!
 hasCarts
 	^ carts isEmpty not.! !
 
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:50:44'!
+listCart: cartID
+	
+	self assertCartIDIsValid: cartID.
+
+	^carts at: cartID.! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'TusLibrosMarket class' category: 'TusLibros'!
-TusLibrosMarket class
+!classDefinition: 'Store class' category: 'TusLibros'!
+Store class
 	instanceVariableNames: ''!
 
-!TusLibrosMarket class methodsFor: 'instance creation' stamp: 'JA 6/17/2021 21:23:23'!
+!Store class methodsFor: 'instance creation' stamp: 'JA 6/17/2021 21:23:23'!
 withClientAuthenticator: aClientAuthenticator catalog: aCatalog 
 	^self new initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog! !
+
+
+!Store class methodsFor: 'as yet unclassified' stamp: 'ET 6/22/2021 00:50:04'!
+invalidCartIDErrorDescription
+	^'Cart ID is not in the system'! !
