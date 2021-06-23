@@ -9806,3 +9806,4706 @@ PASSED!
 
 !testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/22/2021 01:07:50'!
 PASSED!
+
+----STARTUP---- (23 June 2021 08:08:48) as /home/jaicardo/Descargas/Cuis/CuisUniversity-4532.image!
+
+
+----End fileIn of /home/jaicardo/Descargas/Cuis/ejsIS1/20-TusLibros-iteracion-3/TusLibros.st----!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:09:07'!
+PASSED!
+
+Object subclass: #TestObjects
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #TestObjects category: 'TusLibros' stamp: 'JA 6/23/2021 08:10:21'!
+Object subclass: #TestObjects
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!TestObjects methodsFor: 'nil' stamp: 'JA 6/23/2021 08:10:29'!
+defaultCatalog
+	
+	^ Array with: self itemSellByTheStore! !
+!TestObjects methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 08:10:56'!
+itemSellByTheStore
+	
+	^ 'validBook'! !
+!CartTest methodsFor: 'support' stamp: 'JA 6/23/2021 08:12:31' prior: 50860155!
+defaultCatalog
+	^ TestObjects new defaultCatalog .
+	"^ Array with: self itemSellByTheStore."! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:12:37'!
+PASSED!
+!CartTest methodsFor: 'support' stamp: 'JA 6/23/2021 08:12:51' prior: 50860976!
+defaultCatalog
+	^ TestObjects new defaultCatalog.! !
+!CartTest methodsFor: 'support' stamp: 'JA 6/23/2021 08:13:31' prior: 50860164!
+itemSellByTheStore
+	
+	
+	^ TestObjects new itemSellByTheStore .! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/23/2021 08:13:31'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/23/2021 08:13:31'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/23/2021 08:13:31'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/23/2021 08:13:31'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/23/2021 08:13:31'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/23/2021 08:13:31'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/23/2021 08:13:31'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/23/2021 08:13:31'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:13:38'!
+PASSED!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 08:16:40' prior: 50860417!
+test01CanNotCreateCartWhenCredentialsCantBeAuthenticated
+
+	| store errorMessage clientAuthenticatorSimulator |
+	errorMessage _ 'Username or password invalid'.
+	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
+	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
+	store := Store withClientAuthenticator: clientAuthenticatorSimulator catalog: TestObjects new defaultCatalog .
+	
+	
+	self should: [
+		store createCartFor: 123 authenticatedWith: 'passwd'
+		] 
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo: [ :exception | 
+	
+	self assert: errorMessage  equals: exception messageText.
+			self deny: store hasCarts.
+		]
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:16:41'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:16:41'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:16:41'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:16:41'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:16:41'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:16:41'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:16:41'!
+PASSED!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 08:17:09' prior: 50860441!
+test02StoreHasNewCreatedCart
+
+	| store aCartId |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog.
+	
+	aCartId := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self assert: store hasCarts.
+	self assert: (store hasCartIdentified: aCartId).
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:17:10'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:17:10'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:17:10'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:17:10'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:17:10'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:17:10'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:17:10'!
+PASSED!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 08:17:16' prior: 50860454!
+test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts
+
+	| store |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog.
+	
+	
+	self deny: store hasCarts.
+	self deny: (store hasCartIdentified: -1).
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:17:20'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:17:20'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:17:20'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:17:20'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:17:20'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:17:20'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:17:20'!
+PASSED!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 08:17:27' prior: 50860465!
+test04NewCreatedCartIsEmpty
+
+	| store aCartId |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog.
+	
+	aCartId := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self assert: (store listCart: aCartId) isEmpty.
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:17:28'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:17:28'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:17:28'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:17:28'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:17:28'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:17:28'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:17:28'!
+PASSED!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 08:17:35' prior: 50860477!
+test05CanNotListNonIdentifiedCart
+
+	| store |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog.
+
+	self should: [store listCart: -1]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:17:38'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:17:38'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:17:38'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:17:38'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:17:38'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:17:38'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:17:38'!
+PASSED!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 08:17:46' prior: 50860490!
+test06StoreCanCreateMoreThanOneCart
+
+	| store cartID1 cartID2 |
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog.
+	
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	
+	self deny: cartID1 = cartID2.
+	self assert: (store hasCartIdentified: cartID1).
+	self assert: (store hasCartIdentified: cartID2).
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:17:48'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:17:48'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:17:48'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:17:48'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:17:48'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:17:48'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:17:48'!
+PASSED!
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 08:22:35'!
+testStore
+	
+	^ Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog.! !
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 08:24:40' prior: 50861232!
+test02StoreHasNewCreatedCart
+
+	| store aCartId |
+	store := self testStore .
+	
+	aCartId := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self assert: store hasCarts.
+	self assert: (store hasCartIdentified: aCartId).
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:24:42'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:24:42'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:24:42'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:24:42'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:24:42'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:24:42'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:24:42'!
+PASSED!
+
+!testRun: #StoreTest #testStore stamp: 'JA 6/23/2021 08:24:42'!
+PASSED!
+!StoreTest methodsFor: 'support' stamp: 'JA 6/23/2021 08:25:05'!
+store
+	
+	^ Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog.! !
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 08:25:05' prior: 50861421!
+test02StoreHasNewCreatedCart
+
+	| store aCartId |
+	store := self store .
+	
+	aCartId := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self assert: store hasCarts.
+	self assert: (store hasCartIdentified: aCartId).
+
+	
+	
+	
+		! !
+
+!methodRemoval: StoreTest #testStore stamp: 'JA 6/23/2021 08:25:05'!
+testStore
+	
+	^ Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog.!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:25:21'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:25:21'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:25:21'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:25:21'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:25:21'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:25:21'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:25:21'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:25:25'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 08:25:49' prior: 50861268!
+test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts
+
+	| store |
+	store := self store .
+	
+	
+	self deny: store hasCarts.
+	self deny: (store hasCartIdentified: -1).
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:25:50'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:25:50'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:25:50'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:25:50'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:25:50'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:25:50'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:25:50'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 08:26:01' prior: 50861303!
+test04NewCreatedCartIsEmpty
+
+	| store aCartId |
+	store := self store .
+	
+	aCartId := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	self assert: (store listCart: aCartId) isEmpty.
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:26:03'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:26:03'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:26:03'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:26:03'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:26:03'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:26:03'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:26:03'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 08:26:11' prior: 50861338!
+test05CanNotListNonIdentifiedCart
+
+	| store |
+	store := self store .
+
+	self should: [store listCart: -1]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:26:12'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:26:12'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:26:12'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:26:12'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:26:12'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:26:12'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:26:12'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 08:26:18' prior: 50861374!
+test06StoreCanCreateMoreThanOneCart
+
+	| store cartID1 cartID2 |
+	store := self store .
+	
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	
+	self deny: cartID1 = cartID2.
+	self assert: (store hasCartIdentified: cartID1).
+	self assert: (store hasCartIdentified: cartID2).
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:26:19'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:26:19'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:26:19'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:26:19'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:26:19'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:26:19'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:26:19'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 08:30:01'!
+test07CartIsInvalidBefore30Min
+
+	| store cartID1 |
+	store := self store .	
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	
+
+	self deny: (store hasCartIdentified: cartID1).
+
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 08:30:09'!
+FAILURE!
+
+!classDefinition: #Store category: 'TusLibros' stamp: 'JA 6/23/2021 08:38:28'!
+Object subclass: #Store
+	instanceVariableNames: 'clientAuthenticator carts itemCatalog lastTimeCartUsed'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Store category: 'TusLibros' stamp: 'JA 6/23/2021 08:38:31'!
+Object subclass: #Store
+	instanceVariableNames: 'clientAuthenticator carts itemCatalog lastTimeCartUsed clock'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 08:38:25' prior: 50860837!
+hasCartIdentified: aCartId 
+	|currentCart|
+ 	currentCart := carts at: aCartId ifAbsent: [^ false].
+	(lastTimeCartUsed at: aCartId + 30 minutes) < clock now.
+	^true.! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 08:40:51' prior: 50861743!
+hasCartIdentified: aCartId 
+	
+ 	carts at: aCartId ifAbsent: [^ false].
+	^ (lastTimeCartUsed at: aCartId + 30 minutes) < clock now.
+	! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 08:41:42' prior: 50860828!
+createCartFor: aUserId authenticatedWith: aPassword
+	clientAuthenticator athenticateUser: aUserId withPassword: aPassword. 
+	
+	carts add: (Cart acceptingItemsOf: itemCatalog).
+	lastTimeCartUsed add: clock now.
+	^carts size.
+	
+	! !
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 08:41:53'!
+ERROR!
+
+FixedGregorianDate now!
+
+GregorianDateTime now !
+!Store class methodsFor: 'instance creation' stamp: 'JA 6/23/2021 08:47:57'!
+withClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock  
+	^self new initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog! !
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 08:47:57' prior: 50861184!
+test01CanNotCreateCartWhenCredentialsCantBeAuthenticated
+
+	| store errorMessage clientAuthenticatorSimulator |
+	errorMessage _ 'Username or password invalid'.
+	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
+	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
+	store := Store withClientAuthenticator: clientAuthenticatorSimulator catalog: TestObjects new defaultCatalog clock: GregorianDateTime now .
+	
+	
+	self should: [
+		store createCartFor: 123 authenticatedWith: 'passwd'
+		] 
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo: [ :exception | 
+	
+	self assert: errorMessage  equals: exception messageText.
+			self deny: store hasCarts.
+		]
+	
+	
+	
+		! !
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 08:47:57' prior: 50861455!
+store
+	
+	^ Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: GregorianDateTime now.! !
+
+!methodRemoval: Store class #withClientAuthenticator:catalog: stamp: 'JA 6/23/2021 08:47:57'!
+withClientAuthenticator: aClientAuthenticator catalog: aCatalog 
+	^self new initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 08:48:14'!
+ERROR!
+!Store class methodsFor: 'instance creation' stamp: 'JA 6/23/2021 08:48:47' prior: 50861775!
+withClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock  
+	^self new initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock! !
+!Store class methodsFor: 'instance creation' stamp: 'JA 6/23/2021 08:49:31' prior: 50861828!
+withClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock  
+	^self new initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog! !
+!Store class methodsFor: 'instance creation' stamp: 'JA 6/23/2021 08:51:37' prior: 50861837!
+withClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock  
+	^self new initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock.! !
+!Store methodsFor: 'initialization' stamp: 'JA 6/23/2021 08:52:04'!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock
+	clientAuthenticator := aClientAuthenticator.
+	carts := OrderedCollection new.
+	itemCatalog := aCatalog.
+	clock := aClock.! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:52:11'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:52:11'!
+ERROR!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:52:11'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:52:11'!
+ERROR!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:52:11'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:52:11'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 08:52:11'!
+ERROR!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:52:55'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:52:55'!
+ERROR!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:52:55'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:52:55'!
+ERROR!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:52:55'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:52:55'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 08:52:55'!
+ERROR!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:53:01'!
+ERROR!
+
+GregorianDateTime now!
+
+GregorianDateTime now!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 08:54:28'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 08:55:00'!
+ERROR!
+!StoreTest methodsFor: 'support' stamp: 'JA 6/23/2021 08:55:21' prior: 50861809!
+store
+	
+	^ Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: GregorianDateTime.! !
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 08:55:31'!
+ERROR!
+!Store methodsFor: 'initialization' stamp: 'JA 6/23/2021 08:56:00' prior: 50861854!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock
+	clientAuthenticator := aClientAuthenticator.
+	carts := OrderedCollection new.
+	itemCatalog := aCatalog.
+	clock := aClock.
+	lastTimeCartUsed :=OrderedCollection new.! !
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 08:56:05'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 08:56:05'!
+ERROR!
+
+30minutes!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 08:56:55' prior: 50861752!
+hasCartIdentified: aCartId 
+	
+ 	carts at: aCartId ifAbsent: [^ false].
+	^ (lastTimeCartUsed at: aCartId + 30minutes) < clock now.
+	! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:56:57'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:56:57'!
+ERROR!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:56:57'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:56:57'!
+ERROR!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:56:57'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:56:57'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 08:56:57'!
+ERROR!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:57:04'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:57:04'!
+ERROR!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:57:04'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:57:04'!
+ERROR!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:57:04'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:57:04'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 08:57:04'!
+ERROR!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:57:08'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 08:57:32' prior: 50861946!
+hasCartIdentified: aCartId 
+	
+ 	carts at: aCartId ifAbsent: [^ false].
+	^ ((lastTimeCartUsed at: aCartId) + 30minutes) < clock now.
+	! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 08:57:33'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:57:33'!
+ERROR!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 08:57:33'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 08:57:33'!
+ERROR!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 08:57:33'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 08:57:33'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 08:57:33'!
+ERROR!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 08:57:36'!
+ERROR!
+
+GregorianDateTime now + 30 minutes!
+
+GregorianDateTime now + 3minutes!
+
+pp:=GregorianDateTime now.!
+
+pp next: 30 minutes!
+
+pp next: 30!
+
+pp next: 30 minutes!
+
+FixedGregorianDate now!
+
+GregorianDateTime now!
+
+GregorianDateTime now + 30 minutes!
+
+----End fileIn of /home/jaicardo/Descargas/Cuis/Packages/TerseGuide.pck.st----!
+
+Time now!
+
+Date now!
+
+Date dateAndTimeNow !
+
+Date dateAndTimeNow  + 30 minutes!
+
+pp next: TimeUnits minutes!
+
+TimeUnits minutes with:30!
+
+TimeUnits minute with:30!
+
+ 30 minutes !
+
+pp next: (TimeUnits minute with:30)!
+
+pp next: 30 minutes!
+
+pp next: (30 minutes)!
+
+pp next: (30minutes)!
+
+pp next: (TimeUnits minute with:30)!
+
+pp!
+
+TimeUnits minute with:30!
+
+30 minutes!
+
+TimeUnits minute with:30!
+
+self + 30 minutes!
+
+self + 30 minute!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:20:37'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:20:37'!
+ERROR!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:20:37'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:20:37'!
+ERROR!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:20:37'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:20:37'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:20:37'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:21:58' prior: 50862000!
+hasCartIdentified: aCartId 
+	
+ 	carts at: aCartId ifAbsent: [^ false].
+	^ ((lastTimeCartUsed at: aCartId) next: (TimeUnits minute with:30)) < clock now.
+	! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:21:59'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:21:59'!
+FAILURE!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:21:59'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:21:59'!
+ERROR!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:21:59'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:21:59'!
+FAILURE!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:21:59'!
+PASSED!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:22:32' prior: 50865001!
+hasCartIdentified: aCartId 
+	
+ 	carts at: aCartId ifAbsent: [^ false].
+	^ ((lastTimeCartUsed at: aCartId) next: (TimeUnits minute with:30)) > clock now.
+	! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:22:33'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:22:33'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:22:33'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:22:33'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:22:33'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:22:33'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:22:33'!
+FAILURE!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:22:33'!
+FAILURE!
+
+!classDefinition: #ClockSimulator category: 'TusLibros' stamp: 'JA 6/23/2021 09:25:01'!
+Object subclass: #ClockSimulator
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 09:24:49' prior: 50861714!
+test07CartIsInvalidBefore30Min
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= ClockSimulator new.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	
+
+	self deny: (store hasCartIdentified: cartID1).
+
+
+	
+	
+	
+		! !
+!ClockSimulator class methodsFor: 'nil' stamp: 'JA 6/23/2021 09:26:51'!
+with: aDateTime
+	^ self new initializeWith: aDateTime.! !
+
+!classDefinition: #ClockSimulator category: 'TusLibros' stamp: 'JA 6/23/2021 09:27:14'!
+Object subclass: #ClockSimulator
+	instanceVariableNames: 'dateTime'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ClockSimulator methodsFor: 'nil' stamp: 'JA 6/23/2021 09:27:11'!
+initializeWith: aDateTime
+	dateTime := aDateTime .! !
+!ClockSimulator methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:27:24'!
+set: aDateTime
+	dateTime := aDateTime .! !
+!ClockSimulator methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:27:43'!
+now
+	^ dateTime ! !
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 09:29:45' prior: 50865071!
+test07CartIsInvalidBefore30Min
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= ClockSimulator with: (GregorianDateTime date: 2021/01/01 timeOfDay: 00:00:00).
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	
+
+	self deny: (store hasCartIdentified: cartID1).
+
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:29:47'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:30:12'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:31:15'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:31:20'!
+ERROR!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:32:43'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:32:43'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:32:43'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:32:43'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:32:43'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:32:43'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:32:43'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:32:43'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:32:53'!
+ERROR!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 09:38:17' prior: 50865109!
+test07CartIsInvalidBefore30Min
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= ClockSimulator with: (GregorianDateTime date: (FixedGregorianDate yearNumber: 2004 month: GregorianMonth january dayNumber: 1) timeOfDay: 00:00:00).
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	
+
+	self deny: (store hasCartIdentified: cartID1).
+
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:38:19'!
+FAILURE!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 09:39:31' prior: 50865165!
+test07CartIsInvalidBefore30Min
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= ClockSimulator with: (GregorianDateTime date: (FixedGregorianDate yearNumber: 2004 month: GregorianMonth january dayNumber: 1) timeOfDay: 00:00:00).
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: (GregorianDateTime date: (FixedGregorianDate yearNumber: 2004 month: GregorianMonth january dayNumber: 1) timeOfDay: 00:31:00).
+
+	self deny: (store hasCartIdentified: cartID1).
+
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:39:33'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:39:33'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:39:33'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:39:33'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:39:33'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:39:33'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:39:33'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:39:33'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 09:40:30'!
+dateForTesting
+
+	^ GregorianDateTime date: (FixedGregorianDate yearNumber: 2004 month: GregorianMonth january dayNumber: 1) timeOfDay: 00:00:00! !
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 09:40:30' prior: 50865187!
+test07CartIsInvalidBefore30Min
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= ClockSimulator with: (self dateForTesting).
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: (GregorianDateTime date: (FixedGregorianDate yearNumber: 2004 month: GregorianMonth january dayNumber: 1) timeOfDay: 00:31:00).
+
+	self deny: (store hasCartIdentified: cartID1).
+
+
+	
+	
+	
+		! !
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 09:41:43'!
+dateForTestingDelayed31Minutes
+
+	^ GregorianDateTime date: (FixedGregorianDate yearNumber: 2004 month: GregorianMonth january dayNumber: 1) timeOfDay: 00:31:00! !
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 09:41:43' prior: 50865243!
+test07CartIsInvalidBefore30Min
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= ClockSimulator with: (self dateForTesting).
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: (self dateForTestingDelayed31Minutes).
+
+	self deny: (store hasCartIdentified: cartID1).
+
+
+	
+	
+	
+		! !
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 09:41:58' prior: 50865271!
+test07CartIsInvalidBefore30Min
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= ClockSimulator with: self dateForTesting.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+
+	self deny: (store hasCartIdentified: cartID1).
+
+
+	
+	
+	
+		! !
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:42:02'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:42:02'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:42:02'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:42:02'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:42:02'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:42:02'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:42:02'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:42:02'!
+PASSED!
+!StoreTest methodsFor: 'support' stamp: 'JA 6/23/2021 09:43:49' prior: 50861918!
+store
+	
+	^ Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: (ClockSimulator with: self dateForTesting).! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:43:52'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:43:52'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:43:52'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:43:52'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:43:52'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:43:52'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:43:52'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 09:45:12'!
+clockSimulator
+
+	^ ClockSimulator with: self dateForTesting! !
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 09:45:12' prior: 50865288!
+test07CartIsInvalidBefore30Min
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= self clockSimulator.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+
+	self deny: (store hasCartIdentified: cartID1).
+
+
+	
+	
+	
+		! !
+!StoreTest methodsFor: 'support' stamp: 'JA 6/23/2021 09:45:52' prior: 50865330!
+store
+	
+	^ Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: self clockSimulator.! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:45:56'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:45:56'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:45:56'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:45:56'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:45:56'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:45:56'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:45:56'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 09:46:52' prior: 50865365!
+test07CartIsInvalidBefore30Min
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= self clockSimulator.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+
+	self deny: (store hasCartIdentified: cartID1).
+		! !
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:46:55'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:46:55'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:46:55'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:46:55'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:46:55'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:46:55'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:46:55'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:46:55'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:47:14'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:48:16'!
+PASSED!
+
+----QUIT----(23 June 2021 09:48:30) CuisUniversity-4532.image priorSource: 16909028!
+
+----STARTUP---- (23 June 2021 09:51:15) as /home/jaicardo/Descargas/Cuis/CuisUniversity-4532.image!
+
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:52:15'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:52:15'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:52:15'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:52:15'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:52:15'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:52:15'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:52:15'!
+PASSED!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:53:37'!
+expiredCart: aCartId
+
+	^ ((lastTimeCartUsed at: aCartId) next: (TimeUnits minute with:30)) > clock now! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:53:37' prior: 50865031!
+hasCartIdentified: aCartId 
+	
+ 	carts at: aCartId ifAbsent: [^ false].
+	^ self expiredCart: aCartId.
+	! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:54:08' prior: 50865660!
+hasCartIdentified: aCartId 
+	
+ 	carts at: aCartId ifAbsent: [^ false].
+	^ self expiredCart: aCartId not.
+	! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:54:08'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:54:08'!
+ERROR!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:54:08'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:54:08'!
+ERROR!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:54:08'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:54:08'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:54:08'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:54:18' prior: 50865653!
+expiredCart: aCartId
+
+	^ ((lastTimeCartUsed at: aCartId) next: (TimeUnits minute with:30)) < clock now! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:54:19'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:54:19'!
+ERROR!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:54:19'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:54:19'!
+ERROR!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:54:19'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:54:19'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:54:19'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:55:14' prior: 50865696!
+expiredCart: aCartId
+
+	^ ((lastTimeCartUsed at: aCartId) next: (TimeUnits minute with:30)) < clock now! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:55:15'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:55:15'!
+ERROR!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:55:15'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:55:15'!
+ERROR!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:55:15'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:55:15'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:55:15'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:55:31' prior: 50865725!
+expiredCart: aCartId
+
+	^ ((lastTimeCartUsed at: aCartId) next: (TimeUnits minute with:30)) <= clock now! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:55:32'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:55:32'!
+ERROR!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:55:32'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:55:32'!
+ERROR!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:55:32'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:55:32'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:55:32'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:55:37' prior: 50865754!
+expiredCart: aCartId
+
+	^ ((lastTimeCartUsed at: aCartId) next: (TimeUnits minute with:30)) >= clock now! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:55:38'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:55:38'!
+ERROR!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:55:38'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:55:38'!
+ERROR!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:55:38'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:55:38'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:55:38'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:56:40' prior: 50865783!
+expiredCart: aCartId
+
+	^ ((lastTimeCartUsed at: aCartId) next: (TimeUnits minute with:30)) > clock now! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:56:42'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:56:42'!
+ERROR!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:56:42'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:56:42'!
+ERROR!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:56:42'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:56:42'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:56:42'!
+ERROR!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:56:45'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:56:54' prior: 50865812!
+expiredCart: aCartId
+
+	^ ((lastTimeCartUsed at: aCartId) next: (TimeUnits minute with:30)) <= clock now! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:57:04' prior: 50865843!
+expiredCart: aCartId
+
+	^ ((lastTimeCartUsed at: aCartId) next: (TimeUnits minute with:30)) < clock now! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:57:27' prior: 50865667!
+hasCartIdentified: aCartId 
+	
+ 	carts at: aCartId ifAbsent: [^ false].
+	^ (self expiredCart: aCartId) not.
+	! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:57:28'!
+PASSED!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:58:02' prior: 50865850!
+expiredCart: aCartId
+
+	^ ((lastTimeCartUsed at: aCartId) next: (TimeUnits minute with: 30)) < clock now! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:58:46'!
+maxInactiveTimeInMinutes
+
+	^ 30! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:58:46' prior: 50865886!
+expiredCart: aCartId
+
+	^ ((lastTimeCartUsed at: aCartId) next: (TimeUnits minute with: self maxInactiveTimeInMinutes)) < clock now! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:59:09' prior: 50865892!
+maxInactiveTimeInMinutes
+
+	^ 50! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:59:10'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:59:10'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:59:10'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:59:10'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:59:10'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:59:10'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:59:10'!
+FAILURE!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:59:10'!
+FAILURE!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:59:15'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:59:15'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:59:15'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:59:15'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:59:15'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:59:15'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:59:15'!
+FAILURE!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:59:15'!
+FAILURE!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:59:25' prior: 50865903!
+maxInactiveTimeInMinutes
+
+	^ 30! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 09:59:28'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 09:59:28'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 09:59:28'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 09:59:28'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 09:59:28'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 09:59:28'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 09:59:28'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 10:00:39'!
+PASSED!
+!Behavior method!
+defaultCatalog
+	^ [
+	(Array
+		cover: (21 to: 25)
+		declaredAt: (21 to: 25)) with:
+		([
+		(self coverAll:
+			{33 to: 36}) itemSellByTheStore ] valueCoveringAll:
+			{38 to: 55}) ] valueCoveringAll:
+		{27 to: 31}.! !
+!Behavior method!
+itemSellByTheStore
+	^ 'validBook' coverAll:
+		{25 to: 35}.! !
+!Behavior method!
+acceptingItemsOf: aCatalog
+	^ [
+	([
+	(self coverAll:
+		{31 to: 34}) new ] valueCoveringAll:
+		{36 to: 38}) initializeAcceptingItemsOf:
+		(aCatalog
+			cover: (68 to: 75)
+			declaredAt: (19 to: 26)) ] valueCoveringAll:
+		{40 to: 66}.! !
+!Behavior method!
+initializeAcceptingItemsOf: aCatalog
+	(catalog _ aCatalog
+		cover: (51 to: 58)
+		declaredAt: (29 to: 36))
+		cover: (40 to: 46)
+		declaredAt: (40 to: 46).
+	(items _ [
+	(OrderedCollection
+		cover: (71 to: 87)
+		declaredAt: (71 to: 87)) new ] valueCoveringAll:
+		{89 to: 91})
+		cover: (62 to: 66)
+		declaredAt: (62 to: 66).! !
+!Behavior method!
+isEmpty
+	^ [
+	(items
+		cover: (13 to: 17)
+		declaredAt: (13 to: 17)) isEmpty ] valueCoveringAll:
+		{19 to: 25}.! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+!Behavior method!
+add: anItem
+	^ [
+	(self coverAll:
+		{17 to: 20})
+		add:
+			(1 coverAll:
+				{27 to: 27})
+		of:
+			(anItem
+				cover: (33 to: 38)
+				declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{22 to: 25. 29 to: 31}.! !
+!Behavior method!
+add: aQuantity of: anItem
+	[
+	(self coverAll:
+		{29 to: 32}) assertIsValidQuantity:
+		(aQuantity
+			cover: (57 to: 65)
+			declaredAt: (6 to: 14)) ] valueCoveringAll:
+		{34 to: 55}.
+	[
+	(self coverAll:
+		{69 to: 72}) assertIsValidItem:
+		(anItem
+			cover: (93 to: 98)
+			declaredAt: (20 to: 25)) ] valueCoveringAll:
+		{74 to: 91}.
+	[
+	(1 coverAll:
+		{103 to: 103})
+		to:
+			(aQuantity
+				cover: (109 to: 117)
+				declaredAt: (6 to: 14))
+		do: [ :aNumber |
+			[
+			(items
+				cover: (136 to: 140)
+				declaredAt: (136 to: 140)) add:
+				(anItem
+					cover: (147 to: 152)
+					declaredAt: (20 to: 25)) ] valueCoveringAll:
+				{142 to: 145} ]] valueCoveringAll:
+		{105 to: 107. 119 to: 121}.! !
+!Behavior method!
+assertIsValidQuantity: aQuantity
+	[
+	([
+	(aQuantity
+		cover: (36 to: 44)
+		declaredAt: (24 to: 32)) strictlyPositive ] valueCoveringAll:
+		{46 to: 61}) ifFalse: [
+		[
+		(self coverAll:
+			{74 to: 77}) error:
+			([
+			(self coverAll:
+				{86 to: 89}) invalidQuantityErrorMessage ] valueCoveringAll:
+				{91 to: 117}) ] valueCoveringAll:
+			{79 to: 84} ]] valueCoveringAll:
+		{63 to: 70}.! !
+!Behavior method!
+assertIsValidItem: anItem
+	[
+	([
+	(catalog
+		cover: (30 to: 36)
+		declaredAt: (30 to: 36)) includes:
+		(anItem
+			cover: (48 to: 53)
+			declaredAt: (20 to: 25)) ] valueCoveringAll:
+		{38 to: 46}) ifFalse: [
+		[
+		(self coverAll:
+			{67 to: 70}) error:
+			([
+			(self coverAll:
+				{79 to: 82}) invalidItemErrorMessage ] valueCoveringAll:
+				{84 to: 106}) ] valueCoveringAll:
+			{72 to: 77} ]] valueCoveringAll:
+		{56 to: 63}.! !
+!Behavior method!
+invalidItemErrorMessage
+	^ 'Item is not in catalog' coverAll:
+		{29 to: 52}.! !
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+!Behavior method!
+invalidQuantityErrorMessage
+	^ 'Invalid number of items' coverAll:
+		{33 to: 57}.! !
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+!Behavior method!
+includes: anItem
+	^ [
+	(items
+		cover: (21 to: 25)
+		declaredAt: (21 to: 25)) includes:
+		(anItem
+			cover: (37 to: 42)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{27 to: 35}.! !
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+!Behavior method!
+occurrencesOf: anItem
+	^ [
+	(items
+		cover: (26 to: 30)
+		declaredAt: (26 to: 30)) occurrencesOf:
+		(anItem
+			cover: (47 to: 52)
+			declaredAt: (16 to: 21)) ] valueCoveringAll:
+		{32 to: 45}.! !
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+!Behavior method!
+with: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor
+	^ [
+	([
+	(self coverAll:
+		{87 to: 90}) new ] valueCoveringAll:
+		{92 to: 94})
+		initializeWith:
+			(aPriceList
+				cover: (112 to: 121)
+				declaredAt: (7 to: 16))
+		registerSalesOn:
+			(aSalesBook
+				cover: (140 to: 149)
+				declaredAt: (35 to: 44))
+		merchantProcessor:
+			(aMerchantProcessor
+				cover: (170 to: 187)
+				declaredAt: (65 to: 82)) ] valueCoveringAll:
+		{96 to: 110. 123 to: 138. 151 to: 168}.! !
+!Behavior method!
+initializeWith: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor
+	(priceList _ aPriceList
+		cover: (111 to: 120)
+		declaredAt: (17 to: 26))
+		cover: (98 to: 106)
+		declaredAt: (98 to: 106).
+	(salesBook _ aSalesBook
+		cover: (137 to: 146)
+		declaredAt: (45 to: 54))
+		cover: (124 to: 132)
+		declaredAt: (124 to: 132).
+	(merchantProcessor _ aMerchantProcessor
+		cover: (171 to: 188)
+		declaredAt: (75 to: 92))
+		cover: (150 to: 166)
+		declaredAt: (150 to: 166).! !
+!Behavior method!
+owner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear
+	[
+	(self coverAll:
+		{90 to: 93}) assertCreditCardNumberIsValid:
+		(aCreditCardNumberString
+			cover: (126 to: 148)
+			declaredAt: (30 to: 52)) ] valueCoveringAll:
+		{95 to: 124}.
+	[
+	(self coverAll:
+		{152 to: 155}) assertNonBlankOwner:
+		(anOwnerString
+			cover: (178 to: 190)
+			declaredAt: (8 to: 20)) ] valueCoveringAll:
+		{157 to: 176}.
+	^ [
+	([
+	(self coverAll:
+		{195 to: 198}) new ] valueCoveringAll:
+		{200 to: 202})
+		initializeOwner:
+			(anOwnerString
+				cover: (221 to: 233)
+				declaredAt: (8 to: 20))
+		number:
+			(aCreditCardNumberString
+				cover: (243 to: 265)
+				declaredAt: (30 to: 52))
+		expiration:
+			(aGregorianMonthOfYear
+				cover: (279 to: 299)
+				declaredAt: (66 to: 86)) ] valueCoveringAll:
+		{204 to: 219. 235 to: 241. 267 to: 277}.! !
+!Behavior method!
+assertCreditCardNumberIsValid: aString
+	[
+	([
+	([
+	(aString
+		cover: (44 to: 50)
+		declaredAt: (32 to: 38)) size ] valueCoveringAll:
+		{52 to: 55}) =
+		(16 coverAll:
+			{59 to: 60}) ] valueCoveringAll:
+		{57 to: 57}) ifFalse: [
+		[
+		(self coverAll:
+			{72 to: 75}) error:
+			([
+			(self coverAll:
+				{84 to: 87}) invalidCreditCardErrorDescription ] valueCoveringAll:
+				{89 to: 121}) ] valueCoveringAll:
+			{77 to: 82} ]] valueCoveringAll:
+		{62 to: 69}.
+	[
+	([
+	(aString
+		cover: (128 to: 134)
+		declaredAt: (32 to: 38)) allSatisfy: [ :aDigit |
+		[
+		(aDigit
+			cover: (159 to: 164)
+			declaredAt: (150 to: 155)) isDigit ] valueCoveringAll:
+			{166 to: 172} ]] valueCoveringAll:
+		{136 to: 146}) ifFalse: [
+		[
+		(self coverAll:
+			{187 to: 190}) error:
+			([
+			(self coverAll:
+				{199 to: 202}) invalidCreditCardErrorDescription ] valueCoveringAll:
+				{204 to: 236}) ] valueCoveringAll:
+			{192 to: 197} ]] valueCoveringAll:
+		{177 to: 184}.! !
+!Behavior method!
+assertNonBlankOwner: anOwnerString
+	[
+	([
+	([
+	(anOwnerString
+		cover: (37 to: 49)
+		declaredAt: (22 to: 34)) withBlanksTrimmed ] valueCoveringAll:
+		{51 to: 67}) isEmpty ] valueCoveringAll:
+		{69 to: 75}) ifTrue: [
+		[
+		(self coverAll:
+			{86 to: 89}) error:
+			([
+			(self coverAll:
+				{98 to: 101}) invalidCreditCardErrorDescription ] valueCoveringAll:
+				{103 to: 135}) ] valueCoveringAll:
+			{91 to: 96} ]] valueCoveringAll:
+		{77 to: 83}.! !
+!Behavior method!
+initializeOwner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear
+	(ownerString _ anOwnerString
+		cover: (116 to: 128)
+		declaredAt: (18 to: 30))
+		cover: (101 to: 111)
+		declaredAt: (101 to: 111).
+	(creditCardNumberString _ aCreditCardNumberString
+		cover: (158 to: 180)
+		declaredAt: (40 to: 62))
+		cover: (132 to: 153)
+		declaredAt: (132 to: 153).
+	(expirationMonthOfYear _ aGregorianMonthOfYear
+		cover: (209 to: 229)
+		declaredAt: (76 to: 96))
+		cover: (184 to: 204)
+		declaredAt: (184 to: 204).! !
+!Behavior method!
+checkout: aCart withCreditCard: aCreditCard
+	| totalPrice |
+	[
+	(self coverAll:
+		{61 to: 64}) assertCartIsNotEmpty:
+		(aCart
+			cover: (88 to: 92)
+			declaredAt: (11 to: 15)) ] valueCoveringAll:
+		{66 to: 86}.
+	[
+	(self coverAll:
+		{96 to: 99}) assertCreditCardIsNotExpired:
+		(aCreditCard
+			cover: (131 to: 141)
+			declaredAt: (33 to: 43)) ] valueCoveringAll:
+		{101 to: 129}.
+	(totalPrice _ 0 coverAll:
+		{159 to: 159})
+		cover: (145 to: 154)
+		declaredAt: (48 to: 57).
+	[
+	(aCart
+		cover: (163 to: 167)
+		declaredAt: (11 to: 15)) do: [ :anElement |
+		(totalPrice _ [
+		([
+		(totalPrice
+			cover: (187 to: 196)
+			declaredAt: (48 to: 57)) +
+			(priceList
+				cover: (214 to: 222)
+				declaredAt: (214 to: 222)) ] valueCoveringAll:
+			{212 to: 212})
+			at:
+				(anElement
+					cover: (228 to: 236)
+					declaredAt: (175 to: 183))
+			ifAbsent: [
+				[
+				(self coverAll:
+					{249 to: 252}) raiseItemNotInPriceListError ] valueCoveringAll:
+					{254 to: 281} ]] valueCoveringAll:
+			{224 to: 226. 238 to: 246})
+			cover: (201 to: 210)
+			declaredAt: (48 to: 57) ]] valueCoveringAll:
+		{169 to: 171}.
+	[
+	(merchantProcessor
+		cover: (288 to: 304)
+		declaredAt: (288 to: 304))
+		charge:
+			(totalPrice
+				cover: (314 to: 323)
+				declaredAt: (48 to: 57))
+		on:
+			(aCreditCard
+				cover: (330 to: 340)
+				declaredAt: (33 to: 43)) ] valueCoveringAll:
+		{306 to: 312. 326 to: 328}.
+	[
+	(salesBook
+		cover: (345 to: 353)
+		declaredAt: (345 to: 353)) add:
+		(totalPrice
+			cover: (360 to: 369)
+			declaredAt: (48 to: 57)) ] valueCoveringAll:
+		{355 to: 358}.
+	^ totalPrice
+		cover: (375 to: 384)
+		declaredAt: (48 to: 57).! !
+!Behavior method!
+assertCartIsNotEmpty: aCart
+	^ [
+	([
+	(aCart
+		cover: (33 to: 37)
+		declaredAt: (23 to: 27)) isEmpty ] valueCoveringAll:
+		{39 to: 45}) ifTrue: [
+		[
+		(self coverAll:
+			{57 to: 60}) error:
+			([
+			([
+			(self coverAll:
+				{69 to: 72}) class ] valueCoveringAll:
+				{74 to: 78}) emptyCartErrorDescription ] valueCoveringAll:
+				{80 to: 104}) ] valueCoveringAll:
+			{62 to: 67} ]] valueCoveringAll:
+		{47 to: 53}.! !
+!Behavior method!
+emptyCartErrorDescription
+	^ 'The cart is empty' coverAll:
+		{29 to: 47}.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+!Behavior method!
+assertCreditCardIsNotExpired: aCreditCard
+	[
+	([
+	(aCreditCard
+		cover: (47 to: 57)
+		declaredAt: (31 to: 41)) isExpiredOn:
+		([
+		(Date
+			cover: (72 to: 75)
+			declaredAt: (72 to: 75)) today ] valueCoveringAll:
+			{77 to: 81}) ] valueCoveringAll:
+		{59 to: 70}) ifTrue: [
+		[
+		(self coverAll:
+			{93 to: 96}) error:
+			([
+			([
+			(self coverAll:
+				{105 to: 108}) class ] valueCoveringAll:
+				{110 to: 114}) expiredCreditCardErrorDescription ] valueCoveringAll:
+				{116 to: 148}) ] valueCoveringAll:
+			{98 to: 103} ]] valueCoveringAll:
+		{84 to: 90}.! !
+!Behavior method!
+isExpiredOn: aDate
+	^ [
+	([
+	(GregorianMonthOfYear
+		cover: (26 to: 45)
+		declaredAt: (26 to: 45))
+		yearNumber:
+			([
+			(aDate
+				cover: (59 to: 63)
+				declaredAt: (14 to: 18)) yearNumber ] valueCoveringAll:
+				{65 to: 74})
+		monthNumber:
+			([
+			(aDate
+				cover: (89 to: 93)
+				declaredAt: (14 to: 18)) monthIndex ] valueCoveringAll:
+				{95 to: 104}) ] valueCoveringAll:
+		{47 to: 57. 76 to: 87}) >
+		(expirationMonthOfYear
+			cover: (109 to: 129)
+			declaredAt: (109 to: 129)) ] valueCoveringAll:
+		{107 to: 107}.! !
+!Behavior method!
+do: aBlockClosure
+	[
+	(items
+		cover: (21 to: 25)
+		declaredAt: (21 to: 25)) do:
+		(aBlockClosure
+			cover: (31 to: 43)
+			declaredAt: (5 to: 17)) ] valueCoveringAll:
+		{27 to: 29}.! !
+!Behavior method!
+raiseItemNotInPriceListError
+	^ [
+	(self coverAll:
+		{34 to: 37}) error:
+		([
+		([
+		(self coverAll:
+			{46 to: 49}) class ] valueCoveringAll:
+			{51 to: 55}) itemNotInPriceListErrorDescription ] valueCoveringAll:
+			{57 to: 90}) ] valueCoveringAll:
+		{39 to: 44}.! !
+!Behavior method!
+itemNotInPriceListErrorDescription
+	^ 'An item in the cart is not in the price list' coverAll:
+		{38 to: 83}.! !
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+!Behavior method!
+charge: aCharge on: aCreditCard
+	[
+	(messageError
+		cover: (35 to: 46)
+		declaredAt: (35 to: 46)) ifNotNil: [
+		[
+		(self coverAll:
+			{60 to: 63}) error:
+			(messageError
+				cover: (72 to: 83)
+				declaredAt: (35 to: 46)) ] valueCoveringAll:
+			{65 to: 70} ]] valueCoveringAll:
+		{48 to: 56}.! !
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+!Behavior method!
+expiredCreditCardErrorDescription
+	^ 'The credit card is expired' coverAll:
+		{37 to: 64}.! !
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+!Behavior method!
+raiseErrorOnCharge: aMessageError
+	(messageError _ aMessageError
+		cover: (53 to: 65)
+		declaredAt: (21 to: 33))
+		cover: (37 to: 48)
+		declaredAt: (37 to: 48).! !
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+!Behavior method!
+invalidCreditCardErrorDescription
+	^ 'Los datos de la tarjeta de crédito son inválidos' coverAll:
+		{37 to: 86}.! !
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+!Behavior method!
+raiseAuthenticationErrorWithMessage: anErrorMessage
+	(authenticationErrorMessage _ anErrorMessage
+		cover: (84 to: 97)
+		declaredAt: (38 to: 51))
+		cover: (54 to: 79)
+		declaredAt: (54 to: 79).! !
+!Behavior method!
+withClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock
+	^ [
+	([
+	(self coverAll:
+		{83 to: 86}) new ] valueCoveringAll:
+		{88 to: 90})
+		initializeWithClientAuthenticator:
+			(aClientAuthenticator
+				cover: (127 to: 146)
+				declaredAt: (26 to: 45))
+		catalog:
+			(aCatalog
+				cover: (157 to: 164)
+				declaredAt: (56 to: 63))
+		clock:
+			(aClock
+				cover: (173 to: 178)
+				declaredAt: (72 to: 77)) ] valueCoveringAll:
+		{92 to: 125. 148 to: 155. 166 to: 171}.! !
+!Behavior method!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock
+	(clientAuthenticator _ aClientAuthenticator
+		cover: (113 to: 132)
+		declaredAt: (36 to: 55))
+		cover: (90 to: 108)
+		declaredAt: (90 to: 108).
+	(carts _ [
+	(OrderedCollection
+		cover: (145 to: 161)
+		declaredAt: (145 to: 161)) new ] valueCoveringAll:
+		{163 to: 165})
+		cover: (136 to: 140)
+		declaredAt: (136 to: 140).
+	(itemCatalog _ aCatalog
+		cover: (184 to: 191)
+		declaredAt: (66 to: 73))
+		cover: (169 to: 179)
+		declaredAt: (169 to: 179).
+	(clock _ aClock
+		cover: (204 to: 209)
+		declaredAt: (82 to: 87))
+		cover: (195 to: 199)
+		declaredAt: (195 to: 199).
+	(lastTimeCartUsed _ [
+	(OrderedCollection
+		cover: (232 to: 248)
+		declaredAt: (145 to: 161)) new ] valueCoveringAll:
+		{250 to: 252})
+		cover: (213 to: 228)
+		declaredAt: (213 to: 228).! !
+!Behavior method!
+createCartFor: aUserId authenticatedWith: aPassword
+	[
+	(clientAuthenticator
+		cover: (54 to: 72)
+		declaredAt: (54 to: 72))
+		athenticateUser:
+			(aUserId
+				cover: (91 to: 97)
+				declaredAt: (16 to: 22))
+		withPassword:
+			(aPassword
+				cover: (113 to: 121)
+				declaredAt: (43 to: 51)) ] valueCoveringAll:
+		{74 to: 89. 99 to: 111}.
+	[
+	(carts
+		cover: (128 to: 132)
+		declaredAt: (128 to: 132)) add:
+		([
+		(Cart
+			cover: (140 to: 143)
+			declaredAt: (140 to: 143)) acceptingItemsOf:
+			(itemCatalog
+				cover: (163 to: 173)
+				declaredAt: (163 to: 173)) ] valueCoveringAll:
+			{145 to: 161}) ] valueCoveringAll:
+		{134 to: 137}.
+	[
+	(lastTimeCartUsed
+		cover: (178 to: 193)
+		declaredAt: (178 to: 193)) add:
+		([
+		(clock
+			cover: (200 to: 204)
+			declaredAt: (200 to: 204)) now ] valueCoveringAll:
+			{206 to: 208}) ] valueCoveringAll:
+		{195 to: 198}.
+	^ [
+	(carts
+		cover: (213 to: 217)
+		declaredAt: (128 to: 132)) size ] valueCoveringAll:
+		{219 to: 222}.! !
+!Behavior method!
+athenticateUser: aSmallInteger withPassword: aString
+	[
+	(authenticationErrorMessage
+		cover: (56 to: 81)
+		declaredAt: (56 to: 81)) ifNotNil: [
+		[
+		(self coverAll:
+			{94 to: 97}) error:
+			(authenticationErrorMessage
+				cover: (106 to: 131)
+				declaredAt: (56 to: 81)) ] valueCoveringAll:
+			{99 to: 104} ]] valueCoveringAll:
+		{83 to: 91}.! !
+!Behavior method!
+hasCarts
+	^ [
+	([
+	(carts
+		cover: (13 to: 17)
+		declaredAt: (13 to: 17)) isEmpty ] valueCoveringAll:
+		{19 to: 25}) not ] valueCoveringAll:
+		{27 to: 29}.! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+!Behavior method!
+with: aDateTime
+	^ [
+	([
+	(self coverAll:
+		{20 to: 23}) new ] valueCoveringAll:
+		{25 to: 27}) initializeWith:
+		(aDateTime
+			cover: (45 to: 53)
+			declaredAt: (7 to: 15)) ] valueCoveringAll:
+		{29 to: 43}.! !
+!Behavior method!
+initializeWith: aDateTime
+	(dateTime _ aDateTime
+		cover: (40 to: 48)
+		declaredAt: (17 to: 25))
+		cover: (28 to: 35)
+		declaredAt: (28 to: 35).! !
+!Behavior method!
+now
+	^ dateTime
+		cover: (8 to: 15)
+		declaredAt: (8 to: 15).! !
+!Behavior method!
+hasCartIdentified: aCartId
+	[
+	(carts
+		cover: (33 to: 37)
+		declaredAt: (33 to: 37))
+		at:
+			(aCartId
+				cover: (43 to: 49)
+				declaredAt: (20 to: 26))
+		ifAbsent: [ ^ false coverAll:
+				{64 to: 68} ]] valueCoveringAll:
+		{39 to: 41. 51 to: 59}.
+	^ [
+	([
+	(self coverAll:
+		{76 to: 79}) expiredCart:
+		(aCartId
+			cover: (94 to: 100)
+			declaredAt: (20 to: 26)) ] valueCoveringAll:
+		{81 to: 92}) not ] valueCoveringAll:
+		{103 to: 105}.! !
+!Behavior method!
+expiredCart: aCartId
+	^ [
+	([
+	([
+	(lastTimeCartUsed
+		cover: (28 to: 43)
+		declaredAt: (28 to: 43)) at:
+		(aCartId
+			cover: (49 to: 55)
+			declaredAt: (14 to: 20)) ] valueCoveringAll:
+		{45 to: 47}) next:
+		([
+		([
+		(TimeUnits
+			cover: (65 to: 73)
+			declaredAt: (65 to: 73)) minute ] valueCoveringAll:
+			{75 to: 80}) with:
+			([
+			(self coverAll:
+				{88 to: 91}) maxInactiveTimeInMinutes ] valueCoveringAll:
+				{93 to: 116}) ] valueCoveringAll:
+			{82 to: 86}) ] valueCoveringAll:
+		{58 to: 62}) <
+		([
+		(clock
+			cover: (122 to: 126)
+			declaredAt: (122 to: 126)) now ] valueCoveringAll:
+			{128 to: 130}) ] valueCoveringAll:
+		{120 to: 120}.! !
+!Behavior method!
+maxInactiveTimeInMinutes
+	^ 30 coverAll:
+		{30 to: 31}.! !
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+!Behavior method!
+listCart: cartID
+	[
+	(self coverAll:
+		{21 to: 24}) assertCartIDIsValid:
+		(cartID
+			cover: (47 to: 52)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{26 to: 45}.
+	^ [
+	(carts
+		cover: (58 to: 62)
+		declaredAt: (58 to: 62)) at:
+		(cartID
+			cover: (68 to: 73)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{64 to: 66}.! !
+!Behavior method!
+assertCartIDIsValid: cartID
+	[
+	([
+	(self coverAll:
+		{33 to: 36}) hasCartIdentified:
+		(cartID
+			cover: (57 to: 62)
+			declaredAt: (22 to: 27)) ] valueCoveringAll:
+		{38 to: 55}) ifFalse: [
+		[
+		(self coverAll:
+			{75 to: 78}) error:
+			([
+			([
+			(self coverAll:
+				{87 to: 90}) class ] valueCoveringAll:
+				{92 to: 96}) invalidCartIDErrorDescription ] valueCoveringAll:
+				{98 to: 126}) ] valueCoveringAll:
+			{80 to: 85} ]] valueCoveringAll:
+		{65 to: 72}.! !
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+!Behavior method!
+invalidCartIDErrorDescription
+	^ 'Cart ID is not in the system' coverAll:
+		{33 to: 62}.! !
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+!Behavior method!
+set: aDateTime
+	(dateTime _ aDateTime
+		cover: (29 to: 37)
+		declaredAt: (6 to: 14))
+		cover: (17 to: 24)
+		declaredAt: (17 to: 24).! !
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 10:00:53'!
+PASSED!
+
+!methodRemoval: Store #initializeWithClientAuthenticator:catalog: stamp: 'JA 6/23/2021 10:01:14'!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog
+	clientAuthenticator := aClientAuthenticator.
+	carts := OrderedCollection new.
+	itemCatalog := aCatalog!
+!Behavior method!
+defaultCatalog
+	^ [
+	(Array
+		cover: (21 to: 25)
+		declaredAt: (21 to: 25)) with:
+		([
+		(self coverAll:
+			{33 to: 36}) itemSellByTheStore ] valueCoveringAll:
+			{38 to: 55}) ] valueCoveringAll:
+		{27 to: 31}.! !
+!Behavior method!
+itemSellByTheStore
+	^ 'validBook' coverAll:
+		{25 to: 35}.! !
+!Behavior method!
+acceptingItemsOf: aCatalog
+	^ [
+	([
+	(self coverAll:
+		{31 to: 34}) new ] valueCoveringAll:
+		{36 to: 38}) initializeAcceptingItemsOf:
+		(aCatalog
+			cover: (68 to: 75)
+			declaredAt: (19 to: 26)) ] valueCoveringAll:
+		{40 to: 66}.! !
+!Behavior method!
+initializeAcceptingItemsOf: aCatalog
+	(catalog _ aCatalog
+		cover: (51 to: 58)
+		declaredAt: (29 to: 36))
+		cover: (40 to: 46)
+		declaredAt: (40 to: 46).
+	(items _ [
+	(OrderedCollection
+		cover: (71 to: 87)
+		declaredAt: (71 to: 87)) new ] valueCoveringAll:
+		{89 to: 91})
+		cover: (62 to: 66)
+		declaredAt: (62 to: 66).! !
+!Behavior method!
+isEmpty
+	^ [
+	(items
+		cover: (13 to: 17)
+		declaredAt: (13 to: 17)) isEmpty ] valueCoveringAll:
+		{19 to: 25}.! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+!Behavior method!
+add: anItem
+	^ [
+	(self coverAll:
+		{17 to: 20})
+		add:
+			(1 coverAll:
+				{27 to: 27})
+		of:
+			(anItem
+				cover: (33 to: 38)
+				declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{22 to: 25. 29 to: 31}.! !
+!Behavior method!
+add: aQuantity of: anItem
+	[
+	(self coverAll:
+		{29 to: 32}) assertIsValidQuantity:
+		(aQuantity
+			cover: (57 to: 65)
+			declaredAt: (6 to: 14)) ] valueCoveringAll:
+		{34 to: 55}.
+	[
+	(self coverAll:
+		{69 to: 72}) assertIsValidItem:
+		(anItem
+			cover: (93 to: 98)
+			declaredAt: (20 to: 25)) ] valueCoveringAll:
+		{74 to: 91}.
+	[
+	(1 coverAll:
+		{103 to: 103})
+		to:
+			(aQuantity
+				cover: (109 to: 117)
+				declaredAt: (6 to: 14))
+		do: [ :aNumber |
+			[
+			(items
+				cover: (136 to: 140)
+				declaredAt: (136 to: 140)) add:
+				(anItem
+					cover: (147 to: 152)
+					declaredAt: (20 to: 25)) ] valueCoveringAll:
+				{142 to: 145} ]] valueCoveringAll:
+		{105 to: 107. 119 to: 121}.! !
+!Behavior method!
+assertIsValidQuantity: aQuantity
+	[
+	([
+	(aQuantity
+		cover: (36 to: 44)
+		declaredAt: (24 to: 32)) strictlyPositive ] valueCoveringAll:
+		{46 to: 61}) ifFalse: [
+		[
+		(self coverAll:
+			{74 to: 77}) error:
+			([
+			(self coverAll:
+				{86 to: 89}) invalidQuantityErrorMessage ] valueCoveringAll:
+				{91 to: 117}) ] valueCoveringAll:
+			{79 to: 84} ]] valueCoveringAll:
+		{63 to: 70}.! !
+!Behavior method!
+assertIsValidItem: anItem
+	[
+	([
+	(catalog
+		cover: (30 to: 36)
+		declaredAt: (30 to: 36)) includes:
+		(anItem
+			cover: (48 to: 53)
+			declaredAt: (20 to: 25)) ] valueCoveringAll:
+		{38 to: 46}) ifFalse: [
+		[
+		(self coverAll:
+			{67 to: 70}) error:
+			([
+			(self coverAll:
+				{79 to: 82}) invalidItemErrorMessage ] valueCoveringAll:
+				{84 to: 106}) ] valueCoveringAll:
+			{72 to: 77} ]] valueCoveringAll:
+		{56 to: 63}.! !
+!Behavior method!
+invalidItemErrorMessage
+	^ 'Item is not in catalog' coverAll:
+		{29 to: 52}.! !
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+!Behavior method!
+invalidQuantityErrorMessage
+	^ 'Invalid number of items' coverAll:
+		{33 to: 57}.! !
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+!Behavior method!
+includes: anItem
+	^ [
+	(items
+		cover: (21 to: 25)
+		declaredAt: (21 to: 25)) includes:
+		(anItem
+			cover: (37 to: 42)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{27 to: 35}.! !
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+!Behavior method!
+occurrencesOf: anItem
+	^ [
+	(items
+		cover: (26 to: 30)
+		declaredAt: (26 to: 30)) occurrencesOf:
+		(anItem
+			cover: (47 to: 52)
+			declaredAt: (16 to: 21)) ] valueCoveringAll:
+		{32 to: 45}.! !
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+!Behavior method!
+with: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor
+	^ [
+	([
+	(self coverAll:
+		{87 to: 90}) new ] valueCoveringAll:
+		{92 to: 94})
+		initializeWith:
+			(aPriceList
+				cover: (112 to: 121)
+				declaredAt: (7 to: 16))
+		registerSalesOn:
+			(aSalesBook
+				cover: (140 to: 149)
+				declaredAt: (35 to: 44))
+		merchantProcessor:
+			(aMerchantProcessor
+				cover: (170 to: 187)
+				declaredAt: (65 to: 82)) ] valueCoveringAll:
+		{96 to: 110. 123 to: 138. 151 to: 168}.! !
+!Behavior method!
+initializeWith: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor
+	(priceList _ aPriceList
+		cover: (111 to: 120)
+		declaredAt: (17 to: 26))
+		cover: (98 to: 106)
+		declaredAt: (98 to: 106).
+	(salesBook _ aSalesBook
+		cover: (137 to: 146)
+		declaredAt: (45 to: 54))
+		cover: (124 to: 132)
+		declaredAt: (124 to: 132).
+	(merchantProcessor _ aMerchantProcessor
+		cover: (171 to: 188)
+		declaredAt: (75 to: 92))
+		cover: (150 to: 166)
+		declaredAt: (150 to: 166).! !
+!Behavior method!
+owner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear
+	[
+	(self coverAll:
+		{90 to: 93}) assertCreditCardNumberIsValid:
+		(aCreditCardNumberString
+			cover: (126 to: 148)
+			declaredAt: (30 to: 52)) ] valueCoveringAll:
+		{95 to: 124}.
+	[
+	(self coverAll:
+		{152 to: 155}) assertNonBlankOwner:
+		(anOwnerString
+			cover: (178 to: 190)
+			declaredAt: (8 to: 20)) ] valueCoveringAll:
+		{157 to: 176}.
+	^ [
+	([
+	(self coverAll:
+		{195 to: 198}) new ] valueCoveringAll:
+		{200 to: 202})
+		initializeOwner:
+			(anOwnerString
+				cover: (221 to: 233)
+				declaredAt: (8 to: 20))
+		number:
+			(aCreditCardNumberString
+				cover: (243 to: 265)
+				declaredAt: (30 to: 52))
+		expiration:
+			(aGregorianMonthOfYear
+				cover: (279 to: 299)
+				declaredAt: (66 to: 86)) ] valueCoveringAll:
+		{204 to: 219. 235 to: 241. 267 to: 277}.! !
+!Behavior method!
+assertCreditCardNumberIsValid: aString
+	[
+	([
+	([
+	(aString
+		cover: (44 to: 50)
+		declaredAt: (32 to: 38)) size ] valueCoveringAll:
+		{52 to: 55}) =
+		(16 coverAll:
+			{59 to: 60}) ] valueCoveringAll:
+		{57 to: 57}) ifFalse: [
+		[
+		(self coverAll:
+			{72 to: 75}) error:
+			([
+			(self coverAll:
+				{84 to: 87}) invalidCreditCardErrorDescription ] valueCoveringAll:
+				{89 to: 121}) ] valueCoveringAll:
+			{77 to: 82} ]] valueCoveringAll:
+		{62 to: 69}.
+	[
+	([
+	(aString
+		cover: (128 to: 134)
+		declaredAt: (32 to: 38)) allSatisfy: [ :aDigit |
+		[
+		(aDigit
+			cover: (159 to: 164)
+			declaredAt: (150 to: 155)) isDigit ] valueCoveringAll:
+			{166 to: 172} ]] valueCoveringAll:
+		{136 to: 146}) ifFalse: [
+		[
+		(self coverAll:
+			{187 to: 190}) error:
+			([
+			(self coverAll:
+				{199 to: 202}) invalidCreditCardErrorDescription ] valueCoveringAll:
+				{204 to: 236}) ] valueCoveringAll:
+			{192 to: 197} ]] valueCoveringAll:
+		{177 to: 184}.! !
+!Behavior method!
+assertNonBlankOwner: anOwnerString
+	[
+	([
+	([
+	(anOwnerString
+		cover: (37 to: 49)
+		declaredAt: (22 to: 34)) withBlanksTrimmed ] valueCoveringAll:
+		{51 to: 67}) isEmpty ] valueCoveringAll:
+		{69 to: 75}) ifTrue: [
+		[
+		(self coverAll:
+			{86 to: 89}) error:
+			([
+			(self coverAll:
+				{98 to: 101}) invalidCreditCardErrorDescription ] valueCoveringAll:
+				{103 to: 135}) ] valueCoveringAll:
+			{91 to: 96} ]] valueCoveringAll:
+		{77 to: 83}.! !
+!Behavior method!
+initializeOwner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear
+	(ownerString _ anOwnerString
+		cover: (116 to: 128)
+		declaredAt: (18 to: 30))
+		cover: (101 to: 111)
+		declaredAt: (101 to: 111).
+	(creditCardNumberString _ aCreditCardNumberString
+		cover: (158 to: 180)
+		declaredAt: (40 to: 62))
+		cover: (132 to: 153)
+		declaredAt: (132 to: 153).
+	(expirationMonthOfYear _ aGregorianMonthOfYear
+		cover: (209 to: 229)
+		declaredAt: (76 to: 96))
+		cover: (184 to: 204)
+		declaredAt: (184 to: 204).! !
+!Behavior method!
+checkout: aCart withCreditCard: aCreditCard
+	| totalPrice |
+	[
+	(self coverAll:
+		{61 to: 64}) assertCartIsNotEmpty:
+		(aCart
+			cover: (88 to: 92)
+			declaredAt: (11 to: 15)) ] valueCoveringAll:
+		{66 to: 86}.
+	[
+	(self coverAll:
+		{96 to: 99}) assertCreditCardIsNotExpired:
+		(aCreditCard
+			cover: (131 to: 141)
+			declaredAt: (33 to: 43)) ] valueCoveringAll:
+		{101 to: 129}.
+	(totalPrice _ 0 coverAll:
+		{159 to: 159})
+		cover: (145 to: 154)
+		declaredAt: (48 to: 57).
+	[
+	(aCart
+		cover: (163 to: 167)
+		declaredAt: (11 to: 15)) do: [ :anElement |
+		(totalPrice _ [
+		([
+		(totalPrice
+			cover: (187 to: 196)
+			declaredAt: (48 to: 57)) +
+			(priceList
+				cover: (214 to: 222)
+				declaredAt: (214 to: 222)) ] valueCoveringAll:
+			{212 to: 212})
+			at:
+				(anElement
+					cover: (228 to: 236)
+					declaredAt: (175 to: 183))
+			ifAbsent: [
+				[
+				(self coverAll:
+					{249 to: 252}) raiseItemNotInPriceListError ] valueCoveringAll:
+					{254 to: 281} ]] valueCoveringAll:
+			{224 to: 226. 238 to: 246})
+			cover: (201 to: 210)
+			declaredAt: (48 to: 57) ]] valueCoveringAll:
+		{169 to: 171}.
+	[
+	(merchantProcessor
+		cover: (288 to: 304)
+		declaredAt: (288 to: 304))
+		charge:
+			(totalPrice
+				cover: (314 to: 323)
+				declaredAt: (48 to: 57))
+		on:
+			(aCreditCard
+				cover: (330 to: 340)
+				declaredAt: (33 to: 43)) ] valueCoveringAll:
+		{306 to: 312. 326 to: 328}.
+	[
+	(salesBook
+		cover: (345 to: 353)
+		declaredAt: (345 to: 353)) add:
+		(totalPrice
+			cover: (360 to: 369)
+			declaredAt: (48 to: 57)) ] valueCoveringAll:
+		{355 to: 358}.
+	^ totalPrice
+		cover: (375 to: 384)
+		declaredAt: (48 to: 57).! !
+!Behavior method!
+assertCartIsNotEmpty: aCart
+	^ [
+	([
+	(aCart
+		cover: (33 to: 37)
+		declaredAt: (23 to: 27)) isEmpty ] valueCoveringAll:
+		{39 to: 45}) ifTrue: [
+		[
+		(self coverAll:
+			{57 to: 60}) error:
+			([
+			([
+			(self coverAll:
+				{69 to: 72}) class ] valueCoveringAll:
+				{74 to: 78}) emptyCartErrorDescription ] valueCoveringAll:
+				{80 to: 104}) ] valueCoveringAll:
+			{62 to: 67} ]] valueCoveringAll:
+		{47 to: 53}.! !
+!Behavior method!
+emptyCartErrorDescription
+	^ 'The cart is empty' coverAll:
+		{29 to: 47}.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+!Behavior method!
+assertCreditCardIsNotExpired: aCreditCard
+	[
+	([
+	(aCreditCard
+		cover: (47 to: 57)
+		declaredAt: (31 to: 41)) isExpiredOn:
+		([
+		(Date
+			cover: (72 to: 75)
+			declaredAt: (72 to: 75)) today ] valueCoveringAll:
+			{77 to: 81}) ] valueCoveringAll:
+		{59 to: 70}) ifTrue: [
+		[
+		(self coverAll:
+			{93 to: 96}) error:
+			([
+			([
+			(self coverAll:
+				{105 to: 108}) class ] valueCoveringAll:
+				{110 to: 114}) expiredCreditCardErrorDescription ] valueCoveringAll:
+				{116 to: 148}) ] valueCoveringAll:
+			{98 to: 103} ]] valueCoveringAll:
+		{84 to: 90}.! !
+!Behavior method!
+isExpiredOn: aDate
+	^ [
+	([
+	(GregorianMonthOfYear
+		cover: (26 to: 45)
+		declaredAt: (26 to: 45))
+		yearNumber:
+			([
+			(aDate
+				cover: (59 to: 63)
+				declaredAt: (14 to: 18)) yearNumber ] valueCoveringAll:
+				{65 to: 74})
+		monthNumber:
+			([
+			(aDate
+				cover: (89 to: 93)
+				declaredAt: (14 to: 18)) monthIndex ] valueCoveringAll:
+				{95 to: 104}) ] valueCoveringAll:
+		{47 to: 57. 76 to: 87}) >
+		(expirationMonthOfYear
+			cover: (109 to: 129)
+			declaredAt: (109 to: 129)) ] valueCoveringAll:
+		{107 to: 107}.! !
+!Behavior method!
+do: aBlockClosure
+	[
+	(items
+		cover: (21 to: 25)
+		declaredAt: (21 to: 25)) do:
+		(aBlockClosure
+			cover: (31 to: 43)
+			declaredAt: (5 to: 17)) ] valueCoveringAll:
+		{27 to: 29}.! !
+!Behavior method!
+raiseItemNotInPriceListError
+	^ [
+	(self coverAll:
+		{34 to: 37}) error:
+		([
+		([
+		(self coverAll:
+			{46 to: 49}) class ] valueCoveringAll:
+			{51 to: 55}) itemNotInPriceListErrorDescription ] valueCoveringAll:
+			{57 to: 90}) ] valueCoveringAll:
+		{39 to: 44}.! !
+!Behavior method!
+itemNotInPriceListErrorDescription
+	^ 'An item in the cart is not in the price list' coverAll:
+		{38 to: 83}.! !
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+!Behavior method!
+charge: aCharge on: aCreditCard
+	[
+	(messageError
+		cover: (35 to: 46)
+		declaredAt: (35 to: 46)) ifNotNil: [
+		[
+		(self coverAll:
+			{60 to: 63}) error:
+			(messageError
+				cover: (72 to: 83)
+				declaredAt: (35 to: 46)) ] valueCoveringAll:
+			{65 to: 70} ]] valueCoveringAll:
+		{48 to: 56}.! !
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+!Behavior method!
+expiredCreditCardErrorDescription
+	^ 'The credit card is expired' coverAll:
+		{37 to: 64}.! !
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+!Behavior method!
+raiseErrorOnCharge: aMessageError
+	(messageError _ aMessageError
+		cover: (53 to: 65)
+		declaredAt: (21 to: 33))
+		cover: (37 to: 48)
+		declaredAt: (37 to: 48).! !
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+!Behavior method!
+invalidCreditCardErrorDescription
+	^ 'Los datos de la tarjeta de crédito son inválidos' coverAll:
+		{37 to: 86}.! !
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+!Behavior method!
+raiseAuthenticationErrorWithMessage: anErrorMessage
+	(authenticationErrorMessage _ anErrorMessage
+		cover: (84 to: 97)
+		declaredAt: (38 to: 51))
+		cover: (54 to: 79)
+		declaredAt: (54 to: 79).! !
+!Behavior method!
+withClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock
+	^ [
+	([
+	(self coverAll:
+		{83 to: 86}) new ] valueCoveringAll:
+		{88 to: 90})
+		initializeWithClientAuthenticator:
+			(aClientAuthenticator
+				cover: (127 to: 146)
+				declaredAt: (26 to: 45))
+		catalog:
+			(aCatalog
+				cover: (157 to: 164)
+				declaredAt: (56 to: 63))
+		clock:
+			(aClock
+				cover: (173 to: 178)
+				declaredAt: (72 to: 77)) ] valueCoveringAll:
+		{92 to: 125. 148 to: 155. 166 to: 171}.! !
+!Behavior method!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock
+	(clientAuthenticator _ aClientAuthenticator
+		cover: (113 to: 132)
+		declaredAt: (36 to: 55))
+		cover: (90 to: 108)
+		declaredAt: (90 to: 108).
+	(carts _ [
+	(OrderedCollection
+		cover: (145 to: 161)
+		declaredAt: (145 to: 161)) new ] valueCoveringAll:
+		{163 to: 165})
+		cover: (136 to: 140)
+		declaredAt: (136 to: 140).
+	(itemCatalog _ aCatalog
+		cover: (184 to: 191)
+		declaredAt: (66 to: 73))
+		cover: (169 to: 179)
+		declaredAt: (169 to: 179).
+	(clock _ aClock
+		cover: (204 to: 209)
+		declaredAt: (82 to: 87))
+		cover: (195 to: 199)
+		declaredAt: (195 to: 199).
+	(lastTimeCartUsed _ [
+	(OrderedCollection
+		cover: (232 to: 248)
+		declaredAt: (145 to: 161)) new ] valueCoveringAll:
+		{250 to: 252})
+		cover: (213 to: 228)
+		declaredAt: (213 to: 228).! !
+!Behavior method!
+createCartFor: aUserId authenticatedWith: aPassword
+	[
+	(clientAuthenticator
+		cover: (54 to: 72)
+		declaredAt: (54 to: 72))
+		athenticateUser:
+			(aUserId
+				cover: (91 to: 97)
+				declaredAt: (16 to: 22))
+		withPassword:
+			(aPassword
+				cover: (113 to: 121)
+				declaredAt: (43 to: 51)) ] valueCoveringAll:
+		{74 to: 89. 99 to: 111}.
+	[
+	(carts
+		cover: (128 to: 132)
+		declaredAt: (128 to: 132)) add:
+		([
+		(Cart
+			cover: (140 to: 143)
+			declaredAt: (140 to: 143)) acceptingItemsOf:
+			(itemCatalog
+				cover: (163 to: 173)
+				declaredAt: (163 to: 173)) ] valueCoveringAll:
+			{145 to: 161}) ] valueCoveringAll:
+		{134 to: 137}.
+	[
+	(lastTimeCartUsed
+		cover: (178 to: 193)
+		declaredAt: (178 to: 193)) add:
+		([
+		(clock
+			cover: (200 to: 204)
+			declaredAt: (200 to: 204)) now ] valueCoveringAll:
+			{206 to: 208}) ] valueCoveringAll:
+		{195 to: 198}.
+	^ [
+	(carts
+		cover: (213 to: 217)
+		declaredAt: (128 to: 132)) size ] valueCoveringAll:
+		{219 to: 222}.! !
+!Behavior method!
+athenticateUser: aSmallInteger withPassword: aString
+	[
+	(authenticationErrorMessage
+		cover: (56 to: 81)
+		declaredAt: (56 to: 81)) ifNotNil: [
+		[
+		(self coverAll:
+			{94 to: 97}) error:
+			(authenticationErrorMessage
+				cover: (106 to: 131)
+				declaredAt: (56 to: 81)) ] valueCoveringAll:
+			{99 to: 104} ]] valueCoveringAll:
+		{83 to: 91}.! !
+!Behavior method!
+hasCarts
+	^ [
+	([
+	(carts
+		cover: (13 to: 17)
+		declaredAt: (13 to: 17)) isEmpty ] valueCoveringAll:
+		{19 to: 25}) not ] valueCoveringAll:
+		{27 to: 29}.! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+!Behavior method!
+with: aDateTime
+	^ [
+	([
+	(self coverAll:
+		{20 to: 23}) new ] valueCoveringAll:
+		{25 to: 27}) initializeWith:
+		(aDateTime
+			cover: (45 to: 53)
+			declaredAt: (7 to: 15)) ] valueCoveringAll:
+		{29 to: 43}.! !
+!Behavior method!
+initializeWith: aDateTime
+	(dateTime _ aDateTime
+		cover: (40 to: 48)
+		declaredAt: (17 to: 25))
+		cover: (28 to: 35)
+		declaredAt: (28 to: 35).! !
+!Behavior method!
+now
+	^ dateTime
+		cover: (8 to: 15)
+		declaredAt: (8 to: 15).! !
+!Behavior method!
+hasCartIdentified: aCartId
+	[
+	(carts
+		cover: (33 to: 37)
+		declaredAt: (33 to: 37))
+		at:
+			(aCartId
+				cover: (43 to: 49)
+				declaredAt: (20 to: 26))
+		ifAbsent: [ ^ false coverAll:
+				{64 to: 68} ]] valueCoveringAll:
+		{39 to: 41. 51 to: 59}.
+	^ [
+	([
+	(self coverAll:
+		{76 to: 79}) expiredCart:
+		(aCartId
+			cover: (94 to: 100)
+			declaredAt: (20 to: 26)) ] valueCoveringAll:
+		{81 to: 92}) not ] valueCoveringAll:
+		{103 to: 105}.! !
+!Behavior method!
+expiredCart: aCartId
+	^ [
+	([
+	([
+	(lastTimeCartUsed
+		cover: (28 to: 43)
+		declaredAt: (28 to: 43)) at:
+		(aCartId
+			cover: (49 to: 55)
+			declaredAt: (14 to: 20)) ] valueCoveringAll:
+		{45 to: 47}) next:
+		([
+		([
+		(TimeUnits
+			cover: (65 to: 73)
+			declaredAt: (65 to: 73)) minute ] valueCoveringAll:
+			{75 to: 80}) with:
+			([
+			(self coverAll:
+				{88 to: 91}) maxInactiveTimeInMinutes ] valueCoveringAll:
+				{93 to: 116}) ] valueCoveringAll:
+			{82 to: 86}) ] valueCoveringAll:
+		{58 to: 62}) <
+		([
+		(clock
+			cover: (122 to: 126)
+			declaredAt: (122 to: 126)) now ] valueCoveringAll:
+			{128 to: 130}) ] valueCoveringAll:
+		{120 to: 120}.! !
+!Behavior method!
+maxInactiveTimeInMinutes
+	^ 30 coverAll:
+		{30 to: 31}.! !
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+!Behavior method!
+listCart: cartID
+	[
+	(self coverAll:
+		{21 to: 24}) assertCartIDIsValid:
+		(cartID
+			cover: (47 to: 52)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{26 to: 45}.
+	^ [
+	(carts
+		cover: (58 to: 62)
+		declaredAt: (58 to: 62)) at:
+		(cartID
+			cover: (68 to: 73)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{64 to: 66}.! !
+!Behavior method!
+assertCartIDIsValid: cartID
+	[
+	([
+	(self coverAll:
+		{33 to: 36}) hasCartIdentified:
+		(cartID
+			cover: (57 to: 62)
+			declaredAt: (22 to: 27)) ] valueCoveringAll:
+		{38 to: 55}) ifFalse: [
+		[
+		(self coverAll:
+			{75 to: 78}) error:
+			([
+			([
+			(self coverAll:
+				{87 to: 90}) class ] valueCoveringAll:
+				{92 to: 96}) invalidCartIDErrorDescription ] valueCoveringAll:
+				{98 to: 126}) ] valueCoveringAll:
+			{80 to: 85} ]] valueCoveringAll:
+		{65 to: 72}.! !
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+!Behavior method!
+invalidCartIDErrorDescription
+	^ 'Cart ID is not in the system' coverAll:
+		{33 to: 62}.! !
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+!Behavior method!
+set: aDateTime
+	(dateTime _ aDateTime
+		cover: (29 to: 37)
+		declaredAt: (6 to: 14))
+		cover: (17 to: 24)
+		declaredAt: (17 to: 24).! !
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 10:01:24'!
+PASSED!
+!Behavior method!
+defaultCatalog
+	^ [
+	(Array
+		cover: (21 to: 25)
+		declaredAt: (21 to: 25)) with:
+		([
+		(self coverAll:
+			{33 to: 36}) itemSellByTheStore ] valueCoveringAll:
+			{38 to: 55}) ] valueCoveringAll:
+		{27 to: 31}.! !
+!Behavior method!
+itemSellByTheStore
+	^ 'validBook' coverAll:
+		{25 to: 35}.! !
+!Behavior method!
+acceptingItemsOf: aCatalog
+	^ [
+	([
+	(self coverAll:
+		{31 to: 34}) new ] valueCoveringAll:
+		{36 to: 38}) initializeAcceptingItemsOf:
+		(aCatalog
+			cover: (68 to: 75)
+			declaredAt: (19 to: 26)) ] valueCoveringAll:
+		{40 to: 66}.! !
+!Behavior method!
+initializeAcceptingItemsOf: aCatalog
+	(catalog _ aCatalog
+		cover: (51 to: 58)
+		declaredAt: (29 to: 36))
+		cover: (40 to: 46)
+		declaredAt: (40 to: 46).
+	(items _ [
+	(OrderedCollection
+		cover: (71 to: 87)
+		declaredAt: (71 to: 87)) new ] valueCoveringAll:
+		{89 to: 91})
+		cover: (62 to: 66)
+		declaredAt: (62 to: 66).! !
+!Behavior method!
+isEmpty
+	^ [
+	(items
+		cover: (13 to: 17)
+		declaredAt: (13 to: 17)) isEmpty ] valueCoveringAll:
+		{19 to: 25}.! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/23/2021 10:01:54'!
+PASSED!
+!Behavior method!
+add: anItem
+	^ [
+	(self coverAll:
+		{17 to: 20})
+		add:
+			(1 coverAll:
+				{27 to: 27})
+		of:
+			(anItem
+				cover: (33 to: 38)
+				declaredAt: (6 to: 11)) ] valueCoveringAll:
+		{22 to: 25. 29 to: 31}.! !
+!Behavior method!
+add: aQuantity of: anItem
+	[
+	(self coverAll:
+		{29 to: 32}) assertIsValidQuantity:
+		(aQuantity
+			cover: (57 to: 65)
+			declaredAt: (6 to: 14)) ] valueCoveringAll:
+		{34 to: 55}.
+	[
+	(self coverAll:
+		{69 to: 72}) assertIsValidItem:
+		(anItem
+			cover: (93 to: 98)
+			declaredAt: (20 to: 25)) ] valueCoveringAll:
+		{74 to: 91}.
+	[
+	(1 coverAll:
+		{103 to: 103})
+		to:
+			(aQuantity
+				cover: (109 to: 117)
+				declaredAt: (6 to: 14))
+		do: [ :aNumber |
+			[
+			(items
+				cover: (136 to: 140)
+				declaredAt: (136 to: 140)) add:
+				(anItem
+					cover: (147 to: 152)
+					declaredAt: (20 to: 25)) ] valueCoveringAll:
+				{142 to: 145} ]] valueCoveringAll:
+		{105 to: 107. 119 to: 121}.! !
+!Behavior method!
+assertIsValidQuantity: aQuantity
+	[
+	([
+	(aQuantity
+		cover: (36 to: 44)
+		declaredAt: (24 to: 32)) strictlyPositive ] valueCoveringAll:
+		{46 to: 61}) ifFalse: [
+		[
+		(self coverAll:
+			{74 to: 77}) error:
+			([
+			(self coverAll:
+				{86 to: 89}) invalidQuantityErrorMessage ] valueCoveringAll:
+				{91 to: 117}) ] valueCoveringAll:
+			{79 to: 84} ]] valueCoveringAll:
+		{63 to: 70}.! !
+!Behavior method!
+assertIsValidItem: anItem
+	[
+	([
+	(catalog
+		cover: (30 to: 36)
+		declaredAt: (30 to: 36)) includes:
+		(anItem
+			cover: (48 to: 53)
+			declaredAt: (20 to: 25)) ] valueCoveringAll:
+		{38 to: 46}) ifFalse: [
+		[
+		(self coverAll:
+			{67 to: 70}) error:
+			([
+			(self coverAll:
+				{79 to: 82}) invalidItemErrorMessage ] valueCoveringAll:
+				{84 to: 106}) ] valueCoveringAll:
+			{72 to: 77} ]] valueCoveringAll:
+		{56 to: 63}.! !
+!Behavior method!
+invalidItemErrorMessage
+	^ 'Item is not in catalog' coverAll:
+		{29 to: 52}.! !
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/23/2021 10:01:54'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/23/2021 10:01:54'!
+PASSED!
+!Behavior method!
+invalidQuantityErrorMessage
+	^ 'Invalid number of items' coverAll:
+		{33 to: 57}.! !
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/23/2021 10:01:54'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/23/2021 10:01:54'!
+PASSED!
+!Behavior method!
+includes: anItem
+	^ [
+	(items
+		cover: (21 to: 25)
+		declaredAt: (21 to: 25)) includes:
+		(anItem
+			cover: (37 to: 42)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{27 to: 35}.! !
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/23/2021 10:01:54'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/23/2021 10:01:54'!
+PASSED!
+!Behavior method!
+occurrencesOf: anItem
+	^ [
+	(items
+		cover: (26 to: 30)
+		declaredAt: (26 to: 30)) occurrencesOf:
+		(anItem
+			cover: (47 to: 52)
+			declaredAt: (16 to: 21)) ] valueCoveringAll:
+		{32 to: 45}.! !
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/23/2021 10:01:54'!
+PASSED!
+!Behavior method!
+with: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor
+	^ [
+	([
+	(self coverAll:
+		{87 to: 90}) new ] valueCoveringAll:
+		{92 to: 94})
+		initializeWith:
+			(aPriceList
+				cover: (112 to: 121)
+				declaredAt: (7 to: 16))
+		registerSalesOn:
+			(aSalesBook
+				cover: (140 to: 149)
+				declaredAt: (35 to: 44))
+		merchantProcessor:
+			(aMerchantProcessor
+				cover: (170 to: 187)
+				declaredAt: (65 to: 82)) ] valueCoveringAll:
+		{96 to: 110. 123 to: 138. 151 to: 168}.! !
+!Behavior method!
+initializeWith: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerchantProcessor
+	(priceList _ aPriceList
+		cover: (111 to: 120)
+		declaredAt: (17 to: 26))
+		cover: (98 to: 106)
+		declaredAt: (98 to: 106).
+	(salesBook _ aSalesBook
+		cover: (137 to: 146)
+		declaredAt: (45 to: 54))
+		cover: (124 to: 132)
+		declaredAt: (124 to: 132).
+	(merchantProcessor _ aMerchantProcessor
+		cover: (171 to: 188)
+		declaredAt: (75 to: 92))
+		cover: (150 to: 166)
+		declaredAt: (150 to: 166).! !
+!Behavior method!
+owner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear
+	[
+	(self coverAll:
+		{90 to: 93}) assertCreditCardNumberIsValid:
+		(aCreditCardNumberString
+			cover: (126 to: 148)
+			declaredAt: (30 to: 52)) ] valueCoveringAll:
+		{95 to: 124}.
+	[
+	(self coverAll:
+		{152 to: 155}) assertNonBlankOwner:
+		(anOwnerString
+			cover: (178 to: 190)
+			declaredAt: (8 to: 20)) ] valueCoveringAll:
+		{157 to: 176}.
+	^ [
+	([
+	(self coverAll:
+		{195 to: 198}) new ] valueCoveringAll:
+		{200 to: 202})
+		initializeOwner:
+			(anOwnerString
+				cover: (221 to: 233)
+				declaredAt: (8 to: 20))
+		number:
+			(aCreditCardNumberString
+				cover: (243 to: 265)
+				declaredAt: (30 to: 52))
+		expiration:
+			(aGregorianMonthOfYear
+				cover: (279 to: 299)
+				declaredAt: (66 to: 86)) ] valueCoveringAll:
+		{204 to: 219. 235 to: 241. 267 to: 277}.! !
+!Behavior method!
+assertCreditCardNumberIsValid: aString
+	[
+	([
+	([
+	(aString
+		cover: (44 to: 50)
+		declaredAt: (32 to: 38)) size ] valueCoveringAll:
+		{52 to: 55}) =
+		(16 coverAll:
+			{59 to: 60}) ] valueCoveringAll:
+		{57 to: 57}) ifFalse: [
+		[
+		(self coverAll:
+			{72 to: 75}) error:
+			([
+			(self coverAll:
+				{84 to: 87}) invalidCreditCardErrorDescription ] valueCoveringAll:
+				{89 to: 121}) ] valueCoveringAll:
+			{77 to: 82} ]] valueCoveringAll:
+		{62 to: 69}.
+	[
+	([
+	(aString
+		cover: (128 to: 134)
+		declaredAt: (32 to: 38)) allSatisfy: [ :aDigit |
+		[
+		(aDigit
+			cover: (159 to: 164)
+			declaredAt: (150 to: 155)) isDigit ] valueCoveringAll:
+			{166 to: 172} ]] valueCoveringAll:
+		{136 to: 146}) ifFalse: [
+		[
+		(self coverAll:
+			{187 to: 190}) error:
+			([
+			(self coverAll:
+				{199 to: 202}) invalidCreditCardErrorDescription ] valueCoveringAll:
+				{204 to: 236}) ] valueCoveringAll:
+			{192 to: 197} ]] valueCoveringAll:
+		{177 to: 184}.! !
+!Behavior method!
+assertNonBlankOwner: anOwnerString
+	[
+	([
+	([
+	(anOwnerString
+		cover: (37 to: 49)
+		declaredAt: (22 to: 34)) withBlanksTrimmed ] valueCoveringAll:
+		{51 to: 67}) isEmpty ] valueCoveringAll:
+		{69 to: 75}) ifTrue: [
+		[
+		(self coverAll:
+			{86 to: 89}) error:
+			([
+			(self coverAll:
+				{98 to: 101}) invalidCreditCardErrorDescription ] valueCoveringAll:
+				{103 to: 135}) ] valueCoveringAll:
+			{91 to: 96} ]] valueCoveringAll:
+		{77 to: 83}.! !
+!Behavior method!
+initializeOwner: anOwnerString number: aCreditCardNumberString expiration: aGregorianMonthOfYear
+	(ownerString _ anOwnerString
+		cover: (116 to: 128)
+		declaredAt: (18 to: 30))
+		cover: (101 to: 111)
+		declaredAt: (101 to: 111).
+	(creditCardNumberString _ aCreditCardNumberString
+		cover: (158 to: 180)
+		declaredAt: (40 to: 62))
+		cover: (132 to: 153)
+		declaredAt: (132 to: 153).
+	(expirationMonthOfYear _ aGregorianMonthOfYear
+		cover: (209 to: 229)
+		declaredAt: (76 to: 96))
+		cover: (184 to: 204)
+		declaredAt: (184 to: 204).! !
+!Behavior method!
+checkout: aCart withCreditCard: aCreditCard
+	| totalPrice |
+	[
+	(self coverAll:
+		{61 to: 64}) assertCartIsNotEmpty:
+		(aCart
+			cover: (88 to: 92)
+			declaredAt: (11 to: 15)) ] valueCoveringAll:
+		{66 to: 86}.
+	[
+	(self coverAll:
+		{96 to: 99}) assertCreditCardIsNotExpired:
+		(aCreditCard
+			cover: (131 to: 141)
+			declaredAt: (33 to: 43)) ] valueCoveringAll:
+		{101 to: 129}.
+	(totalPrice _ 0 coverAll:
+		{159 to: 159})
+		cover: (145 to: 154)
+		declaredAt: (48 to: 57).
+	[
+	(aCart
+		cover: (163 to: 167)
+		declaredAt: (11 to: 15)) do: [ :anElement |
+		(totalPrice _ [
+		([
+		(totalPrice
+			cover: (187 to: 196)
+			declaredAt: (48 to: 57)) +
+			(priceList
+				cover: (214 to: 222)
+				declaredAt: (214 to: 222)) ] valueCoveringAll:
+			{212 to: 212})
+			at:
+				(anElement
+					cover: (228 to: 236)
+					declaredAt: (175 to: 183))
+			ifAbsent: [
+				[
+				(self coverAll:
+					{249 to: 252}) raiseItemNotInPriceListError ] valueCoveringAll:
+					{254 to: 281} ]] valueCoveringAll:
+			{224 to: 226. 238 to: 246})
+			cover: (201 to: 210)
+			declaredAt: (48 to: 57) ]] valueCoveringAll:
+		{169 to: 171}.
+	[
+	(merchantProcessor
+		cover: (288 to: 304)
+		declaredAt: (288 to: 304))
+		charge:
+			(totalPrice
+				cover: (314 to: 323)
+				declaredAt: (48 to: 57))
+		on:
+			(aCreditCard
+				cover: (330 to: 340)
+				declaredAt: (33 to: 43)) ] valueCoveringAll:
+		{306 to: 312. 326 to: 328}.
+	[
+	(salesBook
+		cover: (345 to: 353)
+		declaredAt: (345 to: 353)) add:
+		(totalPrice
+			cover: (360 to: 369)
+			declaredAt: (48 to: 57)) ] valueCoveringAll:
+		{355 to: 358}.
+	^ totalPrice
+		cover: (375 to: 384)
+		declaredAt: (48 to: 57).! !
+!Behavior method!
+assertCartIsNotEmpty: aCart
+	^ [
+	([
+	(aCart
+		cover: (33 to: 37)
+		declaredAt: (23 to: 27)) isEmpty ] valueCoveringAll:
+		{39 to: 45}) ifTrue: [
+		[
+		(self coverAll:
+			{57 to: 60}) error:
+			([
+			([
+			(self coverAll:
+				{69 to: 72}) class ] valueCoveringAll:
+				{74 to: 78}) emptyCartErrorDescription ] valueCoveringAll:
+				{80 to: 104}) ] valueCoveringAll:
+			{62 to: 67} ]] valueCoveringAll:
+		{47 to: 53}.! !
+!Behavior method!
+emptyCartErrorDescription
+	^ 'The cart is empty' coverAll:
+		{29 to: 47}.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+!Behavior method!
+assertCreditCardIsNotExpired: aCreditCard
+	[
+	([
+	(aCreditCard
+		cover: (47 to: 57)
+		declaredAt: (31 to: 41)) isExpiredOn:
+		([
+		(Date
+			cover: (72 to: 75)
+			declaredAt: (72 to: 75)) today ] valueCoveringAll:
+			{77 to: 81}) ] valueCoveringAll:
+		{59 to: 70}) ifTrue: [
+		[
+		(self coverAll:
+			{93 to: 96}) error:
+			([
+			([
+			(self coverAll:
+				{105 to: 108}) class ] valueCoveringAll:
+				{110 to: 114}) expiredCreditCardErrorDescription ] valueCoveringAll:
+				{116 to: 148}) ] valueCoveringAll:
+			{98 to: 103} ]] valueCoveringAll:
+		{84 to: 90}.! !
+!Behavior method!
+isExpiredOn: aDate
+	^ [
+	([
+	(GregorianMonthOfYear
+		cover: (26 to: 45)
+		declaredAt: (26 to: 45))
+		yearNumber:
+			([
+			(aDate
+				cover: (59 to: 63)
+				declaredAt: (14 to: 18)) yearNumber ] valueCoveringAll:
+				{65 to: 74})
+		monthNumber:
+			([
+			(aDate
+				cover: (89 to: 93)
+				declaredAt: (14 to: 18)) monthIndex ] valueCoveringAll:
+				{95 to: 104}) ] valueCoveringAll:
+		{47 to: 57. 76 to: 87}) >
+		(expirationMonthOfYear
+			cover: (109 to: 129)
+			declaredAt: (109 to: 129)) ] valueCoveringAll:
+		{107 to: 107}.! !
+!Behavior method!
+do: aBlockClosure
+	[
+	(items
+		cover: (21 to: 25)
+		declaredAt: (21 to: 25)) do:
+		(aBlockClosure
+			cover: (31 to: 43)
+			declaredAt: (5 to: 17)) ] valueCoveringAll:
+		{27 to: 29}.! !
+!Behavior method!
+raiseItemNotInPriceListError
+	^ [
+	(self coverAll:
+		{34 to: 37}) error:
+		([
+		([
+		(self coverAll:
+			{46 to: 49}) class ] valueCoveringAll:
+			{51 to: 55}) itemNotInPriceListErrorDescription ] valueCoveringAll:
+			{57 to: 90}) ] valueCoveringAll:
+		{39 to: 44}.! !
+!Behavior method!
+itemNotInPriceListErrorDescription
+	^ 'An item in the cart is not in the price list' coverAll:
+		{38 to: 83}.! !
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+!Behavior method!
+charge: aCharge on: aCreditCard
+	[
+	(messageError
+		cover: (35 to: 46)
+		declaredAt: (35 to: 46)) ifNotNil: [
+		[
+		(self coverAll:
+			{60 to: 63}) error:
+			(messageError
+				cover: (72 to: 83)
+				declaredAt: (35 to: 46)) ] valueCoveringAll:
+			{65 to: 70} ]] valueCoveringAll:
+		{48 to: 56}.! !
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+!Behavior method!
+expiredCreditCardErrorDescription
+	^ 'The credit card is expired' coverAll:
+		{37 to: 64}.! !
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+!Behavior method!
+raiseErrorOnCharge: aMessageError
+	(messageError _ aMessageError
+		cover: (53 to: 65)
+		declaredAt: (21 to: 33))
+		cover: (37 to: 48)
+		declaredAt: (37 to: 48).! !
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+!Behavior method!
+invalidCreditCardErrorDescription
+	^ 'Los datos de la tarjeta de crédito son inválidos' coverAll:
+		{37 to: 86}.! !
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+!Behavior method!
+raiseAuthenticationErrorWithMessage: anErrorMessage
+	(authenticationErrorMessage _ anErrorMessage
+		cover: (84 to: 97)
+		declaredAt: (38 to: 51))
+		cover: (54 to: 79)
+		declaredAt: (54 to: 79).! !
+!Behavior method!
+withClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock
+	^ [
+	([
+	(self coverAll:
+		{83 to: 86}) new ] valueCoveringAll:
+		{88 to: 90})
+		initializeWithClientAuthenticator:
+			(aClientAuthenticator
+				cover: (127 to: 146)
+				declaredAt: (26 to: 45))
+		catalog:
+			(aCatalog
+				cover: (157 to: 164)
+				declaredAt: (56 to: 63))
+		clock:
+			(aClock
+				cover: (173 to: 178)
+				declaredAt: (72 to: 77)) ] valueCoveringAll:
+		{92 to: 125. 148 to: 155. 166 to: 171}.! !
+!Behavior method!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock
+	(clientAuthenticator _ aClientAuthenticator
+		cover: (113 to: 132)
+		declaredAt: (36 to: 55))
+		cover: (90 to: 108)
+		declaredAt: (90 to: 108).
+	(carts _ [
+	(OrderedCollection
+		cover: (145 to: 161)
+		declaredAt: (145 to: 161)) new ] valueCoveringAll:
+		{163 to: 165})
+		cover: (136 to: 140)
+		declaredAt: (136 to: 140).
+	(itemCatalog _ aCatalog
+		cover: (184 to: 191)
+		declaredAt: (66 to: 73))
+		cover: (169 to: 179)
+		declaredAt: (169 to: 179).
+	(clock _ aClock
+		cover: (204 to: 209)
+		declaredAt: (82 to: 87))
+		cover: (195 to: 199)
+		declaredAt: (195 to: 199).
+	(lastTimeCartUsed _ [
+	(OrderedCollection
+		cover: (232 to: 248)
+		declaredAt: (145 to: 161)) new ] valueCoveringAll:
+		{250 to: 252})
+		cover: (213 to: 228)
+		declaredAt: (213 to: 228).! !
+!Behavior method!
+createCartFor: aUserId authenticatedWith: aPassword
+	[
+	(clientAuthenticator
+		cover: (54 to: 72)
+		declaredAt: (54 to: 72))
+		athenticateUser:
+			(aUserId
+				cover: (91 to: 97)
+				declaredAt: (16 to: 22))
+		withPassword:
+			(aPassword
+				cover: (113 to: 121)
+				declaredAt: (43 to: 51)) ] valueCoveringAll:
+		{74 to: 89. 99 to: 111}.
+	[
+	(carts
+		cover: (128 to: 132)
+		declaredAt: (128 to: 132)) add:
+		([
+		(Cart
+			cover: (140 to: 143)
+			declaredAt: (140 to: 143)) acceptingItemsOf:
+			(itemCatalog
+				cover: (163 to: 173)
+				declaredAt: (163 to: 173)) ] valueCoveringAll:
+			{145 to: 161}) ] valueCoveringAll:
+		{134 to: 137}.
+	[
+	(lastTimeCartUsed
+		cover: (178 to: 193)
+		declaredAt: (178 to: 193)) add:
+		([
+		(clock
+			cover: (200 to: 204)
+			declaredAt: (200 to: 204)) now ] valueCoveringAll:
+			{206 to: 208}) ] valueCoveringAll:
+		{195 to: 198}.
+	^ [
+	(carts
+		cover: (213 to: 217)
+		declaredAt: (128 to: 132)) size ] valueCoveringAll:
+		{219 to: 222}.! !
+!Behavior method!
+athenticateUser: aSmallInteger withPassword: aString
+	[
+	(authenticationErrorMessage
+		cover: (56 to: 81)
+		declaredAt: (56 to: 81)) ifNotNil: [
+		[
+		(self coverAll:
+			{94 to: 97}) error:
+			(authenticationErrorMessage
+				cover: (106 to: 131)
+				declaredAt: (56 to: 81)) ] valueCoveringAll:
+			{99 to: 104} ]] valueCoveringAll:
+		{83 to: 91}.! !
+!Behavior method!
+hasCarts
+	^ [
+	([
+	(carts
+		cover: (13 to: 17)
+		declaredAt: (13 to: 17)) isEmpty ] valueCoveringAll:
+		{19 to: 25}) not ] valueCoveringAll:
+		{27 to: 29}.! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+!Behavior method!
+with: aDateTime
+	^ [
+	([
+	(self coverAll:
+		{20 to: 23}) new ] valueCoveringAll:
+		{25 to: 27}) initializeWith:
+		(aDateTime
+			cover: (45 to: 53)
+			declaredAt: (7 to: 15)) ] valueCoveringAll:
+		{29 to: 43}.! !
+!Behavior method!
+initializeWith: aDateTime
+	(dateTime _ aDateTime
+		cover: (40 to: 48)
+		declaredAt: (17 to: 25))
+		cover: (28 to: 35)
+		declaredAt: (28 to: 35).! !
+!Behavior method!
+now
+	^ dateTime
+		cover: (8 to: 15)
+		declaredAt: (8 to: 15).! !
+!Behavior method!
+hasCartIdentified: aCartId
+	[
+	(carts
+		cover: (33 to: 37)
+		declaredAt: (33 to: 37))
+		at:
+			(aCartId
+				cover: (43 to: 49)
+				declaredAt: (20 to: 26))
+		ifAbsent: [ ^ false coverAll:
+				{64 to: 68} ]] valueCoveringAll:
+		{39 to: 41. 51 to: 59}.
+	^ [
+	([
+	(self coverAll:
+		{76 to: 79}) expiredCart:
+		(aCartId
+			cover: (94 to: 100)
+			declaredAt: (20 to: 26)) ] valueCoveringAll:
+		{81 to: 92}) not ] valueCoveringAll:
+		{103 to: 105}.! !
+!Behavior method!
+expiredCart: aCartId
+	^ [
+	([
+	([
+	(lastTimeCartUsed
+		cover: (28 to: 43)
+		declaredAt: (28 to: 43)) at:
+		(aCartId
+			cover: (49 to: 55)
+			declaredAt: (14 to: 20)) ] valueCoveringAll:
+		{45 to: 47}) next:
+		([
+		([
+		(TimeUnits
+			cover: (65 to: 73)
+			declaredAt: (65 to: 73)) minute ] valueCoveringAll:
+			{75 to: 80}) with:
+			([
+			(self coverAll:
+				{88 to: 91}) maxInactiveTimeInMinutes ] valueCoveringAll:
+				{93 to: 116}) ] valueCoveringAll:
+			{82 to: 86}) ] valueCoveringAll:
+		{58 to: 62}) <
+		([
+		(clock
+			cover: (122 to: 126)
+			declaredAt: (122 to: 126)) now ] valueCoveringAll:
+			{128 to: 130}) ] valueCoveringAll:
+		{120 to: 120}.! !
+!Behavior method!
+maxInactiveTimeInMinutes
+	^ 30 coverAll:
+		{30 to: 31}.! !
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+!Behavior method!
+listCart: cartID
+	[
+	(self coverAll:
+		{21 to: 24}) assertCartIDIsValid:
+		(cartID
+			cover: (47 to: 52)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{26 to: 45}.
+	^ [
+	(carts
+		cover: (58 to: 62)
+		declaredAt: (58 to: 62)) at:
+		(cartID
+			cover: (68 to: 73)
+			declaredAt: (11 to: 16)) ] valueCoveringAll:
+		{64 to: 66}.! !
+!Behavior method!
+assertCartIDIsValid: cartID
+	[
+	([
+	(self coverAll:
+		{33 to: 36}) hasCartIdentified:
+		(cartID
+			cover: (57 to: 62)
+			declaredAt: (22 to: 27)) ] valueCoveringAll:
+		{38 to: 55}) ifFalse: [
+		[
+		(self coverAll:
+			{75 to: 78}) error:
+			([
+			([
+			(self coverAll:
+				{87 to: 90}) class ] valueCoveringAll:
+				{92 to: 96}) invalidCartIDErrorDescription ] valueCoveringAll:
+				{98 to: 126}) ] valueCoveringAll:
+			{80 to: 85} ]] valueCoveringAll:
+		{65 to: 72}.! !
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+!Behavior method!
+invalidCartIDErrorDescription
+	^ 'Cart ID is not in the system' coverAll:
+		{33 to: 62}.! !
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+!Behavior method!
+set: aDateTime
+	(dateTime _ aDateTime
+		cover: (29 to: 37)
+		declaredAt: (6 to: 14))
+		cover: (17 to: 24)
+		declaredAt: (17 to: 24).! !
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 10:01:55'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 10:02:29'!
+PASSED!
+
+----QUIT----(23 June 2021 10:02:43) CuisUniversity-4532.image priorSource: 17087185!
