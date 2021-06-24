@@ -154,10 +154,10 @@ test02CanNotCheckoutCartWithNonPricedItem
 			self assert: anError messageText = Cashier itemNotInPriceListErrorDescription. 
 			self assert: aSalesBook isEmpty]! !
 
-!CashierTest methodsFor: 'tests' stamp: 'ET 6/16/2021 18:27:08'!
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 02:08:54'!
 test03CheckoutCartWithOneItemReturnsThePriceOfThatItem
 
-	|cart cashier aSalesBook |
+	|cart cashier aSalesBook sales |
 	
 	cart := self createCart.
 	cart add: self itemInStore.
@@ -166,14 +166,16 @@ test03CheckoutCartWithOneItemReturnsThePriceOfThatItem
 	aSalesBook := OrderedCollection new.
 	cashier := self newCashierWithSalesBook: aSalesBook.
 	
-	self assert: 1 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).
+	sales _ cashier checkout: cart withCreditCard: self validCreditCard.
 	self assert: 1 equals: aSalesBook size.
-	self assert: self itemInStorePrice equals: aSalesBook first.! !
+	self assert: aSalesBook first = sales.
+	self assert: 1 equals: (sales items occurrencesOf: self itemInStore).
+	self assert: self itemInStorePrice equals: sales totalAmount.! !
 
-!CashierTest methodsFor: 'tests' stamp: 'ET 6/16/2021 18:27:16'!
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 02:08:14'!
 test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
 
-	|cart cashier aSalesBook |
+	|cart cashier aSalesBook sales |
 
 	cart := self createCart.
 	cart add: 2 of: self itemInStore.
@@ -181,9 +183,11 @@ test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
 	
 	aSalesBook := OrderedCollection new.
 	cashier := self newCashierWithSalesBook: aSalesBook.
-	self assert: 2 equals:  (cashier checkout: cart withCreditCard: self validCreditCard).
+	sales _ cashier checkout: cart withCreditCard: self validCreditCard.
 	self assert: 1 equals: aSalesBook size.
-	self assert: 2 * self itemInStorePrice equals: aSalesBook first.! !
+	self assert: aSalesBook first = sales.
+	self assert: 2 equals: (sales items occurrencesOf: self itemInStore).
+	self assert: 2 * self itemInStorePrice equals: sales totalAmount.! !
 
 !CashierTest methodsFor: 'tests' stamp: 'ET 6/16/2021 18:27:26'!
 test05CanNotCheckoutWithExpiredCreditCard
@@ -713,16 +717,19 @@ initializeWith: aPriceList registerSalesOn: aSalesBook merchantProcessor: aMerch
 	merchantProcessor := aMerchantProcessor.! !
 
 
-!Cashier methodsFor: 'checkout' stamp: 'JA 6/23/2021 19:11:35'!
+!Cashier methodsFor: 'checkout' stamp: 'ET 6/24/2021 01:58:58'!
 checkout: aCart withCreditCard: aCreditCard 
-	|totalPrice|
+	|totalPrice items sales|
 	self assertCartIsNotEmpty: aCart.
 	self assertCreditCardIsNotExpired: aCreditCard.
 	totalPrice := 0.
-	aCart do: [:anElement | totalPrice := totalPrice + priceList at: anElement ifAbsent: [self raiseItemNotInPriceListError].].
+	items := OrderedCollection new.
+	aCart do: [:anItem | totalPrice := totalPrice + priceList at: anItem ifAbsent: [self raiseItemNotInPriceListError].
+		items add: anItem].
 	merchantProcessor charge: totalPrice  on: aCreditCard .
-	salesBook add: totalPrice .
-	^totalPrice.! !
+	sales := Sales withItems: items totalAmount: totalPrice.
+	salesBook add: sales.
+	^sales.! !
 
 
 !Cashier methodsFor: 'raise error' stamp: 'ET 6/16/2021 17:42:04'!
@@ -883,7 +890,7 @@ raiseErrorOnCharge: aMessageError
 
 !classDefinition: #PurchaseList category: 'TusLibros'!
 Object subclass: #PurchaseList
-	instanceVariableNames: 'itemList priceList'
+	instanceVariableNames: 'itemList priceList amount'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
@@ -894,6 +901,11 @@ initializeWithItems: anItemList andPriceList: aPriceList
 	itemList := anItemList.
 	priceList := aPriceList.! !
 
+!PurchaseList methodsFor: 'initialization' stamp: 'ET 6/24/2021 02:18:45'!
+initializeWithItems: anItemList totalAmount: anAmount 
+	itemList := anItemList.
+	amount := anAmount.! !
+
 
 !PurchaseList methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:28:21'!
 isEmpty
@@ -903,9 +915,9 @@ isEmpty
 list
 	^ itemList copy.! !
 
-!PurchaseList methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:27:20'!
+!PurchaseList methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 02:19:10'!
 totalAmount
-	^ itemList sum: [:item| priceList at: item ifAbsent: []]  ifEmpty: 0.! !
+	^amount.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -917,24 +929,68 @@ PurchaseList class
 withItems: anItemList AndPriceList: aPriceList
 	^ self new initializeWithItems: anItemList andPriceList: aPriceList .! !
 
+!PurchaseList class methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 02:18:11'!
+withItems: anItemList totalAmount: anAmount.
+	^ self new initializeWithItems: anItemList totalAmount: anAmount .! !
+
 
-!classDefinition: #Store category: 'TusLibros'!
-Object subclass: #Store
-	instanceVariableNames: 'clientAuthenticator carts lastTimeCartUsed clock priceList cartOwner userPurchases currentTransactionID salesBook cashier currentCartID'
+!classDefinition: #Sales category: 'TusLibros'!
+Object subclass: #Sales
+	instanceVariableNames: 'userID amount items'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Store methodsFor: 'initialization' stamp: 'ET 6/24/2021 01:22:14'!
+!Sales methodsFor: 'initialization' stamp: 'ET 6/24/2021 02:03:22'!
+initializeWithItems: aCollectionOfItems totalAmount: anAmount 
+
+	items := aCollectionOfItems.
+	amount := anAmount.! !
+
+
+!Sales methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 02:03:44'!
+items
+	^items! !
+
+!Sales methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 02:03:34'!
+totalAmount
+	^amount.! !
+
+!Sales methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 02:09:59'!
+userID
+	^userID.! !
+
+!Sales methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 02:09:52'!
+userID: aUserID
+	userID := aUserID.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Sales class' category: 'TusLibros'!
+Sales class
+	instanceVariableNames: ''!
+
+!Sales class methodsFor: 'instance creation' stamp: 'ET 6/24/2021 02:02:18'!
+withItems: items totalAmount: anAmount
+
+	^self new initializeWithItems: items totalAmount: anAmount.! !
+
+
+!classDefinition: #Store category: 'TusLibros'!
+Object subclass: #Store
+	instanceVariableNames: 'clientAuthenticator carts lastTimeCartUsed clock priceList cartOwner salesBook cashier currentCartID'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!Store methodsFor: 'initialization' stamp: 'ET 6/24/2021 02:22:30'!
 initializeWithClientAuthenticator: aClientAuthenticator clock: aClock priceList: aPriceList 
 	clientAuthenticator := aClientAuthenticator.
-	carts := Dictionary new.
 	clock := aClock.
-	lastTimeCartUsed := Dictionary new.
 	priceList := aPriceList.
+	carts := Dictionary new.
+	lastTimeCartUsed := Dictionary new.
 	cartOwner := Dictionary new.
-	userPurchases  := Dictionary new.
-	currentTransactionID  := 0.
 	salesBook := OrderedCollection new.
 	cashier := Cashier with: priceList registerSalesOn: salesBook merchantProcessor: MerchantProcessorSimulator new.
 	currentCartID := 0.
@@ -949,21 +1005,18 @@ assertCartIDIsValid: cartID
 	ifFalse: [self error: self class invalidCartIDErrorDescription ]! !
 
 
-!Store methodsFor: 'checkout' stamp: 'ET 6/24/2021 01:05:35'!
+!Store methodsFor: 'checkout' stamp: 'ET 6/24/2021 02:21:10'!
 checkoutCart: aCartId creditCard: aCreditCard 
 	| userID |
 	self assertCartIDIsValid: aCartId.
 	
 	cashier checkout: (carts at: aCartId) withCreditCard: aCreditCard.
 	userID := cartOwner at: aCartId. 
-	
-	(userPurchases includesKey: userID) ifFalse: [userPurchases add: userID->(OrderedCollection new)].
-	(userPurchases at: userID) addAll: (self listCart: aCartId).
+	salesBook last userID: userID.
 	
 	self invalidateCartId: aCartId.
-	
-	currentTransactionID := currentTransactionID + 1.
-	^ currentTransactionID.! !
+
+	^salesBook size.! !
 
 
 !Store methodsFor: 'testing' stamp: 'ET 6/24/2021 01:21:20'!
@@ -1010,12 +1063,15 @@ listCart: cartID
 	
 	^ cartList.! !
 
-!Store methodsFor: 'lists' stamp: 'ET 6/24/2021 01:06:57'!
+!Store methodsFor: 'lists' stamp: 'ET 6/24/2021 02:19:57'!
 listPurchasesOf: aUserId password: aPassword
-
+	|userIDSales items totalAmount|
 	clientAuthenticator authenticateUser: aUserId withPassword: aPassword. 
-	(userPurchases includesKey: aUserId ) ifFalse: [userPurchases add: aUserId ->(OrderedCollection new)].				
-	^ PurchaseList withItems: (userPurchases at: aUserId) AndPriceList: priceList .
+	userIDSales := salesBook select: [:aSales | aSales userID = aUserId].
+	items := OrderedCollection new.
+	userIDSales do: [:aSales | items addAll: aSales items].
+	totalAmount := userIDSales sum: [:aSales | aSales totalAmount] ifEmpty: 0.
+	^ PurchaseList withItems: items totalAmount: totalAmount.
 	! !
 
 
