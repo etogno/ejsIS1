@@ -14509,3 +14509,2875 @@ PASSED!
 PASSED!
 
 ----QUIT----(23 June 2021 10:02:43) CuisUniversity-4532.image priorSource: 17087185!
+
+----STARTUP---- (23 June 2021 17:09:47) as /home/julian/facu/ingenieria1/ambientesCuis/TusLibros2/CuisUniversity-4532.image!
+
+
+----End fileIn of /home/julian/facu/ingenieria1/ejsIS1/20-TusLibros-iteracion-3/TusLibros.st----!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 17:10:23'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 17:13:07'!
+test07CartIsInvalidAfter30Min
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= self clockSimulator.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+
+	self deny: (store hasCartIdentified: cartID1).
+		! !
+
+!methodRemoval: StoreTest #test07CartIsInvalidBefore30Min stamp: 'JA 6/23/2021 17:13:07'!
+test07CartIsInvalidBefore30Min
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= self clockSimulator.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+
+	self deny: (store hasCartIdentified: cartID1).
+		!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 17:13:11'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 17:13:11'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 17:13:11'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 17:13:11'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 17:13:11'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 17:13:11'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 17:13:11'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 17:13:11'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 17:35:44'!
+test08
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= self clockSimulator.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+	store addToCart: cartID1 bookISBN: 123456789 bookQuantity: 10.
+	
+	self deny: (store hasCartIdentified: cartID1).
+		! !
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 17:36:35' prior: 50865849!
+test08
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= self clockSimulator.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+	
+	
+	self should: [store addToCart: cartID1 bookISBN: 123456789 bookQuantity: 10.]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]	! !
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 17:36:36'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 17:36:50'!
+addToCart: aSmallInteger bookISBN: aSmallInteger2 bookQuantity: aSmallInteger3 
+	self shouldBeImplemented.! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 17:39:26' prior: 50865890!
+addToCart: aCartID bookISBN: aBookISBN bookQuantity: aBookQuantity
+
+	self assertCartIDIsValid: aCartID 	! !
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 17:39:29'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 17:39:29'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 17:39:29'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 17:39:29'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 17:39:29'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 17:39:29'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 17:39:29'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 17:39:29'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 17:39:29'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 17:39:55'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 17:39:55'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 17:39:55'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 17:39:55'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 17:39:55'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 17:39:55'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 17:39:55'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 17:39:55'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 17:39:55'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 17:49:31'!
+test09
+
+	| store cartID1 cartList |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	store addToCart: cartID1 bookISBN: '123456789' bookQuantity: 10.
+	cartList := store listCart: cartID1 .
+	
+	self assert: 10 equals: (cartList at: #(123456789)).
+	! !
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 17:49:43'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 17:51:29' prior: 50865653!
+listCart: cartID
+	
+	self assertCartIDIsValid: cartID.
+
+	^ (carts at: cartID) list.! !
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 17:51:31'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 17:51:51'!
+list
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 17:53:09' prior: 50865979!
+list
+	^ items copy! !
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 17:53:11'!
+ERROR!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 18:04:40' prior: 50865956!
+test09
+
+	| store cartID1 cartList |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	store addToCart: cartID1 bookISBN: '123456789' bookQuantity: 10.
+	cartList := store listCart: cartID1 .
+	
+	self assert: 10 equals: (cartList at: 0).
+	! !
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 18:12:21' prior: 50865989!
+test09
+
+	| store cartID1 cartList |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	store addToCart: cartID1 bookISBN: '123456789' bookQuantity: 10.
+	cartList := store listCart: cartID1 .
+	
+	self assert: 10 equals: (cartList size).
+	! !
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 18:12:23'!
+FAILURE!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 18:16:51' prior: 50865897!
+addToCart: aCartID bookISBN: aBookISBN bookQuantity: aBookQuantity
+
+	self assertCartIDIsValid: aCartID 	.
+	
+	(carts at: aCartID) add: aBookQuantity of: aBookISBN.! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 18:16:56'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 18:16:56'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 18:16:56'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 18:16:56'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 18:16:56'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 18:16:56'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 18:16:56'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 18:16:56'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 18:16:56'!
+ERROR!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 18:16:56'!
+ERROR!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 18:19:04' prior: 50866001!
+test09
+
+	| store cartID1 cartList |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity:10.
+	cartList := store listCart: cartID1 .
+	
+	self assert: 10 equals: (cartList size).
+	! !
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 18:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 18:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 18:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 18:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 18:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 18:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 18:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 18:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 18:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 18:19:06'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 18:21:09' prior: 50866052!
+test09
+
+	| store cartID1 cartList |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity:10.
+	cartList := store listCart: cartID1 .
+	
+	self assert: 10 equals: (cartList size).
+	self assert: 10 equals: cartList occurrencesOf: 1.
+	! !
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 18:21:25' prior: 50866093!
+test09
+
+	| store cartID1 cartList validBook |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	validBook _ TestObjects new itemSellByTheStore.
+	store addToCart: cartID1 bookISBN: validBook bookQuantity:10.
+	cartList := store listCart: cartID1 .
+	
+	self assert: 10 equals: (cartList size).
+	self assert: 10 equals: cartList occurrencesOf: 1.
+	! !
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 18:21:41' prior: 50866107!
+test09
+
+	| store cartID1 cartList validBook |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	validBook _ TestObjects new itemSellByTheStore.
+	store addToCart: cartID1 bookISBN: validBook bookQuantity:10.
+	cartList := store listCart: cartID1 .
+	
+	self assert: 10 equals: (cartList size).
+	self assert: 10 equals: (cartList occurrencesOf: validBook ).
+	! !
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 18:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 18:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 18:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 18:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 18:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 18:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 18:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 18:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 18:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 18:21:42'!
+PASSED!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 18:24:57' prior: 50865971!
+listCart: cartID
+	
+	| cartList |
+	self assertCartIDIsValid: cartID.
+	cartList := OrderedCollection new.
+	^ (carts at: cartID) do: [:book | cartList add:book].! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 18:25:16' prior: 50866166!
+listCart: cartID
+	
+	| cartList |
+	self assertCartIDIsValid: cartID.
+	cartList := OrderedCollection new.
+	(carts at: cartID) do: [:book | cartList add:book].
+	^ cartList.! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 18:25:16'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 18:25:16'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 18:25:16'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 18:25:16'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 18:25:16'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 18:25:16'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 18:25:16'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 18:25:16'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 18:25:16'!
+PASSED!
+
+!methodRemoval: Cart #list stamp: 'JA 6/23/2021 18:25:34'!
+list
+	^ items copy!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 18:34:00'!
+test10
+
+	| store purchases |
+	store := self store .
+	
+	purchases := store listPurchasesOf: 123 password: 123.
+	self assert: purchases isEmpty.
+	! !
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 18:35:02' prior: 50866211!
+test10
+
+	| store purchases |
+	store := self store .
+	
+	purchases := store listPurchasesOf: 123 password: 'passwd'.
+	self assert: purchases isEmpty.
+	! !
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 18:35:04'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 18:35:16'!
+listPurchasesOf: aSmallInteger password: aString 
+	self shouldBeImplemented.! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 18:35:49' prior: 50866229!
+listPurchasesOf: aSmallInteger password: aString 
+	^ OrderedCollection new.
+	! !
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 18:35:51'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 18:35:51'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 18:35:51'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 18:35:51'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 18:35:51'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 18:35:51'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 18:35:51'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 18:35:51'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 18:35:51'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 18:35:51'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 18:35:51'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 18:38:28'!
+test11
+
+	| store clientAuthenticatorSimulator errorMessage |
+	store := self store .	
+	
+	errorMessage _ 'Username or password invalid'.
+	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
+	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
+	store := Store withClientAuthenticator: clientAuthenticatorSimulator catalog: TestObjects new defaultCatalog clock: GregorianDateTime now .
+	
+	
+	self should: [
+		store listPurchasesOf: 123 password: 'passwd'.
+		] 
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo: [ :exception | 
+	
+			self assert: errorMessage  equals: exception messageText.
+			self deny: store hasCarts.
+		]
+	
+	
+	
+			! !
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 18:38:41'!
+FAILURE!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 18:39:53' prior: 50866235!
+listPurchasesOf: aUserId password: aPassword
+
+	clientAuthenticator athenticateUser: aUserId withPassword: aPassword. 
+
+	^ OrderedCollection new.
+	! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 18:39:54'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 18:39:54'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 18:39:54'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 18:39:54'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 18:39:54'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 18:39:54'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 18:39:54'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 18:39:54'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 18:39:54'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 18:39:54'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 18:39:54'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 18:40:25' prior: 50866271!
+test11
+
+	| store clientAuthenticatorSimulator errorMessage |
+	store := self store .		
+	errorMessage _ 'Username or password invalid'.
+	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
+	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
+	store := Store withClientAuthenticator: clientAuthenticatorSimulator catalog: TestObjects new defaultCatalog clock: GregorianDateTime now .
+	
+	
+	self should: [
+		store listPurchasesOf: 123 password: 'passwd'.
+	] 
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo: [ :exception | 	
+		self assert: errorMessage  equals: exception messageText.
+		self deny: store hasCarts.
+	]
+	
+	
+	
+			! !
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 18:40:26'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 18:40:26'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 18:40:26'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 18:40:26'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 18:40:26'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 18:40:26'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 18:40:26'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 18:40:26'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 18:40:26'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 18:40:26'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 18:40:26'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 18:40:26'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 18:45:14'!
+test12
+
+	| store purchases cartID1 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+	
+	store checkoutCart: cartID1 creditCard:123.
+	
+	purchases := store listPurchasesOf: 123 password: 'passwd'.
+	self assert: purchases isEmpty.
+	! !
+!TestObjects methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 18:45:50'!
+validCreditCard
+
+	^ CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current next! !
+!CashierTest methodsFor: 'support' stamp: 'JA 6/23/2021 18:46:19' prior: 50865061!
+validCreditCard
+	^ TestObjects new validCreditCard .
+	"^ CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current next"! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'JA 6/23/2021 18:46:24'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'JA 6/23/2021 18:46:24'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'JA 6/23/2021 18:46:24'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'JA 6/23/2021 18:46:24'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'JA 6/23/2021 18:46:24'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'JA 6/23/2021 18:46:24'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 18:46:56' prior: 50866393!
+test12
+
+	| store purchases cartID1 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+	
+	store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	
+	purchases := store listPurchasesOf: 123 password: 'passwd'.
+	self assert: purchases isEmpty.
+	! !
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 18:47:20'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 18:47:27'!
+checkoutCart: aSmallInteger creditCard: aCreditCard 
+	self shouldBeImplemented.! !
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 18:56:41' prior: 50866443!
+test12
+
+	| store purchases cartID1 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+	
+	store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	
+	purchases := store listPurchasesOf: 123 password: 'passwd'.
+	self assert: 10 equals: purchases size.
+	! !
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 19:03:39' prior: 50866466!
+test12
+
+	| store purchases cartID1 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+	
+	store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	
+	purchases := store listPurchasesOf: 123 password: 'passwd'.
+	self assert: 10 equals: purchases size.
+	self assert: 100 equals: purchases totalAmount.	! !
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 19:04:00' prior: 50866482!
+test12
+
+	| store purchases cartID1 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+	
+	store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	
+	purchases := store listPurchasesOf: 123 password: 'passwd'.
+	self assert: 10 equals: purchases size.
+	self assert: 100 equals: purchases totalAmount.	! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:07:04' prior: 50866460!
+checkoutCart: aCartId creditCard: aCreditCard 
+	| aPriceList aSalesBook cashier |
+	aPriceList := itemCatalog asBag.
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: aPriceList registerSalesOn: aSalesBook merchantProcessor: MerchantProcessorSimulator new.
+	
+	cashier checkout: (carts at: aCartId ) withCreditCard: aCreditCard .
+	! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 19:07:14'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 19:07:14'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 19:07:14'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 19:07:14'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 19:07:14'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 19:07:14'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 19:07:14'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 19:07:14'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 19:07:14'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 19:07:14'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 19:07:14'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 19:07:14'!
+ERROR!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 19:07:14'!
+ERROR!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 19:08:17'!
+ERROR!
+!Cashier methodsFor: 'checkout' stamp: 'JA 6/23/2021 19:10:08' prior: 50865362!
+checkout: aCart withCreditCard: aCreditCard 
+	|totalPrice|
+	self assertCartIsNotEmpty: aCart.
+	self assertCreditCardIsNotExpired: aCreditCard.
+	totalPrice := 0.
+	aCart do: [:anElement | totalPrice := totalPrice + (priceList at: anElement ifAbsent: [self raiseItemNotInPriceListError]).].
+	merchantProcessor charge: totalPrice  on: aCreditCard .
+	salesBook add: totalPrice .
+	^totalPrice.! !
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 19:10:20'!
+ERROR!
+!Cashier methodsFor: 'checkout' stamp: 'JA 6/23/2021 19:11:35' prior: 50866567!
+checkout: aCart withCreditCard: aCreditCard 
+	|totalPrice|
+	self assertCartIsNotEmpty: aCart.
+	self assertCreditCardIsNotExpired: aCreditCard.
+	totalPrice := 0.
+	aCart do: [:anElement | totalPrice := totalPrice + priceList at: anElement ifAbsent: [self raiseItemNotInPriceListError].].
+	merchantProcessor charge: totalPrice  on: aCreditCard .
+	salesBook add: totalPrice .
+	^totalPrice.! !
+!TestObjects methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:13:52'!
+defaultPriceList
+
+	^Dictionary with: self itemInStore -> self itemInStorePrice.! !
+!TestObjects methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:14:46' prior: 50866599!
+defaultPriceList
+
+	^Dictionary with: self itemSellByTheStore -> self itemInStorePrice.! !
+!TestObjects methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:15:05'!
+itemInStorePrice
+	^ 10! !
+!Store class methodsFor: 'instance creation' stamp: 'JA 6/23/2021 19:18:04'!
+withClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock priceList: priceList   
+	^self new initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock.! !
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:18:04' prior: 50865254!
+store
+	
+	^ Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: self clockSimulator priceList: TestObjects new defaultPriceList.! !
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:18:04' prior: 50865792!
+test07CartIsInvalidAfter30Min
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= self clockSimulator.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator priceList: TestObjects new defaultPriceList.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+
+	self deny: (store hasCartIdentified: cartID1).
+		! !
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:18:04' prior: 50866336!
+test11
+
+	| store clientAuthenticatorSimulator errorMessage |
+	store := self store .		
+	errorMessage _ 'Username or password invalid'.
+	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
+	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
+	store := Store withClientAuthenticator: clientAuthenticatorSimulator catalog: TestObjects new defaultCatalog clock: GregorianDateTime now priceList: TestObjects new defaultPriceList .
+	
+	
+	self should: [
+		store listPurchasesOf: 123 password: 'passwd'.
+	] 
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo: [ :exception | 	
+		self assert: errorMessage  equals: exception messageText.
+		self deny: store hasCarts.
+	]
+	
+	
+	
+			! !
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:18:04' prior: 50865143!
+test01CanNotCreateCartWhenCredentialsCantBeAuthenticated
+
+	| store errorMessage clientAuthenticatorSimulator |
+	errorMessage _ 'Username or password invalid'.
+	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
+	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
+	store := Store withClientAuthenticator: clientAuthenticatorSimulator catalog: TestObjects new defaultCatalog clock: GregorianDateTime now priceList: TestObjects new defaultPriceList .
+	
+	
+	self should: [
+		store createCartFor: 123 authenticatedWith: 'passwd'
+		] 
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo: [ :exception | 
+	
+	self assert: errorMessage  equals: exception messageText.
+			self deny: store hasCarts.
+		]
+	
+	
+	
+		! !
+!StoreTest methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:18:04' prior: 50865867!
+test08
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= self clockSimulator.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator priceList: TestObjects new defaultPriceList.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+	
+	
+	self should: [store addToCart: cartID1 bookISBN: 123456789 bookQuantity: 10.]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]	! !
+
+!methodRemoval: Store class #withClientAuthenticator:catalog:clock: stamp: 'JA 6/23/2021 19:18:04'!
+withClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock  
+	^self new initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock.!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 19:18:12'!
+ERROR!
+!Store methodsFor: 'initialization' stamp: 'JA 6/23/2021 19:19:23'!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock priceList: priceList 
+	clientAuthenticator := aClientAuthenticator.
+	carts := OrderedCollection new.
+	itemCatalog := aCatalog.
+	clock := aClock.
+	lastTimeCartUsed :=OrderedCollection new.! !
+!Store class methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:19:23' prior: 50866615!
+withClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock priceList: priceList   
+	^self new initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock priceList: priceList.! !
+
+!methodRemoval: Store #initializeWithClientAuthenticator:catalog:clock: stamp: 'JA 6/23/2021 19:19:24'!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock
+	clientAuthenticator := aClientAuthenticator.
+	carts := OrderedCollection new.
+	itemCatalog := aCatalog.
+	clock := aClock.
+	lastTimeCartUsed :=OrderedCollection new.!
+!Store methodsFor: 'initialization' stamp: 'JA 6/23/2021 19:20:56' prior: 50866738!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock priceList: aPriceList 
+	clientAuthenticator := aClientAuthenticator.
+	carts := OrderedCollection new.
+	itemCatalog := aCatalog.
+	clock := aClock.
+	lastTimeCartUsed :=OrderedCollection new.
+	! !
+
+!classDefinition: #Store category: 'TusLibros' stamp: 'JA 6/23/2021 19:21:01'!
+Object subclass: #Store
+	instanceVariableNames: 'clientAuthenticator carts itemCatalog lastTimeCartUsed clock priceList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Store methodsFor: 'initialization' stamp: 'JA 6/23/2021 19:20:59' prior: 50866771!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock priceList: aPriceList 
+	clientAuthenticator := aClientAuthenticator.
+	carts := OrderedCollection new.
+	itemCatalog := aCatalog.
+	clock := aClock.
+	lastTimeCartUsed :=OrderedCollection new.
+	priceList := aPriceList.! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 19:21:09'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 19:21:09'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 19:21:09'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 19:21:09'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 19:21:09'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 19:21:09'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 19:21:09'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 19:21:09'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 19:21:09'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 19:21:09'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 19:21:09'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 19:21:09'!
+ERROR!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 19:21:09'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:21:38' prior: 50866516!
+checkoutCart: aCartId creditCard: aCreditCard 
+	| aSalesBook cashier |
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: MerchantProcessorSimulator new.
+	
+	cashier checkout: (carts at: aCartId ) withCreditCard: aCreditCard .
+	! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 19:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 19:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 19:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 19:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 19:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 19:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 19:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 19:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 19:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 19:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 19:21:42'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 19:21:42'!
+FAILURE!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 19:21:42'!
+FAILURE!
+
+!classDefinition: #Store category: 'TusLibros' stamp: 'JA 6/23/2021 19:27:52'!
+Object subclass: #Store
+	instanceVariableNames: 'clientAuthenticator carts itemCatalog lastTimeCartUsed clock priceList cartOwner'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:27:50' prior: 50865626!
+createCartFor: aUserId authenticatedWith: aPassword
+	clientAuthenticator athenticateUser: aUserId withPassword: aPassword. 
+	
+	carts add: (Cart acceptingItemsOf: itemCatalog).
+	cartOwner add: aUserId.
+	lastTimeCartUsed add: clock now.
+	^carts size.
+	
+	! !
+!Store methodsFor: 'initialization' stamp: 'JA 6/23/2021 19:28:10' prior: 50866791!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock priceList: aPriceList 
+	clientAuthenticator := aClientAuthenticator.
+	carts := OrderedCollection new.
+	itemCatalog := aCatalog.
+	clock := aClock.
+	lastTimeCartUsed :=OrderedCollection new.
+	priceList := aPriceList.
+	cartOwner := OrderedCollection new.! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:31:38' prior: 50866839!
+checkoutCart: aCartId creditCard: aCreditCard 
+	| aSalesBook cashier userID |
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: MerchantProcessorSimulator new.
+	
+	cashier checkout: (carts at: aCartId ) withCreditCard: aCreditCard .
+	userID := cartOwner at:aCartId. 
+	"userPurchases at: userID add: "! !
+
+!classDefinition: #Store category: 'TusLibros' stamp: 'JA 6/23/2021 19:33:31'!
+Object subclass: #Store
+	instanceVariableNames: 'clientAuthenticator carts itemCatalog lastTimeCartUsed clock priceList cartOwner userPurchases'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:33:27' prior: 50866921!
+checkoutCart: aCartId creditCard: aCreditCard 
+	| aSalesBook cashier userID |
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: MerchantProcessorSimulator new.
+	
+	cashier checkout: (carts at: aCartId ) withCreditCard: aCreditCard .
+	userID := cartOwner at:aCartId. 
+	(userPurchases at: userID) add: (self listCart: aCartId).! !
+!Store methodsFor: 'initialization' stamp: 'JA 6/23/2021 19:33:52' prior: 50866907!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock priceList: aPriceList 
+	clientAuthenticator := aClientAuthenticator.
+	carts := OrderedCollection new.
+	itemCatalog := aCatalog.
+	clock := aClock.
+	lastTimeCartUsed :=OrderedCollection new.
+	priceList := aPriceList.
+	cartOwner := OrderedCollection new.
+	userPurchases  := Dictionary new.! !
+!Store methodsFor: 'initialization' stamp: 'JA 6/23/2021 19:34:02' prior: 50866961!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock priceList: aPriceList 
+	clientAuthenticator := aClientAuthenticator.
+	carts := OrderedCollection new.
+	itemCatalog := aCatalog.
+	clock := aClock.
+	lastTimeCartUsed :=OrderedCollection new.
+	priceList := aPriceList.
+	cartOwner := OrderedCollection new.
+	userPurchases  := OrderedCollection new.! !
+!Store methodsFor: 'initialization' stamp: 'JA 6/23/2021 19:34:29' prior: 50866976!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock priceList: aPriceList 
+	clientAuthenticator := aClientAuthenticator.
+	carts := OrderedCollection new.
+	itemCatalog := aCatalog.
+	clock := aClock.
+	lastTimeCartUsed :=OrderedCollection new.
+	priceList := aPriceList.
+	cartOwner := OrderedCollection new.
+	userPurchases  := Dictionary new.! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:37:56' prior: 50866945!
+checkoutCart: aCartId creditCard: aCreditCard 
+	| aSalesBook cashier userID |
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: MerchantProcessorSimulator new.
+	
+	cashier checkout: (carts at: aCartId ) withCreditCard: aCreditCard .
+	userID := cartOwner at:aCartId. 
+	"
+	userPurchases includesKey: userID ifFalse: [userPurchases add: userID-> ]
+	(userPurchases at: userID) add: (self listCart: aCartId)."! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:41:37' prior: 50867006!
+checkoutCart: aCartId creditCard: aCreditCard 
+	| aSalesBook cashier userID |
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: MerchantProcessorSimulator new.
+	
+	cashier checkout: (carts at: aCartId ) withCreditCard: aCreditCard .
+	userID := cartOwner at:aCartId. 
+	
+	(userPurchases includesKey: userID) ifFalse: [userPurchases add: userID->(OrderedCollection new)].
+	(userPurchases at: userID) addAll: (self listCart: aCartId).! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 19:41:39'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 19:41:39'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 19:41:39'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 19:41:39'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 19:41:39'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 19:41:39'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 19:41:39'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 19:41:39'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 19:41:39'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 19:41:39'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 19:41:39'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 19:41:39'!
+FAILURE!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 19:41:39'!
+FAILURE!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:43:24' prior: 50866298!
+listPurchasesOf: aUserId password: aPassword
+
+	clientAuthenticator athenticateUser: aUserId withPassword: aPassword. 
+
+	^ userPurchases at: aUserId .
+	! !
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 19:44:13' prior: 50867078!
+listPurchasesOf: aUserId password: aPassword
+
+	clientAuthenticator athenticateUser: aUserId withPassword: aPassword. 
+	(userPurchases includesKey: aUserId ) ifFalse: [userPurchases add: aUserId ->(OrderedCollection new)].				
+	^ userPurchases at: aUserId .
+	! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 19:44:14'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 19:44:14'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 19:44:14'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 19:44:14'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 19:44:14'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 19:44:14'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 19:44:14'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 19:44:14'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 19:44:14'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 19:44:14'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 19:44:14'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 19:44:14'!
+ERROR!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 19:44:14'!
+ERROR!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 19:46:05' prior: 50866499!
+test12
+
+	| store purchases cartID1 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+	
+	store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	
+	purchases := store listPurchasesOf: 123 password: 'passwd'.
+	self assert: 10 equals: purchases size.
+	self assert: 10 equals: (purchases occurrencesOf: TestObjects new itemSellByTheStore).
+	"self assert: 100 equals: purchases totalAmount.	"! !
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 19:46:08'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 19:46:08'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 19:46:08'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 19:46:08'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 19:46:08'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 19:46:08'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 19:46:08'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 19:46:08'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 19:46:08'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 19:46:08'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 19:46:08'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 19:46:08'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 19:46:08'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 20:17:14' prior: 50867132!
+test12
+
+	| store purchases cartID1 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+	
+	store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	
+	purchases := store listPurchasesOf: 123 password: 'passwd'.
+	self assert: 10 equals: purchases list size.
+	self assert: 10 equals: (purchases list occurrencesOf: TestObjects new itemSellByTheStore).
+	self assert: 100 equals: purchases totalAmount.	! !
+
+!classDefinition: #PurchaseList category: 'TusLibros' stamp: 'JA 6/23/2021 20:19:02'!
+Object subclass: #PurchaseList
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:18:52' prior: 50867086!
+listPurchasesOf: aUserId password: aPassword
+
+	clientAuthenticator athenticateUser: aUserId withPassword: aPassword. 
+	(userPurchases includesKey: aUserId ) ifFalse: [userPurchases add: aUserId ->(OrderedCollection new)].				
+	^ PurchaseList withItems: (userPurchases at: aUserId) AndPriceList: priceList .
+	
+	"^ userPurchases at: aUserId ."
+	! !
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:19:15'!
+ERROR!
+!PurchaseList class methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:19:27'!
+withItems: anOrderedCollection AndPriceList: aDictionary 
+	self shouldBeImplemented.! !
+!PurchaseList class methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:20:47' prior: 50867230!
+withItems: anItemList AndPriceList: aPriceList
+	self new initializeWithItems: anItemList andPriceList: aPriceList .! !
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:20:54'!
+ERROR!
+
+!classDefinition: #PurchaseList category: 'TusLibros' stamp: 'JA 6/23/2021 20:21:02'!
+Object subclass: #PurchaseList
+	instanceVariableNames: 'itemList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #PurchaseList category: 'TusLibros' stamp: 'JA 6/23/2021 20:21:02'!
+Object subclass: #PurchaseList
+	instanceVariableNames: 'itemList priceList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!PurchaseList methodsFor: 'initialization' stamp: 'JA 6/23/2021 20:21:02'!
+initializeWithItems: anItemList andPriceList: aPriceList 
+	self shouldBeImplemented.
+	itemList := anItemList.
+	priceList := aPriceList.! !
+!PurchaseList methodsFor: 'initialization' stamp: 'JA 6/23/2021 20:21:10' prior: 50867259!
+initializeWithItems: anItemList andPriceList: aPriceList 
+	
+	itemList := anItemList.
+	priceList := aPriceList.! !
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:21:13'!
+ERROR!
+!PurchaseList class methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:21:41' prior: 50867236!
+withItems: anItemList AndPriceList: aPriceList
+	^ self new initializeWithItems: anItemList andPriceList: aPriceList .! !
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:21:48'!
+ERROR!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:21:48'!
+ERROR!
+!PurchaseList methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:21:57'!
+list
+	self shouldBeImplemented.! !
+!PurchaseList methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:22:34' prior: 50867287!
+list
+	^ itemList copy.! !
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:22:55'!
+ERROR!
+!PurchaseList methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:23:03'!
+totalAmount
+	self shouldBeImplemented.! !
+!PurchaseList methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:25:26' prior: 50867298!
+totalAmount
+	(itemList collect: [:item| priceList at: item ifAbsent: []]) sum.! !
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:25:27'!
+FAILURE!
+!PurchaseList methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:25:56' prior: 50867303!
+totalAmount
+	^ (itemList collect: [:item| priceList at: item ifAbsent: []]) sum.! !
+!PurchaseList methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:26:41' prior: 50867311!
+totalAmount
+	^ (itemList collect: [:item| priceList at: item ifAbsent: []]) sum ifEmpty: 0.! !
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:26:45'!
+ERROR!
+!PurchaseList methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:27:20' prior: 50867317!
+totalAmount
+	^ itemList sum: [:item| priceList at: item ifAbsent: []]  ifEmpty: 0.! !
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:27:26'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 20:27:26'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 20:27:26'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 20:27:26'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 20:27:26'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 20:27:26'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 20:27:26'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 20:27:26'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 20:27:26'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 20:27:26'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 20:27:26'!
+ERROR!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 20:27:26'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:27:26'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 20:27:26'!
+ERROR!
+!PurchaseList methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:27:45'!
+isEmpty
+	self shouldBeImplemented.! !
+!PurchaseList methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:28:21' prior: 50867369!
+isEmpty
+	^ itemList isEmpty .! !
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 20:28:23'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:28:26'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 20:28:26'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 20:28:26'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 20:28:26'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 20:28:26'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 20:28:26'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 20:28:26'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 20:28:26'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 20:28:26'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 20:28:26'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 20:28:26'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 20:28:26'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:28:26'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 20:29:04' prior: 50866219!
+test10
+
+	| store purchases |
+	store := self store .
+	
+	purchases := store listPurchasesOf: 123 password: 'passwd'.
+	self assert: purchases isEmpty.
+	self assert: 0 equals: purchases totalAmount .
+	! !
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 20:29:05'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 20:29:05'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 20:29:05'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 20:29:05'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 20:29:05'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 20:29:05'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 20:29:05'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 20:29:05'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 20:29:05'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 20:29:05'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 20:29:05'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 20:29:05'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:29:05'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 20:31:23'!
+test13
+
+	| store |
+	store := self store .
+	
+	
+	store checkoutCart: -1 creditCard: TestObjects new validCreditCard .
+	
+	! !
+
+!testRun: #StoreTest #test13 stamp: 'JA 6/23/2021 20:31:30'!
+ERROR!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 20:33:40' prior: 50867459!
+test13
+
+	| store |
+	store := self store .
+	
+	self should:  [store checkoutCart: -1 creditCard: TestObjects new validCreditCard .]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:exception | self assert: Store invalidCartIDErrorDescription equals: exception messageText]
+	
+	
+	! !
+
+!testRun: #StoreTest #test13 stamp: 'JA 6/23/2021 20:33:41'!
+FAILURE!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:34:52' prior: 50867024!
+checkoutCart: aCartId creditCard: aCreditCard 
+	| aSalesBook cashier userID |
+	self assertCartIDIsValid: aCartId .
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: MerchantProcessorSimulator new.
+	
+	cashier checkout: (carts at: aCartId ) withCreditCard: aCreditCard .
+	userID := cartOwner at:aCartId. 
+	
+	(userPurchases includesKey: userID) ifFalse: [userPurchases add: userID->(OrderedCollection new)].
+	(userPurchases at: userID) addAll: (self listCart: aCartId).! !
+
+!testRun: #StoreTest #test13 stamp: 'JA 6/23/2021 20:34:53'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 20:34:53'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 20:34:53'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 20:34:53'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 20:34:53'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 20:34:53'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 20:34:53'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 20:34:53'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 20:34:53'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 20:34:53'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 20:34:53'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 20:34:53'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:34:53'!
+PASSED!
+
+!testRun: #StoreTest #test13 stamp: 'JA 6/23/2021 20:34:53'!
+PASSED!
+
+a := OrderedCollection with:1 with:2 with:3.!
+
+a!
+
+a removeAt: 2.!
+
+a!
+
+a at:2!
+
+a at:1 !
+
+a at:3!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 20:50:10'!
+test14
+
+	| store cartID1 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+		
+	store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	
+	self should: [
+		store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .	]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:exception | self assert: Store cannotCheckoutACartTwice equals: exception messageText ]
+	! !
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 20:50:18'!
+FAILURE!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 20:51:34' prior: 50867543!
+test14
+
+	| store cartID1 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+		
+	store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	
+	self should: [
+		store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .	]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:exception | self assert: Store invalidCartIDErrorDescription equals: exception messageText ]
+		! !
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 20:51:36'!
+FAILURE!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:52:30' prior: 50867483!
+checkoutCart: aCartId creditCard: aCreditCard 
+	| aSalesBook cashier userID |
+	self assertCartIDIsValid: aCartId .
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: MerchantProcessorSimulator new.
+	
+	cashier checkout: (carts at: aCartId ) withCreditCard: aCreditCard .
+	userID := cartOwner at:aCartId. 
+	
+	(userPurchases includesKey: userID) ifFalse: [userPurchases add: userID->(OrderedCollection new)].
+	(userPurchases at: userID) addAll: (self listCart: aCartId).
+	
+	self invalidateCartId: aCartId.! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 20:52:41'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 20:52:41'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 20:52:41'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 20:52:41'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 20:52:41'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 20:52:41'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 20:52:41'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 20:52:41'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 20:52:41'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 20:52:41'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 20:52:41'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:52:41'!
+ERROR!
+
+!testRun: #StoreTest #test13 stamp: 'JA 6/23/2021 20:52:41'!
+PASSED!
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 20:52:41'!
+ERROR!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 20:52:46'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 20:52:46'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 20:52:46'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 20:52:46'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 20:52:46'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 20:52:46'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 20:52:46'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 20:52:46'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 20:52:46'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 20:52:46'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 20:52:46'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:52:46'!
+ERROR!
+
+!testRun: #StoreTest #test13 stamp: 'JA 6/23/2021 20:52:46'!
+PASSED!
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 20:52:46'!
+ERROR!
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 20:52:48'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:52:57'!
+invalidateCartId: aSmallInteger 
+	self shouldBeImplemented.! !
+
+!classDefinition: #Store category: 'TusLibros' stamp: 'JA 6/23/2021 20:54:13'!
+Object subclass: #Store
+	instanceVariableNames: 'clientAuthenticator carts itemCatalog lastTimeCartUsed clock priceList cartOwner userPurchases invalidCarts'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:54:10' prior: 50867685!
+invalidateCartId: aCartID
+	invalidCarts add: aCartID.! !
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 20:54:17'!
+ERROR!
+!Store methodsFor: 'initialization' stamp: 'JA 6/23/2021 20:54:54' prior: 50866991!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock priceList: aPriceList 
+	clientAuthenticator := aClientAuthenticator.
+	carts := OrderedCollection new.
+	itemCatalog := aCatalog.
+	clock := aClock.
+	lastTimeCartUsed :=OrderedCollection new.
+	priceList := aPriceList.
+	cartOwner := OrderedCollection new.
+	userPurchases  := Dictionary new.
+	invalidCarts  := OrderedCollection new.! !
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 20:55:04'!
+FAILURE!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:57:27' prior: 50865619!
+assertCartIDIsValid: cartID
+	
+	((self hasCartIdentified: cartID) 
+	and: [(invalidCarts includes: cartID) not]) 
+	ifFalse: [self error: self class invalidCartIDErrorDescription ]! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 20:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 20:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 20:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 20:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 20:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 20:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 20:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 20:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 20:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 20:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 20:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test13 stamp: 'JA 6/23/2021 20:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 20:57:28'!
+PASSED!
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 20:58:37'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 20:58:37'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 20:58:37'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 20:58:37'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 20:58:37'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 20:58:37'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 20:58:37'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 20:58:37'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 20:58:37'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 20:58:37'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 20:58:37'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 20:58:37'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 20:58:37'!
+PASSED!
+
+!testRun: #StoreTest #test13 stamp: 'JA 6/23/2021 20:58:37'!
+PASSED!
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 20:58:37'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 20:59:58'!
+test15
+
+	| store cartID1 cartID2 transactionID1 transactionID2 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+	store addToCart: cartID2 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.		
+	
+	transactionID1 := store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	transactionID2 := store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .	
+	
+	self deny: transactionID1 = transactionID2.! !
+
+!testRun: #StoreTest #test15 stamp: 'JA 6/23/2021 21:00:10'!
+ERROR!
+
+!testRun: #StoreTest #test15 stamp: 'JA 6/23/2021 21:00:55'!
+ERROR!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:01:12' prior: 50867811!
+test15
+
+	| store cartID1 cartID2 transactionID1 transactionID2 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+	store addToCart: cartID2 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.		
+	
+	transactionID1 := store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	transactionID2 := store checkoutCart: cartID2 creditCard: TestObjects new validCreditCard .	
+	
+	self deny: transactionID1 = transactionID2.! !
+
+!testRun: #StoreTest #test15 stamp: 'JA 6/23/2021 21:01:13'!
+FAILURE!
+
+!testRun: #StoreTest #test15 stamp: 'JA 6/23/2021 21:12:40'!
+FAILURE!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 21:12:49' prior: 50867214!
+listPurchasesOf: aUserId password: aPassword
+
+	clientAuthenticator athenticateUser: aUserId withPassword: aPassword. 
+	(userPurchases includesKey: aUserId ) ifFalse: [userPurchases add: aUserId ->(OrderedCollection new)].				
+	^ PurchaseList withItems: (userPurchases at: aUserId) AndPriceList: priceList .
+	! !
+
+!classDefinition: #Store category: 'TusLibros' stamp: 'JA 6/23/2021 21:13:55'!
+Object subclass: #Store
+	instanceVariableNames: 'clientAuthenticator carts itemCatalog lastTimeCartUsed clock priceList cartOwner userPurchases invalidCarts currentTransactionID'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 21:13:53' prior: 50867587!
+checkoutCart: aCartId creditCard: aCreditCard 
+	| aSalesBook cashier userID |
+	self assertCartIDIsValid: aCartId .
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: aSalesBook merchantProcessor: MerchantProcessorSimulator new.
+	
+	cashier checkout: (carts at: aCartId ) withCreditCard: aCreditCard .
+	userID := cartOwner at:aCartId. 
+	
+	(userPurchases includesKey: userID) ifFalse: [userPurchases add: userID->(OrderedCollection new)].
+	(userPurchases at: userID) addAll: (self listCart: aCartId).
+	
+	self invalidateCartId: aCartId.
+	
+	currentTransactionID := currentTransactionID + 1.
+	^ currentTransactionID.! !
+!Store methodsFor: 'initialization' stamp: 'JA 6/23/2021 21:14:09' prior: 50867707!
+initializeWithClientAuthenticator: aClientAuthenticator catalog: aCatalog clock: aClock priceList: aPriceList 
+	clientAuthenticator := aClientAuthenticator.
+	carts := OrderedCollection new.
+	itemCatalog := aCatalog.
+	clock := aClock.
+	lastTimeCartUsed :=OrderedCollection new.
+	priceList := aPriceList.
+	cartOwner := OrderedCollection new.
+	userPurchases  := Dictionary new.
+	invalidCarts  := OrderedCollection new.
+	currentTransactionID  := 0.! !
+
+!testRun: #StoreTest #test15 stamp: 'JA 6/23/2021 21:14:12'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 21:14:12'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 21:14:12'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 21:14:12'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 21:14:12'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 21:14:12'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 21:14:12'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 21:14:12'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 21:14:12'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 21:14:12'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 21:14:12'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 21:14:12'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 21:14:12'!
+PASSED!
+
+!testRun: #StoreTest #test13 stamp: 'JA 6/23/2021 21:14:12'!
+PASSED!
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 21:14:12'!
+PASSED!
+
+!testRun: #StoreTest #test15 stamp: 'JA 6/23/2021 21:14:12'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:22:56'!
+test16
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= self clockSimulator.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator priceList: TestObjects new defaultPriceList.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed25Minutes.
+	store addToCart: cartID1 bookISBN: 123456789 bookQuantity: 10.
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+	
+	self should: [store addToCart: cartID1 bookISBN: 123456789 bookQuantity: 10.]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]	! !
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:26:32' prior: 50867971!
+test16
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= self clockSimulator.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator priceList: TestObjects new defaultPriceList.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed25Minutes.
+	store addToCart: cartID1 bookISBN: 123456789 bookQuantity: 10.
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+	store listCart: cartID1.
+	aClockSimulator set: self dateForTestingDelayed62Minutes.
+	
+	self should: [store addToCart: cartID1 bookISBN: 123456789 bookQuantity: 10.]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]	! !
+
+!testRun: #StoreTest #test16 stamp: 'JA 6/23/2021 21:26:38'!
+ERROR!
+!StoreTest methodsFor: 'support' stamp: 'JA 6/23/2021 21:27:08'!
+dateForTestingDelayed25Minutes
+
+	^ GregorianDateTime date: (FixedGregorianDate yearNumber: 2004 month: GregorianMonth january dayNumber: 1) timeOfDay: 00:25:00! !
+!StoreTest methodsFor: 'support' stamp: 'JA 6/23/2021 21:27:25'!
+dateForTestingDelayed62Minutes
+
+	^ GregorianDateTime date: (FixedGregorianDate yearNumber: 2004 month: GregorianMonth january dayNumber: 1) timeOfDay: 01:02:00! !
+
+!testRun: #StoreTest #test16 stamp: 'JA 6/23/2021 21:27:31'!
+ERROR!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:29:11' prior: 50867997!
+test16
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= self clockSimulator.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator priceList: TestObjects new defaultPriceList.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed25Minutes.
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity:10.
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+	store listCart: cartID1.
+	aClockSimulator set: self dateForTestingDelayed62Minutes.
+	
+	self should: [store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]	! !
+
+!testRun: #StoreTest #test16 stamp: 'JA 6/23/2021 21:29:13'!
+ERROR!
+
+!testRun: #StoreTest #test16 stamp: 'JA 6/23/2021 21:29:22'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 21:30:33' prior: 50866015!
+addToCart: aCartID bookISBN: aBookISBN bookQuantity: aBookQuantity
+
+	self assertCartIDIsValid: aCartID 	.
+	
+	(carts at: aCartID) add: aBookQuantity of: aBookISBN.
+	
+	lastTimeCartUsed at:aCartID put: clock now.! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 21:30:35'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 21:30:35'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 21:30:35'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 21:30:35'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 21:30:35'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 21:30:35'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 21:30:35'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 21:30:35'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 21:30:35'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 21:30:35'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 21:30:35'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 21:30:35'!
+PASSED!
+
+!testRun: #StoreTest #test13 stamp: 'JA 6/23/2021 21:30:35'!
+PASSED!
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 21:30:35'!
+PASSED!
+
+!testRun: #StoreTest #test15 stamp: 'JA 6/23/2021 21:30:35'!
+PASSED!
+
+!testRun: #StoreTest #test16 stamp: 'JA 6/23/2021 21:30:35'!
+PASSED!
+
+!testRun: #StoreTest #test16 stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+
+!testRun: #StoreTest #test13 stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+
+!testRun: #StoreTest #test15 stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+
+!testRun: #StoreTest #test16 stamp: 'JA 6/23/2021 21:30:51'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:35:16' prior: 50868045!
+test16
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= self clockSimulator.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator priceList: TestObjects new defaultPriceList.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed25Minutes.
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity:10.
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+	store listCart: cartID1.
+	aClockSimulator set: self dateForTestingDelayed56Minutes.
+	store listCart: cartID1.
+	aClockSimulator set: self dateForTestingDelayed87Minutes.
+	
+	self should: [store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]	! !
+!StoreTest methodsFor: 'support' stamp: 'JA 6/23/2021 21:36:45'!
+dateForTestingDelayed56Minutes
+
+	^ GregorianDateTime date: (FixedGregorianDate yearNumber: 2004 month: GregorianMonth january dayNumber: 1) timeOfDay: 00:56:00! !
+!StoreTest methodsFor: 'support' stamp: 'JA 6/23/2021 21:37:03'!
+dateForTestingDelayed87Minutes
+
+	^ GregorianDateTime date: (FixedGregorianDate yearNumber: 2004 month: GregorianMonth january dayNumber: 1) timeOfDay: 01:27:00! !
+
+!testRun: #StoreTest #test16 stamp: 'JA 6/23/2021 21:37:11'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 21:38:25' prior: 50866174!
+listCart: cartID
+	
+	| cartList |
+	self assertCartIDIsValid: cartID.
+	cartList := OrderedCollection new.
+	(carts at: cartID) do: [:book | cartList add:book].
+	
+	lastTimeCartUsed at: cartID put: clock now.
+	
+	^ cartList.! !
+
+!testRun: #StoreTest #test16 stamp: 'JA 6/23/2021 21:38:29'!
+ERROR!
+
+!testRun: #StoreTest #test16 stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test13 stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test15 stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test16 stamp: 'JA 6/23/2021 21:38:33'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+
+!testRun: #StoreTest #test08 stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+
+!testRun: #StoreTest #test09 stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+
+!testRun: #StoreTest #test10 stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+
+!testRun: #StoreTest #test11 stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+
+!testRun: #StoreTest #test12 stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+
+!testRun: #StoreTest #test13 stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+
+!testRun: #StoreTest #test15 stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+
+!testRun: #StoreTest #test16 stamp: 'JA 6/23/2021 21:40:03'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:41:44'!
+test08CannotAddToCartAfter30MinOfItsCreation
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= self clockSimulator.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator priceList: TestObjects new defaultPriceList.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+	
+	
+	self should: [store addToCart: cartID1 bookISBN: 123456789 bookQuantity: 10.]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]	! !
+
+!methodRemoval: StoreTest #test08 stamp: 'JA 6/23/2021 21:41:44'!
+test08
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= self clockSimulator.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator priceList: TestObjects new defaultPriceList.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+	
+	
+	self should: [store addToCart: cartID1 bookISBN: 123456789 bookQuantity: 10.]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]	!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:43:14'!
+test09ItemsAddedToCartAreListed
+
+	| store cartID1 cartList validBook |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	validBook _ TestObjects new itemSellByTheStore.
+	store addToCart: cartID1 bookISBN: validBook bookQuantity:10.
+	cartList := store listCart: cartID1 .
+	
+	self assert: 10 equals: (cartList size).
+	self assert: 10 equals: (cartList occurrencesOf: validBook ).
+	! !
+
+!methodRemoval: StoreTest #test09 stamp: 'JA 6/23/2021 21:43:14'!
+test09
+
+	| store cartID1 cartList validBook |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	validBook _ TestObjects new itemSellByTheStore.
+	store addToCart: cartID1 bookISBN: validBook bookQuantity:10.
+	cartList := store listCart: cartID1 .
+	
+	self assert: 10 equals: (cartList size).
+	self assert: 10 equals: (cartList occurrencesOf: validBook ).
+	!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:45:15'!
+test10PurchaseListOfUserWithoutPurchasesIsEmpty
+
+	| store purchases |
+	store := self store .
+	
+	purchases := store listPurchasesOf: 123 password: 'passwd'.
+	self assert: purchases isEmpty.
+	self assert: 0 equals: purchases totalAmount .
+	! !
+
+!methodRemoval: StoreTest #test10 stamp: 'JA 6/23/2021 21:45:15'!
+test10
+
+	| store purchases |
+	store := self store .
+	
+	purchases := store listPurchasesOf: 123 password: 'passwd'.
+	self assert: purchases isEmpty.
+	self assert: 0 equals: purchases totalAmount .
+	!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:46:51'!
+test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated
+
+	| store clientAuthenticatorSimulator errorMessage |
+	store := self store .		
+	errorMessage _ 'Username or password invalid'.
+	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
+	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
+	store := Store withClientAuthenticator: clientAuthenticatorSimulator catalog: TestObjects new defaultCatalog clock: GregorianDateTime now priceList: TestObjects new defaultPriceList .
+	
+	
+	self should: [
+		store listPurchasesOf: 123 password: 'passwd'.
+	] 
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo: [ :exception | 	
+		self assert: errorMessage  equals: exception messageText.
+		self deny: store hasCarts.
+	]
+	
+	
+	
+			! !
+
+!methodRemoval: StoreTest #test11 stamp: 'JA 6/23/2021 21:46:51'!
+test11
+
+	| store clientAuthenticatorSimulator errorMessage |
+	store := self store .		
+	errorMessage _ 'Username or password invalid'.
+	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
+	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
+	store := Store withClientAuthenticator: clientAuthenticatorSimulator catalog: TestObjects new defaultCatalog clock: GregorianDateTime now priceList: TestObjects new defaultPriceList .
+	
+	
+	self should: [
+		store listPurchasesOf: 123 password: 'passwd'.
+	] 
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo: [ :exception | 	
+		self assert: errorMessage  equals: exception messageText.
+		self deny: store hasCarts.
+	]
+	
+	
+	
+			!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:49:19'!
+test12CheckoutUpdatesPurchaseListOfUserWithTheSales
+
+	| store purchases cartID1 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+	
+	store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	
+	purchases := store listPurchasesOf: 123 password: 'passwd'.
+	self assert: 10 equals: purchases list size.
+	self assert: 10 equals: (purchases list occurrencesOf: TestObjects new itemSellByTheStore).
+	self assert: 100 equals: purchases totalAmount.	! !
+
+!methodRemoval: StoreTest #test12 stamp: 'JA 6/23/2021 21:49:19'!
+test12
+
+	| store purchases cartID1 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+	
+	store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	
+	purchases := store listPurchasesOf: 123 password: 'passwd'.
+	self assert: 10 equals: purchases list size.
+	self assert: 10 equals: (purchases list occurrencesOf: TestObjects new itemSellByTheStore).
+	self assert: 100 equals: purchases totalAmount.	!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:51:43'!
+test13CannotCheckoutWithInvalidCartID
+
+	| store |
+	store := self store .
+	
+	self should:  [store checkoutCart: -1 creditCard: TestObjects new validCreditCard .]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:exception | self assert: Store invalidCartIDErrorDescription equals: exception messageText]
+	
+	
+	! !
+
+!methodRemoval: StoreTest #test13 stamp: 'JA 6/23/2021 21:51:43'!
+test13
+
+	| store |
+	store := self store .
+	
+	self should:  [store checkoutCart: -1 creditCard: TestObjects new validCreditCard .]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:exception | self assert: Store invalidCartIDErrorDescription equals: exception messageText]
+	
+	
+	!
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+
+!testRun: #StoreTest #test15 stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+
+!testRun: #StoreTest #test16 stamp: 'JA 6/23/2021 21:53:28'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:54:07' prior: 50867565!
+test14
+
+	| store cartID1 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+		
+	store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	
+	self deny: (store hasCartIdentified: cartID1).! !
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 21:54:08'!
+FAILURE!
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 21:54:23'!
+FAILURE!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 21:57:16' prior: 50865643!
+hasCartIdentified: aCartId 
+	
+ 	carts at: aCartId ifAbsent: [^ false].
+	(invalidCarts includes: aCartId) ifTrue:[^ false].
+	^ (self expiredCart: aCartId) not.
+	! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 21:57:17'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 21:57:17'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 21:57:17'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 21:57:17'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 21:57:17'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 21:57:17'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 21:57:17'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'JA 6/23/2021 21:57:17'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'JA 6/23/2021 21:57:17'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'JA 6/23/2021 21:57:17'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 21:57:17'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'JA 6/23/2021 21:57:17'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'JA 6/23/2021 21:57:17'!
+PASSED!
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 21:57:17'!
+PASSED!
+
+!testRun: #StoreTest #test15 stamp: 'JA 6/23/2021 21:57:17'!
+PASSED!
+
+!testRun: #StoreTest #test16 stamp: 'JA 6/23/2021 21:57:17'!
+PASSED!
+!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 21:57:33' prior: 50867726!
+assertCartIDIsValid: cartID
+	
+	(self hasCartIdentified: cartID)
+	ifFalse: [self error: self class invalidCartIDErrorDescription ]! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 21:57:34'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 21:57:34'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 21:57:34'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 21:57:34'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 21:57:34'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 21:57:34'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 21:57:34'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'JA 6/23/2021 21:57:34'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'JA 6/23/2021 21:57:34'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'JA 6/23/2021 21:57:34'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 21:57:34'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'JA 6/23/2021 21:57:34'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'JA 6/23/2021 21:57:34'!
+PASSED!
+
+!testRun: #StoreTest #test14 stamp: 'JA 6/23/2021 21:57:34'!
+PASSED!
+
+!testRun: #StoreTest #test15 stamp: 'JA 6/23/2021 21:57:34'!
+PASSED!
+
+!testRun: #StoreTest #test16 stamp: 'JA 6/23/2021 21:57:34'!
+PASSED!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:58:05'!
+test14CheckoutInvalidatesCartId
+
+	| store cartID1 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+		
+	store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	
+	self deny: (store hasCartIdentified: cartID1).! !
+
+!methodRemoval: StoreTest #test14 stamp: 'JA 6/23/2021 21:58:05'!
+test14
+
+	| store cartID1 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+		
+	store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	
+	self deny: (store hasCartIdentified: cartID1).!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:58:49'!
+test15CheckoutCartReturnsUniqueTransactionIDs
+
+	| store cartID1 cartID2 transactionID1 transactionID2 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+	store addToCart: cartID2 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.		
+	
+	transactionID1 := store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	transactionID2 := store checkoutCart: cartID2 creditCard: TestObjects new validCreditCard .	
+	
+	self deny: transactionID1 = transactionID2.! !
+
+!methodRemoval: StoreTest #test15 stamp: 'JA 6/23/2021 21:58:49'!
+test15
+
+	| store cartID1 cartID2 transactionID1 transactionID2 |
+	store := self store .
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+	store addToCart: cartID2 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.		
+	
+	transactionID1 := store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	transactionID2 := store checkoutCart: cartID2 creditCard: TestObjects new validCreditCard .	
+	
+	self deny: transactionID1 = transactionID2.!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:59:37'!
+test16UseCartUpdatesTimeLimit
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= self clockSimulator.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator priceList: TestObjects new defaultPriceList.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed25Minutes.
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity:10.
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+	store listCart: cartID1.
+	aClockSimulator set: self dateForTestingDelayed56Minutes.
+	store listCart: cartID1.
+	aClockSimulator set: self dateForTestingDelayed87Minutes.
+	
+	self should: [store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]	! !
+
+!methodRemoval: StoreTest #test16 stamp: 'JA 6/23/2021 21:59:37'!
+test16
+
+	| store cartID1 aClockSimulator |
+	aClockSimulator:= self clockSimulator.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new catalog: TestObjects new defaultCatalog clock: aClockSimulator priceList: TestObjects new defaultPriceList.
+	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+
+	aClockSimulator set: self dateForTestingDelayed25Minutes.
+	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity:10.
+	aClockSimulator set: self dateForTestingDelayed31Minutes.
+	store listCart: cartID1.
+	aClockSimulator set: self dateForTestingDelayed56Minutes.
+	store listCart: cartID1.
+	aClockSimulator set: self dateForTestingDelayed87Minutes.
+	
+	self should: [store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]	!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'JA 6/23/2021 21:59:46'!
+PASSED!
