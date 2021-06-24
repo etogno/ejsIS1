@@ -352,14 +352,14 @@ setUp
 	testObjects := TestObjects new.! !
 
 
-!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:49:57'!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/24/2021 09:01:37'!
 test01CanNotCreateCartWhenCredentialsCantBeAuthenticated
 
 	| store errorMessage clientAuthenticatorSimulator |
 	errorMessage _ 'Username or password invalid'.
 	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
 	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
-	store := Store withClientAuthenticator: clientAuthenticatorSimulator clock: GregorianDateTime now priceList: testObjects defaultPriceList.
+	store := Store withClientAuthenticator: clientAuthenticatorSimulator clock: GregorianDateTime now priceList: testObjects defaultPriceList merchantProcessor: MerchantProcessorSimulator new.
 	
 	
 	self should: [		store createCartFor: 123 authenticatedWith: 'passwd'	] 
@@ -371,13 +371,13 @@ test01CanNotCreateCartWhenCredentialsCantBeAuthenticated
 	
 		! !
 
-!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:50:05'!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/24/2021 09:10:24'!
 test02StoreHasNewCreatedCart
 
 	| store aCartId |
 	store := self store.
 	
-	aCartId := store createCartFor: 123 authenticatedWith: 'passwd'.
+	aCartId := store createCartFor: self validUserID authenticatedWith: self validUserPassword.	
 
 	self assert: store hasCarts.
 	self assert: (store hasCartIdentified: aCartId).
@@ -402,13 +402,13 @@ test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts
 	
 		! !
 
-!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 08:26:01'!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/24/2021 09:10:10'!
 test04NewCreatedCartIsEmpty
 
 	| store aCartId |
 	store := self store .
 	
-	aCartId := store createCartFor: 123 authenticatedWith: 'passwd'.
+	aCartId := store createCartFor: self validUserID authenticatedWith: self validUserPassword.	
 
 	self assert: (store listCart: aCartId) isEmpty.
 	
@@ -430,14 +430,14 @@ test05CanNotListNonIdentifiedCart
 	
 		! !
 
-!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 08:26:18'!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/24/2021 09:22:48'!
 test06StoreCanCreateMoreThanOneCart
 
 	| store cartID1 cartID2 |
 	store := self store .
 	
-	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
-	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	cartID1 := store createCartFor: self validUserID authenticatedWith: self validUserPassword.	
+	cartID2 := store createCartFor: self validUserID authenticatedWith: self validUserPassword.	
 	
 	self deny: cartID1 = cartID2.
 	self assert: (store hasCartIdentified: cartID1).
@@ -448,40 +448,39 @@ test06StoreCanCreateMoreThanOneCart
 	
 		! !
 
-!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:50:46'!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/24/2021 09:20:45'!
 test07CartIsInvalidAfter30MinOfItsCreation
 
 	| store cartID1 aClockSimulator |
 	aClockSimulator:= self clockSimulator.
-	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new clock: aClockSimulator priceList: testObjects defaultPriceList.
-	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new clock: aClockSimulator priceList: testObjects defaultPriceList merchantProcessor: MerchantProcessorSimulator new.
+	cartID1 := self createValidCartIn: store.	
 
 	aClockSimulator addMinutes: 31.
 
 	self deny: (store hasCartIdentified: cartID1).
 		! !
 
-!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:39:50'!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/24/2021 09:28:16'!
 test08CannotAddToCartAfter30MinOfItsCreation
 
 	| store cartID1 aClockSimulator |
 	aClockSimulator:= self clockSimulator.
-	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new clock: aClockSimulator priceList: testObjects defaultPriceList.
-	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
-
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new clock: aClockSimulator priceList: testObjects defaultPriceList merchantProcessor: MerchantProcessorSimulator new.
+	cartID1 := self createValidCartIn: store.	
 	aClockSimulator addMinutes: 31.
 	
 	
-	self should: [store addToCart: cartID1 item: 123456789 quantity: 10.]
+	self should: [store addToCart: cartID1 item: testObjects itemSellByTheStore  quantity: 10.]
 	raise: Error - MessageNotUnderstood
 	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]	! !
 
-!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:51:43'!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/24/2021 09:18:24'!
 test09ItemsAddedToCartAreListed
 
 	| store cartID cartList |
 	store := self store .
-	cartID := store createCartFor: 123 authenticatedWith: 'passwd'.
+	cartID := self createValidCartIn: store.	
 	
 	
 	store addToCart: cartID item: testObjects itemSellByTheStore quantity:10.
@@ -491,18 +490,18 @@ test09ItemsAddedToCartAreListed
 	self assert: 10 equals: (cartList occurrencesOf: testObjects itemSellByTheStore).
 	! !
 
-!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:45:15'!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/24/2021 09:08:50'!
 test10PurchaseListOfUserWithoutPurchasesIsEmpty
 
 	| store purchases |
 	store := self store .
 	
-	purchases := store listPurchasesOf: 123 password: 'passwd'.
+	purchases := store listPurchasesOf: self validUserID password: self validUserPassword.
 	self assert: purchases isEmpty.
 	self assert: 0 equals: purchases totalAmount .
 	! !
 
-!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:40:09'!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/24/2021 09:26:12'!
 test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated
 
 	| store clientAuthenticatorSimulator errorMessage |
@@ -510,11 +509,11 @@ test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated
 	errorMessage _ 'Username or password invalid'.
 	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
 	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
-	store := Store withClientAuthenticator: clientAuthenticatorSimulator clock: GregorianDateTime now priceList: testObjects defaultPriceList .
+	store := Store withClientAuthenticator: clientAuthenticatorSimulator clock: self clockSimulator priceList: testObjects defaultPriceList merchantProcessor: MerchantProcessorSimulator new .
 	
 	
 	self should: [
-		store listPurchasesOf: 123 password: 'passwd'.
+		store listPurchasesOf: self validUserID password: self validUserPassword .
 	] 
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo: [ :exception | 	
@@ -526,17 +525,17 @@ test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated
 	
 			! !
 
-!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:40:53'!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/24/2021 09:25:40'!
 test12CheckoutUpdatesPurchaseListOfUserWithTheSales
 
 	| store purchases cartID1 |
 	store := self store .
-	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	cartID1 := self createValidCartIn: store.	
 	store addToCart: cartID1 item: testObjects itemSellByTheStore quantity: 10.
 	
 	store checkoutCart: cartID1 creditCard: testObjects validCreditCard .
 	
-	purchases := store listPurchasesOf: 123 password: 'passwd'.
+	purchases := store listPurchasesOf: self validUserID password: self validUserPassword .
 	self assert: 10 equals: purchases list size.
 	self assert: 10 equals: (purchases list occurrencesOf: testObjects itemSellByTheStore).
 	self assert: 10 * testObjects itemInStorePrice equals: purchases totalAmount.	! !
@@ -554,41 +553,40 @@ test13CannotCheckoutWithInvalidCartID
 	
 	! !
 
-!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:41:37'!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/24/2021 09:15:11'!
 test14CheckoutInvalidatesCartId
 
 	| store cartID1 |
 	store := self store .
-	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
+	cartID1 := self createValidCartIn: store.	
 	store addToCart: cartID1 item: testObjects itemSellByTheStore quantity: 10.
 		
 	store checkoutCart: cartID1 creditCard: testObjects validCreditCard .
 	
 	self deny: (store hasCartIdentified: cartID1).! !
 
-!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:42:00'!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/24/2021 09:27:20'!
 test15CheckoutCartReturnsUniqueTransactionIDs
 
 	| store cartID1 cartID2 transactionID1 transactionID2 |
 	store := self store .
-	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
-	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.	
-	
+	cartID1 := self createValidCartIn: store.	
+	cartID2 := self createValidCartIn: store.		
 	store addToCart: cartID1 item: testObjects itemSellByTheStore quantity: 10.
 	store addToCart: cartID2 item: testObjects itemSellByTheStore quantity: 10.		
 	
-	transactionID1 := store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
-	transactionID2 := store checkoutCart: cartID2 creditCard: TestObjects new validCreditCard .	
+	transactionID1 := store checkoutCart: cartID1 creditCard: testObjects validCreditCard .
+	transactionID2 := store checkoutCart: cartID2 creditCard: testObjects validCreditCard .	
 	
 	self deny: transactionID1 = transactionID2.! !
 
-!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:42:48'!
+!StoreTest methodsFor: 'tests' stamp: 'JA 6/24/2021 09:13:42'!
 test16UseCartUpdatesTimeLimit
 
 	| store cartID1 aClockSimulator |
 	aClockSimulator:= self clockSimulator.
-	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new clock: aClockSimulator priceList: testObjects defaultPriceList.
-	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new clock: aClockSimulator priceList: testObjects defaultPriceList merchantProcessor: MerchantProcessorSimulator new.
+	cartID1 := self createValidCartIn: store.	
 
 	aClockSimulator addMinutes: 30.
 	store addToCart: cartID1 item: testObjects itemSellByTheStore quantity:10.
@@ -608,15 +606,30 @@ clockSimulator
 
 	^ ClockSimulator with: self dateForTesting! !
 
+!StoreTest methodsFor: 'support' stamp: 'JA 6/24/2021 09:13:42'!
+createValidCartIn: store
+
+	^ store createCartFor: self validUserID authenticatedWith: self validUserPassword! !
+
 !StoreTest methodsFor: 'support' stamp: 'JA 6/23/2021 09:40:30'!
 dateForTesting
 
 	^ GregorianDateTime date: (FixedGregorianDate yearNumber: 2004 month: GregorianMonth january dayNumber: 1) timeOfDay: 00:00:00! !
 
-!StoreTest methodsFor: 'support' stamp: 'ET 6/24/2021 01:44:53'!
+!StoreTest methodsFor: 'support' stamp: 'JA 6/24/2021 09:01:37'!
 store
 	
-	^ Store withClientAuthenticator: ClientAuthenticatorSimulator new clock: self clockSimulator priceList: testObjects defaultPriceList.! !
+	^ Store withClientAuthenticator: ClientAuthenticatorSimulator new clock: self clockSimulator priceList: testObjects defaultPriceList merchantProcessor: MerchantProcessorSimulator new.! !
+
+!StoreTest methodsFor: 'support' stamp: 'JA 6/24/2021 09:06:14'!
+validUserID
+
+	^ 123! !
+
+!StoreTest methodsFor: 'support' stamp: 'JA 6/24/2021 09:06:34'!
+validUserPassword
+
+	^ 'passwd'! !
 
 
 !classDefinition: #Cart category: 'TusLibros'!
@@ -895,39 +908,30 @@ Object subclass: #PurchaseList
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!PurchaseList methodsFor: 'initialization' stamp: 'JA 6/23/2021 20:21:10'!
-initializeWithItems: anItemList andPriceList: aPriceList 
-	
-	itemList := anItemList.
-	priceList := aPriceList.! !
-
 !PurchaseList methodsFor: 'initialization' stamp: 'ET 6/24/2021 02:18:45'!
 initializeWithItems: anItemList totalAmount: anAmount 
 	itemList := anItemList.
 	amount := anAmount.! !
 
 
-!PurchaseList methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:28:21'!
-isEmpty
-	^ itemList isEmpty .! !
-
-!PurchaseList methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:22:34'!
+!PurchaseList methodsFor: 'accessing' stamp: 'JA 6/23/2021 20:22:34'!
 list
 	^ itemList copy.! !
 
-!PurchaseList methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 02:19:10'!
+!PurchaseList methodsFor: 'accessing' stamp: 'ET 6/24/2021 02:19:10'!
 totalAmount
 	^amount.! !
+
+
+!PurchaseList methodsFor: 'testing' stamp: 'JA 6/23/2021 20:28:21'!
+isEmpty
+	^ itemList isEmpty .! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'PurchaseList class' category: 'TusLibros'!
 PurchaseList class
 	instanceVariableNames: ''!
-
-!PurchaseList class methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:21:41'!
-withItems: anItemList AndPriceList: aPriceList
-	^ self new initializeWithItems: anItemList andPriceList: aPriceList .! !
 
 !PurchaseList class methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 02:18:11'!
 withItems: anItemList totalAmount: anAmount.
@@ -983,8 +987,8 @@ Object subclass: #Store
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Store methodsFor: 'initialization' stamp: 'ET 6/24/2021 02:22:30'!
-initializeWithClientAuthenticator: aClientAuthenticator clock: aClock priceList: aPriceList 
+!Store methodsFor: 'initialization' stamp: 'JA 6/24/2021 09:02:04'!
+initializeWithClientAuthenticator: aClientAuthenticator clock: aClock priceList: aPriceList merchantProcessor: aMerchantProcessor  
 	clientAuthenticator := aClientAuthenticator.
 	clock := aClock.
 	priceList := aPriceList.
@@ -992,7 +996,7 @@ initializeWithClientAuthenticator: aClientAuthenticator clock: aClock priceList:
 	lastTimeCartUsed := Dictionary new.
 	cartOwner := Dictionary new.
 	salesBook := OrderedCollection new.
-	cashier := Cashier with: priceList registerSalesOn: salesBook merchantProcessor: MerchantProcessorSimulator new.
+	cashier := Cashier with: priceList registerSalesOn: salesBook merchantProcessor: aMerchantProcessor .
 	currentCartID := 0.
 	
 ! !
@@ -1045,56 +1049,80 @@ invalidateCartId: aCartID
 	lastTimeCartUsed removeKey: aCartID.
 	cartOwner removeKey: aCartID.! !
 
+!Store methodsFor: 'private' stamp: 'JA 6/24/2021 09:34:35'!
+itemCatalog
+
+	^ priceList keys! !
+
 !Store methodsFor: 'private' stamp: 'JA 6/23/2021 09:59:25'!
 maxInactiveTimeInMinutes
 
 	^ 30! !
 
 
-!Store methodsFor: 'lists' stamp: 'ET 6/24/2021 00:59:21'!
+!Store methodsFor: 'lists' stamp: 'JA 6/24/2021 09:36:40'!
 listCart: cartID
 	
 	| cartList |
 	self assertCartIDIsValid: cartID.
+	
 	cartList := OrderedCollection new.
 	(carts at: cartID) do: [:anItem | cartList add: anItem].
 	
-	lastTimeCartUsed at: cartID put: clock now.
+	self updateLastTimeUsedFor: cartID.
 	
 	^ cartList.! !
 
-!Store methodsFor: 'lists' stamp: 'ET 6/24/2021 02:19:57'!
+!Store methodsFor: 'lists' stamp: 'JA 6/24/2021 08:41:30'!
 listPurchasesOf: aUserId password: aPassword
-	|userIDSales items totalAmount|
+	
 	clientAuthenticator authenticateUser: aUserId withPassword: aPassword. 
-	userIDSales := salesBook select: [:aSales | aSales userID = aUserId].
+	
+	^ self purchaseListFor: aUserId 
+	! !
+
+!Store methodsFor: 'lists' stamp: 'JA 6/24/2021 08:41:01'!
+purchaseListFor: aUserID
+	|userIDSales items totalAmount|	
+	userIDSales := salesBook select: [:aSales | aSales userID = aUserID].
 	items := OrderedCollection new.
 	userIDSales do: [:aSales | items addAll: aSales items].
 	totalAmount := userIDSales sum: [:aSales | aSales totalAmount] ifEmpty: 0.
-	^ PurchaseList withItems: items totalAmount: totalAmount.
+	^PurchaseList withItems: items totalAmount: totalAmount.
 	! !
 
+!Store methodsFor: 'lists' stamp: 'JA 6/24/2021 08:42:51'!
+updateLastTimeUsedFor: cartID
 
-!Store methodsFor: 'adding' stamp: 'ET 6/24/2021 01:36:11'!
+	^ lastTimeCartUsed at: cartID put: clock now! !
+
+
+!Store methodsFor: 'adding' stamp: 'JA 6/24/2021 08:44:03'!
 addToCart: aCartID item: anItem quantity: aQuantity
 
-	self assertCartIDIsValid: aCartID	.
-	
-	(carts at: aCartID) add: aQuantity of: anItem.
-	
-	lastTimeCartUsed at:aCartID put: clock now.! !
+	self assertCartIDIsValid: aCartID	.	
+	(carts at: aCartID) add: aQuantity of: anItem.	
+	self updateLastTimeUsedFor: aCartID.! !
 
-!Store methodsFor: 'adding' stamp: 'ET 6/24/2021 01:10:57'!
+!Store methodsFor: 'adding' stamp: 'JA 6/24/2021 09:34:35'!
 createCartFor: userID authenticatedWith: aPassword
 	|cartID|
 	clientAuthenticator authenticateUser: userID withPassword: aPassword. 
 	
-	cartID := currentCartID.
-	currentCartID := currentCartID + 1.
-	carts add: cartID -> (Cart acceptingItemsOf: priceList keys).
+	cartID := self nextFreeCartID.
+	carts add: cartID -> (Cart acceptingItemsOf: self itemCatalog).
 	cartOwner add: cartID -> userID.
-	lastTimeCartUsed add: cartID -> clock now.
+	
+	self updateLastTimeUsedFor: cartID .
 	^cartID
+	
+	! !
+
+!Store methodsFor: 'adding' stamp: 'JA 6/24/2021 08:56:06'!
+nextFreeCartID
+	
+	currentCartID := currentCartID + 1.	
+	^ currentCartID 
 	
 	! !
 
@@ -1104,9 +1132,9 @@ createCartFor: userID authenticatedWith: aPassword
 Store class
 	instanceVariableNames: ''!
 
-!Store class methodsFor: 'instance creation' stamp: 'ET 6/24/2021 00:47:17'!
-withClientAuthenticator: aClientAuthenticator clock: aClock priceList: priceList   
-	^self new initializeWithClientAuthenticator: aClientAuthenticator clock: aClock priceList: priceList.! !
+!Store class methodsFor: 'instance creation' stamp: 'JA 6/24/2021 09:01:49'!
+withClientAuthenticator: aClientAuthenticator clock: aClock priceList: priceList merchantProcessor: aMerchantProcessor    
+	^self new initializeWithClientAuthenticator: aClientAuthenticator clock: aClock priceList: priceList merchantProcessor: aMerchantProcessor .! !
 
 
 !Store class methodsFor: 'error messages' stamp: 'ET 6/22/2021 00:50:04'!
