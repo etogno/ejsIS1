@@ -31357,3 +31357,1392 @@ PASSED!
 
 !testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 6/24/2021 13:20:17'!
 PASSED!
+
+TestCase subclass: #CartTest
+	instanceVariableNames: 'testObjects'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CartTest category: 'TusLibros' stamp: 'ET 6/24/2021 13:21:27'!
+TestCase subclass: #CartTest
+	instanceVariableNames: 'testObjects'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CartTest methodsFor: 'support' stamp: 'ET 6/24/2021 13:21:42' overrides: 16927572!
+setUp
+	
+	testObjects := TestObjects new.! !
+!CartTest methodsFor: 'support' stamp: 'ET 6/24/2021 13:21:52' prior: 51071838!
+itemSellByTheStore
+	
+	
+	^ testObjects itemSellByTheStore .! !
+
+!methodRemoval: CartTest #itemSellByTheStore stamp: 'ET 6/24/2021 13:22:07'!
+itemSellByTheStore
+	
+	
+	^ testObjects itemSellByTheStore .!
+!CartTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:22:27' prior: 51071768!
+test03AfterAddingAnItemTheCartIsNotEmptyAnymore
+
+	| cart |
+	
+	cart := self createCart.
+	
+	cart add: testObjects itemSellByTheStore.
+	self deny: cart isEmpty ! !
+!CartTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:22:33' prior: 51071776!
+test04CanNotAddNonPositiveNumberOfItems
+
+	| cart |
+	
+	cart := self createCart.
+	
+	self 
+		should: [cart add: 0 of: testObjects itemSellByTheStore. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = cart invalidQuantityErrorMessage.
+			self assert: cart isEmpty ]! !
+!CartTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:22:38' prior: 51071802!
+test06CartRemembersAddedItems
+
+	| cart |
+	
+	cart := self createCart.
+	
+	cart add: testObjects itemSellByTheStore.
+	self assert: (cart includes: self itemSellByTheStore)! !
+!CartTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:22:45' prior: 51073194!
+test06CartRemembersAddedItems
+
+	| cart |
+	
+	cart := self createCart.
+	
+	cart add: testObjects itemSellByTheStore.
+	self assert: (cart includes: testObjects itemSellByTheStore)! !
+!CartTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:22:53' prior: 51071810!
+test07CartDoesNotHoldNotAddedItems
+
+	| cart |
+	
+	cart := self createCart.
+	
+	self deny: (cart includes: testObjects itemSellByTheStore)! !
+!CartTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:23:00' prior: 51071817!
+test08CartRemembersTheNumberOfAddedItems
+
+	| cart |
+	
+	cart := self createCart.
+	
+	cart add: 2 of: testObjects itemSellByTheStore.
+	self assert: (cart occurrencesOf: testObjects itemSellByTheStore) = 2! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'ET 6/24/2021 13:23:21'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'ET 6/24/2021 13:23:21'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'ET 6/24/2021 13:23:21'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'ET 6/24/2021 13:23:21'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'ET 6/24/2021 13:23:21'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'ET 6/24/2021 13:23:21'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'ET 6/24/2021 13:23:21'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'ET 6/24/2021 13:23:21'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/24/2021 13:23:31'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30MinOfItsCreation stamp: 'ET 6/24/2021 13:23:32'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'ET 6/24/2021 13:23:32'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'ET 6/24/2021 13:23:32'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'ET 6/24/2021 13:23:32'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 13:23:32'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 6/24/2021 13:23:32'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'ET 6/24/2021 13:23:32'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'ET 6/24/2021 13:23:32'!
+PASSED!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'ET 6/24/2021 13:23:32'!
+PASSED!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 6/24/2021 13:23:32'!
+PASSED!
+
+!methodRemoval: CartTest #itemNotSellByTheStore stamp: 'ET 6/24/2021 13:23:47'!
+itemNotSellByTheStore
+	
+	^'invalidBook'!
+!CartTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:24:01' prior: 51071755!
+test02CanNotAddItemsThatDoNotBelongToStore
+
+	| cart |
+	
+	cart := self createCart.
+	
+	self 
+		should: [ cart add: testObjects itemNotSellByTheStore ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = cart invalidItemErrorMessage.
+			self assert: cart isEmpty ]! !
+!CartTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:24:07' prior: 51071789!
+test05CanNotAddMoreThanOneItemNotSellByTheStore
+
+	| cart |
+	
+	cart := self createCart.
+	
+	self 
+		should: [cart add: 2 of: testObjects itemNotSellByTheStore  ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = cart invalidItemErrorMessage.
+			self assert: cart isEmpty ]! !
+!TestObjects methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 13:24:25'!
+temNotSellByTheStore
+	
+	^ 'invalidBook'! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'ET 6/24/2021 13:24:27'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'ET 6/24/2021 13:24:27'!
+ERROR!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'ET 6/24/2021 13:24:27'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'ET 6/24/2021 13:24:27'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'ET 6/24/2021 13:24:27'!
+ERROR!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'ET 6/24/2021 13:24:27'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'ET 6/24/2021 13:24:28'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'ET 6/24/2021 13:24:28'!
+PASSED!
+!TestObjects methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 13:24:48'!
+itemNotSellByTheStore
+	
+	^ 'invalidBook'! !
+
+!methodRemoval: TestObjects #temNotSellByTheStore stamp: 'ET 6/24/2021 13:24:48'!
+temNotSellByTheStore
+	
+	^ 'invalidBook'!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30MinOfItsCreation stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 6/24/2021 13:24:53'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'ET 6/24/2021 13:24:54'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'ET 6/24/2021 13:24:54'!
+PASSED!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'ET 6/24/2021 13:24:54'!
+PASSED!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 6/24/2021 13:24:54'!
+PASSED!
+
+!methodRemoval: CartTest #defaultCatalog stamp: 'ET 6/24/2021 13:25:11'!
+defaultCatalog
+	^ TestObjects new defaultCatalog.!
+!CartTest methodsFor: 'support' stamp: 'ET 6/24/2021 13:25:19' prior: 51071826!
+createCart
+	
+	^Cart acceptingItemsOf: testObjects defaultCatalog! !
+
+!methodRemoval: CartTest #createCart stamp: 'ET 6/24/2021 13:25:29'!
+createCart
+	
+	^Cart acceptingItemsOf: testObjects defaultCatalog!
+!CartTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:25:39' prior: 51071750!
+test01NewCartsAreCreatedEmpty
+
+	self assert: testObjects createCart isEmpty! !
+!CartTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:25:53' prior: 51073373!
+test02CanNotAddItemsThatDoNotBelongToStore
+
+	| cart |
+	
+	cart := testObjects createCart.
+	
+	self 
+		should: [ cart add: testObjects itemNotSellByTheStore ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = cart invalidItemErrorMessage.
+			self assert: cart isEmpty ]! !
+!CartTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:25:58' prior: 51073173!
+test03AfterAddingAnItemTheCartIsNotEmptyAnymore
+
+	| cart |
+	
+	cart := testObjects createCart.
+	
+	cart add: testObjects itemSellByTheStore.
+	self deny: cart isEmpty ! !
+!CartTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:26:04' prior: 51073181!
+test04CanNotAddNonPositiveNumberOfItems
+
+	| cart |
+	
+	cart := testObjects createCart.
+	
+	self 
+		should: [cart add: 0 of: testObjects itemSellByTheStore. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = cart invalidQuantityErrorMessage.
+			self assert: cart isEmpty ]! !
+!CartTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:26:09' prior: 51073386!
+test05CanNotAddMoreThanOneItemNotSellByTheStore
+
+	| cart |
+	
+	cart := testObjects createCart.
+	
+	self 
+		should: [cart add: 2 of: testObjects itemNotSellByTheStore  ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = cart invalidItemErrorMessage.
+			self assert: cart isEmpty ]! !
+!CartTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:26:12' prior: 51073202!
+test06CartRemembersAddedItems
+
+	| cart |
+	
+	cart := testObjects createCart.
+	
+	cart add: testObjects itemSellByTheStore.
+	self assert: (cart includes: testObjects itemSellByTheStore)! !
+!CartTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:26:16' prior: 51073211!
+test07CartDoesNotHoldNotAddedItems
+
+	| cart |
+	
+	cart := testObjects createCart.
+	
+	self deny: (cart includes: testObjects itemSellByTheStore)! !
+!CartTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:26:20' prior: 51073218!
+test08CartRemembersTheNumberOfAddedItems
+
+	| cart |
+	
+	cart := testObjects createCart.
+	
+	cart add: 2 of: testObjects itemSellByTheStore.
+	self assert: (cart occurrencesOf: testObjects itemSellByTheStore) = 2! !
+
+!classDefinition: #CashierTest category: 'TusLibros' stamp: 'ET 6/24/2021 13:26:29'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'testObjects'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:26:27' prior: 51071853!
+test01CanNotCheckoutEmptyCart
+
+	|cart cashier aSalesBook |
+
+	cart := testObjects createCart.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard.]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier emptyCartErrorDescription. 
+			self assert: aSalesBook isEmpty.]! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:26:34' prior: 51071869!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart cashier aSalesBook |
+	
+	cart := testObjects createCart.
+	cart add: self itemInStore.
+	
+	aSalesBook := OrderedCollection new.
+	
+	cashier := self newCashierWithPriceList: Dictionary new salesBook: aSalesBook.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier itemNotInPriceListErrorDescription. 
+			self assert: aSalesBook isEmpty]! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:26:38' prior: 51073668!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart cashier aSalesBook |
+	
+	cart := testObjects createCart.
+	cart add: testObjects itemInStore.
+	
+	aSalesBook := OrderedCollection new.
+	
+	cashier := self newCashierWithPriceList: Dictionary new salesBook: aSalesBook.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier itemNotInPriceListErrorDescription. 
+			self assert: aSalesBook isEmpty]! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:26:43' prior: 51071887!
+test03CheckoutCartWithOneItemReturnsThePriceOfThatItem
+
+	|cart cashier aSalesBook sales |
+	
+	cart := testObjects createCart.
+	cart add: self itemInStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	
+	sales _ cashier checkout: cart withCreditCard: self validCreditCard.
+	self assert: 1 equals: aSalesBook size.
+	self assert: aSalesBook first = sales.
+	self assert: 1 equals: (sales items occurrencesOf: self itemInStore).
+	self assert: self itemInStorePrice equals: sales totalAmount.! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:26:44' prior: 51073706!
+test03CheckoutCartWithOneItemReturnsThePriceOfThatItem
+
+	|cart cashier aSalesBook sales |
+	
+	cart := testObjects createCart.
+	cart add: testObjects itemInStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	
+	sales _ cashier checkout: cart withCreditCard: self validCreditCard.
+	self assert: 1 equals: aSalesBook size.
+	self assert: aSalesBook first = sales.
+	self assert: 1 equals: (sales items occurrencesOf: self itemInStore).
+	self assert: self itemInStorePrice equals: sales totalAmount.! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:26:49' prior: 51071906!
+test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
+
+	|cart cashier aSalesBook sales |
+
+	cart := testObjects createCart.
+	cart add: 2 of: self itemInStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	sales _ cashier checkout: cart withCreditCard: self validCreditCard.
+	self assert: 1 equals: aSalesBook size.
+	self assert: aSalesBook first = sales.
+	self assert: 2 equals: (sales items occurrencesOf: self itemInStore).
+	self assert: 2 * self itemInStorePrice equals: sales totalAmount.! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:26:52' prior: 51073746!
+test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
+
+	|cart cashier aSalesBook sales |
+
+	cart := testObjects createCart.
+	cart add: 2 of: testObjects itemInStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	sales _ cashier checkout: cart withCreditCard: self validCreditCard.
+	self assert: 1 equals: aSalesBook size.
+	self assert: aSalesBook first = sales.
+	self assert: 2 equals: (sales items occurrencesOf: self itemInStore).
+	self assert: 2 * self itemInStorePrice equals: sales totalAmount.! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:26:57' prior: 51071926!
+test05CanNotCheckoutWithExpiredCreditCard
+
+	|cart cashier aSalesBook |
+	
+	cart := testObjects createCart.
+	cart add: self itemInStore.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	
+	self should: [ (cashier checkout: cart withCreditCard: self expiredCreditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier expiredCreditCardErrorDescription.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:26:59' prior: 51073788!
+test05CanNotCheckoutWithExpiredCreditCard
+
+	|cart cashier aSalesBook |
+	
+	cart := testObjects createCart.
+	cart add: testObjects itemInStore.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	
+	self should: [ (cashier checkout: cart withCreditCard: self expiredCreditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier expiredCreditCardErrorDescription.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:27:03' prior: 51071944!
+test06CanNotCheckoutIfMerchantProcessorRaisesError
+
+	|cart cashier aSalesBook messageError |
+
+	cart := testObjects createCart.
+	cart add: self itemInStore.
+
+	messageError := 'Something unexpected happened'.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: self defaultPriceList registerSalesOn: aSalesBook merchantProcessor: (self createMerchantProcessorThatRaisesError: messageError).
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: self validCreditCard )]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = messageError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:27:05' prior: 51073826!
+test06CanNotCheckoutIfMerchantProcessorRaisesError
+
+	|cart cashier aSalesBook messageError |
+
+	cart := testObjects createCart.
+	cart add: testObjects itemInStore.
+
+	messageError := 'Something unexpected happened'.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: self defaultPriceList registerSalesOn: aSalesBook merchantProcessor: (self createMerchantProcessorThatRaisesError: messageError).
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: self validCreditCard )]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = messageError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+!CashierTest methodsFor: 'support' stamp: 'ET 6/24/2021 13:27:43' overrides: 16927572!
+setUp
+
+	testObjects  := TestObjects new.! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:27:58' prior: 51073687!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart cashier aSalesBook |
+	
+	cart := testObjects createCart.
+	cart add: testObjects itemSellByTheStore.
+	
+	aSalesBook := OrderedCollection new.
+	
+	cashier := self newCashierWithPriceList: Dictionary new salesBook: aSalesBook.
+	
+	self should: [cashier checkout: cart withCreditCard: self validCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier itemNotInPriceListErrorDescription. 
+			self assert: aSalesBook isEmpty]! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:28:06' prior: 51073726!
+test03CheckoutCartWithOneItemReturnsThePriceOfThatItem
+
+	|cart cashier aSalesBook sales |
+	
+	cart := testObjects createCart.
+	cart add: testObjects itemSellByTheStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	
+	sales _ cashier checkout: cart withCreditCard: self validCreditCard.
+	self assert: 1 equals: aSalesBook size.
+	self assert: aSalesBook first = sales.
+	self assert: 1 equals: (sales items occurrencesOf: self itemInStore).
+	self assert: self itemInStorePrice equals: sales totalAmount.! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:28:11' prior: 51073767!
+test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
+
+	|cart cashier aSalesBook sales |
+
+	cart := testObjects createCart.
+	cart add: 2 of: testObjects itemSellByTheStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	sales _ cashier checkout: cart withCreditCard: self validCreditCard.
+	self assert: 1 equals: aSalesBook size.
+	self assert: aSalesBook first = sales.
+	self assert: 2 equals: (sales items occurrencesOf: self itemInStore).
+	self assert: 2 * self itemInStorePrice equals: sales totalAmount.! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:28:17' prior: 51073917!
+test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
+
+	|cart cashier aSalesBook sales |
+
+	cart := testObjects createCart.
+	cart add: 2 of: testObjects itemSellByTheStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	sales _ cashier checkout: cart withCreditCard: self validCreditCard.
+	self assert: 1 equals: aSalesBook size.
+	self assert: aSalesBook first = sales.
+	self assert: 2 equals: (sales items occurrencesOf: self itemInStore).
+	self assert: 2 * self itemInStorePrice equals: sales totalAmount.! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:28:22' prior: 51073807!
+test05CanNotCheckoutWithExpiredCreditCard
+
+	|cart cashier aSalesBook |
+	
+	cart := testObjects createCart.
+	cart add: testObjects itemSellByTheStore.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	
+	self should: [ (cashier checkout: cart withCreditCard: self expiredCreditCard)]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier expiredCreditCardErrorDescription.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:28:27' prior: 51073850!
+test06CanNotCheckoutIfMerchantProcessorRaisesError
+
+	|cart cashier aSalesBook messageError |
+
+	cart := testObjects createCart.
+	cart add: testObjects itemSellByTheStore.
+
+	messageError := 'Something unexpected happened'.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: self defaultPriceList registerSalesOn: aSalesBook merchantProcessor: (self createMerchantProcessorThatRaisesError: messageError).
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: self validCreditCard )]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = messageError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/24/2021 13:29:00'!
+ERROR!
+!TestObjects methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 13:29:18'!
+createCart
+
+	^Dictionary with: self itemSellByTheStore -> self itemInStorePrice.! !
+!TestObjects methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 13:29:34' prior: 51074005!
+createCart
+
+	^Cart acceptingItemsOf: self defaultPriceList keys.! !
+!TestObjects methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 13:29:39' prior: 51074011!
+createCart
+
+	^Cart acceptingItemsOf: self defaultCatalog keys.! !
+!TestObjects methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 13:29:41' prior: 51074017!
+createCart
+
+	^Cart acceptingItemsOf: self defaultCatalog.! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'ET 6/24/2021 13:29:51'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'ET 6/24/2021 13:29:51'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'ET 6/24/2021 13:29:51'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'ET 6/24/2021 13:29:51'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'ET 6/24/2021 13:29:52'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'ET 6/24/2021 13:29:52'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'ET 6/24/2021 13:29:52'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'ET 6/24/2021 13:29:52'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/24/2021 13:29:53'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/24/2021 13:29:53'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/24/2021 13:29:53'!
+ERROR!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/24/2021 13:29:53'!
+ERROR!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/24/2021 13:29:53'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/24/2021 13:29:53'!
+FAILURE!
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:30:09' prior: 51073897!
+test03CheckoutCartWithOneItemReturnsThePriceOfThatItem
+
+	|cart cashier aSalesBook sales |
+	
+	cart := testObjects createCart.
+	cart add: testObjects itemSellByTheStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	
+	sales _ cashier checkout: cart withCreditCard: self validCreditCard.
+	self assert: 1 equals: aSalesBook size.
+	self assert: aSalesBook first = sales.
+	self assert: 1 equals: (sales items occurrencesOf: testObjects itemSellByTheStore).
+	self assert: self itemInStorePrice equals: sales totalAmount.! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/24/2021 13:30:11'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/24/2021 13:30:11'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/24/2021 13:30:11'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/24/2021 13:30:11'!
+ERROR!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/24/2021 13:30:11'!
+ERROR!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/24/2021 13:30:11'!
+FAILURE!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/24/2021 13:30:13'!
+ERROR!
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:31:26' prior: 51073652!
+test01CanNotCheckoutEmptyCart
+
+	|cart cashier aSalesBook |
+
+	cart := testObjects createCart.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	
+	self should: [cashier checkout: cart withCreditCard: testObjects validCreditCard.]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier emptyCartErrorDescription. 
+			self assert: aSalesBook isEmpty.]! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/24/2021 13:31:27'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/24/2021 13:31:27'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/24/2021 13:31:27'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/24/2021 13:31:27'!
+ERROR!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/24/2021 13:31:27'!
+ERROR!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/24/2021 13:31:27'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/24/2021 13:31:27'!
+FAILURE!
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:31:38' prior: 51073878!
+test02CanNotCheckoutCartWithNonPricedItem
+
+	|cart cashier aSalesBook |
+	
+	cart := testObjects createCart.
+	cart add: testObjects itemSellByTheStore.
+	
+	aSalesBook := OrderedCollection new.
+	
+	cashier := self newCashierWithPriceList: Dictionary new salesBook: aSalesBook.
+	
+	self should: [cashier checkout: cart withCreditCard: testObjects validCreditCard]
+	 raise: Error
+	 withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier itemNotInPriceListErrorDescription. 
+			self assert: aSalesBook isEmpty]! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:31:49' prior: 51074074!
+test03CheckoutCartWithOneItemReturnsThePriceOfThatItem
+
+	|cart cashier aSalesBook sales |
+	
+	cart := testObjects createCart.
+	cart add: testObjects itemSellByTheStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	
+	sales _ cashier checkout: cart withCreditCard: testObjects validCreditCard.
+	self assert: 1 equals: aSalesBook size.
+	self assert: aSalesBook first = sales.
+	self assert: 1 equals: (sales items occurrencesOf: testObjects itemSellByTheStore).
+	self assert: self itemInStorePrice equals: sales totalAmount.! !
+!CashierTest methodsFor: 'support' stamp: 'ET 6/24/2021 13:32:16' prior: 51072008!
+newCashierWithSalesBook: aSalesBook
+	
+	^self newCashierWithPriceList: testObjects defaultPriceList salesBook: aSalesBook.
+		
+		! !
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/24/2021 13:32:35'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/24/2021 13:32:38'!
+FAILURE!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/24/2021 13:32:38'!
+FAILURE!
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:36:09' prior: 51074180!
+test03CheckoutCartWithOneItemReturnsThePriceOfThatItem
+
+	|cart cashier aSalesBook sales |
+	
+	cart := testObjects createCart.
+	cart add: testObjects itemSellByTheStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	
+	sales _ cashier checkout: cart withCreditCard: testObjects validCreditCard.
+	self assert: 1 equals: aSalesBook size.
+	self assert: aSalesBook first = sales.
+	self assert: 1 equals: (sales items occurrencesOf: testObjects itemSellByTheStore).
+	self assert: testObjects itemInStorePrice equals: sales totalAmount.! !
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/24/2021 13:36:10'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/24/2021 13:36:10'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/24/2021 13:36:10'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/24/2021 13:36:10'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/24/2021 13:36:10'!
+FAILURE!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/24/2021 13:36:10'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/24/2021 13:36:10'!
+FAILURE!
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:36:22' prior: 51073938!
+test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
+
+	|cart cashier aSalesBook sales |
+
+	cart := testObjects createCart.
+	cart add: 2 of: testObjects itemSellByTheStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	sales _ cashier checkout: cart withCreditCard: self validCreditCard.
+	self assert: 1 equals: aSalesBook size.
+	self assert: aSalesBook first = sales.
+	self assert: 2 equals: (sales items occurrencesOf: self itemInStore).
+	self assert: 2 * testObjects itemInStorePrice equals: sales totalAmount.! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:36:33' prior: 51073978!
+test06CanNotCheckoutIfMerchantProcessorRaisesError
+
+	|cart cashier aSalesBook messageError |
+
+	cart := testObjects createCart.
+	cart add: testObjects itemSellByTheStore.
+
+	messageError := 'Something unexpected happened'.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: testObjects defaultPriceList registerSalesOn: aSalesBook merchantProcessor: (self createMerchantProcessorThatRaisesError: messageError).
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: self validCreditCard )]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = messageError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/24/2021 13:36:40'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/24/2021 13:36:40'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/24/2021 13:36:40'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/24/2021 13:36:40'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/24/2021 13:36:40'!
+FAILURE!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/24/2021 13:36:40'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/24/2021 13:36:40'!
+FAILURE!
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:36:56' prior: 51074265!
+test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
+
+	|cart cashier aSalesBook sales |
+
+	cart := testObjects createCart.
+	cart add: 2 of: testObjects itemSellByTheStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	sales _ cashier checkout: cart withCreditCard: self validCreditCard.
+	self assert: 1 equals: aSalesBook size.
+	self assert: aSalesBook first = sales.
+	self assert: 2 equals: (sales items occurrencesOf: testObjects itemSellByTheStore ).
+	self assert: 2 * testObjects itemInStorePrice equals: sales totalAmount.! !
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/24/2021 13:36:58'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/24/2021 13:37:01'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/24/2021 13:37:01'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/24/2021 13:37:01'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/24/2021 13:37:01'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/24/2021 13:37:01'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/24/2021 13:37:01'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/24/2021 13:37:01'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'ET 6/24/2021 13:37:03'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'ET 6/24/2021 13:37:03'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'ET 6/24/2021 13:37:03'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'ET 6/24/2021 13:37:03'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'ET 6/24/2021 13:37:03'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'ET 6/24/2021 13:37:03'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'ET 6/24/2021 13:37:03'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'ET 6/24/2021 13:37:03'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/24/2021 13:37:03'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/24/2021 13:37:03'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/24/2021 13:37:03'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30MinOfItsCreation stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 6/24/2021 13:37:04'!
+PASSED!
+
+!methodRemoval: CashierTest #createCart stamp: 'ET 6/24/2021 13:37:23'!
+createCart
+
+	^Cart acceptingItemsOf: self defaultPriceList keys.!
+
+!methodRemoval: CashierTest #defaultPriceList stamp: 'ET 6/24/2021 13:37:36'!
+defaultPriceList
+
+	^Dictionary with: self itemInStore -> self itemInStorePrice.!
+
+!methodRemoval: CashierTest #itemInStore stamp: 'ET 6/24/2021 13:37:40'!
+itemInStore
+
+	^'book in store'.!
+
+!methodRemoval: CashierTest #itemInStorePrice stamp: 'ET 6/24/2021 13:37:47'!
+itemInStorePrice
+
+	^1.!
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:38:25' prior: 51074336!
+test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems
+
+	|cart cashier aSalesBook sales |
+
+	cart := testObjects createCart.
+	cart add: 2 of: testObjects itemSellByTheStore.
+	
+	
+	aSalesBook := OrderedCollection new.
+	cashier := self newCashierWithSalesBook: aSalesBook.
+	sales _ cashier checkout: cart withCreditCard: testObjects validCreditCard.
+	self assert: 1 equals: aSalesBook size.
+	self assert: aSalesBook first = sales.
+	self assert: 2 equals: (sales items occurrencesOf: testObjects itemSellByTheStore ).
+	self assert: 2 * testObjects itemInStorePrice equals: sales totalAmount.! !
+!CashierTest methodsFor: 'tests' stamp: 'ET 6/24/2021 13:38:31' prior: 51074286!
+test06CanNotCheckoutIfMerchantProcessorRaisesError
+
+	|cart cashier aSalesBook messageError |
+
+	cart := testObjects createCart.
+	cart add: testObjects itemSellByTheStore.
+
+	messageError := 'Something unexpected happened'.
+	
+	aSalesBook := OrderedCollection new.
+	cashier := Cashier with: testObjects defaultPriceList registerSalesOn: aSalesBook merchantProcessor: (self createMerchantProcessorThatRaisesError: messageError).
+	
+	
+	self should: [ (cashier checkout: cart withCreditCard: testObjects validCreditCard )]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [ :anError |
+			self assert: anError messageText = messageError.
+			self assert: aSalesBook isEmpty ]	.
+		
+		
+		! !
+
+!methodRemoval: CashierTest #validCreditCard stamp: 'ET 6/24/2021 13:38:45'!
+validCreditCard
+	^ TestObjects new validCreditCard .
+	"^ CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current next"!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutEmptyCart stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CashierTest #test02CanNotCheckoutCartWithNonPricedItem stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CashierTest #test03CheckoutCartWithOneItemReturnsThePriceOfThatItem stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutCartWithManyItemsReturnsTheSumOfThePricesOfThoseItems stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CashierTest #test05CanNotCheckoutWithExpiredCreditCard stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CashierTest #test06CanNotCheckoutIfMerchantProcessorRaisesError stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CanNotCreateCreditCardWithIncorrectSizeNumber stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanNotCreateCreditCardWithAlphaNumericNumber stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CanNotCreateCreditCardWithBlankOwner stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CreditCardTest #test04ExpiredCreditCardIsExpired stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #CreditCardTest #test05NonExpiredCreditCardIsNotExpired stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30MinOfItsCreation stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 6/24/2021 13:38:48'!
+PASSED!
+
+----SNAPSHOT----(24 June 2021 13:40:43) CuisUniversity-4532.image priorSource: 23592453!
