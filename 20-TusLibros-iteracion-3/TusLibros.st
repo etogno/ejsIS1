@@ -337,40 +337,41 @@ assertCreditCardInstanceCreationRaisesErrorWhenOwnedBy: anOwner withNumber: aStr
 
 !classDefinition: #StoreTest category: 'TusLibros'!
 TestCase subclass: #StoreTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'testObjects'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 00:47:17'!
+!StoreTest methodsFor: 'setUp' stamp: 'ET 6/24/2021 01:38:48'!
+setUp
+
+	testObjects := TestObjects new.! !
+
+
+!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:49:57'!
 test01CanNotCreateCartWhenCredentialsCantBeAuthenticated
 
 	| store errorMessage clientAuthenticatorSimulator |
 	errorMessage _ 'Username or password invalid'.
 	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
 	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
-	store := Store withClientAuthenticator: clientAuthenticatorSimulator clock: GregorianDateTime now priceList: TestObjects new defaultPriceList .
+	store := Store withClientAuthenticator: clientAuthenticatorSimulator clock: GregorianDateTime now priceList: testObjects defaultPriceList.
 	
 	
-	self should: [
-		store createCartFor: 123 authenticatedWith: 'passwd'
-		] 
+	self should: [		store createCartFor: 123 authenticatedWith: 'passwd'	] 
 	raise: Error - MessageNotUnderstood 
-	withExceptionDo: [ :exception | 
-	
-	self assert: errorMessage  equals: exception messageText.
-			self deny: store hasCarts.
-		]
+	withExceptionDo: [ :anError | 	self assert: errorMessage  equals: anError messageText.
+					self deny: store hasCarts.]
 	
 	
 	
 		! !
 
-!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 08:25:05'!
+!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:50:05'!
 test02StoreHasNewCreatedCart
 
 	| store aCartId |
-	store := self store .
+	store := self store.
 	
 	aCartId := store createCartFor: 123 authenticatedWith: 'passwd'.
 
@@ -443,12 +444,12 @@ test06StoreCanCreateMoreThanOneCart
 	
 		! !
 
-!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 00:47:18'!
-test07CartIsInvalidAfter30Min
+!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:50:46'!
+test07CartIsInvalidAfter30MinOfItsCreation
 
 	| store cartID1 aClockSimulator |
 	aClockSimulator:= self clockSimulator.
-	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new clock: aClockSimulator priceList: TestObjects new defaultPriceList.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new clock: aClockSimulator priceList: testObjects defaultPriceList.
 	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
 
 	aClockSimulator addMinutes: 31.
@@ -456,34 +457,34 @@ test07CartIsInvalidAfter30Min
 	self deny: (store hasCartIdentified: cartID1).
 		! !
 
-!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 00:47:17'!
+!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:39:50'!
 test08CannotAddToCartAfter30MinOfItsCreation
 
 	| store cartID1 aClockSimulator |
 	aClockSimulator:= self clockSimulator.
-	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new clock: aClockSimulator priceList: TestObjects new defaultPriceList.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new clock: aClockSimulator priceList: testObjects defaultPriceList.
 	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
 
 	aClockSimulator addMinutes: 31.
 	
 	
-	self should: [store addToCart: cartID1 bookISBN: 123456789 bookQuantity: 10.]
+	self should: [store addToCart: cartID1 item: 123456789 quantity: 10.]
 	raise: Error - MessageNotUnderstood
 	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]	! !
 
-!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:43:14'!
+!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:51:43'!
 test09ItemsAddedToCartAreListed
 
-	| store cartID1 cartList validBook |
+	| store cartID cartList |
 	store := self store .
-	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
-
-	validBook _ TestObjects new itemSellByTheStore.
-	store addToCart: cartID1 bookISBN: validBook bookQuantity:10.
-	cartList := store listCart: cartID1 .
+	cartID := store createCartFor: 123 authenticatedWith: 'passwd'.
+	
+	
+	store addToCart: cartID item: testObjects itemSellByTheStore quantity:10.
+	cartList := store listCart: cartID .
 	
 	self assert: 10 equals: (cartList size).
-	self assert: 10 equals: (cartList occurrencesOf: validBook ).
+	self assert: 10 equals: (cartList occurrencesOf: testObjects itemSellByTheStore).
 	! !
 
 !StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:45:15'!
@@ -497,7 +498,7 @@ test10PurchaseListOfUserWithoutPurchasesIsEmpty
 	self assert: 0 equals: purchases totalAmount .
 	! !
 
-!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 00:47:17'!
+!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:40:09'!
 test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated
 
 	| store clientAuthenticatorSimulator errorMessage |
@@ -505,7 +506,7 @@ test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated
 	errorMessage _ 'Username or password invalid'.
 	clientAuthenticatorSimulator _ ClientAuthenticatorSimulator new.
 	clientAuthenticatorSimulator raiseAuthenticationErrorWithMessage: errorMessage .
-	store := Store withClientAuthenticator: clientAuthenticatorSimulator clock: GregorianDateTime now priceList: TestObjects new defaultPriceList .
+	store := Store withClientAuthenticator: clientAuthenticatorSimulator clock: GregorianDateTime now priceList: testObjects defaultPriceList .
 	
 	
 	self should: [
@@ -521,47 +522,47 @@ test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated
 	
 			! !
 
-!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:49:19'!
+!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:40:53'!
 test12CheckoutUpdatesPurchaseListOfUserWithTheSales
 
 	| store purchases cartID1 |
 	store := self store .
 	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
-	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+	store addToCart: cartID1 item: testObjects itemSellByTheStore quantity: 10.
 	
-	store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	store checkoutCart: cartID1 creditCard: testObjects validCreditCard .
 	
 	purchases := store listPurchasesOf: 123 password: 'passwd'.
 	self assert: 10 equals: purchases list size.
-	self assert: 10 equals: (purchases list occurrencesOf: TestObjects new itemSellByTheStore).
-	self assert: 100 equals: purchases totalAmount.	! !
+	self assert: 10 equals: (purchases list occurrencesOf: testObjects itemSellByTheStore).
+	self assert: 10 * testObjects itemInStorePrice equals: purchases totalAmount.	! !
 
-!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:51:43'!
+!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:41:10'!
 test13CannotCheckoutWithInvalidCartID
 
 	| store |
 	store := self store .
 	
-	self should:  [store checkoutCart: -1 creditCard: TestObjects new validCreditCard .]
+	self should:  [store checkoutCart: -1 creditCard: testObjects validCreditCard .]
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [:exception | self assert: Store invalidCartIDErrorDescription equals: exception messageText]
 	
 	
 	! !
 
-!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:58:05'!
+!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:41:37'!
 test14CheckoutInvalidatesCartId
 
 	| store cartID1 |
 	store := self store .
 	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
-	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
+	store addToCart: cartID1 item: testObjects itemSellByTheStore quantity: 10.
 		
-	store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
+	store checkoutCart: cartID1 creditCard: testObjects validCreditCard .
 	
 	self deny: (store hasCartIdentified: cartID1).! !
 
-!StoreTest methodsFor: 'tests' stamp: 'JA 6/23/2021 21:58:49'!
+!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:42:00'!
 test15CheckoutCartReturnsUniqueTransactionIDs
 
 	| store cartID1 cartID2 transactionID1 transactionID2 |
@@ -569,31 +570,31 @@ test15CheckoutCartReturnsUniqueTransactionIDs
 	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.	
 	cartID2 := store createCartFor: 123 authenticatedWith: 'passwd'.	
 	
-	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.
-	store addToCart: cartID2 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.		
+	store addToCart: cartID1 item: testObjects itemSellByTheStore quantity: 10.
+	store addToCart: cartID2 item: testObjects itemSellByTheStore quantity: 10.		
 	
 	transactionID1 := store checkoutCart: cartID1 creditCard: TestObjects new validCreditCard .
 	transactionID2 := store checkoutCart: cartID2 creditCard: TestObjects new validCreditCard .	
 	
 	self deny: transactionID1 = transactionID2.! !
 
-!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 00:47:18'!
+!StoreTest methodsFor: 'tests' stamp: 'ET 6/24/2021 01:42:48'!
 test16UseCartUpdatesTimeLimit
 
 	| store cartID1 aClockSimulator |
 	aClockSimulator:= self clockSimulator.
-	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new clock: aClockSimulator priceList: TestObjects new defaultPriceList.
+	store := Store withClientAuthenticator: ClientAuthenticatorSimulator new clock: aClockSimulator priceList: testObjects defaultPriceList.
 	cartID1 := store createCartFor: 123 authenticatedWith: 'passwd'.
 
 	aClockSimulator addMinutes: 30.
-	store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity:10.
+	store addToCart: cartID1 item: testObjects itemSellByTheStore quantity:10.
 	aClockSimulator addMinutes: 1.
 	store listCart: cartID1.								
 	aClockSimulator addMinutes: 30.
 	store listCart: cartID1.
 	aClockSimulator addMinutes: 31.
 	
-	self should: [store addToCart: cartID1 bookISBN: TestObjects new itemSellByTheStore bookQuantity: 10.]
+	self should: [store addToCart: cartID1 item: testObjects itemSellByTheStore quantity: 10.]
 	raise: Error - MessageNotUnderstood
 	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]	! !
 
@@ -608,10 +609,10 @@ dateForTesting
 
 	^ GregorianDateTime date: (FixedGregorianDate yearNumber: 2004 month: GregorianMonth january dayNumber: 1) timeOfDay: 00:00:00! !
 
-!StoreTest methodsFor: 'support' stamp: 'ET 6/24/2021 00:47:17'!
+!StoreTest methodsFor: 'support' stamp: 'ET 6/24/2021 01:44:53'!
 store
 	
-	^ Store withClientAuthenticator: ClientAuthenticatorSimulator new clock: self clockSimulator priceList: TestObjects new defaultPriceList.! !
+	^ Store withClientAuthenticator: ClientAuthenticatorSimulator new clock: self clockSimulator priceList: testObjects defaultPriceList.! !
 
 
 !classDefinition: #Cart category: 'TusLibros'!
@@ -919,7 +920,7 @@ withItems: anItemList AndPriceList: aPriceList
 
 !classDefinition: #Store category: 'TusLibros'!
 Object subclass: #Store
-	instanceVariableNames: 'clientAuthenticator carts itemCatalog lastTimeCartUsed clock priceList cartOwner userPurchases currentTransactionID salesBook cashier currentCartID'
+	instanceVariableNames: 'clientAuthenticator carts lastTimeCartUsed clock priceList cartOwner userPurchases currentTransactionID salesBook cashier currentCartID'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
@@ -941,22 +942,14 @@ initializeWithClientAuthenticator: aClientAuthenticator clock: aClock priceList:
 ! !
 
 
-!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:04:20'!
-addToCart: aCartID bookISBN: aBookISBN bookQuantity: aBookQuantity
-
-	self assertCartIDIsValid: aCartID	.
-	
-	(carts at: aCartID) add: aBookQuantity of: aBookISBN.
-	
-	lastTimeCartUsed at:aCartID put: clock now.! !
-
-!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 21:57:33'!
+!Store methodsFor: 'assertion' stamp: 'JA 6/23/2021 21:57:33'!
 assertCartIDIsValid: cartID
 	
 	(self hasCartIdentified: cartID)
 	ifFalse: [self error: self class invalidCartIDErrorDescription ]! !
 
-!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:05:35'!
+
+!Store methodsFor: 'checkout' stamp: 'ET 6/24/2021 01:05:35'!
 checkoutCart: aCartId creditCard: aCreditCard 
 	| userID |
 	self assertCartIDIsValid: aCartId.
@@ -972,7 +965,70 @@ checkoutCart: aCartId creditCard: aCreditCard
 	currentTransactionID := currentTransactionID + 1.
 	^ currentTransactionID.! !
 
-!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:10:57'!
+
+!Store methodsFor: 'testing' stamp: 'ET 6/24/2021 01:21:20'!
+hasCartIdentified: aCartId 
+	
+ 	carts at: aCartId ifAbsent: [^ false].
+	(self expiredCart: aCartId) 
+		ifTrue: [self invalidateCartId: aCartId.
+			^false].
+	^true.
+	! !
+
+!Store methodsFor: 'testing' stamp: 'JA 6/17/2021 21:25:00'!
+hasCarts
+	^ carts isEmpty not.! !
+
+
+!Store methodsFor: 'private' stamp: 'JA 6/23/2021 09:58:46'!
+expiredCart: aCartId
+
+	^ ((lastTimeCartUsed at: aCartId) next: (TimeUnits minute with: self maxInactiveTimeInMinutes)) < clock now! !
+
+!Store methodsFor: 'private' stamp: 'ET 6/24/2021 01:21:48'!
+invalidateCartId: aCartID
+	carts removeKey: aCartID.
+	lastTimeCartUsed removeKey: aCartID.
+	cartOwner removeKey: aCartID.! !
+
+!Store methodsFor: 'private' stamp: 'JA 6/23/2021 09:59:25'!
+maxInactiveTimeInMinutes
+
+	^ 30! !
+
+
+!Store methodsFor: 'lists' stamp: 'ET 6/24/2021 00:59:21'!
+listCart: cartID
+	
+	| cartList |
+	self assertCartIDIsValid: cartID.
+	cartList := OrderedCollection new.
+	(carts at: cartID) do: [:anItem | cartList add: anItem].
+	
+	lastTimeCartUsed at: cartID put: clock now.
+	
+	^ cartList.! !
+
+!Store methodsFor: 'lists' stamp: 'ET 6/24/2021 01:06:57'!
+listPurchasesOf: aUserId password: aPassword
+
+	clientAuthenticator authenticateUser: aUserId withPassword: aPassword. 
+	(userPurchases includesKey: aUserId ) ifFalse: [userPurchases add: aUserId ->(OrderedCollection new)].				
+	^ PurchaseList withItems: (userPurchases at: aUserId) AndPriceList: priceList .
+	! !
+
+
+!Store methodsFor: 'adding' stamp: 'ET 6/24/2021 01:36:11'!
+addToCart: aCartID item: anItem quantity: aQuantity
+
+	self assertCartIDIsValid: aCartID	.
+	
+	(carts at: aCartID) add: aQuantity of: anItem.
+	
+	lastTimeCartUsed at:aCartID put: clock now.! !
+
+!Store methodsFor: 'adding' stamp: 'ET 6/24/2021 01:10:57'!
 createCartFor: userID authenticatedWith: aPassword
 	|cartID|
 	clientAuthenticator authenticateUser: userID withPassword: aPassword. 
@@ -985,56 +1041,6 @@ createCartFor: userID authenticatedWith: aPassword
 	^cartID
 	
 	! !
-
-!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:58:46'!
-expiredCart: aCartId
-
-	^ ((lastTimeCartUsed at: aCartId) next: (TimeUnits minute with: self maxInactiveTimeInMinutes)) < clock now! !
-
-!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:21:20'!
-hasCartIdentified: aCartId 
-	
- 	carts at: aCartId ifAbsent: [^ false].
-	(self expiredCart: aCartId) 
-		ifTrue: [self invalidateCartId: aCartId.
-			^false].
-	^true.
-	! !
-
-!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/17/2021 21:25:00'!
-hasCarts
-	^ carts isEmpty not.! !
-
-!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:21:48'!
-invalidateCartId: aCartID
-	carts removeKey: aCartID.
-	lastTimeCartUsed removeKey: aCartID.
-	cartOwner removeKey: aCartID.! !
-
-!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 00:59:21'!
-listCart: cartID
-	
-	| cartList |
-	self assertCartIDIsValid: cartID.
-	cartList := OrderedCollection new.
-	(carts at: cartID) do: [:anItem | cartList add: anItem].
-	
-	lastTimeCartUsed at: cartID put: clock now.
-	
-	^ cartList.! !
-
-!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:06:57'!
-listPurchasesOf: aUserId password: aPassword
-
-	clientAuthenticator authenticateUser: aUserId withPassword: aPassword. 
-	(userPurchases includesKey: aUserId ) ifFalse: [userPurchases add: aUserId ->(OrderedCollection new)].				
-	^ PurchaseList withItems: (userPurchases at: aUserId) AndPriceList: priceList .
-	! !
-
-!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 09:59:25'!
-maxInactiveTimeInMinutes
-
-	^ 30! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
