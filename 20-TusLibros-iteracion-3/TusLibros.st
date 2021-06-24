@@ -771,8 +771,8 @@ Object subclass: #ClientAuthenticatorSimulator
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!ClientAuthenticatorSimulator methodsFor: 'as yet unclassified' stamp: 'JA 6/17/2021 21:08:05'!
-athenticateUser: aSmallInteger withPassword: aString 
+!ClientAuthenticatorSimulator methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:06:57'!
+authenticateUser: aSmallInteger withPassword: aString 
 	authenticationErrorMessage ifNotNil: [self error: authenticationErrorMessage].! !
 
 !ClientAuthenticatorSimulator methodsFor: 'as yet unclassified' stamp: 'JA 6/17/2021 21:11:34'!
@@ -919,32 +919,32 @@ withItems: anItemList AndPriceList: aPriceList
 
 !classDefinition: #Store category: 'TusLibros'!
 Object subclass: #Store
-	instanceVariableNames: 'clientAuthenticator carts itemCatalog lastTimeCartUsed clock priceList cartOwner userPurchases invalidCarts currentTransactionID salesBook cashier'
+	instanceVariableNames: 'clientAuthenticator carts itemCatalog lastTimeCartUsed clock priceList cartOwner userPurchases currentTransactionID salesBook cashier currentCartID'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Store methodsFor: 'initialization' stamp: 'ET 6/24/2021 00:54:53'!
+!Store methodsFor: 'initialization' stamp: 'ET 6/24/2021 01:22:14'!
 initializeWithClientAuthenticator: aClientAuthenticator clock: aClock priceList: aPriceList 
 	clientAuthenticator := aClientAuthenticator.
-	carts := OrderedCollection new.
+	carts := Dictionary new.
 	clock := aClock.
-	lastTimeCartUsed :=OrderedCollection new.
+	lastTimeCartUsed := Dictionary new.
 	priceList := aPriceList.
-	cartOwner := OrderedCollection new.
+	cartOwner := Dictionary new.
 	userPurchases  := Dictionary new.
-	invalidCarts  := OrderedCollection new.
 	currentTransactionID  := 0.
 	salesBook := OrderedCollection new.
 	cashier := Cashier with: priceList registerSalesOn: salesBook merchantProcessor: MerchantProcessorSimulator new.
+	currentCartID := 0.
 	
 ! !
 
 
-!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 21:30:33'!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:04:20'!
 addToCart: aCartID bookISBN: aBookISBN bookQuantity: aBookQuantity
 
-	self assertCartIDIsValid: aCartID 	.
+	self assertCartIDIsValid: aCartID	.
 	
 	(carts at: aCartID) add: aBookQuantity of: aBookISBN.
 	
@@ -956,13 +956,13 @@ assertCartIDIsValid: cartID
 	(self hasCartIdentified: cartID)
 	ifFalse: [self error: self class invalidCartIDErrorDescription ]! !
 
-!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 00:54:05'!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:05:35'!
 checkoutCart: aCartId creditCard: aCreditCard 
 	| userID |
 	self assertCartIDIsValid: aCartId.
 	
-	cashier checkout: (carts at: aCartId ) withCreditCard: aCreditCard.
-	userID := cartOwner at:aCartId. 
+	cashier checkout: (carts at: aCartId) withCreditCard: aCreditCard.
+	userID := cartOwner at: aCartId. 
 	
 	(userPurchases includesKey: userID) ifFalse: [userPurchases add: userID->(OrderedCollection new)].
 	(userPurchases at: userID) addAll: (self listCart: aCartId).
@@ -972,14 +972,17 @@ checkoutCart: aCartId creditCard: aCreditCard
 	currentTransactionID := currentTransactionID + 1.
 	^ currentTransactionID.! !
 
-!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 00:45:41'!
-createCartFor: aUserId authenticatedWith: aPassword
-	clientAuthenticator athenticateUser: aUserId withPassword: aPassword. 
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:10:57'!
+createCartFor: userID authenticatedWith: aPassword
+	|cartID|
+	clientAuthenticator authenticateUser: userID withPassword: aPassword. 
 	
-	carts add: (Cart acceptingItemsOf: priceList keys).
-	cartOwner add: aUserId.
-	lastTimeCartUsed add: clock now.
-	^carts size.
+	cartID := currentCartID.
+	currentCartID := currentCartID + 1.
+	carts add: cartID -> (Cart acceptingItemsOf: priceList keys).
+	cartOwner add: cartID -> userID.
+	lastTimeCartUsed add: cartID -> clock now.
+	^cartID
 	
 	! !
 
@@ -988,21 +991,25 @@ expiredCart: aCartId
 
 	^ ((lastTimeCartUsed at: aCartId) next: (TimeUnits minute with: self maxInactiveTimeInMinutes)) < clock now! !
 
-!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 21:57:16'!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:21:20'!
 hasCartIdentified: aCartId 
 	
  	carts at: aCartId ifAbsent: [^ false].
-	(invalidCarts includes: aCartId) ifTrue:[^ false].
-	^ (self expiredCart: aCartId) not.
+	(self expiredCart: aCartId) 
+		ifTrue: [self invalidateCartId: aCartId.
+			^false].
+	^true.
 	! !
 
 !Store methodsFor: 'as yet unclassified' stamp: 'JA 6/17/2021 21:25:00'!
 hasCarts
 	^ carts isEmpty not.! !
 
-!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 20:54:10'!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:21:48'!
 invalidateCartId: aCartID
-	invalidCarts add: aCartID.! !
+	carts removeKey: aCartID.
+	lastTimeCartUsed removeKey: aCartID.
+	cartOwner removeKey: aCartID.! !
 
 !Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 00:59:21'!
 listCart: cartID
@@ -1016,10 +1023,10 @@ listCart: cartID
 	
 	^ cartList.! !
 
-!Store methodsFor: 'as yet unclassified' stamp: 'JA 6/23/2021 21:12:49'!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:06:57'!
 listPurchasesOf: aUserId password: aPassword
 
-	clientAuthenticator athenticateUser: aUserId withPassword: aPassword. 
+	clientAuthenticator authenticateUser: aUserId withPassword: aPassword. 
 	(userPurchases includesKey: aUserId ) ifFalse: [userPurchases add: aUserId ->(OrderedCollection new)].				
 	^ PurchaseList withItems: (userPurchases at: aUserId) AndPriceList: priceList .
 	! !

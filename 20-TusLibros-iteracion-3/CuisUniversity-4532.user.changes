@@ -19690,3 +19690,752 @@ PASSED!
 PASSED!
 
 ----SNAPSHOT----(24 June 2021 01:00:27) CuisUniversity-4532.image priorSource: 23437506!
+!Store methodsFor: 'initialization' stamp: 'ET 6/24/2021 01:02:56' prior: 51064699!
+initializeWithClientAuthenticator: aClientAuthenticator clock: aClock priceList: aPriceList 
+	clientAuthenticator := aClientAuthenticator.
+	carts := Dictionary new.
+	clock := aClock.
+	lastTimeCartUsed := Dictionary new.
+	priceList := aPriceList.
+	cartOwner := Dictionary new.
+	userPurchases  := Dictionary new.
+	invalidCarts  := Dictionary new.
+	currentTransactionID  := 0.
+	salesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: salesBook merchantProcessor: MerchantProcessorSimulator new.
+	
+! !
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:04:20' prior: 51062371!
+addToCart: aCartID bookISBN: aBookISBN bookQuantity: aBookQuantity
+
+	self assertCartIDIsValid: aCartID	.
+	
+	(carts at: aCartID) add: aBookQuantity of: aBookISBN.
+	
+	lastTimeCartUsed at:aCartID put: clock now.! !
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:05:03' prior: 51062428!
+hasCartIdentified: aCartId 
+	
+ 	carts at: aCartId ifAbsent: [^ false].
+	(invalidCarts includesKey: aCartId) ifTrue:[^ false].
+	^ (self expiredCart: aCartId) not.
+	! !
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:05:31' prior: 51064662!
+checkoutCart: aCartId creditCard: aCreditCard 
+	| userID |
+	self assertCartIDIsValid: aCartId.
+	
+	cashier checkout: (carts at: aCartId) withCreditCard: aCreditCard.
+	userID := cartOwner at:aCartId. 
+	
+	(userPurchases includesKey: userID) ifFalse: [userPurchases add: userID->(OrderedCollection new)].
+	(userPurchases at: userID) addAll: (self listCart: aCartId).
+	
+	self invalidateCartId: aCartId.
+	
+	currentTransactionID := currentTransactionID + 1.
+	^ currentTransactionID.! !
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:05:35' prior: 51064823!
+checkoutCart: aCartId creditCard: aCreditCard 
+	| userID |
+	self assertCartIDIsValid: aCartId.
+	
+	cashier checkout: (carts at: aCartId) withCreditCard: aCreditCard.
+	userID := cartOwner at: aCartId. 
+	
+	(userPurchases includesKey: userID) ifFalse: [userPurchases add: userID->(OrderedCollection new)].
+	(userPurchases at: userID) addAll: (self listCart: aCartId).
+	
+	self invalidateCartId: aCartId.
+	
+	currentTransactionID := currentTransactionID + 1.
+	^ currentTransactionID.! !
+!ClientAuthenticatorSimulator methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:06:57'!
+authenticateUser: aSmallInteger withPassword: aString 
+	authenticationErrorMessage ifNotNil: [self error: authenticationErrorMessage].! !
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:06:57' prior: 51062455!
+listPurchasesOf: aUserId password: aPassword
+
+	clientAuthenticator authenticateUser: aUserId withPassword: aPassword. 
+	(userPurchases includesKey: aUserId ) ifFalse: [userPurchases add: aUserId ->(OrderedCollection new)].				
+	^ PurchaseList withItems: (userPurchases at: aUserId) AndPriceList: priceList .
+	! !
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:06:57' prior: 51064076!
+createCartFor: aUserId authenticatedWith: aPassword
+	clientAuthenticator authenticateUser: aUserId withPassword: aPassword. 
+	
+	carts add: (Cart acceptingItemsOf: priceList keys).
+	cartOwner add: aUserId.
+	lastTimeCartUsed add: clock now.
+	^carts size.
+	
+	! !
+
+!methodRemoval: ClientAuthenticatorSimulator #athenticateUser:withPassword: stamp: 'ET 6/24/2021 01:06:57'!
+athenticateUser: aSmallInteger withPassword: aString 
+	authenticationErrorMessage ifNotNil: [self error: authenticationErrorMessage].!
+
+x := Dictionary new.!
+
+x size.!
+
+x add: x size -> 'hola'.!
+
+x!
+
+x := 1.!
+
+x next!
+
+!classDefinition: #Store category: 'TusLibros' stamp: 'ET 6/24/2021 01:10:58'!
+Object subclass: #Store
+	instanceVariableNames: 'clientAuthenticator carts itemCatalog lastTimeCartUsed clock priceList cartOwner userPurchases invalidCarts currentTransactionID salesBook cashier currentCartID'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:10:57' prior: 51064880!
+createCartFor: userID authenticatedWith: aPassword
+	|cartID|
+	clientAuthenticator authenticateUser: userID withPassword: aPassword. 
+	
+	cartID := currentCartID.
+	currentCartID := currentCartID + 1.
+	carts add: cartID -> (Cart acceptingItemsOf: priceList keys).
+	cartOwner add: cartID -> userID.
+	lastTimeCartUsed add: cartID -> clock now.
+	^cartID
+	
+	! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:11:17'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 01:11:17'!
+ERROR!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/24/2021 01:11:17'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/24/2021 01:11:17'!
+ERROR!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/24/2021 01:11:17'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/24/2021 01:11:17'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'ET 6/24/2021 01:11:17'!
+ERROR!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'ET 6/24/2021 01:11:17'!
+ERROR!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'ET 6/24/2021 01:11:17'!
+ERROR!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'ET 6/24/2021 01:11:17'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:11:17'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 6/24/2021 01:11:17'!
+ERROR!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'ET 6/24/2021 01:11:17'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'ET 6/24/2021 01:11:17'!
+ERROR!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'ET 6/24/2021 01:11:17'!
+ERROR!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 6/24/2021 01:11:17'!
+ERROR!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 01:11:29'!
+ERROR!
+!Store methodsFor: 'initialization' stamp: 'ET 6/24/2021 01:11:51' prior: 51064785!
+initializeWithClientAuthenticator: aClientAuthenticator clock: aClock priceList: aPriceList 
+	clientAuthenticator := aClientAuthenticator.
+	carts := Dictionary new.
+	clock := aClock.
+	lastTimeCartUsed := Dictionary new.
+	priceList := aPriceList.
+	cartOwner := Dictionary new.
+	userPurchases  := Dictionary new.
+	invalidCarts  := Dictionary new.
+	currentTransactionID  := 0.
+	salesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: salesBook merchantProcessor: MerchantProcessorSimulator new.
+	currentCartID := 0.
+	
+! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:11:52'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 01:11:52'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/24/2021 01:11:53'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/24/2021 01:11:53'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/24/2021 01:11:53'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/24/2021 01:11:53'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'ET 6/24/2021 01:11:53'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'ET 6/24/2021 01:11:53'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'ET 6/24/2021 01:11:53'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'ET 6/24/2021 01:11:53'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:11:53'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 6/24/2021 01:11:53'!
+ERROR!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'ET 6/24/2021 01:11:53'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'ET 6/24/2021 01:11:53'!
+ERROR!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'ET 6/24/2021 01:11:53'!
+ERROR!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 6/24/2021 01:11:53'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 6/24/2021 01:11:55'!
+ERROR!
+!Store methodsFor: 'initialization' stamp: 'ET 6/24/2021 01:12:53' prior: 51064982!
+initializeWithClientAuthenticator: aClientAuthenticator clock: aClock priceList: aPriceList 
+	clientAuthenticator := aClientAuthenticator.
+	carts := Dictionary new.
+	clock := aClock.
+	lastTimeCartUsed := Dictionary new.
+	priceList := aPriceList.
+	cartOwner := Dictionary new.
+	userPurchases  := Dictionary new.
+	invalidCarts  := OrderedCollection new.
+	currentTransactionID  := 0.
+	salesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: salesBook merchantProcessor: MerchantProcessorSimulator new.
+	currentCartID := 0.
+	
+! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:12:53'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 01:12:53'!
+ERROR!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/24/2021 01:12:53'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/24/2021 01:12:53'!
+ERROR!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/24/2021 01:12:53'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/24/2021 01:12:53'!
+ERROR!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'ET 6/24/2021 01:12:53'!
+ERROR!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'ET 6/24/2021 01:12:53'!
+ERROR!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'ET 6/24/2021 01:12:53'!
+ERROR!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'ET 6/24/2021 01:12:53'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:12:53'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 6/24/2021 01:12:54'!
+ERROR!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'ET 6/24/2021 01:12:54'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'ET 6/24/2021 01:12:54'!
+ERROR!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'ET 6/24/2021 01:12:54'!
+ERROR!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 6/24/2021 01:12:54'!
+ERROR!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 01:12:56'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:13:04' prior: 51064815!
+hasCartIdentified: aCartId 
+	
+ 	carts at: aCartId ifAbsent: [^ false].
+	(invalidCarts includes: aCartId) ifTrue:[^ false].
+	^ (self expiredCart: aCartId) not.
+	! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:13:07'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/24/2021 01:13:07'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/24/2021 01:13:07'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'ET 6/24/2021 01:13:07'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:13:07'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'ET 6/24/2021 01:13:07'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 01:13:07'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/24/2021 01:13:07'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/24/2021 01:13:08'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'ET 6/24/2021 01:13:08'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'ET 6/24/2021 01:13:08'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'ET 6/24/2021 01:13:08'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 6/24/2021 01:13:08'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'ET 6/24/2021 01:13:08'!
+PASSED!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'ET 6/24/2021 01:13:08'!
+PASSED!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 6/24/2021 01:13:08'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:13:12'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 01:13:12'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/24/2021 01:13:12'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/24/2021 01:13:12'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/24/2021 01:13:12'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/24/2021 01:13:12'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'ET 6/24/2021 01:13:12'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'ET 6/24/2021 01:13:12'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'ET 6/24/2021 01:13:12'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'ET 6/24/2021 01:13:12'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:13:12'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 6/24/2021 01:13:12'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'ET 6/24/2021 01:13:12'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'ET 6/24/2021 01:13:12'!
+PASSED!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'ET 6/24/2021 01:13:12'!
+PASSED!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 6/24/2021 01:13:12'!
+PASSED!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:19:01' prior: 51062440!
+invalidateCartId: aCartID
+	carts removeKey: aCartID.
+	lastTimeCartUsed removeKey: aCartID.
+	cartOwner removeKey: aCartID.
+	invalidCarts add: aCartID.! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 01:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/24/2021 01:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/24/2021 01:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/24/2021 01:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/24/2021 01:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'ET 6/24/2021 01:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'ET 6/24/2021 01:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'ET 6/24/2021 01:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'ET 6/24/2021 01:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 6/24/2021 01:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'ET 6/24/2021 01:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'ET 6/24/2021 01:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'ET 6/24/2021 01:19:06'!
+PASSED!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 6/24/2021 01:19:06'!
+PASSED!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:19:47' prior: 51065133!
+hasCartIdentified: aCartId 
+	
+ 	carts at: aCartId ifAbsent: [^ false].
+	"(invalidCarts includes: aCartId) ifTrue:[^ false]."
+	^ (self expiredCart: aCartId) not.
+	! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:19:48'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 01:19:48'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/24/2021 01:19:48'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/24/2021 01:19:48'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/24/2021 01:19:48'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/24/2021 01:19:48'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'ET 6/24/2021 01:19:48'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'ET 6/24/2021 01:19:48'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'ET 6/24/2021 01:19:48'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'ET 6/24/2021 01:19:48'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:19:48'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 6/24/2021 01:19:48'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'ET 6/24/2021 01:19:48'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'ET 6/24/2021 01:19:48'!
+PASSED!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'ET 6/24/2021 01:19:48'!
+PASSED!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 6/24/2021 01:19:48'!
+PASSED!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:21:20' prior: 51065305!
+hasCartIdentified: aCartId 
+	
+ 	carts at: aCartId ifAbsent: [^ false].
+	(self expiredCart: aCartId) 
+		ifTrue: [self invalidateCartId: aCartId.
+			^false].
+	^true.
+	! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:21:20'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 01:21:20'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/24/2021 01:21:20'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/24/2021 01:21:20'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/24/2021 01:21:20'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/24/2021 01:21:20'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'ET 6/24/2021 01:21:20'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'ET 6/24/2021 01:21:20'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'ET 6/24/2021 01:21:21'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'ET 6/24/2021 01:21:21'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:21:21'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 6/24/2021 01:21:21'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'ET 6/24/2021 01:21:21'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'ET 6/24/2021 01:21:21'!
+PASSED!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'ET 6/24/2021 01:21:21'!
+PASSED!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 6/24/2021 01:21:21'!
+PASSED!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/24/2021 01:21:48' prior: 51065245!
+invalidateCartId: aCartID
+	carts removeKey: aCartID.
+	lastTimeCartUsed removeKey: aCartID.
+	cartOwner removeKey: aCartID.! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:21:48'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 01:21:48'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/24/2021 01:21:48'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/24/2021 01:21:48'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/24/2021 01:21:48'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/24/2021 01:21:48'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'ET 6/24/2021 01:21:48'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'ET 6/24/2021 01:21:48'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'ET 6/24/2021 01:21:48'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'ET 6/24/2021 01:21:48'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:21:48'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 6/24/2021 01:21:48'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'ET 6/24/2021 01:21:49'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'ET 6/24/2021 01:21:49'!
+PASSED!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'ET 6/24/2021 01:21:49'!
+PASSED!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 6/24/2021 01:21:49'!
+PASSED!
+!Store methodsFor: 'initialization' stamp: 'ET 6/24/2021 01:22:14' prior: 51065058!
+initializeWithClientAuthenticator: aClientAuthenticator clock: aClock priceList: aPriceList 
+	clientAuthenticator := aClientAuthenticator.
+	carts := Dictionary new.
+	clock := aClock.
+	lastTimeCartUsed := Dictionary new.
+	priceList := aPriceList.
+	cartOwner := Dictionary new.
+	userPurchases  := Dictionary new.
+	currentTransactionID  := 0.
+	salesBook := OrderedCollection new.
+	cashier := Cashier with: priceList registerSalesOn: salesBook merchantProcessor: MerchantProcessorSimulator new.
+	currentCartID := 0.
+	
+! !
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:22:14'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 01:22:14'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/24/2021 01:22:14'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/24/2021 01:22:14'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/24/2021 01:22:14'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/24/2021 01:22:14'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'ET 6/24/2021 01:22:14'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'ET 6/24/2021 01:22:14'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'ET 6/24/2021 01:22:14'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'ET 6/24/2021 01:22:15'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:22:15'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 6/24/2021 01:22:15'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'ET 6/24/2021 01:22:15'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'ET 6/24/2021 01:22:15'!
+PASSED!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'ET 6/24/2021 01:22:15'!
+PASSED!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 6/24/2021 01:22:15'!
+PASSED!
+
+Object subclass: #Store
+	instanceVariableNames: 'clientAuthenticator carts itemCatalog lastTimeCartUsed clock priceList cartOwner userPurchases currentTransactionID salesBook cashier currentCartID'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Store category: 'TusLibros' stamp: 'ET 6/24/2021 01:22:21'!
+Object subclass: #Store
+	instanceVariableNames: 'clientAuthenticator carts itemCatalog lastTimeCartUsed clock priceList cartOwner userPurchases currentTransactionID salesBook cashier currentCartID'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:22:25'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 6/24/2021 01:22:25'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 6/24/2021 01:22:25'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 6/24/2021 01:22:25'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 6/24/2021 01:22:25'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 6/24/2021 01:22:25'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30Min stamp: 'ET 6/24/2021 01:22:25'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'ET 6/24/2021 01:22:25'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'ET 6/24/2021 01:22:25'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'ET 6/24/2021 01:22:25'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'ET 6/24/2021 01:22:25'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 6/24/2021 01:22:25'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'ET 6/24/2021 01:22:25'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'ET 6/24/2021 01:22:25'!
+PASSED!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'ET 6/24/2021 01:22:25'!
+PASSED!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 6/24/2021 01:22:25'!
+PASSED!
+
+----SNAPSHOT----(24 June 2021 01:22:33) CuisUniversity-4532.image priorSource: 23460187!
