@@ -1,4 +1,4 @@
-!classDefinition: #CartTest category: #TusLibros!
+!classDefinition: #CartTest category: 'TusLibros'!
 TestCase subclass: #CartTest
 	instanceVariableNames: 'testObjects'
 	classVariableNames: ''
@@ -98,7 +98,7 @@ setUp
 	testObjects := TestObjects new.! !
 
 
-!classDefinition: #CashierTest category: #TusLibros!
+!classDefinition: #CashierTest category: 'TusLibros'!
 TestCase subclass: #CashierTest
 	instanceVariableNames: 'testObjects'
 	classVariableNames: ''
@@ -255,7 +255,7 @@ newCashierWithSalesBook: aSalesBook
 		! !
 
 
-!classDefinition: #CreditCardTest category: #TusLibros!
+!classDefinition: #CreditCardTest category: 'TusLibros'!
 TestCase subclass: #CreditCardTest
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -305,7 +305,7 @@ assertCreditCardInstanceCreationRaisesErrorWhenOwnedBy: anOwner withNumber: aStr
 		withExceptionDo:[ :anError| self assert: CreditCard invalidCreditCardErrorDescription equals: anError messageText	] ! !
 
 
-!classDefinition: #StoreTest category: #TusLibros!
+!classDefinition: #StoreTest category: 'TusLibros'!
 TestCase subclass: #StoreTest
 	instanceVariableNames: 'testObjects'
 	classVariableNames: ''
@@ -598,7 +598,7 @@ validUserPassword
 	^ 'passwd'! !
 
 
-!classDefinition: #Cart category: #TusLibros!
+!classDefinition: #Cart category: 'TusLibros'!
 Object subclass: #Cart
 	instanceVariableNames: 'catalog items'
 	classVariableNames: ''
@@ -671,7 +671,7 @@ add: aQuantity of: anItem
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Cart class' category: #TusLibros!
+!classDefinition: 'Cart class' category: 'TusLibros'!
 Cart class
 	instanceVariableNames: ''!
 
@@ -681,7 +681,7 @@ acceptingItemsOf: aCatalog
 	^self new initializeAcceptingItemsOf: aCatalog ! !
 
 
-!classDefinition: #Cashier category: #TusLibros!
+!classDefinition: #Cashier category: 'TusLibros'!
 Object subclass: #Cashier
 	instanceVariableNames: 'priceList salesBook merchantProcessor'
 	classVariableNames: ''
@@ -729,7 +729,7 @@ assertCreditCardIsNotExpired: aCreditCard
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Cashier class' category: #TusLibros!
+!classDefinition: 'Cashier class' category: 'TusLibros'!
 Cashier class
 	instanceVariableNames: ''!
 
@@ -751,7 +751,7 @@ itemNotInPriceListErrorDescription
 	^'An item in the cart is not in the price list'.! !
 
 
-!classDefinition: #ClientAuthenticator category: #TusLibros!
+!classDefinition: #ClientAuthenticator category: 'TusLibros'!
 Object subclass: #ClientAuthenticator
 	instanceVariableNames: 'client password'
 	classVariableNames: ''
@@ -773,7 +773,7 @@ initializeWithClient: aClient password: aPassword
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'ClientAuthenticator class' category: #TusLibros!
+!classDefinition: 'ClientAuthenticator class' category: 'TusLibros'!
 ClientAuthenticator class
 	instanceVariableNames: ''!
 
@@ -788,7 +788,7 @@ withClient: aClient password: aPassword
 	^self new initializeWithClient: aClient password: aPassword.! !
 
 
-!classDefinition: #ClientAuthenticatorSimulator category: #TusLibros!
+!classDefinition: #ClientAuthenticatorSimulator category: 'TusLibros'!
 Object subclass: #ClientAuthenticatorSimulator
 	instanceVariableNames: 'raiseAuthenticationError authenticationErrorMessage'
 	classVariableNames: ''
@@ -804,7 +804,7 @@ raiseAuthenticationErrorWithMessage: anErrorMessage
 	authenticationErrorMessage := anErrorMessage .! !
 
 
-!classDefinition: #ClockSimulator category: #TusLibros!
+!classDefinition: #ClockSimulator category: 'TusLibros'!
 Object subclass: #ClockSimulator
 	instanceVariableNames: 'dateTime'
 	classVariableNames: ''
@@ -827,7 +827,7 @@ now
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'ClockSimulator class' category: #TusLibros!
+!classDefinition: 'ClockSimulator class' category: 'TusLibros'!
 ClockSimulator class
 	instanceVariableNames: ''!
 
@@ -836,7 +836,7 @@ with: aDateTime
 	^ self new initializeWith: aDateTime.! !
 
 
-!classDefinition: #CreditCard category: #TusLibros!
+!classDefinition: #CreditCard category: 'TusLibros'!
 Object subclass: #CreditCard
 	instanceVariableNames: 'ownerString creditCardNumberString expirationMonthOfYear'
 	classVariableNames: ''
@@ -858,7 +858,7 @@ isExpiredOn: aDate
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'CreditCard class' category: #TusLibros!
+!classDefinition: 'CreditCard class' category: 'TusLibros'!
 CreditCard class
 	instanceVariableNames: ''!
 
@@ -887,7 +887,7 @@ invalidCreditCardErrorDescription
 	^'Los datos de la tarjeta de crédito son inválidos'! !
 
 
-!classDefinition: #MerchantProcessorSimulator category: #TusLibros!
+!classDefinition: #MerchantProcessorSimulator category: 'TusLibros'!
 Object subclass: #MerchantProcessorSimulator
 	instanceVariableNames: 'messageError'
 	classVariableNames: ''
@@ -904,7 +904,7 @@ raiseErrorOnCharge: aMessageError
 	messageError := aMessageError.! !
 
 
-!classDefinition: #PurchaseList category: #TusLibros!
+!classDefinition: #PurchaseList category: 'TusLibros'!
 Object subclass: #PurchaseList
 	instanceVariableNames: 'itemList priceList amount'
 	classVariableNames: ''
@@ -932,7 +932,7 @@ isEmpty
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'PurchaseList class' category: #TusLibros!
+!classDefinition: 'PurchaseList class' category: 'TusLibros'!
 PurchaseList class
 	instanceVariableNames: ''!
 
@@ -941,7 +941,7 @@ withItems: anItemList totalAmount: anAmount.
 	^ self new initializeWithItems: anItemList totalAmount: anAmount .! !
 
 
-!classDefinition: #Sales category: #TusLibros!
+!classDefinition: #Sales category: 'TusLibros'!
 Object subclass: #Sales
 	instanceVariableNames: 'userID amount items'
 	classVariableNames: ''
@@ -975,7 +975,7 @@ items
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Sales class' category: #TusLibros!
+!classDefinition: 'Sales class' category: 'TusLibros'!
 Sales class
 	instanceVariableNames: ''!
 
@@ -985,7 +985,7 @@ withItems: items totalAmount: anAmount
 	^self new initializeWithItems: items totalAmount: anAmount.! !
 
 
-!classDefinition: #Store category: #TusLibros!
+!classDefinition: #Store category: 'TusLibros'!
 Object subclass: #Store
 	instanceVariableNames: 'clientAuthenticator carts lastTimeCartUsed clock priceList cartOwner salesBook cashier currentCartID'
 	classVariableNames: ''
@@ -1133,7 +1133,7 @@ nextFreeCartID
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Store class' category: #TusLibros!
+!classDefinition: 'Store class' category: 'TusLibros'!
 Store class
 	instanceVariableNames: ''!
 
@@ -1147,7 +1147,7 @@ invalidCartIDErrorDescription
 	^'Cart ID is not in the system'! !
 
 
-!classDefinition: #StoreRestInterface category: #TusLibros!
+!classDefinition: #StoreRestInterface category: 'TusLibros'!
 Object subclass: #StoreRestInterface
 	instanceVariableNames: 'webServer port stringGenius store'
 	classVariableNames: ''
@@ -1175,7 +1175,26 @@ stopListening
 	^'Stopped listening from port: ', self port asString! !
 
 
-!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/24/2021 21:56:25'!
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/28/2021 16:39:27'!
+assertExpirationStringIsValid: cced
+
+	cced size = 6 ifFalse: [self error:CreditCard invalidCreditCardErrorDescription ].
+	
+	(cced allSatisfy: [:aDigit | aDigit isDigit]	) ifFalse: [self error:CreditCard invalidCreditCardErrorDescription ].! !
+
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/28/2021 16:39:12'!
+createCreditCardOfOwner: cco number: ccn expiration: cced
+	|expirationDate month year|
+	
+	self assertExpirationStringIsValid: cced.
+	
+	month := (cced copyFrom: 1 to: 2) asNumber.
+	year := (cced copyFrom: 3 to: 6) asNumber.
+	expirationDate := GregorianMonthOfYear yearNumber: year  monthNumber: month.
+	
+	^CreditCard owner: cco number: ccn expiration: expirationDate.! !
+
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/28/2021 16:53:39'!
 initializeWith: aPortNumber
 	
 	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin') 
@@ -1216,7 +1235,50 @@ initializeWith: aPortNumber
 		do: [ :anError |
 			request send400Response: (anError messageText) ]].
 	
+	webServer addService: '/listCart' action:[:request | |answerAsJson cartID  list|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		
+		list := store listCart: cartID.
+		
+		answerAsJson:= WebUtils jsonEncode: (list asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
 	
+	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID ccn cced cco creditCard transactionID|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		ccn := (request fields at:'ccn').
+		cco := (request fields at:'cco').
+		cced := (request fields at:'cced').
+		
+		creditCard := self createCreditCardOfOwner: cco number: ccn expiration: cced.
+		transactionID := store checkoutCart: cartID creditCard: creditCard.
+		
+		answerAsJson:= WebUtils jsonEncode: (transactionID).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	
+	webServer addService: '/listPurchases' action:[:request | |cartIDAsJson client password list |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		list := store listPurchasesOf:  client password: password.
+
+		cartIDAsJson:= WebUtils jsonEncode: (Array with: list list with: list totalAmount).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
 	
 	
 	
@@ -1306,7 +1368,7 @@ sayRandomQuote
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'StoreRestInterface class' category: #TusLibros!
+!classDefinition: 'StoreRestInterface class' category: 'TusLibros'!
 StoreRestInterface class
 	instanceVariableNames: ''!
 
@@ -1316,7 +1378,7 @@ listeningOn: aPortNumber
 	^self new initializeWith: aPortNumber.! !
 
 
-!classDefinition: #TestObjects category: #TusLibros!
+!classDefinition: #TestObjects category: 'TusLibros'!
 Object subclass: #TestObjects
 	instanceVariableNames: ''
 	classVariableNames: ''

@@ -32947,3 +32947,812 @@ MorphicMisc1Package class
 !classDefinition: 'MorphicMisc1Package class' category: #'Morphic-Misc1' stamp: 'Install-Morphic-Misc1 6/24/2021 20:26:02'!
 MorphicMisc1Package class
 	instanceVariableNames: ''!
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/28/2021 16:38:16' prior: 51132261!
+initializeWith: aPortNumber
+	
+	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin') 
+	clock: GregorianDateTime 
+	priceList: (Dictionary with: 'validBook'->10)
+	merchantProcessor: MerchantProcessorSimulator new.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/createCart' action:[:request | |cartIDAsJson client password cartID |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		 cartID := store createCartFor: client authenticatedWith: password.
+		
+		cartIDAsJson:= WebUtils jsonEncode: (cartID).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/addToCart' action:[:request | |answerAsJson cartID item quantity |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		quantity := (request fields at: 'quantityIsbn') asNumber.
+		
+		store addToCart: cartID item: item quantity: quantity.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/listCart' action:[:request | |answerAsJson cartID  list|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		
+		list := store listCart: cartID.
+		
+		answerAsJson:= WebUtils jsonEncode: (list).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID ccn cced cco creditCard transactionID|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		ccn := (request fields at:'ccn').
+		cco := (request fields at:'cco').
+		cced := (request fields at:'cced').
+		
+		creditCard := self createCreditCardOfOwner: cco number: ccn expiration: cced.
+		transactionID := store checkoutCart: cartID creditCard: creditCard.
+		
+		answerAsJson:= WebUtils jsonEncode: (transactionID).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	
+	webServer addService: '/listPurchases' action:[:request | |cartIDAsJson client password list |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		list := store listPurchasesOf:  client password: password.
+
+		cartIDAsJson:= WebUtils jsonEncode: (OrderedCollection with: list items with: list totalAmount).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	
+	
+	
+	
+	
+	
+	stringGenius := StringGenius new.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/quote' action:[:request |	
+		
+		request send200Response: (self sayRandomQuote)].
+	
+	webServer addService: '/words' action:[:request | |wordsAsJson sentence words |
+		
+		[sentence := (request fields at:'sentence').
+		words := stringGenius words: sentence.
+		wordsAsJson:= WebUtils jsonEncode: (words).
+		request send200Response: (wordsAsJson)
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'sentence').
+		letter := stringGenius firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		request send200Response: (letterAsJson)
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'sentence').
+		vowels := stringGenius vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		request send200Response: (vowelsAsJson)
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'sentence').
+		upperCasedWord := stringGenius toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		request send200Response: (upperCasedWordAsJson)
+		 ] 
+		on: Error 
+		do:  [ :anError | request 
+			request send400Response: (anError messageText)]].
+! !
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/28/2021 16:39:12'!
+createCreditCardOfOwner: cco number: ccn expiration: cced
+	|expirationDate month year|
+	
+	self assertExpirationStringIsValid: cced.
+	
+	month := (cced copyFrom: 1 to: 2) asNumber.
+	year := (cced copyFrom: 3 to: 6) asNumber.
+	expirationDate := GregorianMonthOfYear yearNumber: year  monthNumber: month.
+	
+	^CreditCard owner: cco number: ccn expiration: expirationDate.! !
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/28/2021 16:39:27'!
+assertExpirationStringIsValid: cced
+
+	cced size = 6 ifFalse: [self error:CreditCard invalidCreditCardErrorDescription ].
+	
+	(cced allSatisfy: [:aDigit | aDigit isDigit]	) ifFalse: [self error:CreditCard invalidCreditCardErrorDescription ].! !
+
+StoreRestInterface listeningOn: 8080.!
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/28/2021 16:43:04' prior: 51132445!
+initializeWith: aPortNumber
+	
+	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin') 
+	clock: GregorianDateTime 
+	priceList: (Dictionary with: 'validBook'->10)
+	merchantProcessor: MerchantProcessorSimulator new.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/createCart' action:[:request | |cartIDAsJson client password cartID |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		 cartID := store createCartFor: client authenticatedWith: password.
+		
+		cartIDAsJson:= WebUtils jsonEncode: (cartID).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/addToCart' action:[:request | |answerAsJson cartID item quantity |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		quantity := (request fields at: 'quantityIsbn') asNumber.
+		
+		store addToCart: cartID item: item quantity: quantity.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/listCart' action:[:request | |answerAsJson cartID  list|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		
+		list := store listCart: cartID.
+		
+		answerAsJson:= WebUtils jsonEncode: (list asString).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID ccn cced cco creditCard transactionID|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		ccn := (request fields at:'ccn').
+		cco := (request fields at:'cco').
+		cced := (request fields at:'cced').
+		
+		creditCard := self createCreditCardOfOwner: cco number: ccn expiration: cced.
+		transactionID := store checkoutCart: cartID creditCard: creditCard.
+		
+		answerAsJson:= WebUtils jsonEncode: (transactionID).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	
+	webServer addService: '/listPurchases' action:[:request | |cartIDAsJson client password list |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		list := store listPurchasesOf:  client password: password.
+
+		cartIDAsJson:= WebUtils jsonEncode: (OrderedCollection with: list items with: list totalAmount).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	
+	
+	
+	
+	
+	
+	stringGenius := StringGenius new.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/quote' action:[:request |	
+		
+		request send200Response: (self sayRandomQuote)].
+	
+	webServer addService: '/words' action:[:request | |wordsAsJson sentence words |
+		
+		[sentence := (request fields at:'sentence').
+		words := stringGenius words: sentence.
+		wordsAsJson:= WebUtils jsonEncode: (words).
+		request send200Response: (wordsAsJson)
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'sentence').
+		letter := stringGenius firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		request send200Response: (letterAsJson)
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'sentence').
+		vowels := stringGenius vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		request send200Response: (vowelsAsJson)
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'sentence').
+		upperCasedWord := stringGenius toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		request send200Response: (upperCasedWordAsJson)
+		 ] 
+		on: Error 
+		do:  [ :anError | request 
+			request send400Response: (anError messageText)]].
+! !
+
+(OrderedCollection with: 2) asString!
+
+WebUtils jsonEncode: (OrderedCollection with: 2)!
+
+WebUtils jsonEncode: (OrderedCollection with: 2) asArray!
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/28/2021 16:44:29' prior: 51132614!
+initializeWith: aPortNumber
+	
+	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin') 
+	clock: GregorianDateTime 
+	priceList: (Dictionary with: 'validBook'->10)
+	merchantProcessor: MerchantProcessorSimulator new.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/createCart' action:[:request | |cartIDAsJson client password cartID |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		 cartID := store createCartFor: client authenticatedWith: password.
+		
+		cartIDAsJson:= WebUtils jsonEncode: (cartID).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/addToCart' action:[:request | |answerAsJson cartID item quantity |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		quantity := (request fields at: 'quantityIsbn') asNumber.
+		
+		store addToCart: cartID item: item quantity: quantity.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/listCart' action:[:request | |answerAsJson cartID  list|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		
+		list := store listCart: cartID.
+		
+		answerAsJson:= WebUtils jsonEncode: (list asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID ccn cced cco creditCard transactionID|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		ccn := (request fields at:'ccn').
+		cco := (request fields at:'cco').
+		cced := (request fields at:'cced').
+		
+		creditCard := self createCreditCardOfOwner: cco number: ccn expiration: cced.
+		transactionID := store checkoutCart: cartID creditCard: creditCard.
+		
+		answerAsJson:= WebUtils jsonEncode: (transactionID).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	
+	webServer addService: '/listPurchases' action:[:request | |cartIDAsJson client password list |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		list := store listPurchasesOf:  client password: password.
+
+		cartIDAsJson:= WebUtils jsonEncode: (OrderedCollection with: list items with: list totalAmount).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	
+	
+	
+	
+	
+	
+	stringGenius := StringGenius new.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/quote' action:[:request |	
+		
+		request send200Response: (self sayRandomQuote)].
+	
+	webServer addService: '/words' action:[:request | |wordsAsJson sentence words |
+		
+		[sentence := (request fields at:'sentence').
+		words := stringGenius words: sentence.
+		wordsAsJson:= WebUtils jsonEncode: (words).
+		request send200Response: (wordsAsJson)
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'sentence').
+		letter := stringGenius firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		request send200Response: (letterAsJson)
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'sentence').
+		vowels := stringGenius vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		request send200Response: (vowelsAsJson)
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'sentence').
+		upperCasedWord := stringGenius toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		request send200Response: (upperCasedWordAsJson)
+		 ] 
+		on: Error 
+		do:  [ :anError | request 
+			request send400Response: (anError messageText)]].
+! !
+
+StoreRestInterface listeningOn: 8080.!
+
+StoreRestInterface allInstancesDo: [:anInstance | anInstance destroy]!
+
+StoreRestInterface allInstances!
+
+StoreRestInterface allInstances!
+
+StoreRestInterface allInstances !
+
+self destroy!
+
+self destroy!
+
+self destroy!
+
+self destroy!
+
+self destroy!
+
+self destroy!
+
+self destroy!
+
+StoreRestInterface listeningOn: 8080. !
+
+StoreRestInterface allInstances !
+
+self destroy!
+
+self destroy!
+
+StoreRestInterface listeningOn: 8080.
+!
+
+----SNAPSHOT----(28 June 2021 16:48:52) CuisUniversity-4532.image priorSource: 25556262!
+
+----STARTUP---- (28 June 2021 16:49:06) as C:\Users\ezequ\Desktop\windows64\CuisUniversity-4532.image!
+
+
+----SNAPSHOT----(28 June 2021 16:49:30) CuisUniversity-4532.image priorSource: 25640577!
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/28/2021 16:50:07' prior: 51132762!
+initializeWith: aPortNumber
+	
+	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin') 
+	clock: GregorianDateTime 
+	priceList: (Dictionary with: 'validBook'->10)
+	merchantProcessor: MerchantProcessorSimulator new.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/createCart' action:[:request | |cartIDAsJson client password cartID |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		 cartID := store createCartFor: client authenticatedWith: password.
+		
+		cartIDAsJson:= WebUtils jsonEncode: (cartID).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/addToCart' action:[:request | |answerAsJson cartID item quantity |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		quantity := (request fields at: 'quantityIsbn') asNumber.
+		
+		store addToCart: cartID item: item quantity: quantity.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/listCart' action:[:request | |answerAsJson cartID  list|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		
+		list := store listCart: cartID.
+		
+		answerAsJson:= WebUtils jsonEncode: (list asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID ccn cced cco creditCard transactionID|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		ccn := (request fields at:'ccn').
+		cco := (request fields at:'cco').
+		cced := (request fields at:'cced').
+		
+		creditCard := self createCreditCardOfOwner: cco number: ccn expiration: cced.
+		transactionID := store checkoutCart: cartID creditCard: creditCard.
+		
+		answerAsJson:= WebUtils jsonEncode: (transactionID).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	
+	webServer addService: '/listPurchases' action:[:request | |cartIDAsJson client password list |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		list := store listPurchasesOf:  client password: password.
+
+		cartIDAsJson:= WebUtils jsonEncode: (Array with: list items with: list totalAmount).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	
+	
+	
+	
+	
+	
+	stringGenius := StringGenius new.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/quote' action:[:request |	
+		
+		request send200Response: (self sayRandomQuote)].
+	
+	webServer addService: '/words' action:[:request | |wordsAsJson sentence words |
+		
+		[sentence := (request fields at:'sentence').
+		words := stringGenius words: sentence.
+		wordsAsJson:= WebUtils jsonEncode: (words).
+		request send200Response: (wordsAsJson)
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'sentence').
+		letter := stringGenius firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		request send200Response: (letterAsJson)
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'sentence').
+		vowels := stringGenius vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		request send200Response: (vowelsAsJson)
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'sentence').
+		upperCasedWord := stringGenius toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		request send200Response: (upperCasedWordAsJson)
+		 ] 
+		on: Error 
+		do:  [ :anError | request 
+			request send400Response: (anError messageText)]].
+! !
+
+StoreRestInterface listeningOn: 8080.!
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/28/2021 16:53:39' prior: 51132928!
+initializeWith: aPortNumber
+	
+	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin') 
+	clock: GregorianDateTime 
+	priceList: (Dictionary with: 'validBook'->10)
+	merchantProcessor: MerchantProcessorSimulator new.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/createCart' action:[:request | |cartIDAsJson client password cartID |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		 cartID := store createCartFor: client authenticatedWith: password.
+		
+		cartIDAsJson:= WebUtils jsonEncode: (cartID).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/addToCart' action:[:request | |answerAsJson cartID item quantity |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		quantity := (request fields at: 'quantityIsbn') asNumber.
+		
+		store addToCart: cartID item: item quantity: quantity.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/listCart' action:[:request | |answerAsJson cartID  list|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		
+		list := store listCart: cartID.
+		
+		answerAsJson:= WebUtils jsonEncode: (list asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID ccn cced cco creditCard transactionID|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		ccn := (request fields at:'ccn').
+		cco := (request fields at:'cco').
+		cced := (request fields at:'cced').
+		
+		creditCard := self createCreditCardOfOwner: cco number: ccn expiration: cced.
+		transactionID := store checkoutCart: cartID creditCard: creditCard.
+		
+		answerAsJson:= WebUtils jsonEncode: (transactionID).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	
+	webServer addService: '/listPurchases' action:[:request | |cartIDAsJson client password list |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		list := store listPurchasesOf:  client password: password.
+
+		cartIDAsJson:= WebUtils jsonEncode: (Array with: list list with: list totalAmount).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	
+	
+	
+	
+	
+	
+	stringGenius := StringGenius new.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/quote' action:[:request |	
+		
+		request send200Response: (self sayRandomQuote)].
+	
+	webServer addService: '/words' action:[:request | |wordsAsJson sentence words |
+		
+		[sentence := (request fields at:'sentence').
+		words := stringGenius words: sentence.
+		wordsAsJson:= WebUtils jsonEncode: (words).
+		request send200Response: (wordsAsJson)
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'sentence').
+		letter := stringGenius firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		request send200Response: (letterAsJson)
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'sentence').
+		vowels := stringGenius vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		request send200Response: (vowelsAsJson)
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'sentence').
+		upperCasedWord := stringGenius toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		request send200Response: (upperCasedWordAsJson)
+		 ] 
+		on: Error 
+		do:  [ :anError | request 
+			request send400Response: (anError messageText)]].
+! !
+
+StoreRestInterface allInstances!
+
+self destroy!
+
+self destroy!
+
+self destroy!
+
+self destroy!
+
+self destroy!
+
+self destroy!
+
+self destroy!
+
+StoreRestInterface listeningOn: 8080!
+
+----SNAPSHOT----(28 June 2021 16:55:59) CuisUniversity-4532.image priorSource: 25640772!
