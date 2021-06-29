@@ -19,7 +19,6 @@ iii) Se debe poder presionar un botón de "Add product to cart" para pasar eleme
 
 iv) Cuando el usuario está conforme con su selección de productos, debe de poder presionar un botón de "Check out". El mismo debería efectuar el check out y realizar la venta correspondiente. Para simplificar, se asume que los datos de la tarjeta de crédito ya son conocidos por el servidor al momento del login. Si la compra se efectiviza, se debe visualizar el ticket de detalle de la venta correspondiente (nuevamente, elijan ustedes la manera de hacerlo). En caso contrario, se deberá mostrar un mensaje de error, junto al motivo de dicho error. Al terminar la operación se debería de poder tener la opción de desloguearse o realizar una nueva compra.
 
-
 v) Además de comprar, un usuario logueado debe de poder visualizar su historial de compras. Es decir, la lista de libros comprados históricamente por el usuario, junto a su cantidad por título, y el total gastado. 
 
 Aclaraciones:

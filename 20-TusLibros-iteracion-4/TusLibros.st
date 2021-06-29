@@ -91,6 +91,28 @@ test08CartRemembersTheNumberOfAddedItems
 	cart add: 2 of: testObjects itemSellByTheStore.
 	self assert: (cart occurrencesOf: testObjects itemSellByTheStore) = 2! !
 
+!CartTest methodsFor: 'tests' stamp: 'ET 6/28/2021 19:34:31'!
+test09CartCanRemoveAnItem
+
+	| cart |
+	
+	cart := testObjects createCart.
+	
+	cart add: testObjects itemSellByTheStore.
+	cart removeAll: testObjects itemSellByTheStore.
+	self assert: cart isEmpty.! !
+
+!CartTest methodsFor: 'tests' stamp: 'ET 6/28/2021 19:37:07'!
+test10
+
+	| cart |
+	
+	cart := testObjects createCart.
+	
+	cart add: 2 of: testObjects itemSellByTheStore.
+	cart removeAll: testObjects itemSellByTheStore.
+	self assert: cart isEmpty.! !
+
 
 !CartTest methodsFor: 'setUp' stamp: 'ET 6/24/2021 13:21:42'!
 setUp
@@ -566,6 +588,20 @@ test16UseCartUpdatesTimeLimit
 	raise: Error - MessageNotUnderstood
 	withExceptionDo: [:anError | self assert: anError messageText = Store invalidCartIDErrorDescription]	! !
 
+!StoreTest methodsFor: 'tests' stamp: 'ET 6/28/2021 19:41:22'!
+test17
+
+	| store cartID cartList |
+	store := self store .
+	cartID := self createValidCartIn: store.	
+	
+	
+	store addToCart: cartID item: testObjects itemSellByTheStore quantity:1.
+	store removeFromCart: cartID allItems: testObjects itemSellByTheStore.
+	cartList := store listCart: cartID.
+	
+	self assert: cartList isEmpty.! !
+
 
 !StoreTest methodsFor: 'support' stamp: 'JA 6/23/2021 09:45:12'!
 clockSimulator
@@ -668,6 +704,11 @@ add: aQuantity of: anItem
 	self assertIsValidItem: anItem.
 
 	1 to: aQuantity do: [ :aNumber | items add: anItem ]! !
+
+
+!Cart methodsFor: 'as yet unclassified' stamp: 'ET 6/28/2021 19:38:58'!
+removeAll: anItem
+	items removeAllSuchThat: [:item | item = anItem].! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1054,16 +1095,31 @@ invalidateCartId: aCartID
 	lastTimeCartUsed removeKey: aCartID.
 	cartOwner removeKey: aCartID.! !
 
-!Store methodsFor: 'private' stamp: 'JA 6/24/2021 09:34:35'!
-itemCatalog
-
-	^ priceList keys! !
-
 !Store methodsFor: 'private' stamp: 'JA 6/23/2021 09:59:25'!
 maxInactiveTimeInMinutes
 
 	^ 30! !
 
+!Store methodsFor: 'private' stamp: 'JA 6/24/2021 08:41:01'!
+purchaseListFor: aUserID
+	|userIDSales items totalAmount|	
+	userIDSales := salesBook select: [:aSales | aSales userID = aUserID].
+	items := OrderedCollection new.
+	userIDSales do: [:aSales | items addAll: aSales items].
+	totalAmount := userIDSales sum: [:aSales | aSales totalAmount] ifEmpty: 0.
+	^PurchaseList withItems: items totalAmount: totalAmount.
+	! !
+
+!Store methodsFor: 'private' stamp: 'JA 6/24/2021 08:42:51'!
+updateLastTimeUsedFor: cartID
+
+	^ lastTimeCartUsed at: cartID put: clock now! !
+
+
+!Store methodsFor: 'lists' stamp: 'JA 6/24/2021 09:34:35'!
+itemCatalog
+
+	^ priceList keys! !
 
 !Store methodsFor: 'lists' stamp: 'JA 6/24/2021 09:36:40'!
 listCart: cartID
@@ -1085,21 +1141,6 @@ listPurchasesOf: aUserId password: aPassword
 	
 	^ self purchaseListFor: aUserId 
 	! !
-
-!Store methodsFor: 'lists' stamp: 'JA 6/24/2021 08:41:01'!
-purchaseListFor: aUserID
-	|userIDSales items totalAmount|	
-	userIDSales := salesBook select: [:aSales | aSales userID = aUserID].
-	items := OrderedCollection new.
-	userIDSales do: [:aSales | items addAll: aSales items].
-	totalAmount := userIDSales sum: [:aSales | aSales totalAmount] ifEmpty: 0.
-	^PurchaseList withItems: items totalAmount: totalAmount.
-	! !
-
-!Store methodsFor: 'lists' stamp: 'JA 6/24/2021 08:42:51'!
-updateLastTimeUsedFor: cartID
-
-	^ lastTimeCartUsed at: cartID put: clock now! !
 
 
 !Store methodsFor: 'adding' stamp: 'JA 6/24/2021 08:44:03'!
@@ -1131,6 +1172,12 @@ nextFreeCartID
 	
 	! !
 
+
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 6/28/2021 19:42:08'!
+removeFromCart: cartID allItems: anItem
+	
+	(carts at: cartID) removeAll: anItem.! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Store class' category: 'TusLibros'!
@@ -1149,7 +1196,7 @@ invalidCartIDErrorDescription
 
 !classDefinition: #StoreRestInterface category: 'TusLibros'!
 Object subclass: #StoreRestInterface
-	instanceVariableNames: 'webServer port stringGenius store'
+	instanceVariableNames: 'webServer port stringGenius store userCreditCards userCarts'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
@@ -1194,13 +1241,23 @@ createCreditCardOfOwner: cco number: ccn expiration: cced
 	
 	^CreditCard owner: cco number: ccn expiration: expirationDate.! !
 
-!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/28/2021 16:53:39'!
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/28/2021 19:28:42'!
+creditCardOfClient: aClientID
+
+	^userCreditCards at: aClientID.
+! !
+
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/28/2021 21:44:32'!
 initializeWith: aPortNumber
 	
-	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin') 
+	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin')
 	clock: GregorianDateTime 
 	priceList: (Dictionary with: 'validBook'->10)
 	merchantProcessor: MerchantProcessorSimulator new.
+	
+	userCreditCards := Dictionary with: 'admin'-> (CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current next).
+	
+	userCarts := Dictionary new.
 	
 	port:= aPortNumber.
 	
@@ -1211,14 +1268,19 @@ initializeWith: aPortNumber
 		[client := (request fields at:'clientId').
 		password := (request fields at: 'password').
 		
-		 cartID := store createCartFor: client authenticatedWith: password.
+		cartID := store createCartFor: client authenticatedWith: password.
+		
+		userCarts add: cartID->client.
 		
 		cartIDAsJson:= WebUtils jsonEncode: (cartID).
 		request send200Response: (cartIDAsJson)
 		 ] 
 		on: Error
 		do: [ :anError |
-			request send400Response: (anError messageText) ]].
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
 	
 	webServer addService: '/addToCart' action:[:request | |answerAsJson cartID item quantity |
 		
@@ -1230,6 +1292,31 @@ initializeWith: aPortNumber
 		
 		answerAsJson:= WebUtils jsonEncode: ('OK').
 		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/removeFromCart' action:[:request | |answerAsJson cartID item  |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		
+		store removeFromCart: cartID allItems: item.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request send400Response: (anError messageText) ]].
+	
+	webServer addService: '/catalog' action:[:request | |answerAsJson catalog  |
+		
+		[catalog := store itemCatalog.
+		
+		answerAsJson:= WebUtils jsonEncode: (catalog asArray).
+		request send200Response: (answerAsJson)
 		 ] 
 		on: Error
 		do: [ :anError |
@@ -1248,15 +1335,11 @@ initializeWith: aPortNumber
 		do: [ :anError |
 			request send400Response: (anError messageText) ]].
 	
-	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID ccn cced cco creditCard transactionID|
+	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID transactionID|
 		
 		[cartID := (request fields at:'cartId') asNumber.
-		ccn := (request fields at:'ccn').
-		cco := (request fields at:'cco').
-		cced := (request fields at:'cced').
-		
-		creditCard := self createCreditCardOfOwner: cco number: ccn expiration: cced.
-		transactionID := store checkoutCart: cartID creditCard: creditCard.
+
+		transactionID := store checkoutCart: cartID creditCard:  (self creditCardOfClient: (userCarts at: cartID)).
 		
 		answerAsJson:= WebUtils jsonEncode: (transactionID).
 		request send200Response: (answerAsJson )
