@@ -5,10 +5,11 @@ Panel subclass: #LogInWindow
 	poolDictionaries: ''
 	category: 'TusLibros-Client'!
 
-!LogInWindow methodsFor: 'initialization' stamp: 'ET 6/28/2021 21:08:00'!
+!LogInWindow methodsFor: 'initialization' stamp: 'ET 7/1/2021 17:57:45'!
 changeToStoreClientWindow
+	
 
-	StoreClientWindow open.
+	StoreClientWindow openWith: self model cartID.
 	
 	self delete.! !
 
@@ -34,7 +35,7 @@ initializeWith: aTitle
 	self model when: #failedLogIn send: #showFailedLogInError to: self.
 	! !
 
-!LogInWindow methodsFor: 'initialization' stamp: 'ET 6/28/2021 21:02:04'!
+!LogInWindow methodsFor: 'initialization' stamp: 'ET 7/1/2021 17:53:27'!
 showFailedLogInError
 
 	errorMessageMorph contents: self model errorMessage.
@@ -148,7 +149,7 @@ open
 
 !classDefinition: #StoreClientWindow category: 'TusLibros-Client'!
 Panel subclass: #StoreClientWindow
-	instanceVariableNames: 'sentenceTextBoxMorph wordsListMorph cartID quantityTextBoxMorph'
+	instanceVariableNames: 'sentenceTextBoxMorph wordsListMorph cartID quantityTextBoxMorph cartListMorph'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Client'!
@@ -159,20 +160,29 @@ defaultExtent
 	^ 1035@485
 	! !
 
-!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 6/28/2021 21:59:04'!
+!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/1/2021 18:09:16'!
 initializeWith: aCartID
+
 	self titleMorph showButtonsNamed: #( close collapse ).
+	
 	self setLabel: 'Store Client'.
 	
-	self model: (StoreClientWindowModel withCartID: aCartID).
+	self model: (StoreClientWindowModel with: aCartID).
 	
 	self morphExtent: (self defaultExtent).
-	
+
 	self buildMorphicWindow.
 	self openInWorld.
 	self yourself.
 			
-	self model when: #newWordsArrived send: #refreshListOfWords to: self.! !
+	self model when: #cartListChanged send: #updateCartList to: self.! !
+
+!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/1/2021 18:10:28'!
+updateCartList
+
+	cartListMorph updateList.
+	
+	cartListMorph setSelectionIndex: 0.! !
 
 
 !StoreClientWindow methodsFor: 'access' stamp: 'NR 6/23/2021 06:58:02'!
@@ -239,11 +249,11 @@ build1stRow
 	
 	^firstRowLayoutMorph.! !
 
-!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 6/28/2021 21:54:20'!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/1/2021 18:56:46'!
 build2ndColumn
 	| showInTranscriptButtonMorph secondRowLayoutMorph |
 	
-	showInTranscriptButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #addItemToCart label: 'add to cart'.	
+	showInTranscriptButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #addItemToCart label: 'add to cart'.		
 	quantityTextBoxMorph := TextModelMorph textProvider: self model textGetter: #quantityText textSetter: #quantityText:. 
 	quantityTextBoxMorph textMorph setProperty: #keyStroke: toValue: [ :key | quantityTextBoxMorph textMorph acceptContents ] .
 	quantityTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 100; morphHeight: 10.
@@ -251,7 +261,7 @@ build2ndColumn
 	
 	secondRowLayoutMorph := LayoutMorph newColumn.
 	secondRowLayoutMorph separation: 25;
-	axisEdgeWeight: 0.5;
+	axisEdgeWeight: 0;
 	addMorph: (LabelMorph contents:'quantity to add');
 	
 	addMorph: quantityTextBoxMorph;
@@ -276,18 +286,18 @@ build2ndRow
 	^secondRowLayoutMorph.
 	! !
 
-!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 6/28/2021 21:38:58'!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/1/2021 18:28:56'!
 build3rdColumn
 	| firstRowLayoutMorph showInTranscriptButtonMorph|
-	showInTranscriptButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #showWordInTranscript label: 'remove from cart'.	
-	wordsListMorph := PluggableListMorph model: self model listGetter: #words indexGetter: #wordsListIndex indexSetter: #wordsListIndex:.
-	wordsListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+	showInTranscriptButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #removeSelectedItemFromCart label: 'remove from cart'.	
+	cartListMorph := PluggableListMorph model: self model listGetter: #cartList indexGetter: #cartListIndex indexSetter: #cartListIndex:.
+	cartListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
 
 	firstRowLayoutMorph := LayoutMorph newColumn.
 	firstRowLayoutMorph separation: 25;
 	axisEdgeWeight: 0;
 	addMorph: (LabelMorph contents:'Cart list');
-	addMorph: wordsListMorph;
+	addMorph: cartListMorph;
 	addMorph: showInTranscriptButtonMorph.
 
 	
@@ -316,15 +326,15 @@ open
 	
 	^self new initializeWith: 'Words-Service Client Window'.! !
 
-!StoreClientWindow class methodsFor: 'instance creation' stamp: 'ET 6/28/2021 21:11:45'!
+!StoreClientWindow class methodsFor: 'instance creation' stamp: 'ET 7/1/2021 17:59:19'!
 openWith: cartID
-	
+
 	^self new initializeWith: cartID.! !
 
 
 !classDefinition: #LogInWindowModel category: 'TusLibros-Client'!
 Object subclass: #LogInWindowModel
-	instanceVariableNames: 'sentence words selectedIndex restInterface username password errorMessage'
+	instanceVariableNames: 'sentence words selectedIndex restInterface username password errorMessage acartID cartID'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Client'!
@@ -402,13 +412,18 @@ usernameText: aUsername
 	^true.! !
 
 
-!LogInWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 6/28/2021 20:50:22'!
+!LogInWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/1/2021 17:55:14'!
+cartID
+
+	^cartID.
+
+	! !
+
+!LogInWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/1/2021 17:54:41'!
 createCartRequest
-	|cartID|
 	
 	[cartID := restInterface createCartFor: username password: password.
-	self triggerEvent: #successfulLogIn with: self.
-	^cartID]
+	self triggerEvent: #successfulLogIn with: self.]
 	on: Error
 	do: [:anError | errorMessage := anError messageText.
 		self triggerEvent: #failedLogIn with: self.].
@@ -442,35 +457,46 @@ Object subclass: #StoreClientRestInterface
 	poolDictionaries: ''
 	category: 'TusLibros-Client'!
 
-!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 6/28/2021 22:04:49'!
-addItem: anItem toCart: cartID withQuantity: aQuantity
+!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/1/2021 17:43:23'!
+addToCart: cartID item: anItem quantity: aQuantity
 
 	| fieldDict resp |
 	fieldDict := Dictionary new.
+	fieldDict add: 'cartId'->cartID.	
+	fieldDict add: 'bookIsbn'->anItem.
+	fieldDict add: 'quantityIsbn'->aQuantity.
 	
-	resp:= WebClient htmlSubmit: (self url,'/createCart') fields: fieldDict.
+	resp:= WebClient htmlSubmit: (self url,'/addToCart') fields: fieldDict.
 	
 	resp isSuccess 
-		ifTrue:[^(WebUtils jsonDecode: ((resp content) readStream)) .] 
+		ifTrue:[
+			^(WebUtils jsonDecode: ((resp content) readStream)) .] 
+		
 		ifFalse:[^self error: resp content].! !
 
-!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 6/28/2021 21:45:06'!
+!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/1/2021 17:06:48'!
 catalog
 
+
 	| resp |
+	
 
 	resp:= WebClient htmlSubmit: (self url,'/catalog') fields: Dictionary new.
 	
-	resp isSuccess 
+	
+	
+	resp isSuccess
 		ifTrue:[^(WebUtils jsonDecode: ((resp content) readStream)) asOrderedCollection.] 
+		
 		ifFalse:[^self error: resp content].! !
 
-!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'NR 6/25/2019 22:25:36'!
+!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/1/2021 17:06:57'!
 correctlyEncodeSpacesForUrlRequestParameter: aParameter
+	
 	
 	^ aParameter copyReplaceAll: ' ' with: '%20'. ! !
 
-!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 6/28/2021 20:53:00'!
+!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/1/2021 17:45:23'!
 createCartFor: aUser password: aPassword
 
 	| fieldDict resp |
@@ -482,29 +508,66 @@ createCartFor: aUser password: aPassword
 	
 	resp isSuccess 
 		ifTrue:[^(WebUtils jsonDecode: ((resp content) readStream)) .] 
+		
 		ifFalse:[^self error: resp content].! !
 
-!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'NR 6/23/2021 07:54:44'!
+!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/1/2021 18:06:40'!
+listCart: cartID
+
+	| fieldDict resp |
+	fieldDict := Dictionary new.
+	fieldDict add: 'cartId'->cartID.	
+
+	
+	resp:= WebClient htmlSubmit: (self url,'/listCart') fields: fieldDict.
+	
+	resp isSuccess 
+		ifTrue:[
+			^(WebUtils jsonDecode: ((resp content) readStream)) .] 
+		
+		ifFalse:[^self error: resp content].! !
+
+!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/1/2021 18:36:53'!
+removeFromCart: aCartID AllItems: anItem
+
+	| fieldDict resp |
+	fieldDict := Dictionary new.
+	fieldDict add: 'cartId'->aCartID.	
+	fieldDict add: 'bookIsbn'->anItem.
+
+	
+	resp:= WebClient htmlSubmit: (self url,'/removeFromCart') fields: fieldDict.
+	
+	resp isSuccess 
+		ifTrue:[
+			^(WebUtils jsonDecode: ((resp content) readStream)) .] 
+		
+		ifFalse:[^self error: resp content].! !
+
+!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/1/2021 17:07:44'!
 sendRequest: sentence
+
 
 	| fieldDict resp urlEncodedSentence |
 
 	urlEncodedSentence := self correctlyEncodeSpacesForUrlRequestParameter: sentence.	
+	
 	fieldDict := Dictionary newFromPairs: {'sentence'. urlEncodedSentence.}.		
 	
 	resp:= WebClient htmlSubmit: (self url,'/words') fields: fieldDict.
 	
 	resp isSuccess 
 		ifTrue:[^(WebUtils jsonDecode: ((resp content) readStream)) asOrderedCollection .] 
+		
 		ifFalse:[^self error: resp content].! !
 
 
-!StoreClientRestInterface methodsFor: 'initialization' stamp: 'NR 6/25/2019 22:15:16'!
+!StoreClientRestInterface methodsFor: 'initialization' stamp: 'ET 7/1/2021 17:07:56'!
 port
 	
 	^port ifNil: [port:=8080].! !
 
-!StoreClientRestInterface methodsFor: 'initialization' stamp: 'NR 6/24/2019 06:52:37'!
+!StoreClientRestInterface methodsFor: 'initialization' stamp: 'ET 7/1/2021 17:08:00'!
 url
 	
 	^'http://localhost:', self port asString! !
@@ -512,10 +575,33 @@ url
 
 !classDefinition: #StoreClientWindowModel category: 'TusLibros-Client'!
 Object subclass: #StoreClientWindowModel
-	instanceVariableNames: 'sentence words selectedIndex restInterface items quantity cartID cartList'
+	instanceVariableNames: 'sentence words selectedIndex restInterface items quantity cartID cartList cartListIndex indexedCartList'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Client'!
+
+!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/1/2021 18:33:58'!
+cartList
+	|showList|
+	showList := OrderedCollection new.
+	indexedCartList := OrderedCollection new.
+	cartList asSet do: [:anItem | showList add: (anItem asString, ' | ', (cartList occurrencesOf: anItem) asString).
+				                  indexedCartList add: anItem].
+	
+	^showList.
+! !
+
+!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/1/2021 17:37:24'!
+cartListIndex
+	
+	^cartListIndex.! !
+
+!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/1/2021 17:37:44'!
+cartListIndex: anIndex
+	
+	cartListIndex := anIndex.
+	
+	^true.! !
 
 !StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 6/28/2021 21:42:20'!
 items
@@ -550,8 +636,10 @@ wordsListIndex: anIndex
 	selectedIndex := anIndex.! !
 
 
-!StoreClientWindowModel methodsFor: 'initialization' stamp: 'ET 6/28/2021 21:50:36'!
-initialize	
+!StoreClientWindowModel methodsFor: 'initialization' stamp: 'ET 6/28/2021 21:43:20'!
+initialize
+	items := OrderedCollection new.
+	
 	words := OrderedCollection new.
 	sentence := ''.
 	selectedIndex := 0.
@@ -559,8 +647,11 @@ initialize
 	
 	items := restInterface catalog.! !
 
-!StoreClientWindowModel methodsFor: 'initialization' stamp: 'ET 6/28/2021 21:59:51'!
-initializeWithCartID: aCartID	
+!StoreClientWindowModel methodsFor: 'initialization' stamp: 'ET 7/1/2021 18:22:30'!
+initializeWith: aCartID
+	cartID := aCartID.
+	items := OrderedCollection new.
+	cartList := OrderedCollection new.
 	words := OrderedCollection new.
 	sentence := ''.
 	selectedIndex := 0.
@@ -568,18 +659,21 @@ initializeWithCartID: aCartID
 	
 	items := restInterface catalog.
 	
-	cartID := aCartID! !
+	quantity := ''.
+	
+	cartListIndex := 0.! !
 
 
-!StoreClientWindowModel methodsFor: 'TextModelMorphSelectors' stamp: 'ET 6/28/2021 21:54:54'!
+!StoreClientWindowModel methodsFor: 'TextModelMorphSelectors' stamp: 'ET 7/1/2021 17:26:59'!
 quantityText
 
 	^quantity.! !
 
-!StoreClientWindowModel methodsFor: 'TextModelMorphSelectors' stamp: 'ET 6/28/2021 21:54:40'!
+!StoreClientWindowModel methodsFor: 'TextModelMorphSelectors' stamp: 'ET 7/1/2021 17:26:46'!
 quantityText: aQuantity
 
-	quantity  := aQuantity.
+	quantity := aQuantity.
+	
 	^true.! !
 
 !StoreClientWindowModel methodsFor: 'TextModelMorphSelectors' stamp: 'NR 6/25/2019 21:43:32'!
@@ -594,29 +688,56 @@ sentenceText: aSentence
 	^true.! !
 
 
-!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 6/28/2021 22:05:17'!
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/1/2021 18:49:16'!
 addItemToCart
+	|selectedItem |
 	
+	self itemsListIndex = 0 ifTrue: [^self].
+	"self assertQuantityIsPositiveInteger."
 	
-	restInterface addItem: self selectedItem toCart: cartID withQuantity: quantity.
+	selectedItem := (self items) at: self itemsListIndex.
+	
+	restInterface addToCart: cartID item: selectedItem quantity: quantity.
 	
 	cartList := restInterface listCart: cartID.
+		
+	self triggerEvent: #cartListChanged with: self.
+	"^cartID"
 	
-	self triggerEvent: #updateCartList with: self.
-
-
-	(selectedIndex = 0) ifFalse: 
-		[TranscriptWindow openTranscript.
-		Transcript clear.
-		Transcript show: 'The word selected is: '.
-		Transcript show: (words at: selectedIndex).
-		Transcript show: ' '.].
+	
+	
+	
 ! !
 
-!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 6/28/2021 22:02:30'!
-selectedItem
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/1/2021 18:48:10'!
+assertQuantityIsPositiveInteger
+	
+	(quantity allSatisfy: [:aDigit | aDigit isDigit]) ifFalse: ['no es numero'].
+	
+	quantity asNumber.
+	
+	
+! !
 
-	^items at: selectedIndex.
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/1/2021 18:36:06'!
+removeSelectedItemFromCart
+	|selectedItem |
+	
+	"self assertItemIsSelected."
+	"self assertQuantityIsPositiveInteger."
+	
+	selectedItem := indexedCartList at: self cartListIndex.
+	
+	restInterface removeFromCart: cartID AllItems: selectedItem.
+	
+	cartList := restInterface listCart: cartID.
+		
+	self triggerEvent: #cartListChanged with: self.
+	"^cartID"
+	
+	
+	
+	
 ! !
 
 !StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'NR 6/23/2021 07:56:07'!
@@ -644,7 +765,7 @@ showWordInTranscript
 StoreClientWindowModel class
 	instanceVariableNames: ''!
 
-!StoreClientWindowModel class methodsFor: 'as yet unclassified' stamp: 'ET 6/28/2021 21:59:26'!
-withCartID: cartID
+!StoreClientWindowModel class methodsFor: 'as yet unclassified' stamp: 'ET 7/1/2021 17:31:31'!
+with: aCartID
 
-	^self new initializeWithCartID: cartID.! !
+	^self new initializeWith: aCartID.! !

@@ -1247,7 +1247,7 @@ creditCardOfClient: aClientID
 	^userCreditCards at: aClientID.
 ! !
 
-!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/28/2021 21:44:32'!
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 7/1/2021 18:51:40'!
 initializeWith: aPortNumber
 	
 	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin')
@@ -1295,7 +1295,10 @@ initializeWith: aPortNumber
 		 ] 
 		on: Error
 		do: [ :anError |
-			request send400Response: (anError messageText) ]].
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
 	
 	webServer addService: '/removeFromCart' action:[:request | |answerAsJson cartID item  |
 		
@@ -1309,7 +1312,10 @@ initializeWith: aPortNumber
 		 ] 
 		on: Error
 		do: [ :anError |
-			request send400Response: (anError messageText) ]].
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
 	
 	webServer addService: '/catalog' action:[:request | |answerAsJson catalog  |
 		
@@ -1320,7 +1326,10 @@ initializeWith: aPortNumber
 		 ] 
 		on: Error
 		do: [ :anError |
-			request send400Response: (anError messageText) ]].
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
 	
 	webServer addService: '/listCart' action:[:request | |answerAsJson cartID  list|
 		
@@ -1333,7 +1342,10 @@ initializeWith: aPortNumber
 		 ] 
 		on: Error
 		do: [ :anError |
-			request send400Response: (anError messageText) ]].
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
 	
 	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID transactionID|
 		
@@ -1346,7 +1358,10 @@ initializeWith: aPortNumber
 		 ] 
 		on: Error
 		do: [ :anError |
-			request send400Response: (anError messageText) ]].
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
 	
 	
 	webServer addService: '/listPurchases' action:[:request | |cartIDAsJson client password list |
@@ -1361,7 +1376,10 @@ initializeWith: aPortNumber
 		 ] 
 		on: Error
 		do: [ :anError |
-			request send400Response: (anError messageText) ]].
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
 	
 	
 	
