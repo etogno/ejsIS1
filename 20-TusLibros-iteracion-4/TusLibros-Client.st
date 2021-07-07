@@ -1,15 +1,15 @@
 !classDefinition: #LogInWindow category: 'TusLibros-Client'!
 Panel subclass: #LogInWindow
-	instanceVariableNames: 'usernameTextBoxMorph passwordTextBoxMorph wordsListMorph errorMessageMorph'
+	instanceVariableNames: 'usernameTextBoxMorph passwordTextBoxMorph errorMessageMorph'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Client'!
 
-!LogInWindow methodsFor: 'initialization' stamp: 'ET 7/1/2021 17:57:45'!
+!LogInWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:39:42'!
 changeToStoreClientWindow
 	
 
-	StoreClientWindow openWith: self model cartID.
+	StoreClientWindow openWithCartID: self model cartID username: self model usernameText.
 	
 	self delete.! !
 
@@ -44,34 +44,6 @@ showFailedLogInError
 	! !
 
 
-!LogInWindow methodsFor: 'access' stamp: 'ET 6/28/2021 19:53:40'!
-refreshListOfWords
-	
-	wordsListMorph updateList.
-	wordsListMorph setSelectionIndex: 0.
-	! !
-
-
-!LogInWindow methodsFor: 'GUI building' stamp: 'ET 6/28/2021 19:53:40'!
-build1stColumn2ndRow
-	| firstColumnLayoutMorphOfSecondRow |
-	
-	wordsListMorph := PluggableListMorph model: self model listGetter: #words indexGetter: #wordsListIndex indexSetter: #wordsListIndex:.
-	wordsListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
-		
-	firstColumnLayoutMorphOfSecondRow := LayoutMorph newColumn.
-	firstColumnLayoutMorphOfSecondRow separation: 5; 
-	axisEdgeWeight: 0.5;
-	addMorph: (LabelMorph contents:'Results');
-	addMorph: wordsListMorph.
-	
-	"Dos opciones para jugar con los layouts... ¿Qué diferencia hay?"
-	firstColumnLayoutMorphOfSecondRow layoutSpec fixedWidth: 390.
-	"wordsListMorph layoutSpec proportionalWidth: 100.
-	wordsListMorph layoutSpec proportionalHeight: 100."
-		
-	^firstColumnLayoutMorphOfSecondRow.
-	! !
 
 !LogInWindow methodsFor: 'GUI building' stamp: 'ET 6/28/2021 20:17:22'!
 build1stRow
@@ -149,25 +121,25 @@ open
 
 !classDefinition: #StoreClientWindow category: 'TusLibros-Client'!
 Panel subclass: #StoreClientWindow
-	instanceVariableNames: 'sentenceTextBoxMorph wordsListMorph cartID quantityTextBoxMorph cartListMorph'
+	instanceVariableNames: 'sentenceTextBoxMorph catalogListMorph quantityTextBoxMorph cartListMorph'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Client'!
 
-!StoreClientWindow methodsFor: 'initialization' stamp: 'NR 6/22/2021 08:25:04'!
+!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 01:49:39'!
 defaultExtent
 
-	^ 1035@485
+	^ 1052@445
 	! !
 
-!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/1/2021 18:09:16'!
-initializeWith: aCartID
+!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:44:22'!
+initializeWithCartID: cartID username: anUsername.
 
 	self titleMorph showButtonsNamed: #( close collapse ).
 	
 	self setLabel: 'Store Client'.
 	
-	self model: (StoreClientWindowModel with: aCartID).
+	self model: (StoreClientWindowModel withCartID: cartID username: anUsername).
 	
 	self morphExtent: (self defaultExtent).
 
@@ -175,9 +147,35 @@ initializeWith: aCartID
 	self openInWorld.
 	self yourself.
 			
-	self model when: #cartListChanged send: #updateCartList to: self.! !
+	self model when: #cartListChanged send: #updateCartList to: self.
+	
+	self model when: #cartCheckedOut send: #showTicket to: self.
+	
+	self model when: #purchaseListRequested send: #showPurchaseList to: self.! !
 
-!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/1/2021 18:10:28'!
+
+!StoreClientWindow methodsFor: 'access' stamp: 'ET 7/7/2021 02:46:52'!
+showPurchaseList
+
+	PurchaseListWindow 
+		openWithUser: self model user
+		purchaseList: self model purchases.
+	
+	
+	self delete.! !
+
+!StoreClientWindow methodsFor: 'access' stamp: 'ET 7/7/2021 02:36:28'!
+showTicket
+
+	TicketWindow 
+		openWithCartID: self model cartID
+		ticket: self model ticket
+		user: self model user.
+	
+	
+	self delete.! !
+
+!StoreClientWindow methodsFor: 'access' stamp: 'ET 7/1/2021 18:10:28'!
 updateCartList
 
 	cartListMorph updateList.
@@ -185,135 +183,102 @@ updateCartList
 	cartListMorph setSelectionIndex: 0.! !
 
 
-!StoreClientWindow methodsFor: 'access' stamp: 'NR 6/23/2021 06:58:02'!
-refreshListOfWords
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:33:36'!
+build1stColumn1stRow
+
+	| colLayoutMorph |
 	
-	wordsListMorph updateList.
-	wordsListMorph setSelectionIndex: 0.
-	! !
-
-
-!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 6/28/2021 21:42:04'!
-build1stColumn
-	| firstRowLayoutMorph |
 	
-	wordsListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
-	wordsListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+	catalogListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
+	catalogListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
 
-	firstRowLayoutMorph := LayoutMorph newColumn.
-	firstRowLayoutMorph separation: 25;
+	colLayoutMorph := LayoutMorph newColumn.
+	colLayoutMorph separation: 25;
 	axisEdgeWeight: 0;
 	addMorph: (LabelMorph contents:'Catalog');
-	addMorph: wordsListMorph.
+	addMorph: catalogListMorph.
 
 	
-	^firstRowLayoutMorph.! !
+	^colLayoutMorph.! !
 
-!StoreClientWindow methodsFor: 'GUI building' stamp: 'NR 6/28/2021 19:01:09'!
-build1stColumn2ndRow
-	| firstColumnLayoutMorphOfSecondRow |
-	
-	wordsListMorph := PluggableListMorph model: self model listGetter: #words indexGetter: #wordsListIndex indexSetter: #wordsListIndex:.
-	wordsListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
-		
-	firstColumnLayoutMorphOfSecondRow := LayoutMorph newColumn.
-	firstColumnLayoutMorphOfSecondRow separation: 5; 
-	axisEdgeWeight: 0.5;
-	addMorph: (LabelMorph contents:'Results');
-	addMorph: wordsListMorph.
-	
-	"Dos opciones para jugar con los layouts... ¿Qué diferencia hay?"
-	firstColumnLayoutMorphOfSecondRow layoutSpec fixedWidth: 390.
-	"wordsListMorph layoutSpec proportionalWidth: 100.
-	wordsListMorph layoutSpec proportionalHeight: 100."
-		
-	^firstColumnLayoutMorphOfSecondRow.
-	! !
-
-!StoreClientWindow methodsFor: 'GUI building' stamp: 'NR 6/28/2021 18:34:12'!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:35:22'!
 build1stRow
-	| sendRequestButtonMorph firstRowLayoutMorph |
-	
-	sendRequestButtonMorph := PluggableButtonMorph model: self model stateGetter: nil action: #sendWordsFromSentenceRequest  label: 'Send Request To Server'.
-	
-	sentenceTextBoxMorph := TextModelMorph textProvider: self model textGetter: #sentenceText textSetter: #sentenceText:. 
-	sentenceTextBoxMorph textMorph setProperty: #keyStroke: toValue: [ :key | sentenceTextBoxMorph textMorph acceptContents ] .
-	sentenceTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 300. 
-		
-	firstRowLayoutMorph := LayoutMorph newRow.
-	firstRowLayoutMorph separation: 25;
-	axisEdgeWeight: 0.5;
-	addMorph: (LabelMorph contents:'Enter sentence:');
-	addMorph: sentenceTextBoxMorph;
- 	addMorph: sendRequestButtonMorph.
-	
-	^firstRowLayoutMorph.! !
 
-!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/1/2021 18:56:46'!
-build2ndColumn
-	| showInTranscriptButtonMorph secondRowLayoutMorph |
+	| rowLayoutMorph |
+
+	rowLayoutMorph := LayoutMorph newRow.
+	rowLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: self build1stColumn1stRow;
+	addMorph: self build2ndColumn1stRow;
+	addMorph: self build3rdColumn1stRow.
 	
-	showInTranscriptButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #addItemToCart label: 'add to cart'.		
+	^rowLayoutMorph.! !
+
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:33:49'!
+build2ndColumn1stRow
+	| addToCartButtonMorph colLayoutMorph |
+	
+	addToCartButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #addItemToCart label: 'add to cart'.		
 	quantityTextBoxMorph := TextModelMorph textProvider: self model textGetter: #quantityText textSetter: #quantityText:. 
 	quantityTextBoxMorph textMorph setProperty: #keyStroke: toValue: [ :key | quantityTextBoxMorph textMorph acceptContents ] .
 	quantityTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 100; morphHeight: 10.
 	
 	
-	secondRowLayoutMorph := LayoutMorph newColumn.
-	secondRowLayoutMorph separation: 25;
+	colLayoutMorph := LayoutMorph newColumn.
+	colLayoutMorph separation: 25;
 	axisEdgeWeight: 0;
 	addMorph: (LabelMorph contents:'quantity to add');
 	
 	addMorph: quantityTextBoxMorph;
 	
-	addMorph: showInTranscriptButtonMorph.
+	addMorph: addToCartButtonMorph.
 	
-	^secondRowLayoutMorph.
+	^colLayoutMorph.
 	! !
 
-!StoreClientWindow methodsFor: 'GUI building' stamp: 'NR 6/23/2021 06:37:31'!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:45:46'!
 build2ndRow
-	| showInTranscriptButtonMorph secondRowLayoutMorph |
-	
-	showInTranscriptButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #showWordInTranscript label: 'Show Selected Word In Transcript'.	
-	
-	secondRowLayoutMorph := LayoutMorph newRow.
-	secondRowLayoutMorph separation: 25;
-	axisEdgeWeight: 0.5;
-	addMorph: self build1stColumn2ndRow;
-	addMorph: showInTranscriptButtonMorph.
-	
-	^secondRowLayoutMorph.
-	! !
 
-!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/1/2021 18:28:56'!
-build3rdColumn
-	| firstRowLayoutMorph showInTranscriptButtonMorph|
-	showInTranscriptButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #removeSelectedItemFromCart label: 'remove from cart'.	
+	| rowLayoutMorph checkOutButtonMorph listPurchasesButtonMorph |
+	checkOutButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #checkOutCartItems label: 'Check out'.	
+	listPurchasesButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #listPurchases label: 'List purchases'.	
+
+	rowLayoutMorph := LayoutMorph newRow.
+	rowLayoutMorph separation: 50@0;
+	axisEdgeWeight: 0.5;
+	addMorph: checkOutButtonMorph;
+	addMorph: listPurchasesButtonMorph.
+
+	
+	^rowLayoutMorph.! !
+
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:33:56'!
+build3rdColumn1stRow
+	| colLayoutMorph removeFromCartButtonMorph|
+	removeFromCartButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #removeSelectedItemFromCart label: 'remove from cart'.	
 	cartListMorph := PluggableListMorph model: self model listGetter: #cartList indexGetter: #cartListIndex indexSetter: #cartListIndex:.
 	cartListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
 
-	firstRowLayoutMorph := LayoutMorph newColumn.
-	firstRowLayoutMorph separation: 25;
+	colLayoutMorph := LayoutMorph newColumn.
+	colLayoutMorph separation: 25;
 	axisEdgeWeight: 0;
 	addMorph: (LabelMorph contents:'Cart list');
 	addMorph: cartListMorph;
-	addMorph: showInTranscriptButtonMorph.
+	addMorph: removeFromCartButtonMorph.
 
 	
-	^firstRowLayoutMorph.! !
+	^colLayoutMorph.! !
 
-!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 6/28/2021 21:34:24'!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 02:12:48'!
 buildMorphicWindow
 		
-	self layoutMorph beRow;
-	separation: 15;
+	self layoutMorph beColumn;
+	separation: 25;
 	axisEdgeWeight: 0;
-	addMorph: self build1stColumn;
-	addMorph: self build2ndColumn;
+	addMorph: self build1stRow;
 	
-	addMorph: self build3rdColumn.
-	! !
+	addMorph: self build2ndRow.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -321,49 +286,23 @@ buildMorphicWindow
 StoreClientWindow class
 	instanceVariableNames: ''!
 
-!StoreClientWindow class methodsFor: 'instance creation' stamp: 'NR 6/23/2021 06:32:18'!
-open
-	
-	^self new initializeWith: 'Words-Service Client Window'.! !
+!StoreClientWindow class methodsFor: 'instance creation' stamp: 'ET 7/7/2021 02:37:27'!
+openWithCartID: cartID username: anUsername
 
-!StoreClientWindow class methodsFor: 'instance creation' stamp: 'ET 7/1/2021 17:59:19'!
-openWith: cartID
-
-	^self new initializeWith: cartID.! !
+	^self new initializeWithCartID: cartID username: anUsername.! !
 
 
 !classDefinition: #LogInWindowModel category: 'TusLibros-Client'!
 Object subclass: #LogInWindowModel
-	instanceVariableNames: 'sentence words selectedIndex restInterface username password errorMessage acartID cartID'
+	instanceVariableNames: 'restInterface username password errorMessage cartID'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Client'!
 
-!LogInWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 6/28/2021 20:31:13'!
-words
-	
-	^words.
-! !
-
-!LogInWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 6/28/2021 20:31:13'!
-wordsListIndex
-	
-	^selectedIndex.! !
-
-!LogInWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 6/28/2021 20:31:13'!
-wordsListIndex: anIndex
-	
-	selectedIndex := anIndex.! !
-
-
-!LogInWindowModel methodsFor: 'initialization' stamp: 'ET 6/28/2021 20:33:07'!
+!LogInWindowModel methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:06:43'!
 initialize
 
-	words := OrderedCollection new.
-	sentence := ''.
-	selectedIndex := 0.
 	restInterface := StoreClientRestInterface new.
-	
 	
 	username := ''.
 	
@@ -386,17 +325,6 @@ passwordText: aPassword
 	
 	password := aPassword.
 	
-	^true.! !
-
-!LogInWindowModel methodsFor: 'TextModelMorphSelectors' stamp: 'ET 6/28/2021 20:31:13'!
-sentenceText
-	
-	^sentence.! !
-
-!LogInWindowModel methodsFor: 'TextModelMorphSelectors' stamp: 'ET 6/28/2021 20:31:13'!
-sentenceText: aSentence
-
-	sentence := aSentence.
 	^true.! !
 
 !LogInWindowModel methodsFor: 'TextModelMorphSelectors' stamp: 'ET 6/28/2021 20:33:29'!
@@ -430,24 +358,13 @@ createCartRequest
 
 	! !
 
-!LogInWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 6/28/2021 20:31:14'!
-sendWordsFromSentenceRequest
-		
-	words := restInterface sendRequest: sentence.
-	
-	self triggerEvent: #newWordsArrived with: self.
-	! !
-
-!LogInWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 6/28/2021 20:31:14'!
-showWordInTranscript
-	
-	(selectedIndex = 0) ifFalse: 
-		[TranscriptWindow openTranscript.
-		Transcript clear.
-		Transcript show: 'The word selected is: '.
-		Transcript show: (words at: selectedIndex).
-		Transcript show: ' '.].
-! !
+
+!classDefinition: #PurchaseListWindow category: 'TusLibros-Client'!
+Object subclass: #PurchaseListWindow
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!
 
 
 !classDefinition: #StoreClientRestInterface category: 'TusLibros-Client'!
@@ -487,6 +404,22 @@ catalog
 	
 	resp isSuccess
 		ifTrue:[^(WebUtils jsonDecode: ((resp content) readStream)) asOrderedCollection.] 
+		
+		ifFalse:[^self error: resp content].! !
+
+!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/7/2021 02:14:20'!
+checkOutCart: cartID
+
+	| fieldDict resp |
+	fieldDict := Dictionary new.
+	fieldDict add: 'cartId'->cartID.	
+
+	
+	resp:= WebClient htmlSubmit: (self url,'/checkOutCart') fields: fieldDict.
+	
+	resp isSuccess 
+		ifTrue:[
+			^(WebUtils jsonDecode: ((resp content) readStream)) .] 
 		
 		ifFalse:[^self error: resp content].! !
 
@@ -561,6 +494,22 @@ sendRequest: sentence
 		
 		ifFalse:[^self error: resp content].! !
 
+!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/7/2021 02:16:25'!
+ticketOfTransaction: ticketID
+
+	| fieldDict resp |
+	fieldDict := Dictionary new.
+	fieldDict add: 'transactionId'-> ticketID.	
+
+	
+	resp:= WebClient htmlSubmit: (self url,'/transaction') fields: fieldDict.
+	
+	resp isSuccess 
+		ifTrue:[
+			^(WebUtils jsonDecode: ((resp content) readStream)) .] 
+		
+		ifFalse:[^self error: resp content].! !
+
 
 !StoreClientRestInterface methodsFor: 'initialization' stamp: 'ET 7/1/2021 17:07:56'!
 port
@@ -575,7 +524,7 @@ url
 
 !classDefinition: #StoreClientWindowModel category: 'TusLibros-Client'!
 Object subclass: #StoreClientWindowModel
-	instanceVariableNames: 'sentence words selectedIndex restInterface items quantity cartID cartList cartListIndex indexedCartList'
+	instanceVariableNames: 'selectedIndex restInterface items quantity cartID cartList cartListIndex indexedCartList ticket user purchases'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Client'!
@@ -619,41 +568,32 @@ itemsListIndex: anIndex
 	
 	selectedIndex := anIndex.! !
 
-!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'NR 6/23/2021 06:56:13'!
-words
-	
-	^words.
+!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 02:46:37'!
+purchases
+
+	^purchases.
 ! !
 
-!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'NR 6/23/2021 06:56:37'!
-wordsListIndex
-	
-	^selectedIndex.! !
+!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 02:40:26'!
+ticket
 
-!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'NR 6/23/2021 06:56:49'!
-wordsListIndex: anIndex
-	
-	selectedIndex := anIndex.! !
+	^ticket.
+! !
+
+!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 02:40:20'!
+user
+
+	^user.
+! !
 
 
-!StoreClientWindowModel methodsFor: 'initialization' stamp: 'ET 6/28/2021 21:43:20'!
-initialize
-	items := OrderedCollection new.
-	
-	words := OrderedCollection new.
-	sentence := ''.
-	selectedIndex := 0.
-	restInterface := StoreClientRestInterface new.
-	
-	items := restInterface catalog.! !
+!StoreClientWindowModel methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:42:24'!
+initializeWithCartID: aCartID username: anUsername
 
-!StoreClientWindowModel methodsFor: 'initialization' stamp: 'ET 7/1/2021 18:22:30'!
-initializeWith: aCartID
 	cartID := aCartID.
 	items := OrderedCollection new.
 	cartList := OrderedCollection new.
-	words := OrderedCollection new.
-	sentence := ''.
+	user := anUsername.
 	selectedIndex := 0.
 	restInterface := StoreClientRestInterface new.
 	
@@ -674,17 +614,6 @@ quantityText: aQuantity
 
 	quantity := aQuantity.
 	
-	^true.! !
-
-!StoreClientWindowModel methodsFor: 'TextModelMorphSelectors' stamp: 'NR 6/25/2019 21:43:32'!
-sentenceText
-	
-	^sentence.! !
-
-!StoreClientWindowModel methodsFor: 'TextModelMorphSelectors' stamp: 'NR 6/23/2021 07:08:56'!
-sentenceText: aSentence
-
-	sentence := aSentence.
 	^true.! !
 
 
@@ -719,6 +648,33 @@ assertQuantityIsPositiveInteger
 	
 ! !
 
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 02:11:14'!
+checkOutCartItems
+	|ticketID|
+
+	ticketID := restInterface checkOutCart: cartID.
+	
+	ticket := restInterface ticketOfTransaction: ticketID.
+		
+	self triggerEvent: #cartCheckedOut with: self.
+	
+	
+	
+	
+! !
+
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 02:12:00'!
+listPurchases
+
+	purchases := restInterface listPurchasesOf: user.
+		
+	self triggerEvent: #purchaseListRequested with: self.
+	
+	
+	
+	
+! !
+
 !StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/1/2021 18:36:06'!
 removeSelectedItemFromCart
 	|selectedItem |
@@ -740,32 +696,21 @@ removeSelectedItemFromCart
 	
 ! !
 
-!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'NR 6/23/2021 07:56:07'!
-sendWordsFromSentenceRequest
-		
-	words := restInterface sendRequest: sentence.
-	
-	self triggerEvent: #newWordsArrived with: self.
-	! !
-
-!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'NR 6/23/2021 06:51:02'!
-showWordInTranscript
-	
-	(selectedIndex = 0) ifFalse: 
-		[TranscriptWindow openTranscript.
-		Transcript clear.
-		Transcript show: 'The word selected is: '.
-		Transcript show: (words at: selectedIndex).
-		Transcript show: ' '.].
-! !
-
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'StoreClientWindowModel class' category: 'TusLibros-Client'!
 StoreClientWindowModel class
 	instanceVariableNames: ''!
 
-!StoreClientWindowModel class methodsFor: 'as yet unclassified' stamp: 'ET 7/1/2021 17:31:31'!
-with: aCartID
+!StoreClientWindowModel class methodsFor: 'as yet unclassified' stamp: 'ET 7/7/2021 02:43:07'!
+withCartID: aCartID username: anUsername
 
-	^self new initializeWith: aCartID.! !
+	^self new initializeWithCartID: aCartID username: anUsername.! !
+
+
+!classDefinition: #TicketWindow category: 'TusLibros-Client'!
+Object subclass: #TicketWindow
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!

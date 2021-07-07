@@ -602,6 +602,22 @@ test17
 	
 	self assert: cartList isEmpty.! !
 
+!StoreTest methodsFor: 'tests' stamp: 'ET 7/7/2021 02:31:55'!
+test18
+
+	| store cartID transactionID sale|
+	store := self store.
+	cartID := self createValidCartIn: store.	
+	
+	store addToCart: cartID item: testObjects itemSellByTheStore quantity: 1.
+	transactionID := store checkoutCart: cartID creditCard: testObjects validCreditCard.
+	
+	sale := store transaction: transactionID.
+
+	self assert: 1 equals: sale items size.
+	self assert: testObjects itemInStorePrice equals: sale totalAmount.
+	self assert: self validUserID equals: sale userID.! !
+
 
 !StoreTest methodsFor: 'support' stamp: 'JA 6/23/2021 09:45:12'!
 clockSimulator
@@ -1010,9 +1026,9 @@ userID: aUserID
 	userID := aUserID.! !
 
 
-!Sales methodsFor: 'list' stamp: 'ET 6/24/2021 02:03:44'!
+!Sales methodsFor: 'list' stamp: 'ET 7/7/2021 02:18:32'!
 items
-	^items! !
+	^items copy.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1178,6 +1194,12 @@ removeFromCart: cartID allItems: anItem
 	
 	(carts at: cartID) removeAll: anItem.! !
 
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 7/7/2021 02:31:30'!
+transaction: transactionID
+
+	^salesBook at: transactionID.
+	! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Store class' category: 'TusLibros'!
@@ -1247,7 +1269,7 @@ creditCardOfClient: aClientID
 	^userCreditCards at: aClientID.
 ! !
 
-!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 7/1/2021 18:51:40'!
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:22:28'!
 initializeWith: aPortNumber
 	
 	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin')
@@ -1362,6 +1384,26 @@ initializeWith: aPortNumber
 		content: anError messageText asUtf8
 		type: 'text/html; charset=utf-8'
 		close: true. ]].
+
+	webServer addService: '/transaction' action:[:request | |answerAsJson transactionID transaction ticket|
+		
+		[transactionID := (request fields at:'transactionId') asNumber.
+
+		transaction := store transaction: transactionID.
+		
+		ticket := transaction items.
+		
+		ticket addFirst: transaction amount.
+		
+		answerAsJson:= WebUtils jsonEncode: (ticket asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
 	
 	
 	webServer addService: '/listPurchases' action:[:request | |cartIDAsJson client password list |
@@ -1381,63 +1423,6 @@ initializeWith: aPortNumber
 		type: 'text/html; charset=utf-8'
 		close: true. ]].
 	
-	
-	
-	
-	
-	
-	
-	stringGenius := StringGenius new.
-	
-	webServer := WebServer new listenOn: self port.
-	
-	webServer addService: '/quote' action:[:request |	
-		
-		request send200Response: (self sayRandomQuote)].
-	
-	webServer addService: '/words' action:[:request | |wordsAsJson sentence words |
-		
-		[sentence := (request fields at:'sentence').
-		words := stringGenius words: sentence.
-		wordsAsJson:= WebUtils jsonEncode: (words).
-		request send200Response: (wordsAsJson)
-		 ] 
-		on: Error 
-		do: [ :anError |
-			request send400Response: (anError messageText) ]].
-	
-	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
-		
-		[word := (request fields at:'sentence').
-		letter := stringGenius firstLetter: word.
-		letterAsJson:= WebUtils jsonEncode: (letter asString).
-		request send200Response: (letterAsJson)
-		 ] 
-		on: Error 
-		do: [ :anError |
-			request send400Response: (anError messageText) ]].
-	
-	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
-		
-		[word := (request fields at:'sentence').
-		vowels := stringGenius vowels: word.
-		vowelsAsJson:= WebUtils jsonEncode: (vowels).
-		request send200Response: (vowelsAsJson)
-		 ] 
-		on: Error 
-		do: [ :anError |
-			request send400Response: (anError messageText) ]].
-	
-	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
-		
-		[word := (request fields at:'sentence').
-		upperCasedWord := stringGenius toUppercase: word.
-		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
-		request send200Response: (upperCasedWordAsJson)
-		 ] 
-		on: Error 
-		do:  [ :anError | request 
-			request send400Response: (anError messageText)]].
 ! !
 
 !StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/24/2021 21:08:29'!
@@ -1448,23 +1433,6 @@ port
 	
 	^port ifNil: [port:=8080].
 	
-	! !
-
-
-!StoreRestInterface methodsFor: 'private' stamp: 'ET 6/24/2021 21:08:30'!
-quoteList
-	
-	^OrderedCollection with: 'You should have gone for the head' with: 'I Love you 3000!!' with: 'I am Groot!!' with: 'For All Time, Allways' with: 'I am inevitable...' with: 'Because Im Baaaatman!!'
-	
-	! !
-
-!StoreRestInterface methodsFor: 'private' stamp: 'ET 6/24/2021 21:08:30'!
-sayRandomQuote
-	| quotes |
-	
-	quotes := self quoteList.
-	
-	^quotes at: (quotes size atRandom).
 	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!

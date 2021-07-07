@@ -42631,3 +42631,2895 @@ build2ndColumn
 	! !
 
 ----SNAPSHOT----(1 July 2021 18:57:33) CuisUniversity-4532.image priorSource: 25942038!
+
+server := StoreRestInterface listeningOn: 8080.!
+
+LogInWindow open!
+
+!methodRemoval: StoreRestInterface #quoteList stamp: 'ET 7/7/2021 01:09:26'!
+quoteList
+	
+	^OrderedCollection with: 'You should have gone for the head' with: 'I Love you 3000!!' with: 'I am Groot!!' with: 'For All Time, Allways' with: 'I am inevitable...' with: 'Because Im Baaaatman!!'
+	
+	!
+
+!methodRemoval: StoreRestInterface #sayRandomQuote stamp: 'ET 7/7/2021 01:09:33'!
+sayRandomQuote
+	| quotes |
+	
+	quotes := self quoteList.
+	
+	^quotes at: (quotes size atRandom).
+	!
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 7/7/2021 01:10:40' prior: 50908708!
+initializeWith: aPortNumber
+	
+	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin')
+	clock: GregorianDateTime 
+	priceList: (Dictionary with: 'validBook'->10)
+	merchantProcessor: MerchantProcessorSimulator new.
+	
+	userCreditCards := Dictionary with: 'admin'-> (CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current next).
+	
+	userCarts := Dictionary new.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/createCart' action:[:request | |cartIDAsJson client password cartID |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		cartID := store createCartFor: client authenticatedWith: password.
+		
+		userCarts add: cartID->client.
+		
+		cartIDAsJson:= WebUtils jsonEncode: (cartID).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/addToCart' action:[:request | |answerAsJson cartID item quantity |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		quantity := (request fields at: 'quantityIsbn') asNumber.
+		
+		store addToCart: cartID item: item quantity: quantity.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/removeFromCart' action:[:request | |answerAsJson cartID item  |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		
+		store removeFromCart: cartID allItems: item.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/catalog' action:[:request | |answerAsJson catalog  |
+		
+		[catalog := store itemCatalog.
+		
+		answerAsJson:= WebUtils jsonEncode: (catalog asArray).
+		request send200Response: (answerAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/listCart' action:[:request | |answerAsJson cartID  list|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		
+		list := store listCart: cartID.
+		
+		answerAsJson:= WebUtils jsonEncode: (list asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID transactionID|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+
+		transactionID := store checkoutCart: cartID creditCard:  (self creditCardOfClient: (userCarts at: cartID)).
+		
+		answerAsJson:= WebUtils jsonEncode: (transactionID).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	
+	webServer addService: '/listPurchases' action:[:request | |cartIDAsJson client password list |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		list := store listPurchasesOf:  client password: password.
+
+		cartIDAsJson:= WebUtils jsonEncode: (Array with: list list with: list totalAmount).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+! !
+
+!methodRemoval: LogInWindow #build1stColumn2ndRow stamp: 'ET 7/7/2021 01:11:35'!
+build1stColumn2ndRow
+	| firstColumnLayoutMorphOfSecondRow |
+	
+	wordsListMorph := PluggableListMorph model: self model listGetter: #words indexGetter: #wordsListIndex indexSetter: #wordsListIndex:.
+	wordsListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+		
+	firstColumnLayoutMorphOfSecondRow := LayoutMorph newColumn.
+	firstColumnLayoutMorphOfSecondRow separation: 5; 
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Results');
+	addMorph: wordsListMorph.
+	
+	"Dos opciones para jugar con los layouts... ¿Qué diferencia hay?"
+	firstColumnLayoutMorphOfSecondRow layoutSpec fixedWidth: 390.
+	"wordsListMorph layoutSpec proportionalWidth: 100.
+	wordsListMorph layoutSpec proportionalHeight: 100."
+		
+	^firstColumnLayoutMorphOfSecondRow.
+	!
+
+!methodRemoval: LogInWindowModel #sendWordsFromSentenceRequest stamp: 'ET 7/7/2021 01:12:03'!
+sendWordsFromSentenceRequest
+		
+	words := restInterface sendRequest: sentence.
+	
+	self triggerEvent: #newWordsArrived with: self.
+	!
+
+!methodRemoval: LogInWindowModel #sentenceText stamp: 'ET 7/7/2021 01:12:07'!
+sentenceText
+	
+	^sentence.!
+
+!methodRemoval: LogInWindowModel #sentenceText: stamp: 'ET 7/7/2021 01:12:10'!
+sentenceText: aSentence
+
+	sentence := aSentence.
+	^true.!
+
+!methodRemoval: LogInWindowModel #showWordInTranscript stamp: 'ET 7/7/2021 01:12:14'!
+showWordInTranscript
+	
+	(selectedIndex = 0) ifFalse: 
+		[TranscriptWindow openTranscript.
+		Transcript clear.
+		Transcript show: 'The word selected is: '.
+		Transcript show: (words at: selectedIndex).
+		Transcript show: ' '.].
+!
+
+!methodRemoval: LogInWindowModel #words stamp: 'ET 7/7/2021 01:12:21'!
+words
+	
+	^words.
+!
+
+!methodRemoval: LogInWindowModel #wordsListIndex stamp: 'ET 7/7/2021 01:12:24'!
+wordsListIndex
+	
+	^selectedIndex.!
+
+!methodRemoval: LogInWindowModel #wordsListIndex: stamp: 'ET 7/7/2021 01:12:28'!
+wordsListIndex: anIndex
+	
+	selectedIndex := anIndex.!
+
+!methodRemoval: StoreClientWindow #build1stColumn2ndRow stamp: 'ET 7/7/2021 01:13:00'!
+build1stColumn2ndRow
+	| firstColumnLayoutMorphOfSecondRow |
+	
+	wordsListMorph := PluggableListMorph model: self model listGetter: #words indexGetter: #wordsListIndex indexSetter: #wordsListIndex:.
+	wordsListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+		
+	firstColumnLayoutMorphOfSecondRow := LayoutMorph newColumn.
+	firstColumnLayoutMorphOfSecondRow separation: 5; 
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Results');
+	addMorph: wordsListMorph.
+	
+	"Dos opciones para jugar con los layouts... ¿Qué diferencia hay?"
+	firstColumnLayoutMorphOfSecondRow layoutSpec fixedWidth: 390.
+	"wordsListMorph layoutSpec proportionalWidth: 100.
+	wordsListMorph layoutSpec proportionalHeight: 100."
+		
+	^firstColumnLayoutMorphOfSecondRow.
+	!
+
+!methodRemoval: StoreClientWindow #build1stRow stamp: 'ET 7/7/2021 01:13:06'!
+build1stRow
+	| sendRequestButtonMorph firstRowLayoutMorph |
+	
+	sendRequestButtonMorph := PluggableButtonMorph model: self model stateGetter: nil action: #sendWordsFromSentenceRequest  label: 'Send Request To Server'.
+	
+	sentenceTextBoxMorph := TextModelMorph textProvider: self model textGetter: #sentenceText textSetter: #sentenceText:. 
+	sentenceTextBoxMorph textMorph setProperty: #keyStroke: toValue: [ :key | sentenceTextBoxMorph textMorph acceptContents ] .
+	sentenceTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 300. 
+		
+	firstRowLayoutMorph := LayoutMorph newRow.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	addMorph: (LabelMorph contents:'Enter sentence:');
+	addMorph: sentenceTextBoxMorph;
+ 	addMorph: sendRequestButtonMorph.
+	
+	^firstRowLayoutMorph.!
+
+!methodRemoval: StoreClientWindow #build2ndRow stamp: 'ET 7/7/2021 01:13:10'!
+build2ndRow
+	| showInTranscriptButtonMorph secondRowLayoutMorph |
+	
+	showInTranscriptButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #showWordInTranscript label: 'Show Selected Word In Transcript'.	
+	
+	secondRowLayoutMorph := LayoutMorph newRow.
+	secondRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0.5;
+	addMorph: self build1stColumn2ndRow;
+	addMorph: showInTranscriptButtonMorph.
+	
+	^secondRowLayoutMorph.
+	!
+
+!methodRemoval: StoreClientWindow #refreshListOfWords stamp: 'ET 7/7/2021 01:13:52'!
+refreshListOfWords
+	
+	wordsListMorph updateList.
+	wordsListMorph setSelectionIndex: 0.
+	!
+
+!methodRemoval: StoreClientWindowModel #words stamp: 'ET 7/7/2021 01:14:04'!
+words
+	
+	^words.
+!
+
+!methodRemoval: StoreClientWindowModel #wordsListIndex stamp: 'ET 7/7/2021 01:14:07'!
+wordsListIndex
+	
+	^selectedIndex.!
+
+!methodRemoval: StoreClientWindowModel #wordsListIndex: stamp: 'ET 7/7/2021 01:14:10'!
+wordsListIndex: anIndex
+	
+	selectedIndex := anIndex.!
+
+!methodRemoval: StoreClientWindowModel #sentenceText stamp: 'ET 7/7/2021 01:14:27'!
+sentenceText
+	
+	^sentence.!
+
+!methodRemoval: StoreClientWindowModel #sentenceText: stamp: 'ET 7/7/2021 01:14:30'!
+sentenceText: aSentence
+
+	sentence := aSentence.
+	^true.!
+
+!methodRemoval: StoreClientWindowModel #showWordInTranscript stamp: 'ET 7/7/2021 01:14:54'!
+showWordInTranscript
+	
+	(selectedIndex = 0) ifFalse: 
+		[TranscriptWindow openTranscript.
+		Transcript clear.
+		Transcript show: 'The word selected is: '.
+		Transcript show: (words at: selectedIndex).
+		Transcript show: ' '.].
+!
+
+!methodRemoval: StoreClientWindowModel #sendWordsFromSentenceRequest stamp: 'ET 7/7/2021 01:14:58'!
+sendWordsFromSentenceRequest
+		
+	words := restInterface sendRequest: sentence.
+	
+	self triggerEvent: #newWordsArrived with: self.
+	!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:22:52' prior: 50909185!
+build1stColumn
+
+	| firstRowLayoutMorph |
+	
+	
+	wordsListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
+	wordsListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	firstRowLayoutMorph := LayoutMorph newColumn.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Catalog');
+	addMorph: wordsListMorph.
+
+	
+	^firstRowLayoutMorph.! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:23:09'!
+build1stRow
+
+	| firstRowLayoutMorph |
+	
+	
+	wordsListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
+	wordsListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	firstRowLayoutMorph := LayoutMorph newColumn.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Catalog');
+	addMorph: wordsListMorph.
+
+	
+	^firstRowLayoutMorph.! !
+
+Panel subclass: #LogInWindow
+	instanceVariableNames: 'usernameTextBoxMorph passwordTextBoxMorph errorMessageMorph'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!
+
+!classDefinition: #LogInWindow category: 'TusLibros-Client' stamp: 'ET 7/7/2021 01:24:05'!
+Panel subclass: #LogInWindow
+	instanceVariableNames: 'usernameTextBoxMorph passwordTextBoxMorph errorMessageMorph'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!
+
+Panel subclass: #StoreClientWindow
+	instanceVariableNames: 'sentenceTextBoxMorph wordsListMorph quantityTextBoxMorph cartListMorph'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!
+
+!classDefinition: #StoreClientWindow category: 'TusLibros-Client' stamp: 'ET 7/7/2021 01:24:39'!
+Panel subclass: #StoreClientWindow
+	instanceVariableNames: 'sentenceTextBoxMorph wordsListMorph quantityTextBoxMorph cartListMorph'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!
+
+!classDefinition: #StoreClientWindow category: 'TusLibros-Client' stamp: 'ET 7/7/2021 01:25:16'!
+Panel subclass: #StoreClientWindow
+	instanceVariableNames: 'sentenceTextBoxMorph catalogListMorph quantityTextBoxMorph cartListMorph'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!
+!StoreClientWindow methodsFor: 'as yet unclassified' stamp: 'ET 7/7/2021 01:25:16' prior: 50910278!
+build1stRow
+
+	| firstRowLayoutMorph |
+	
+	
+	catalogListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
+	catalogListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	firstRowLayoutMorph := LayoutMorph newColumn.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Catalog');
+	addMorph: catalogListMorph.
+
+	
+	^firstRowLayoutMorph.! !
+!StoreClientWindow methodsFor: 'as yet unclassified' stamp: 'ET 7/7/2021 01:25:16' prior: 50910261!
+build1stColumn
+
+	| firstRowLayoutMorph |
+	
+	
+	catalogListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
+	catalogListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	firstRowLayoutMorph := LayoutMorph newColumn.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Catalog');
+	addMorph: catalogListMorph.
+
+	
+	^firstRowLayoutMorph.! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:25:40' prior: 50909329 overrides: 50902008!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 15;
+	axisEdgeWeight: 0;
+	addMorph: self build1stColumn;
+	addMorph: self build2ndColumn;
+	
+	addMorph: self build3rdColumn.
+	! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:26:11' prior: 50910374 overrides: 50902008!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 15;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow;
+	
+	addMorph: self build2ndRow.
+	"
+	addMorph: self build1stColumn;
+	addMorph: self build2ndColumn;
+	
+	addMorph: self build3rdColumn.
+	"! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:26:36' prior: 50910355!
+build1stColumn
+
+	| colLayoutMorph |
+	
+	
+	catalogListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
+	catalogListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	colLayoutMorph := LayoutMorph newColumn.
+	colLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Catalog');
+	addMorph: catalogListMorph.
+
+	
+	^colLayoutMorph.! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:26:56' prior: 50909258!
+build2ndColumn
+	| showInTranscriptButtonMorph colLayoutMorph |
+	
+	showInTranscriptButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #addItemToCart label: 'add to cart'.		
+	quantityTextBoxMorph := TextModelMorph textProvider: self model textGetter: #quantityText textSetter: #quantityText:. 
+	quantityTextBoxMorph textMorph setProperty: #keyStroke: toValue: [ :key | quantityTextBoxMorph textMorph acceptContents ] .
+	quantityTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 100; morphHeight: 10.
+	
+	
+	colLayoutMorph := LayoutMorph newColumn.
+	colLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'quantity to add');
+	
+	addMorph: quantityTextBoxMorph;
+	
+	addMorph: showInTranscriptButtonMorph.
+	
+	^colLayoutMorph.
+	! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:27:08' prior: 50910413!
+build2ndColumn
+	| addToCartButtonMorph colLayoutMorph |
+	
+	addToCartButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #addItemToCart label: 'add to cart'.		
+	quantityTextBoxMorph := TextModelMorph textProvider: self model textGetter: #quantityText textSetter: #quantityText:. 
+	quantityTextBoxMorph textMorph setProperty: #keyStroke: toValue: [ :key | quantityTextBoxMorph textMorph acceptContents ] .
+	quantityTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 100; morphHeight: 10.
+	
+	
+	colLayoutMorph := LayoutMorph newColumn.
+	colLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'quantity to add');
+	
+	addMorph: quantityTextBoxMorph;
+	
+	addMorph: addToCartButtonMorph.
+	
+	^colLayoutMorph.
+	! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:27:29' prior: 50909304!
+build3rdColumn
+	| firstRowLayoutMorph removeFromCartButtonMorph|
+	removeFromCartButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #removeSelectedItemFromCart label: 'remove from cart'.	
+	cartListMorph := PluggableListMorph model: self model listGetter: #cartList indexGetter: #cartListIndex indexSetter: #cartListIndex:.
+	cartListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	firstRowLayoutMorph := LayoutMorph newColumn.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Cart list');
+	addMorph: cartListMorph;
+	addMorph: removeFromCartButtonMorph.
+
+	
+	^firstRowLayoutMorph.! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:27:36' prior: 50910470!
+build3rdColumn
+	| colLayoutMorph removeFromCartButtonMorph|
+	removeFromCartButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #removeSelectedItemFromCart label: 'remove from cart'.	
+	cartListMorph := PluggableListMorph model: self model listGetter: #cartList indexGetter: #cartListIndex indexSetter: #cartListIndex:.
+	cartListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	colLayoutMorph := LayoutMorph newColumn.
+	colLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Cart list');
+	addMorph: cartListMorph;
+	addMorph: removeFromCartButtonMorph.
+
+	
+	^colLayoutMorph.! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:27:56'!
+build2ndRow
+
+	| firstRowLayoutMorph |
+	
+	
+	catalogListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
+	catalogListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	firstRowLayoutMorph := LayoutMorph newColumn.
+	firstRowLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Catalog');
+	addMorph: catalogListMorph.
+
+	
+	^firstRowLayoutMorph.! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:28:08' prior: 50910337!
+build1stRow
+
+	| rowLayoutMorph |
+	
+	
+	catalogListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
+	catalogListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	rowLayoutMorph := LayoutMorph newColumn.
+	rowLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Catalog');
+	addMorph: catalogListMorph.
+
+	
+	^rowLayoutMorph.! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:28:15' prior: 50910517!
+build2ndRow
+
+	| rowLayoutMorph |
+	
+	
+	catalogListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
+	catalogListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	rowLayoutMorph := LayoutMorph newColumn.
+	rowLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Catalog');
+	addMorph: catalogListMorph.
+
+	
+	^rowLayoutMorph.! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:29:25' prior: 50910535!
+build1stRow
+
+	| rowLayoutMorph |
+	
+	
+	catalogListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
+	catalogListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	rowLayoutMorph := LayoutMorph newRow.
+	rowLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Catalog');
+	addMorph: catalogListMorph.
+
+	
+	^rowLayoutMorph.! !
+
+----End fileIn of C:\Users\ezequ\Desktop\windows64\Wor.st----!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:30:54' prior: 50910569!
+build1stRow
+
+	| rowLayoutMorph |
+	
+	
+	catalogListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
+	catalogListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	rowLayoutMorph := LayoutMorph newRow.
+	rowLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow1stCol;
+	addMorph: (LabelMorph contents:'Catalog');
+	addMorph: catalogListMorph.
+
+	
+	^rowLayoutMorph.! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:33:06' prior: 50910833!
+build1stRow
+
+	| rowLayoutMorph |
+	
+	
+	catalogListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
+	catalogListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	rowLayoutMorph := LayoutMorph newRow.
+	rowLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: self build1stColumn1stRow;
+	addMorph: self build2ndColumn1stRow;
+	addMorph: self build3rdColumn1stRow;
+	addMorph: (LabelMorph contents:'Catalog');
+	addMorph: catalogListMorph.
+
+	
+	^rowLayoutMorph.! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:33:36'!
+build1stColumn1stRow
+
+	| colLayoutMorph |
+	
+	
+	catalogListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
+	catalogListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	colLayoutMorph := LayoutMorph newColumn.
+	colLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Catalog');
+	addMorph: catalogListMorph.
+
+	
+	^colLayoutMorph.! !
+
+!methodRemoval: StoreClientWindow #build1stColumn stamp: 'ET 7/7/2021 01:33:36'!
+build1stColumn
+
+	| colLayoutMorph |
+	
+	
+	catalogListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
+	catalogListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	colLayoutMorph := LayoutMorph newColumn.
+	colLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Catalog');
+	addMorph: catalogListMorph.
+
+	
+	^colLayoutMorph.!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:33:49'!
+build2ndColumn1stRow
+	| addToCartButtonMorph colLayoutMorph |
+	
+	addToCartButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #addItemToCart label: 'add to cart'.		
+	quantityTextBoxMorph := TextModelMorph textProvider: self model textGetter: #quantityText textSetter: #quantityText:. 
+	quantityTextBoxMorph textMorph setProperty: #keyStroke: toValue: [ :key | quantityTextBoxMorph textMorph acceptContents ] .
+	quantityTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 100; morphHeight: 10.
+	
+	
+	colLayoutMorph := LayoutMorph newColumn.
+	colLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'quantity to add');
+	
+	addMorph: quantityTextBoxMorph;
+	
+	addMorph: addToCartButtonMorph.
+	
+	^colLayoutMorph.
+	! !
+
+!methodRemoval: StoreClientWindow #build2ndColumn stamp: 'ET 7/7/2021 01:33:49'!
+build2ndColumn
+	| addToCartButtonMorph colLayoutMorph |
+	
+	addToCartButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #addItemToCart label: 'add to cart'.		
+	quantityTextBoxMorph := TextModelMorph textProvider: self model textGetter: #quantityText textSetter: #quantityText:. 
+	quantityTextBoxMorph textMorph setProperty: #keyStroke: toValue: [ :key | quantityTextBoxMorph textMorph acceptContents ] .
+	quantityTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 100; morphHeight: 10.
+	
+	
+	colLayoutMorph := LayoutMorph newColumn.
+	colLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'quantity to add');
+	
+	addMorph: quantityTextBoxMorph;
+	
+	addMorph: addToCartButtonMorph.
+	
+	^colLayoutMorph.
+	!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:33:56'!
+build3rdColumn1stRow
+	| colLayoutMorph removeFromCartButtonMorph|
+	removeFromCartButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #removeSelectedItemFromCart label: 'remove from cart'.	
+	cartListMorph := PluggableListMorph model: self model listGetter: #cartList indexGetter: #cartListIndex indexSetter: #cartListIndex:.
+	cartListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	colLayoutMorph := LayoutMorph newColumn.
+	colLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Cart list');
+	addMorph: cartListMorph;
+	addMorph: removeFromCartButtonMorph.
+
+	
+	^colLayoutMorph.! !
+
+!methodRemoval: StoreClientWindow #build3rdColumn stamp: 'ET 7/7/2021 01:33:56'!
+build3rdColumn
+	| colLayoutMorph removeFromCartButtonMorph|
+	removeFromCartButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #removeSelectedItemFromCart label: 'remove from cart'.	
+	cartListMorph := PluggableListMorph model: self model listGetter: #cartList indexGetter: #cartListIndex indexSetter: #cartListIndex:.
+	cartListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	colLayoutMorph := LayoutMorph newColumn.
+	colLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Cart list');
+	addMorph: cartListMorph;
+	addMorph: removeFromCartButtonMorph.
+
+	
+	^colLayoutMorph.!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:35:22' prior: 50910851!
+build1stRow
+
+	| rowLayoutMorph |
+
+	rowLayoutMorph := LayoutMorph newRow.
+	rowLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: self build1stColumn1stRow;
+	addMorph: self build2ndColumn1stRow;
+	addMorph: self build3rdColumn1stRow.
+	
+	^rowLayoutMorph.! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:36:18' prior: 50910552!
+build2ndRow
+
+	| colLayoutMorph removeFromCartButtonMorph|
+	removeFromCartButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #removeSelectedItemFromCart label: 'remove from cart'.	
+	cartListMorph := PluggableListMorph model: self model listGetter: #cartList indexGetter: #cartListIndex indexSetter: #cartListIndex:.
+	cartListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	colLayoutMorph := LayoutMorph newColumn.
+	colLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Cart list');
+	addMorph: cartListMorph;
+	addMorph: removeFromCartButtonMorph.
+
+	
+	^colLayoutMorph.! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:36:24' prior: 50911019!
+build2ndRow
+
+	| rowLayoutMorph removeFromCartButtonMorph|
+	removeFromCartButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #removeSelectedItemFromCart label: 'remove from cart'.	
+	cartListMorph := PluggableListMorph model: self model listGetter: #cartList indexGetter: #cartListIndex indexSetter: #cartListIndex:.
+	cartListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	rowLayoutMorph := LayoutMorph newColumn.
+	rowLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: (LabelMorph contents:'Cart list');
+	addMorph: cartListMorph;
+	addMorph: removeFromCartButtonMorph.
+
+	
+	^rowLayoutMorph.! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:39:09' prior: 50911043!
+build2ndRow
+
+	| rowLayoutMorph checkOutButtonMorph listPurchasesButtonMorph |
+	checkOutButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #checkOutCartItems label: 'Check out'.	
+	listPurchasesButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #listPurchases label: 'List purchases'.	
+
+	rowLayoutMorph := LayoutMorph newColumn.
+	rowLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: checkOutButtonMorph;
+	addMorph: listPurchasesButtonMorph.
+
+	
+	^rowLayoutMorph.! !
+
+LogInWindow open!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:39:42' prior: 50911067!
+build2ndRow
+
+	| rowLayoutMorph checkOutButtonMorph listPurchasesButtonMorph |
+	checkOutButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #checkOutCartItems label: 'Check out'.	
+	listPurchasesButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #listPurchases label: 'List purchases'.	
+
+	rowLayoutMorph := LayoutMorph newRow.
+	rowLayoutMorph separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: checkOutButtonMorph;
+	addMorph: listPurchasesButtonMorph.
+
+	
+	^rowLayoutMorph.! !
+
+LogInWindow open!
+
+LogInWindow open!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:42:06' prior: 50911088!
+build2ndRow
+
+	| rowLayoutMorph checkOutButtonMorph listPurchasesButtonMorph |
+	checkOutButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #checkOutCartItems label: 'Check out'.	
+	listPurchasesButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #listPurchases label: 'List purchases'.	
+
+	rowLayoutMorph := LayoutMorph newRow.
+	rowLayoutMorph separation: 300;
+	axisEdgeWeight: 0;
+	addMorph: checkOutButtonMorph;
+	addMorph: listPurchasesButtonMorph.
+
+	
+	^rowLayoutMorph.! !
+
+StoreClientWindow openWith: 2.!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:43:11' prior: 50911109!
+build2ndRow
+
+	| rowLayoutMorph checkOutButtonMorph listPurchasesButtonMorph |
+	checkOutButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #checkOutCartItems label: 'Check out'.	
+	listPurchasesButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #listPurchases label: 'List purchases'.	
+
+	rowLayoutMorph := LayoutMorph newRow.
+	rowLayoutMorph separation: 100;
+	axisEdgeWeight: 0;
+	addMorph: checkOutButtonMorph;
+	addMorph: listPurchasesButtonMorph.
+
+	
+	^rowLayoutMorph.! !
+
+StoreClientWindow openWith: 2.!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:43:41' prior: 50911130!
+build2ndRow
+
+	| rowLayoutMorph checkOutButtonMorph listPurchasesButtonMorph |
+	checkOutButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #checkOutCartItems label: 'Check out'.	
+	listPurchasesButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #listPurchases label: 'List purchases'.	
+
+	rowLayoutMorph := LayoutMorph newRow.
+	rowLayoutMorph separation: 100;
+	axisEdgeWeight: 0.5;
+	addMorph: checkOutButtonMorph;
+	addMorph: listPurchasesButtonMorph.
+
+	
+	^rowLayoutMorph.! !
+
+StoreClientWindow openWith: 2.!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:44:15' prior: 50911151!
+build2ndRow
+
+	| rowLayoutMorph checkOutButtonMorph listPurchasesButtonMorph |
+	checkOutButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #checkOutCartItems label: 'Check out'.	
+	listPurchasesButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #listPurchases label: 'List purchases'.	
+
+	rowLayoutMorph := LayoutMorph newRow.
+	rowLayoutMorph separation: 25@100;
+	axisEdgeWeight: 0.5;
+	addMorph: checkOutButtonMorph;
+	addMorph: listPurchasesButtonMorph.
+
+	
+	^rowLayoutMorph.! !
+
+StoreClientWindow openWith: 2.!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:44:28' prior: 50911172!
+build2ndRow
+
+	| rowLayoutMorph checkOutButtonMorph listPurchasesButtonMorph |
+	checkOutButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #checkOutCartItems label: 'Check out'.	
+	listPurchasesButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #listPurchases label: 'List purchases'.	
+
+	rowLayoutMorph := LayoutMorph newRow.
+	rowLayoutMorph separation: 25@25;
+	axisEdgeWeight: 0.5;
+	addMorph: checkOutButtonMorph;
+	addMorph: listPurchasesButtonMorph.
+
+	
+	^rowLayoutMorph.! !
+
+StoreClientWindow openWith: 2.!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:44:44' prior: 50911193!
+build2ndRow
+
+	| rowLayoutMorph checkOutButtonMorph listPurchasesButtonMorph |
+	checkOutButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #checkOutCartItems label: 'Check out'.	
+	listPurchasesButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #listPurchases label: 'List purchases'.	
+
+	rowLayoutMorph := LayoutMorph newRow.
+	rowLayoutMorph separation: 100@25;
+	axisEdgeWeight: 0.5;
+	addMorph: checkOutButtonMorph;
+	addMorph: listPurchasesButtonMorph.
+
+	
+	^rowLayoutMorph.! !
+
+StoreClientWindow openWith: 2.!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:44:56' prior: 50911214!
+build2ndRow
+
+	| rowLayoutMorph checkOutButtonMorph listPurchasesButtonMorph |
+	checkOutButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #checkOutCartItems label: 'Check out'.	
+	listPurchasesButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #listPurchases label: 'List purchases'.	
+
+	rowLayoutMorph := LayoutMorph newRow.
+	rowLayoutMorph separation: 300@25;
+	axisEdgeWeight: 0.5;
+	addMorph: checkOutButtonMorph;
+	addMorph: listPurchasesButtonMorph.
+
+	
+	^rowLayoutMorph.! !
+
+StoreClientWindow openWith: 2.!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:45:25' prior: 50911235!
+build2ndRow
+
+	| rowLayoutMorph checkOutButtonMorph listPurchasesButtonMorph |
+	checkOutButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #checkOutCartItems label: 'Check out'.	
+	listPurchasesButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #listPurchases label: 'List purchases'.	
+
+	rowLayoutMorph := LayoutMorph newRow.
+	rowLayoutMorph separation: 50;
+	axisEdgeWeight: 0.5;
+	addMorph: checkOutButtonMorph;
+	addMorph: listPurchasesButtonMorph.
+
+	
+	^rowLayoutMorph.! !
+
+StoreClientWindow openWith: 2.!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:45:46' prior: 50911256!
+build2ndRow
+
+	| rowLayoutMorph checkOutButtonMorph listPurchasesButtonMorph |
+	checkOutButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #checkOutCartItems label: 'Check out'.	
+	listPurchasesButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #listPurchases label: 'List purchases'.	
+
+	rowLayoutMorph := LayoutMorph newRow.
+	rowLayoutMorph separation: 50@0;
+	axisEdgeWeight: 0.5;
+	addMorph: checkOutButtonMorph;
+	addMorph: listPurchasesButtonMorph.
+
+	
+	^rowLayoutMorph.! !
+
+StoreClientWindow openWith: 2.!
+
+StoreClientWindow openWith: 2.!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:46:27' prior: 50910384 overrides: 50902008!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 0;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow;
+	
+	addMorph: self build2ndRow.
+	"
+	addMorph: self build1stColumn;
+	addMorph: self build2ndColumn;
+	
+	addMorph: self build3rdColumn.
+	"! !
+
+StoreClientWindow openWith: 2.!
+!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 01:47:47' prior: 50909156 overrides: 50902094!
+defaultExtent
+
+	^ 1002@342
+	! !
+
+StoreClientWindow openWith: 2.!
+!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 01:48:13' prior: 50911313 overrides: 50902094!
+defaultExtent
+
+	^ 1002@370
+	! !
+
+StoreClientWindow openWith: 2.!
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 01:49:05' prior: 50911300 overrides: 50902008!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow;
+	
+	addMorph: self build2ndRow.
+	"
+	addMorph: self build1stColumn;
+	addMorph: self build2ndColumn;
+	
+	addMorph: self build3rdColumn.
+	"! !
+
+StoreClientWindow openWith: 2.!
+
+StoreClientWindow openWith: 2.!
+!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 01:49:39' prior: 50911319 overrides: 50902094!
+defaultExtent
+
+	^ 1052@445
+	! !
+
+StoreClientWindow openWith: 2.!
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 01:58:01'!
+checkOutCartItems
+	|selectedItem |
+	
+	self itemsListIndex = 0 ifTrue: [^self].
+	"self assertQuantityIsPositiveInteger."
+	
+	selectedItem := (self items) at: self itemsListIndex.
+	
+	restInterface addToCart: cartID item: selectedItem quantity: quantity.
+	
+	cartList := restInterface listCart: cartID.
+		
+	self triggerEvent: #cartListChanged with: self.
+	"^cartID"
+	
+	
+	
+	
+! !
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 01:58:11'!
+listPurchases
+	|selectedItem |
+	
+	self itemsListIndex = 0 ifTrue: [^self].
+	"self assertQuantityIsPositiveInteger."
+	
+	selectedItem := (self items) at: self itemsListIndex.
+	
+	restInterface addToCart: cartID item: selectedItem quantity: quantity.
+	
+	cartList := restInterface listCart: cartID.
+		
+	self triggerEvent: #cartListChanged with: self.
+	"^cartID"
+	
+	
+	
+	
+! !
+
+!classDefinition: #StoreClientWindowModel category: 'TusLibros-Client' stamp: 'ET 7/7/2021 02:01:44'!
+Object subclass: #StoreClientWindowModel
+	instanceVariableNames: 'sentence words selectedIndex restInterface items quantity cartID cartList cartListIndex indexedCartList ticket'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 02:01:41' prior: 50911345!
+checkOutCartItems
+	|selectedItem ticketID|
+	
+	self itemsListIndex = 0 ifTrue: [^self].
+	"self assertQuantityIsPositiveInteger."
+	
+	selectedItem := (self items) at: self itemsListIndex.
+	
+	ticketID := restInterface checkOutCart: cartID.
+	
+	ticket := restInterface ticketOfTransaction: ticketID.
+		
+	self triggerEvent: #showTicket with: self.
+	"^cartID"
+	
+	
+	
+	
+! !
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 02:02:06' prior: 50911387!
+checkOutCartItems
+	|ticketID|
+
+	ticketID := restInterface checkOutCart: cartID.
+	
+	ticket := restInterface ticketOfTransaction: ticketID.
+		
+	self triggerEvent: #showTicket with: self.
+	"^cartID"
+	
+	
+	
+	
+! !
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 02:02:18' prior: 50911402!
+checkOutCartItems
+	|ticketID|
+
+	ticketID := restInterface checkOutCart: cartID.
+	
+	ticket := restInterface ticketOfTransaction: ticketID.
+		
+	self triggerEvent: #showTicket with: self.
+	
+	
+	
+	
+! !
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 02:03:05' prior: 50911360!
+listPurchases
+	
+	restInterface.
+	
+	cartList := restInterface listCart: cartID.
+		
+	self triggerEvent: #cartListChanged with: self.
+	"^cartID"
+	
+	
+	
+	
+! !
+
+!classDefinition: #StoreClientWindowModel category: 'TusLibros-Client' stamp: 'ET 7/7/2021 02:05:34'!
+Object subclass: #StoreClientWindowModel
+	instanceVariableNames: 'sentence words selectedIndex restInterface items quantity cartID cartList cartListIndex indexedCartList ticket user'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 02:05:30' prior: 50911422!
+listPurchases
+	|purchases|
+	purchases := restInterface listPurchasesOf: user.
+	
+		
+	self triggerEvent: #showPurchaseList with: self.
+	"^cartID"
+	
+	
+	
+	
+! !
+
+!classDefinition: #StoreClientWindowModel category: 'TusLibros-Client' stamp: 'ET 7/7/2021 02:05:51'!
+Object subclass: #StoreClientWindowModel
+	instanceVariableNames: 'sentence words selectedIndex restInterface items quantity cartID cartList cartListIndex indexedCartList ticket user purchasess'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 02:05:50' prior: 50911442!
+listPurchases
+
+	purchasess := restInterface listPurchasesOf: user.
+	
+		
+	self triggerEvent: #showPurchaseList with: self.
+	"^cartID"
+	
+	
+	
+	
+! !
+
+!classDefinition: #StoreClientWindowModel category: 'TusLibros-Client' stamp: 'ET 7/7/2021 02:05:54'!
+Object subclass: #StoreClientWindowModel
+	instanceVariableNames: 'sentence words selectedIndex restInterface items quantity cartID cartList cartListIndex indexedCartList ticket user purchasess purchases'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 02:05:53' prior: 50911462!
+listPurchases
+
+	purchases := restInterface listPurchasesOf: user.
+	
+		
+	self triggerEvent: #showPurchaseList with: self.
+	"^cartID"
+	
+	
+	
+	
+! !
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 02:05:58' prior: 50911482!
+listPurchases
+
+	purchases := restInterface listPurchasesOf: user.
+		
+	self triggerEvent: #showPurchaseList with: self.
+	
+	
+	
+	
+! !
+!LogInWindowModel methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:06:38' prior: 50909387 overrides: 16896425!
+initialize
+
+	restInterface := StoreClientRestInterface new.
+	
+	username := ''.
+	
+	password := ''.
+	
+	errorMessage := ''.! !
+!LogInWindowModel methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:06:43' prior: 50911498 overrides: 16896425!
+initialize
+
+	restInterface := StoreClientRestInterface new.
+	
+	username := ''.
+	
+	password := ''.
+	
+	errorMessage := ''.! !
+
+Object subclass: #LogInWindowModel
+	instanceVariableNames: 'restInterface username password errorMessage cartID'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!
+
+!classDefinition: #LogInWindowModel category: 'TusLibros-Client' stamp: 'ET 7/7/2021 02:08:00'!
+Object subclass: #LogInWindowModel
+	instanceVariableNames: 'restInterface username password errorMessage cartID'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!
+
+!methodRemoval: StoreClientWindowModel #initialize stamp: 'ET 7/7/2021 02:08:18'!
+initialize
+	items := OrderedCollection new.
+	
+	words := OrderedCollection new.
+	sentence := ''.
+	selectedIndex := 0.
+	restInterface := StoreClientRestInterface new.
+	
+	items := restInterface catalog.!
+!StoreClientWindowModel methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:08:24' prior: 50909657!
+initializeWith: aCartID
+
+	cartID := aCartID.
+	items := OrderedCollection new.
+	cartList := OrderedCollection new.
+	words := OrderedCollection new.
+	sentence := ''.
+	selectedIndex := 0.
+	restInterface := StoreClientRestInterface new.
+	
+	items := restInterface catalog.
+	
+	quantity := ''.
+	
+	cartListIndex := 0.! !
+!StoreClientWindowModel methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:08:29' prior: 50911537!
+initializeWith: aCartID
+
+	cartID := aCartID.
+	items := OrderedCollection new.
+	cartList := OrderedCollection new.
+
+	selectedIndex := 0.
+	restInterface := StoreClientRestInterface new.
+	
+	items := restInterface catalog.
+	
+	quantity := ''.
+	
+	cartListIndex := 0.! !
+!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:09:31' prior: 50909160!
+initializeWith: aCartID
+
+	self titleMorph showButtonsNamed: #( close collapse ).
+	
+	self setLabel: 'Store Client'.
+	
+	self model: (StoreClientWindowModel with: aCartID).
+	
+	self morphExtent: (self defaultExtent).
+
+	self buildMorphicWindow.
+	self openInWorld.
+	self yourself.
+			
+	self model when: #cartListChanged send: #updateCartList to: self.
+	
+	self model when: #cartListChanged send: #updateCartList to: self.
+	
+	self model when: #cartListChanged send: #updateCartList to: self.! !
+
+Object subclass: #StoreClientWindowModel
+	instanceVariableNames: 'selectedIndex restInterface items quantity cartID cartList cartListIndex indexedCartList ticket user purchases'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!
+
+!classDefinition: #StoreClientWindowModel category: 'TusLibros-Client' stamp: 'ET 7/7/2021 02:09:57'!
+Object subclass: #StoreClientWindowModel
+	instanceVariableNames: 'selectedIndex restInterface items quantity cartID cartList cartListIndex indexedCartList ticket user purchases'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 02:11:14' prior: 50911412!
+checkOutCartItems
+	|ticketID|
+
+	ticketID := restInterface checkOutCart: cartID.
+	
+	ticket := restInterface ticketOfTransaction: ticketID.
+		
+	self triggerEvent: #cartCheckedOut with: self.
+	
+	
+	
+	
+! !
+!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:11:35' prior: 50911562!
+initializeWith: aCartID
+
+	self titleMorph showButtonsNamed: #( close collapse ).
+	
+	self setLabel: 'Store Client'.
+	
+	self model: (StoreClientWindowModel with: aCartID).
+	
+	self morphExtent: (self defaultExtent).
+
+	self buildMorphicWindow.
+	self openInWorld.
+	self yourself.
+			
+	self model when: #cartListChanged send: #updateCartList to: self.
+	
+	self model when: #cartCheckedOut send: #showTicket to: self.
+	
+	self model when: #cartListChanged send: #updateCartList to: self.! !
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 02:12:00' prior: 50911490!
+listPurchases
+
+	purchases := restInterface listPurchasesOf: user.
+		
+	self triggerEvent: #purchaseListRequested with: self.
+	
+	
+	
+	
+! !
+!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:12:17' prior: 50911610!
+initializeWith: aCartID
+
+	self titleMorph showButtonsNamed: #( close collapse ).
+	
+	self setLabel: 'Store Client'.
+	
+	self model: (StoreClientWindowModel with: aCartID).
+	
+	self morphExtent: (self defaultExtent).
+
+	self buildMorphicWindow.
+	self openInWorld.
+	self yourself.
+			
+	self model when: #cartListChanged send: #updateCartList to: self.
+	
+	self model when: #cartCheckedOut send: #showTicket to: self.
+	
+	self model when: #purchaseListRequested send: #showPurchaseList to: self.! !
+!StoreClientWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 02:12:48' prior: 50911325 overrides: 50902008!
+buildMorphicWindow
+		
+	self layoutMorph beColumn;
+	separation: 25;
+	axisEdgeWeight: 0;
+	addMorph: self build1stRow;
+	
+	addMorph: self build2ndRow.! !
+!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/7/2021 02:13:30'!
+checkOutCart: cartID
+
+	| fieldDict resp |
+	fieldDict := Dictionary new.
+	fieldDict add: 'cartId'->cartID.	
+
+	
+	resp:= WebClient htmlSubmit: (self url,'/listCart') fields: fieldDict.
+	
+	resp isSuccess 
+		ifTrue:[
+			^(WebUtils jsonDecode: ((resp content) readStream)) .] 
+		
+		ifFalse:[^self error: resp content].! !
+!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/7/2021 02:14:20' prior: 50911664!
+checkOutCart: cartID
+
+	| fieldDict resp |
+	fieldDict := Dictionary new.
+	fieldDict add: 'cartId'->cartID.	
+
+	
+	resp:= WebClient htmlSubmit: (self url,'/checkOutCart') fields: fieldDict.
+	
+	resp isSuccess 
+		ifTrue:[
+			^(WebUtils jsonDecode: ((resp content) readStream)) .] 
+		
+		ifFalse:[^self error: resp content].! !
+!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/7/2021 02:15:40'!
+ticketOfTransaction: ticketID
+
+	| fieldDict resp |
+	fieldDict := Dictionary new.
+	fieldDict add: 'transactionID'-> ticketID.	
+
+	
+	resp:= WebClient htmlSubmit: (self url,'/transaction') fields: fieldDict.
+	
+	resp isSuccess 
+		ifTrue:[
+			^(WebUtils jsonDecode: ((resp content) readStream)) .] 
+		
+		ifFalse:[^self error: resp content].! !
+!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/7/2021 02:16:25' prior: 50911691!
+ticketOfTransaction: ticketID
+
+	| fieldDict resp |
+	fieldDict := Dictionary new.
+	fieldDict add: 'transactionId'-> ticketID.	
+
+	
+	resp:= WebClient htmlSubmit: (self url,'/transaction') fields: fieldDict.
+	
+	resp isSuccess 
+		ifTrue:[
+			^(WebUtils jsonDecode: ((resp content) readStream)) .] 
+		
+		ifFalse:[^self error: resp content].! !
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:16:28' prior: 50909953!
+initializeWith: aPortNumber
+	
+	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin')
+	clock: GregorianDateTime 
+	priceList: (Dictionary with: 'validBook'->10)
+	merchantProcessor: MerchantProcessorSimulator new.
+	
+	userCreditCards := Dictionary with: 'admin'-> (CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current next).
+	
+	userCarts := Dictionary new.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/createCart' action:[:request | |cartIDAsJson client password cartID |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		cartID := store createCartFor: client authenticatedWith: password.
+		
+		userCarts add: cartID->client.
+		
+		cartIDAsJson:= WebUtils jsonEncode: (cartID).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/addToCart' action:[:request | |answerAsJson cartID item quantity |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		quantity := (request fields at: 'quantityIsbn') asNumber.
+		
+		store addToCart: cartID item: item quantity: quantity.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/removeFromCart' action:[:request | |answerAsJson cartID item  |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		
+		store removeFromCart: cartID allItems: item.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/catalog' action:[:request | |answerAsJson catalog  |
+		
+		[catalog := store itemCatalog.
+		
+		answerAsJson:= WebUtils jsonEncode: (catalog asArray).
+		request send200Response: (answerAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/listCart' action:[:request | |answerAsJson cartID  list|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		
+		list := store listCart: cartID.
+		
+		answerAsJson:= WebUtils jsonEncode: (list asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID transactionID|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+
+		transactionID := store checkoutCart: cartID creditCard:  (self creditCardOfClient: (userCarts at: cartID)).
+		
+		answerAsJson:= WebUtils jsonEncode: (transactionID).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+
+	webServer addService: '/transaction' action:[:request | |answerAsJson cartID transactionID|
+		
+		[cartID := (request fields at:'transactionId') asNumber.
+
+		transactionID := store checkoutCart: cartID creditCard:  (self creditCardOfClient: (userCarts at: cartID)).
+		
+		answerAsJson:= WebUtils jsonEncode: (transactionID).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	
+	webServer addService: '/listPurchases' action:[:request | |cartIDAsJson client password list |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		list := store listPurchasesOf:  client password: password.
+
+		cartIDAsJson:= WebUtils jsonEncode: (Array with: list list with: list totalAmount).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+! !
+!Sales methodsFor: 'list' stamp: 'ET 7/7/2021 02:18:32' prior: 50908457!
+items
+	^items copy.! !
+
+!classDefinition: #StoreRestInterface category: 'TusLibros' stamp: 'ET 7/7/2021 02:21:00'!
+Object subclass: #StoreRestInterface
+	instanceVariableNames: 'webServer port stringGenius store userCreditCards userCarts transaction'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:20:58' prior: 50911719!
+initializeWith: aPortNumber
+	
+	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin')
+	clock: GregorianDateTime 
+	priceList: (Dictionary with: 'validBook'->10)
+	merchantProcessor: MerchantProcessorSimulator new.
+	
+	userCreditCards := Dictionary with: 'admin'-> (CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current next).
+	
+	userCarts := Dictionary new.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/createCart' action:[:request | |cartIDAsJson client password cartID |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		cartID := store createCartFor: client authenticatedWith: password.
+		
+		userCarts add: cartID->client.
+		
+		cartIDAsJson:= WebUtils jsonEncode: (cartID).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/addToCart' action:[:request | |answerAsJson cartID item quantity |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		quantity := (request fields at: 'quantityIsbn') asNumber.
+		
+		store addToCart: cartID item: item quantity: quantity.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/removeFromCart' action:[:request | |answerAsJson cartID item  |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		
+		store removeFromCart: cartID allItems: item.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/catalog' action:[:request | |answerAsJson catalog  |
+		
+		[catalog := store itemCatalog.
+		
+		answerAsJson:= WebUtils jsonEncode: (catalog asArray).
+		request send200Response: (answerAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/listCart' action:[:request | |answerAsJson cartID  list|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		
+		list := store listCart: cartID.
+		
+		answerAsJson:= WebUtils jsonEncode: (list asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID transactionID|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+
+		transactionID := store checkoutCart: cartID creditCard:  (self creditCardOfClient: (userCarts at: cartID)).
+		
+		answerAsJson:= WebUtils jsonEncode: (transactionID).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+
+	webServer addService: '/transaction' action:[:request | |answerAsJson transactionID|
+		
+		[ | ticket |transactionID := (request fields at:'transactionId') asNumber.
+
+		transaction := store transaction: transactionID.
+		
+		ticket := transaction items .
+		
+		ticket add: transaction amount.
+		
+		answerAsJson:= WebUtils jsonEncode: (ticket asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	
+	webServer addService: '/listPurchases' action:[:request | |cartIDAsJson client password list |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		list := store listPurchasesOf:  client password: password.
+
+		cartIDAsJson:= WebUtils jsonEncode: (Array with: list list with: list totalAmount).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+! !
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:21:28' prior: 50911877!
+initializeWith: aPortNumber
+	
+	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin')
+	clock: GregorianDateTime 
+	priceList: (Dictionary with: 'validBook'->10)
+	merchantProcessor: MerchantProcessorSimulator new.
+	
+	userCreditCards := Dictionary with: 'admin'-> (CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current next).
+	
+	userCarts := Dictionary new.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/createCart' action:[:request | |cartIDAsJson client password cartID |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		cartID := store createCartFor: client authenticatedWith: password.
+		
+		userCarts add: cartID->client.
+		
+		cartIDAsJson:= WebUtils jsonEncode: (cartID).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/addToCart' action:[:request | |answerAsJson cartID item quantity |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		quantity := (request fields at: 'quantityIsbn') asNumber.
+		
+		store addToCart: cartID item: item quantity: quantity.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/removeFromCart' action:[:request | |answerAsJson cartID item  |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		
+		store removeFromCart: cartID allItems: item.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/catalog' action:[:request | |answerAsJson catalog  |
+		
+		[catalog := store itemCatalog.
+		
+		answerAsJson:= WebUtils jsonEncode: (catalog asArray).
+		request send200Response: (answerAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/listCart' action:[:request | |answerAsJson cartID  list|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		
+		list := store listCart: cartID.
+		
+		answerAsJson:= WebUtils jsonEncode: (list asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID transactionID|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+
+		transactionID := store checkoutCart: cartID creditCard:  (self creditCardOfClient: (userCarts at: cartID)).
+		
+		answerAsJson:= WebUtils jsonEncode: (transactionID).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+
+	webServer addService: '/transaction' action:[:request | |answerAsJson transactionID transactionn ticket|
+		
+		[transactionID := (request fields at:'transactionId') asNumber.
+
+		transactionn := store transaction: transactionID.
+		
+		ticket := transaction items .
+		
+		ticket add: transaction amount.
+		
+		answerAsJson:= WebUtils jsonEncode: (ticket asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	
+	webServer addService: '/listPurchases' action:[:request | |cartIDAsJson client password list |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		list := store listPurchasesOf:  client password: password.
+
+		cartIDAsJson:= WebUtils jsonEncode: (Array with: list list with: list totalAmount).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+! !
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:21:42' prior: 50912024!
+initializeWith: aPortNumber
+	
+	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin')
+	clock: GregorianDateTime 
+	priceList: (Dictionary with: 'validBook'->10)
+	merchantProcessor: MerchantProcessorSimulator new.
+	
+	userCreditCards := Dictionary with: 'admin'-> (CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current next).
+	
+	userCarts := Dictionary new.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/createCart' action:[:request | |cartIDAsJson client password cartID |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		cartID := store createCartFor: client authenticatedWith: password.
+		
+		userCarts add: cartID->client.
+		
+		cartIDAsJson:= WebUtils jsonEncode: (cartID).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/addToCart' action:[:request | |answerAsJson cartID item quantity |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		quantity := (request fields at: 'quantityIsbn') asNumber.
+		
+		store addToCart: cartID item: item quantity: quantity.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/removeFromCart' action:[:request | |answerAsJson cartID item  |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		
+		store removeFromCart: cartID allItems: item.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/catalog' action:[:request | |answerAsJson catalog  |
+		
+		[catalog := store itemCatalog.
+		
+		answerAsJson:= WebUtils jsonEncode: (catalog asArray).
+		request send200Response: (answerAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/listCart' action:[:request | |answerAsJson cartID  list|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		
+		list := store listCart: cartID.
+		
+		answerAsJson:= WebUtils jsonEncode: (list asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID transactionID|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+
+		transactionID := store checkoutCart: cartID creditCard:  (self creditCardOfClient: (userCarts at: cartID)).
+		
+		answerAsJson:= WebUtils jsonEncode: (transactionID).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+
+	webServer addService: '/transaction' action:[:request | |answerAsJson transactionID transactionn ticket|
+		
+		[transactionID := (request fields at:'transactionId') asNumber.
+
+		transactionn := store transaction: transactionID.
+		
+		ticket := transactionn items.
+		
+		ticket add: transactionn amount.
+		
+		answerAsJson:= WebUtils jsonEncode: (ticket asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	
+	webServer addService: '/listPurchases' action:[:request | |cartIDAsJson client password list |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		list := store listPurchasesOf:  client password: password.
+
+		cartIDAsJson:= WebUtils jsonEncode: (Array with: list list with: list totalAmount).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+! !
+
+Object subclass: #StoreRestInterface
+	instanceVariableNames: 'webServer port stringGenius store userCreditCards userCarts'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #StoreRestInterface category: 'TusLibros' stamp: 'ET 7/7/2021 02:21:50'!
+Object subclass: #StoreRestInterface
+	instanceVariableNames: 'webServer port stringGenius store userCreditCards userCarts'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:22:03' prior: 50912171!
+initializeWith: aPortNumber
+	
+	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin')
+	clock: GregorianDateTime 
+	priceList: (Dictionary with: 'validBook'->10)
+	merchantProcessor: MerchantProcessorSimulator new.
+	
+	userCreditCards := Dictionary with: 'admin'-> (CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current next).
+	
+	userCarts := Dictionary new.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/createCart' action:[:request | |cartIDAsJson client password cartID |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		cartID := store createCartFor: client authenticatedWith: password.
+		
+		userCarts add: cartID->client.
+		
+		cartIDAsJson:= WebUtils jsonEncode: (cartID).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/addToCart' action:[:request | |answerAsJson cartID item quantity |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		quantity := (request fields at: 'quantityIsbn') asNumber.
+		
+		store addToCart: cartID item: item quantity: quantity.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/removeFromCart' action:[:request | |answerAsJson cartID item  |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		
+		store removeFromCart: cartID allItems: item.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/catalog' action:[:request | |answerAsJson catalog  |
+		
+		[catalog := store itemCatalog.
+		
+		answerAsJson:= WebUtils jsonEncode: (catalog asArray).
+		request send200Response: (answerAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/listCart' action:[:request | |answerAsJson cartID  list|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		
+		list := store listCart: cartID.
+		
+		answerAsJson:= WebUtils jsonEncode: (list asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID transactionID|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+
+		transactionID := store checkoutCart: cartID creditCard:  (self creditCardOfClient: (userCarts at: cartID)).
+		
+		answerAsJson:= WebUtils jsonEncode: (transactionID).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+
+	webServer addService: '/transaction' action:[:request | |answerAsJson transactionID transaction ticket|
+		
+		[transactionID := (request fields at:'transactionId') asNumber.
+
+		transaction := store transaction: transactionID.
+		
+		ticket := transaction items.
+		
+		ticket add: transaction amount.
+		
+		answerAsJson:= WebUtils jsonEncode: (ticket asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	
+	webServer addService: '/listPurchases' action:[:request | |cartIDAsJson client password list |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		list := store listPurchasesOf:  client password: password.
+
+		cartIDAsJson:= WebUtils jsonEncode: (Array with: list list with: list totalAmount).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+! !
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:22:28' prior: 50912333!
+initializeWith: aPortNumber
+	
+	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin')
+	clock: GregorianDateTime 
+	priceList: (Dictionary with: 'validBook'->10)
+	merchantProcessor: MerchantProcessorSimulator new.
+	
+	userCreditCards := Dictionary with: 'admin'-> (CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current next).
+	
+	userCarts := Dictionary new.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: self port.
+	
+	webServer addService: '/createCart' action:[:request | |cartIDAsJson client password cartID |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		cartID := store createCartFor: client authenticatedWith: password.
+		
+		userCarts add: cartID->client.
+		
+		cartIDAsJson:= WebUtils jsonEncode: (cartID).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/addToCart' action:[:request | |answerAsJson cartID item quantity |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		quantity := (request fields at: 'quantityIsbn') asNumber.
+		
+		store addToCart: cartID item: item quantity: quantity.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/removeFromCart' action:[:request | |answerAsJson cartID item  |
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		item := (request fields at: 'bookIsbn').
+		
+		store removeFromCart: cartID allItems: item.
+		
+		answerAsJson:= WebUtils jsonEncode: ('OK').
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/catalog' action:[:request | |answerAsJson catalog  |
+		
+		[catalog := store itemCatalog.
+		
+		answerAsJson:= WebUtils jsonEncode: (catalog asArray).
+		request send200Response: (answerAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/listCart' action:[:request | |answerAsJson cartID  list|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+		
+		list := store listCart: cartID.
+		
+		answerAsJson:= WebUtils jsonEncode: (list asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID transactionID|
+		
+		[cartID := (request fields at:'cartId') asNumber.
+
+		transactionID := store checkoutCart: cartID creditCard:  (self creditCardOfClient: (userCarts at: cartID)).
+		
+		answerAsJson:= WebUtils jsonEncode: (transactionID).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+
+	webServer addService: '/transaction' action:[:request | |answerAsJson transactionID transaction ticket|
+		
+		[transactionID := (request fields at:'transactionId') asNumber.
+
+		transaction := store transaction: transactionID.
+		
+		ticket := transaction items.
+		
+		ticket addFirst: transaction amount.
+		
+		answerAsJson:= WebUtils jsonEncode: (ticket asArray).
+		request send200Response: (answerAsJson )
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+	
+	webServer addService: '/listPurchases' action:[:request | |cartIDAsJson client password list |
+		
+		[client := (request fields at:'clientId').
+		password := (request fields at: 'password').
+		
+		list := store listPurchasesOf:  client password: password.
+
+		cartIDAsJson:= WebUtils jsonEncode: (Array with: list list with: list totalAmount).
+		request send200Response: (cartIDAsJson)
+		 ] 
+		on: Error
+		do: [ :anError |
+			request sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ]].
+	
+! !
+!StoreTest methodsFor: 'tests' stamp: 'ET 7/7/2021 02:23:15'!
+test18
+
+	| store cartID cartList |
+	store := self store .
+	cartID := self createValidCartIn: store.	
+	
+	
+	store addToCart: cartID item: testObjects itemSellByTheStore quantity:1.
+	
+	cartList := store listCart: cartID.
+	
+	self assert: cartList isEmpty.! !
+!StoreTest methodsFor: 'tests' stamp: 'ET 7/7/2021 02:24:47' prior: 50912626!
+test18
+
+	| store cartID cartList transactionID|
+	store := self store.
+	cartID := self createValidCartIn: store.	
+	
+	store addToCart: cartID item: testObjects itemSellByTheStore quantity: 1.
+	transactionID := store checkoutCart: cartID creditCard: testObjects validCreditCard.
+	
+	
+	cartList := store listCart: cartID.
+	
+	self assert: cartList isEmpty.! !
+!StoreTest methodsFor: 'tests' stamp: 'ET 7/7/2021 02:28:14' prior: 50912637!
+test18
+
+	| store cartID transactionID sale|
+	store := self store.
+	cartID := self createValidCartIn: store.	
+	
+	store addToCart: cartID item: testObjects itemSellByTheStore quantity: 1.
+	transactionID := store checkoutCart: cartID creditCard: testObjects validCreditCard.
+	
+	sale := store transaction: transactionID.
+
+	self assert: 1 equals: sale items size.
+	self assert: testObjects itemInStorePrice equals: sale amount.! !
+!StoreTest methodsFor: 'tests' stamp: 'ET 7/7/2021 02:30:29' prior: 50912651!
+test18
+
+	| store cartID transactionID sale|
+	store := self store.
+	cartID := self createValidCartIn: store.	
+	
+	store addToCart: cartID item: testObjects itemSellByTheStore quantity: 1.
+	transactionID := store checkoutCart: cartID creditCard: testObjects validCreditCard.
+	
+	sale := store transaction: transactionID.
+
+	self assert: 1 equals: sale items size.
+	self assert: testObjects itemInStorePrice equals: sale amount.
+	self assert: self validUserID equals: sale userID.! !
+
+!testRun: #StoreTest #test18 stamp: 'ET 7/7/2021 02:30:44'!
+ERROR!
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 7/7/2021 02:30:53'!
+transaction: aSmallInteger 
+	self shouldBeImplemented.! !
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 7/7/2021 02:31:14' prior: 50912687!
+transaction: transactionID
+
+	^self.
+	! !
+!Store methodsFor: 'as yet unclassified' stamp: 'ET 7/7/2021 02:31:30' prior: 50912692!
+transaction: transactionID
+
+	^salesBook at: transactionID.
+	! !
+
+!testRun: #StoreTest #test18 stamp: 'ET 7/7/2021 02:31:33'!
+ERROR!
+!StoreTest methodsFor: 'tests' stamp: 'ET 7/7/2021 02:31:55' prior: 50912667!
+test18
+
+	| store cartID transactionID sale|
+	store := self store.
+	cartID := self createValidCartIn: store.	
+	
+	store addToCart: cartID item: testObjects itemSellByTheStore quantity: 1.
+	transactionID := store checkoutCart: cartID creditCard: testObjects validCreditCard.
+	
+	sale := store transaction: transactionID.
+
+	self assert: 1 equals: sale items size.
+	self assert: testObjects itemInStorePrice equals: sale totalAmount.
+	self assert: self validUserID equals: sale userID.! !
+
+!testRun: #StoreTest #test18 stamp: 'ET 7/7/2021 02:31:57'!
+PASSED!
+
+!testRun: #StoreTest #test01CanNotCreateCartWhenCredentialsCantBeAuthenticated stamp: 'ET 7/7/2021 02:31:57'!
+PASSED!
+
+!testRun: #StoreTest #test02StoreHasNewCreatedCart stamp: 'ET 7/7/2021 02:31:57'!
+PASSED!
+
+!testRun: #StoreTest #test03StoreOnlyIdentifiesIDsMatchedWithCreatedCarts stamp: 'ET 7/7/2021 02:31:57'!
+PASSED!
+
+!testRun: #StoreTest #test04NewCreatedCartIsEmpty stamp: 'ET 7/7/2021 02:31:57'!
+PASSED!
+
+!testRun: #StoreTest #test05CanNotListNonIdentifiedCart stamp: 'ET 7/7/2021 02:31:57'!
+PASSED!
+
+!testRun: #StoreTest #test06StoreCanCreateMoreThanOneCart stamp: 'ET 7/7/2021 02:31:57'!
+PASSED!
+
+!testRun: #StoreTest #test07CartIsInvalidAfter30MinOfItsCreation stamp: 'ET 7/7/2021 02:31:58'!
+PASSED!
+
+!testRun: #StoreTest #test08CannotAddToCartAfter30MinOfItsCreation stamp: 'ET 7/7/2021 02:31:58'!
+PASSED!
+
+!testRun: #StoreTest #test09ItemsAddedToCartAreListed stamp: 'ET 7/7/2021 02:31:58'!
+PASSED!
+
+!testRun: #StoreTest #test10PurchaseListOfUserWithoutPurchasesIsEmpty stamp: 'ET 7/7/2021 02:31:58'!
+PASSED!
+
+!testRun: #StoreTest #test11CanNotListPurchasesWhenCredentialsCantBeAuthenticated stamp: 'ET 7/7/2021 02:31:58'!
+PASSED!
+
+!testRun: #StoreTest #test12CheckoutUpdatesPurchaseListOfUserWithTheSales stamp: 'ET 7/7/2021 02:31:58'!
+PASSED!
+
+!testRun: #StoreTest #test13CannotCheckoutWithInvalidCartID stamp: 'ET 7/7/2021 02:31:58'!
+PASSED!
+
+!testRun: #StoreTest #test14CheckoutInvalidatesCartId stamp: 'ET 7/7/2021 02:31:58'!
+PASSED!
+
+!testRun: #StoreTest #test15CheckoutCartReturnsUniqueTransactionIDs stamp: 'ET 7/7/2021 02:31:58'!
+PASSED!
+
+!testRun: #StoreTest #test16UseCartUpdatesTimeLimit stamp: 'ET 7/7/2021 02:31:58'!
+PASSED!
+
+!testRun: #StoreTest #test17 stamp: 'ET 7/7/2021 02:31:58'!
+PASSED!
+
+!testRun: #StoreTest #test18 stamp: 'ET 7/7/2021 02:31:58'!
+PASSED!
+!StoreClientWindow methodsFor: 'access' stamp: 'ET 7/7/2021 02:32:32'!
+cartCheckedOut
+
+	cartListMorph updateList.
+	
+	cartListMorph setSelectionIndex: 0.! !
+!StoreClientWindow methodsFor: 'access' stamp: 'ET 7/7/2021 02:32:50'!
+showTicket
+
+	cartListMorph updateList.
+	
+	cartListMorph setSelectionIndex: 0.! !
+
+!methodRemoval: StoreClientWindow #cartCheckedOut stamp: 'ET 7/7/2021 02:32:55'!
+cartCheckedOut
+
+	cartListMorph updateList.
+	
+	cartListMorph setSelectionIndex: 0.!
+!StoreClientWindow methodsFor: 'access' stamp: 'ET 7/7/2021 02:33:15'!
+showPurchaseList
+
+	cartListMorph updateList.
+	
+	cartListMorph setSelectionIndex: 0.! !
+!StoreClientWindow methodsFor: 'access' stamp: 'ET 7/7/2021 02:33:34' prior: 50912785!
+showTicket
+
+	! !
+
+!classDefinition: #TicketWindow category: 'TusLibros-Client' stamp: 'ET 7/7/2021 02:34:43'!
+Object subclass: #TicketWindow
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!
+!StoreClientWindow methodsFor: 'access' stamp: 'ET 7/7/2021 02:34:38' prior: 50912801!
+showTicket
+
+	TicketWindow openWith: self model.
+	
+	self delete.! !
+!StoreClientWindow methodsFor: 'access' stamp: 'ET 7/7/2021 02:36:28' prior: 50912812!
+showTicket
+
+	TicketWindow 
+		openWithCartID: self model cartID
+		ticket: self model ticket
+		user: self model user.
+	
+	
+	self delete.! !
+!StoreClientWindow class methodsFor: 'instance creation' stamp: 'ET 7/7/2021 02:37:27'!
+openWithCartID: cartID username: anUsername
+
+	^self new initializeWithCartID: cartID username: anUsername.! !
+!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:38:11'!
+initializeWithCartID: cartID username: anUsername.
+
+	self titleMorph showButtonsNamed: #( close collapse ).
+	
+	self setLabel: 'Store Client'.
+	
+	self model: (StoreClientWindowModel withCartID: cartID username: anUsername).
+	
+	self morphExtent: (self defaultExtent).
+
+	self buildMorphicWindow.
+	self openInWorld.
+	self yourself.
+			
+	self model when: #cartListChanged send: #updateCartList to: self.
+	
+	self model when: #cartCheckedOut send: #showTicket to: self.
+	
+	self model when: #purchaseListRequested send: #showPurchaseList to: self.! !
+!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:38:20' prior: 50912831!
+initializeWithCartID: cartID username: anUsername.
+
+	self titleMorph showButtonsNamed: #( close collapse ).
+	
+	self setLabel: 'Store Client'.
+	
+	self model: (StoreClientWindowModel withCartID: cartID username: anUsername).
+	
+	self morphExtent: (self defaultExtent).
+
+	self buildMorphicWindow.
+	self openInWorld.
+	self yourself.
+			
+	self model when: #cartListChanged send: #updateCartList to: self.
+	
+	self model when: #cartCheckedOut send: #showTicket to: self.
+	
+	self model when: #purchaseListRequested send: #showPurchaseList to: self.! !
+!StoreClientWindowModel methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:38:39'!
+withCartID: aCartID username: anUsername
+
+	cartID := aCartID.
+	items := OrderedCollection new.
+	cartList := OrderedCollection new.
+	user := anUsername.
+	selectedIndex := 0.
+	restInterface := StoreClientRestInterface new.
+	
+	items := restInterface catalog.
+	
+	quantity := ''.
+	
+	cartListIndex := 0.! !
+
+!methodRemoval: LogInWindow #refreshListOfWords stamp: 'ET 7/7/2021 02:38:57'!
+refreshListOfWords
+	
+	wordsListMorph updateList.
+	wordsListMorph setSelectionIndex: 0.
+	!
+!LogInWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:39:29' prior: 50908993!
+changeToStoreClientWindow
+	
+
+	StoreClientWindow openWithCartID: self model cartID username: self model.
+	
+	self delete.! !
+!LogInWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:39:42' prior: 50912889!
+changeToStoreClientWindow
+	
+
+	StoreClientWindow openWithCartID: self model cartID username: self model usernameText.
+	
+	self delete.! !
+!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 02:40:20'!
+user
+
+	^user.
+! !
+!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 02:40:26'!
+ticket
+
+	^ticket.
+! !
+
+!methodRemoval: StoreClientWindow #initializeWith: stamp: 'ET 7/7/2021 02:40:54'!
+initializeWith: aCartID
+
+	self titleMorph showButtonsNamed: #( close collapse ).
+	
+	self setLabel: 'Store Client'.
+	
+	self model: (StoreClientWindowModel with: aCartID).
+	
+	self morphExtent: (self defaultExtent).
+
+	self buildMorphicWindow.
+	self openInWorld.
+	self yourself.
+			
+	self model when: #cartListChanged send: #updateCartList to: self.
+	
+	self model when: #cartCheckedOut send: #showTicket to: self.
+	
+	self model when: #purchaseListRequested send: #showPurchaseList to: self.!
+
+!methodRemoval: StoreClientWindow class #open stamp: 'ET 7/7/2021 02:41:07'!
+open
+	
+	^self new initializeWith: 'Words-Service Client Window'.!
+
+!methodRemoval: StoreClientWindow class #openWith: stamp: 'ET 7/7/2021 02:41:10'!
+openWith: cartID
+
+	^self new initializeWith: cartID.!
+
+!methodRemoval: StoreClientWindowModel #initializeWith: stamp: 'ET 7/7/2021 02:41:53'!
+initializeWith: aCartID
+
+	cartID := aCartID.
+	items := OrderedCollection new.
+	cartList := OrderedCollection new.
+
+	selectedIndex := 0.
+	restInterface := StoreClientRestInterface new.
+	
+	items := restInterface catalog.
+	
+	quantity := ''.
+	
+	cartListIndex := 0.!
+!StoreClientWindowModel methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:42:24'!
+initializeWithCartID: aCartID username: anUsername
+
+	cartID := aCartID.
+	items := OrderedCollection new.
+	cartList := OrderedCollection new.
+	user := anUsername.
+	selectedIndex := 0.
+	restInterface := StoreClientRestInterface new.
+	
+	items := restInterface catalog.
+	
+	quantity := ''.
+	
+	cartListIndex := 0.! !
+!StoreClientWindow methodsFor: 'as yet unclassified' stamp: 'ET 7/7/2021 02:42:24' prior: 50912851!
+initializeWithCartID: cartID username: anUsername.
+
+	self titleMorph showButtonsNamed: #( close collapse ).
+	
+	self setLabel: 'Store Client'.
+	
+	self model: (StoreClientWindowModel initializeWithCartID: cartID username: anUsername).
+	
+	self morphExtent: (self defaultExtent).
+
+	self buildMorphicWindow.
+	self openInWorld.
+	self yourself.
+			
+	self model when: #cartListChanged send: #updateCartList to: self.
+	
+	self model when: #cartCheckedOut send: #showTicket to: self.
+	
+	self model when: #purchaseListRequested send: #showPurchaseList to: self.! !
+
+!methodRemoval: StoreClientWindowModel #withCartID:username: stamp: 'ET 7/7/2021 02:42:24'!
+withCartID: aCartID username: anUsername
+
+	cartID := aCartID.
+	items := OrderedCollection new.
+	cartList := OrderedCollection new.
+	user := anUsername.
+	selectedIndex := 0.
+	restInterface := StoreClientRestInterface new.
+	
+	items := restInterface catalog.
+	
+	quantity := ''.
+	
+	cartListIndex := 0.!
+!StoreClientWindowModel class methodsFor: 'as yet unclassified' stamp: 'ET 7/7/2021 02:42:50'!
+withCartID: aCartID username: anUsername
+
+	^self new initializeWith: aCartID.! !
+!StoreClientWindowModel class methodsFor: 'as yet unclassified' stamp: 'ET 7/7/2021 02:43:07' prior: 50912996!
+withCartID: aCartID username: anUsername
+
+	^self new initializeWithCartID: aCartID username: anUsername.! !
+
+!methodRemoval: StoreClientWindowModel class #with: stamp: 'ET 7/7/2021 02:43:16'!
+with: aCartID
+
+	^self new initializeWith: aCartID.!
+
+LogInWindow open.!
+!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:44:22' prior: 50912963!
+initializeWithCartID: cartID username: anUsername.
+
+	self titleMorph showButtonsNamed: #( close collapse ).
+	
+	self setLabel: 'Store Client'.
+	
+	self model: (StoreClientWindowModel withCartID: cartID username: anUsername).
+	
+	self morphExtent: (self defaultExtent).
+
+	self buildMorphicWindow.
+	self openInWorld.
+	self yourself.
+			
+	self model when: #cartListChanged send: #updateCartList to: self.
+	
+	self model when: #cartCheckedOut send: #showTicket to: self.
+	
+	self model when: #purchaseListRequested send: #showPurchaseList to: self.! !
+
+LogInWindow open.!
+
+resp content!
+!StoreClientWindow methodsFor: 'access' stamp: 'ET 7/7/2021 02:46:19' prior: 50912795!
+showPurchaseList
+
+	TicketWindow 
+		openWithUser: self model user
+		purchaseList: self model purchases.
+	
+	
+	self delete.! !
+!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 02:46:37'!
+purchases
+
+	^purchases.
+! !
+
+!classDefinition: #PurchaseListWindow category: 'TusLibros-Client' stamp: 'ET 7/7/2021 02:46:55'!
+Object subclass: #PurchaseListWindow
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Client'!
+!StoreClientWindow methodsFor: 'access' stamp: 'ET 7/7/2021 02:46:52' prior: 50913035!
+showPurchaseList
+
+	PurchaseListWindow 
+		openWithUser: self model user
+		purchaseList: self model purchases.
+	
+	
+	self delete.! !
+
+----SNAPSHOT----(7 July 2021 02:47:29) CuisUniversity-4532.image priorSource: 16885703!
