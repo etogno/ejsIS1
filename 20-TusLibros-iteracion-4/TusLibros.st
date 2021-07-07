@@ -1269,7 +1269,7 @@ creditCardOfClient: aClientID
 	^userCreditCards at: aClientID.
 ! !
 
-!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:22:28'!
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 7/7/2021 17:45:09'!
 initializeWith: aPortNumber
 	
 	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin')
@@ -1393,7 +1393,7 @@ initializeWith: aPortNumber
 		
 		ticket := transaction items.
 		
-		ticket addFirst: transaction amount.
+		ticket addFirst: transaction totalAmount.
 		
 		answerAsJson:= WebUtils jsonEncode: (ticket asArray).
 		request send200Response: (answerAsJson )
