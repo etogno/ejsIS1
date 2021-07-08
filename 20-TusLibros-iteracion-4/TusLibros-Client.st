@@ -5,11 +5,9 @@ Panel subclass: #LogInWindow
 	poolDictionaries: ''
 	category: 'TusLibros-Client'!
 
-!LogInWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 17:42:09'!
+!LogInWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 19:18:51'!
 changeToStoreClientWindow
-	
-	self halt.
-	StoreClientWindow openWithCartID: self model cartID username: self model usernameText.
+	StoreClientWindow openWithCartID: self model cartID username: self model usernameText password: self model passwordText.
 	
 	self delete.! !
 
@@ -120,7 +118,7 @@ open
 
 !classDefinition: #PurchaseListWindow category: 'TusLibros-Client'!
 Panel subclass: #PurchaseListWindow
-	instanceVariableNames: 'sentenceTextBoxMorph catalogListMorph quantityTextBoxMorph cartListMorph'
+	instanceVariableNames: 'cartListMorph purchaseListMorph'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Client'!
@@ -131,14 +129,14 @@ defaultExtent
 	^ 1052@445
 	! !
 
-!PurchaseListWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 17:50:12'!
-initializeWithCartID: cartID username: anUsername.
+!PurchaseListWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 20:28:15'!
+initializeWithPurchaseList: aPurchaseList
 
 	self titleMorph showButtonsNamed: #( close collapse ).
 	
-	self setLabel: 'Store Client'.
+	self setLabel: 'Purchase List'.
 	
-	self model: (StoreClientWindowModel withCartID: cartID username: anUsername).
+	self model: (PurchaseListWindowModel withPurchaseList: aPurchaseList).
 	
 	self morphExtent: (self defaultExtent).
 
@@ -153,121 +151,21 @@ initializeWithCartID: cartID username: anUsername.
 	self model when: #purchaseListRequested send: #showPurchaseList to: self.! !
 
 
-!PurchaseListWindow methodsFor: 'access' stamp: 'ET 7/7/2021 17:50:12'!
-showPurchaseList
-"
-	PurchaseListWindow 
-		openWithUser: self model user
-		purchaseList: self model purchases.
-	"
-	
-	self delete.! !
 
-!PurchaseListWindow methodsFor: 'access' stamp: 'ET 7/7/2021 17:50:12'!
-showTicket
-"
-	TicketWindow 
-		openWithCartID: self model cartID
-		ticket: self model ticket
-		user: self model user.
-	
-	"
-	self delete.! !
-
-!PurchaseListWindow methodsFor: 'access' stamp: 'ET 7/7/2021 17:50:12'!
-updateCartList
-
-	cartListMorph updateList.
-	
-	cartListMorph setSelectionIndex: 0.! !
-
-
-!PurchaseListWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 17:50:12'!
-build1stColumn1stRow
-
-	| colLayoutMorph |
-	
-	
-	catalogListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
-	catalogListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
-
-	colLayoutMorph := LayoutMorph newColumn.
-	colLayoutMorph separation: 25;
-	axisEdgeWeight: 0;
-	addMorph: (LabelMorph contents:'Catalog');
-	addMorph: catalogListMorph.
-
-	
-	^colLayoutMorph.! !
-
-!PurchaseListWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 17:50:12'!
+!PurchaseListWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 19:28:03'!
 build1stRow
 
-	| rowLayoutMorph |
+	purchaseListMorph := PluggableListMorph model: self model listGetter: #purchaseList indexGetter: #purchaseListIndex indexSetter: #purchaseListIndex:.
+	purchaseListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
 
-	rowLayoutMorph := LayoutMorph newRow.
-	rowLayoutMorph separation: 25;
-	axisEdgeWeight: 0;
-	addMorph: self build1stColumn1stRow;
-	addMorph: self build2ndColumn1stRow;
-	addMorph: self build3rdColumn1stRow.
 	
-	^rowLayoutMorph.! !
+	
+	^purchaseListMorph.! !
 
-!PurchaseListWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 17:50:12'!
-build2ndColumn1stRow
-	| addToCartButtonMorph colLayoutMorph |
-	
-	addToCartButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #addItemToCart label: 'add to cart'.		
-	quantityTextBoxMorph := TextModelMorph textProvider: self model textGetter: #quantityText textSetter: #quantityText:. 
-	quantityTextBoxMorph textMorph setProperty: #keyStroke: toValue: [ :key | quantityTextBoxMorph textMorph acceptContents ] .
-	quantityTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 100; morphHeight: 10.
-	
-	
-	colLayoutMorph := LayoutMorph newColumn.
-	colLayoutMorph separation: 25;
-	axisEdgeWeight: 0;
-	addMorph: (LabelMorph contents:'quantity to add');
-	
-	addMorph: quantityTextBoxMorph;
-	
-	addMorph: addToCartButtonMorph.
-	
-	^colLayoutMorph.
-	! !
-
-!PurchaseListWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 17:50:12'!
+!PurchaseListWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 19:28:25'!
 build2ndRow
 
-	| rowLayoutMorph checkOutButtonMorph listPurchasesButtonMorph |
-	checkOutButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #checkOutCartItems label: 'Check out'.	
-	listPurchasesButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #listPurchases label: 'List purchases'.	
-
-	rowLayoutMorph := LayoutMorph newRow.
-	rowLayoutMorph separation: 50@0;
-	axisEdgeWeight: 0.5;
-	addMorph: checkOutButtonMorph;
-	addMorph: listPurchasesButtonMorph.
-
-	
-	^rowLayoutMorph.! !
-
-!PurchaseListWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 17:50:12'!
-build3rdColumn1stRow
-	| colLayoutMorph removeFromCartButtonMorph|
-	removeFromCartButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #removeSelectedItemFromCart label: 'remove from cart'.	
-	cartListMorph := PluggableListMorph model: self model listGetter: #cartList indexGetter: #cartListIndex indexSetter: #cartListIndex:.
-	cartListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
-
-	colLayoutMorph := LayoutMorph newColumn.
-	colLayoutMorph separation: 25;
-	axisEdgeWeight: 0;
-	addMorph: (LabelMorph contents:'Cart list');
-	addMorph: cartListMorph;
-	addMorph: removeFromCartButtonMorph.
-
-	
-	^colLayoutMorph.! !
+	^LabelMorph contents: 'Total: ' , self model totalAmount asString.! !
 
 !PurchaseListWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 17:50:12'!
 buildMorphicWindow
@@ -285,15 +183,15 @@ buildMorphicWindow
 PurchaseListWindow class
 	instanceVariableNames: ''!
 
-!PurchaseListWindow class methodsFor: 'instance creation' stamp: 'ET 7/7/2021 17:50:12'!
-openWithCartID: cartID username: anUsername
+!PurchaseListWindow class methodsFor: 'instance creation' stamp: 'ET 7/7/2021 19:23:31'!
+openWithPurchaseList: aPurchaseList
 
-	^self new initializeWithCartID: cartID username: anUsername.! !
+	^self new initializeWithPurchaseList: aPurchaseList.! !
 
 
 !classDefinition: #StoreClientWindow category: 'TusLibros-Client'!
 Panel subclass: #StoreClientWindow
-	instanceVariableNames: 'sentenceTextBoxMorph catalogListMorph quantityTextBoxMorph cartListMorph'
+	instanceVariableNames: 'catalogListMorph quantityTextBoxMorph cartListMorph'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Client'!
@@ -304,14 +202,14 @@ defaultExtent
 	^ 1052@445
 	! !
 
-!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:44:22'!
-initializeWithCartID: cartID username: anUsername.
+!StoreClientWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 18:18:57'!
+initializeWithCartID: cartID username: anUsername password: aPassword
 
 	self titleMorph showButtonsNamed: #( close collapse ).
 	
 	self setLabel: 'Store Client'.
 	
-	self model: (StoreClientWindowModel withCartID: cartID username: anUsername).
+	self model: (StoreClientWindowModel withCartID: cartID username: anUsername password: aPassword).
 	
 	self morphExtent: (self defaultExtent).
 
@@ -326,23 +224,19 @@ initializeWithCartID: cartID username: anUsername.
 	self model when: #purchaseListRequested send: #showPurchaseList to: self.! !
 
 
-!StoreClientWindow methodsFor: 'access' stamp: 'ET 7/7/2021 17:49:38'!
+!StoreClientWindow methodsFor: 'access' stamp: 'ET 7/7/2021 19:37:22'!
 showPurchaseList
-"
-	PurchaseListWindow 
-		openWithUser: self model user
-		purchaseList: self model purchases.
-	"
-	
-	self delete.! !
 
-!StoreClientWindow methodsFor: 'access' stamp: 'ET 7/7/2021 17:54:32'!
+	PurchaseListWindow openWithPurchaseList: self model purchases.! !
+
+!StoreClientWindow methodsFor: 'access' stamp: 'ET 7/7/2021 18:42:30'!
 showTicket
 
 	TicketWindow 
 		openWithCartID: self model cartID
 		ticket: self model ticket
-		user: self model user.
+		user: self model user
+		password: self model password.
 	
 	self delete.! !
 
@@ -457,15 +351,15 @@ buildMorphicWindow
 StoreClientWindow class
 	instanceVariableNames: ''!
 
-!StoreClientWindow class methodsFor: 'instance creation' stamp: 'ET 7/7/2021 02:37:27'!
-openWithCartID: cartID username: anUsername
+!StoreClientWindow class methodsFor: 'instance creation' stamp: 'ET 7/7/2021 18:18:02'!
+openWithCartID: cartID username: anUsername password: aPassword
 
-	^self new initializeWithCartID: cartID username: anUsername.! !
+	^self new initializeWithCartID: cartID username: anUsername password: aPassword.! !
 
 
 !classDefinition: #TicketWindow category: 'TusLibros-Client'!
 Panel subclass: #TicketWindow
-	instanceVariableNames: 'sentenceTextBoxMorph catalogListMorph quantityTextBoxMorph cartListMorph'
+	instanceVariableNames: 'ticketListMorph'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Client'!
@@ -476,162 +370,84 @@ defaultExtent
 	^ 1052@445
 	! !
 
-!TicketWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 17:53:46'!
-initializeWithCartID: cartID ticket: aTicket username: anUsername.
+!TicketWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 20:36:52'!
+initializeWithCartID: cartID ticket: aTicket username: anUsername password: aPassword
 
 	self titleMorph showButtonsNamed: #( close collapse ).
 	
-	self setLabel: 'Store Client'.
+	self setLabel: 'Ticket'.
 	
-	self model: TicketWindowModel new.
-	
-	self morphExtent: (self defaultExtent).
-
-	self buildMorphicWindow.
-	self openInWorld.
-	self yourself.! !
-
-!TicketWindow methodsFor: 'initialization' stamp: 'ET 7/7/2021 17:49:06'!
-initializeWithCartID: cartID username: anUsername.
-
-	self titleMorph showButtonsNamed: #( close collapse ).
-	
-	self setLabel: 'Store Client'.
-	
-	self model: (StoreClientWindowModel withCartID: cartID username: anUsername).
+	self model: (TicketWindowModel 
+				withTicket: aTicket
+				username: anUsername
+				password: aPassword	).
 	
 	self morphExtent: (self defaultExtent).
 
 	self buildMorphicWindow.
 	self openInWorld.
 	self yourself.
-			
-	self model when: #cartListChanged send: #updateCartList to: self.
 	
-	self model when: #cartCheckedOut send: #showTicket to: self.
+	self model when: #userWantsToLogOut send: #delete to: self.
 	
-	self model when: #purchaseListRequested send: #showPurchaseList to: self.! !
-
-
-!TicketWindow methodsFor: 'access' stamp: 'ET 7/7/2021 17:49:55'!
-showPurchaseList
-! !
-
-!TicketWindow methodsFor: 'access' stamp: 'ET 7/7/2021 17:49:07'!
-showTicket
-"
-	TicketWindow 
-		openWithCartID: self model cartID
-		ticket: self model ticket
-		user: self model user.
+	self model when: #successfulLogIn send: #changeToStoreClientWindow to: self.
 	
-	"
-	self delete.! !
-
-!TicketWindow methodsFor: 'access' stamp: 'ET 7/7/2021 17:49:07'!
-updateCartList
-
-	cartListMorph updateList.
-	
-	cartListMorph setSelectionIndex: 0.! !
-
-
-!TicketWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 17:49:07'!
-build1stColumn1stRow
-
-	| colLayoutMorph |
-	
-	
-	catalogListMorph := PluggableListMorph model: self model listGetter: #items indexGetter: #itemsListIndex indexSetter: #itemsListIndex:.
-	catalogListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
-
-	colLayoutMorph := LayoutMorph newColumn.
-	colLayoutMorph separation: 25;
-	axisEdgeWeight: 0;
-	addMorph: (LabelMorph contents:'Catalog');
-	addMorph: catalogListMorph.
-
-	
-	^colLayoutMorph.! !
-
-!TicketWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 17:49:07'!
-build1stRow
-
-	| rowLayoutMorph |
-
-	rowLayoutMorph := LayoutMorph newRow.
-	rowLayoutMorph separation: 25;
-	axisEdgeWeight: 0;
-	addMorph: self build1stColumn1stRow;
-	addMorph: self build2ndColumn1stRow;
-	addMorph: self build3rdColumn1stRow.
-	
-	^rowLayoutMorph.! !
-
-!TicketWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 17:49:07'!
-build2ndColumn1stRow
-	| addToCartButtonMorph colLayoutMorph |
-	
-	addToCartButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #addItemToCart label: 'add to cart'.		
-	quantityTextBoxMorph := TextModelMorph textProvider: self model textGetter: #quantityText textSetter: #quantityText:. 
-	quantityTextBoxMorph textMorph setProperty: #keyStroke: toValue: [ :key | quantityTextBoxMorph textMorph acceptContents ] .
-	quantityTextBoxMorph  borderWidth: 1; borderColor: Color skyBlue; morphWidth: 100; morphHeight: 10.
-	
-	
-	colLayoutMorph := LayoutMorph newColumn.
-	colLayoutMorph separation: 25;
-	axisEdgeWeight: 0;
-	addMorph: (LabelMorph contents:'quantity to add');
-	
-	addMorph: quantityTextBoxMorph;
-	
-	addMorph: addToCartButtonMorph.
-	
-	^colLayoutMorph.
 	! !
 
-!TicketWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 17:49:07'!
+
+!TicketWindow methodsFor: 'access' stamp: 'ET 7/7/2021 19:01:54'!
+changeToStoreClientWindow
+
+	StoreClientWindow openWithCartID: self model cartID username: self model user password: self model password.
+	
+	self delete.
+
+	
+! !
+
+
+!TicketWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 18:27:56'!
+build1stRow
+	
+	ticketListMorph := PluggableListMorph model: self model listGetter: #ticketList indexGetter: #ticketListIndex indexSetter: #ticketListIndex:.
+	ticketListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
+
+	
+	
+	^ticketListMorph.! !
+
+!TicketWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 18:46:11'!
 build2ndRow
 
-	| rowLayoutMorph checkOutButtonMorph listPurchasesButtonMorph |
-	checkOutButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #checkOutCartItems label: 'Check out'.	
-	listPurchasesButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #listPurchases label: 'List purchases'.	
+	^LabelMorph contents: 'Total: ' , self model totalAmount asString.! !
+
+!TicketWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 18:51:48'!
+build3rdRow
+
+	| rowLayoutMorph continueButtonMorph logOutButtonMorph |
+	continueButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #createCart label: 'Continue buying'.	
+	logOutButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #logOut label: 'Log out'.	
 
 	rowLayoutMorph := LayoutMorph newRow.
 	rowLayoutMorph separation: 50@0;
 	axisEdgeWeight: 0.5;
-	addMorph: checkOutButtonMorph;
-	addMorph: listPurchasesButtonMorph.
+	addMorph: continueButtonMorph;
+	addMorph: logOutButtonMorph.
 
 	
 	^rowLayoutMorph.! !
 
-!TicketWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 17:49:07'!
-build3rdColumn1stRow
-	| colLayoutMorph removeFromCartButtonMorph|
-	removeFromCartButtonMorph := PluggableButtonMorph model: self model stateGetter: nil  action: #removeSelectedItemFromCart label: 'remove from cart'.	
-	cartListMorph := PluggableListMorph model: self model listGetter: #cartList indexGetter: #cartListIndex indexSetter: #cartListIndex:.
-	cartListMorph  borderColor: Color skyBlue; borderWidth: 1; morphWidth:300.
-
-	colLayoutMorph := LayoutMorph newColumn.
-	colLayoutMorph separation: 25;
-	axisEdgeWeight: 0;
-	addMorph: (LabelMorph contents:'Cart list');
-	addMorph: cartListMorph;
-	addMorph: removeFromCartButtonMorph.
-
-	
-	^colLayoutMorph.! !
-
-!TicketWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 17:55:58'!
+!TicketWindow methodsFor: 'GUI building' stamp: 'ET 7/7/2021 18:25:45'!
 buildMorphicWindow
 		
 	self layoutMorph beColumn;
 	separation: 25;
 	axisEdgeWeight: 0;
-	addMorph: (LabelMorph contents: 'Check-out done!!!!');
+	addMorph: self build1stRow;
 	
-	addMorph: (LabelMorph contents: '<this is where your ticket would show up, but its not supported in this version>').! !
+	addMorph: self build2ndRow;
+	
+	addMorph: self build3rdRow.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -639,10 +455,10 @@ buildMorphicWindow
 TicketWindow class
 	instanceVariableNames: ''!
 
-!TicketWindow class methodsFor: 'instance creation' stamp: 'ET 7/7/2021 17:52:24'!
-openWithCartID: cartID 		ticket: aTicket 		user: anUsername.
+!TicketWindow class methodsFor: 'instance creation' stamp: 'ET 7/7/2021 18:34:39'!
+openWithCartID: cartID 		ticket: aTicket 		user: anUsername password: aPassword
 
-	^self new initializeWithCartID: cartID ticket: aTicket username: anUsername.! !
+	^self new initializeWithCartID: cartID ticket: aTicket username: anUsername password: aPassword.! !
 
 
 !classDefinition: #LogInWindowModel category: 'TusLibros-Client'!
@@ -714,183 +530,53 @@ createCartRequest
 
 !classDefinition: #PurchaseListWindowModel category: 'TusLibros-Client'!
 Object subclass: #PurchaseListWindowModel
-	instanceVariableNames: 'selectedIndex restInterface items quantity cartID cartList cartListIndex indexedCartList ticket user purchases'
+	instanceVariableNames: 'selectedIndex items totalAmount'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Client'!
 
-!PurchaseListWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:50:30'!
-cartID
+!PurchaseListWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 19:38:45'!
+purchaseList
 
-	^ticket.
-! !
-
-!PurchaseListWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:50:30'!
-cartList
 	|showList|
 	showList := OrderedCollection new.
-	indexedCartList := OrderedCollection new.
-	cartList asSet do: [:anItem | showList add: (anItem asString, ' | ', (cartList occurrencesOf: anItem) asString).
-				                  indexedCartList add: anItem].
+	items asSet do: [:anItem | showList add: (anItem asString, ' | ', (items occurrencesOf: anItem) asString).].
 	
 	^showList.
-! !
-
-!PurchaseListWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:50:30'!
-cartListIndex
 	
-	^cartListIndex.! !
+	! !
 
-!PurchaseListWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:50:30'!
-cartListIndex: anIndex
+!PurchaseListWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 19:30:48'!
+purchaseListIndex
+
+	^selectedIndex.
 	
-	cartListIndex := anIndex.
+	! !
+
+!PurchaseListWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 19:31:03'!
+purchaseListIndex: anIndex
+
+	selectedIndex := anIndex.
 	
-	^true.! !
-
-!PurchaseListWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:50:30'!
-items
+	^true.
 	
-	^items.
-! !
-
-!PurchaseListWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:50:30'!
-itemsListIndex
-	
-	^selectedIndex.! !
-
-!PurchaseListWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:50:30'!
-itemsListIndex: anIndex
-	
-	selectedIndex := anIndex.! !
-
-!PurchaseListWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:50:30'!
-purchases
-
-	^purchases.
-! !
-
-!PurchaseListWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:50:30'!
-ticket
-
-	^ticket.
-! !
-
-!PurchaseListWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:50:30'!
-user
-
-	^user.
-! !
+	! !
 
 
-!PurchaseListWindowModel methodsFor: 'initialization' stamp: 'ET 7/7/2021 17:50:30'!
-initializeWithCartID: aCartID username: anUsername
+!PurchaseListWindowModel methodsFor: 'initialization' stamp: 'ET 7/7/2021 19:36:08'!
+initializeWithPurchaseList: aPurchaseList.
 
-	cartID := aCartID.
-	items := OrderedCollection new.
-	cartList := OrderedCollection new.
-	user := anUsername.
-	selectedIndex := 0.
-	restInterface := StoreClientRestInterface new.
+	items := aPurchaseList asOrderedCollection.
+	totalAmount := items removeFirst.
 	
-	items := restInterface catalog.
-	
-	quantity := ''.
-	
-	cartListIndex := 0.! !
+	selectedIndex := 0.! !
 
 
-!PurchaseListWindowModel methodsFor: 'TextModelMorphSelectors' stamp: 'ET 7/7/2021 17:50:30'!
-quantityText
-
-	^quantity.! !
-
-!PurchaseListWindowModel methodsFor: 'TextModelMorphSelectors' stamp: 'ET 7/7/2021 17:50:30'!
-quantityText: aQuantity
-
-	quantity := aQuantity.
+!PurchaseListWindowModel methodsFor: 'Label' stamp: 'ET 7/7/2021 19:32:09'!
+totalAmount
+	^totalAmount.
 	
-	^true.! !
-
-
-!PurchaseListWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 17:50:30'!
-addItemToCart
-	|selectedItem |
-	
-	self itemsListIndex = 0 ifTrue: [^self].
-	"self assertQuantityIsPositiveInteger."
-	
-	selectedItem := (self items) at: self itemsListIndex.
-	
-	restInterface addToCart: cartID item: selectedItem quantity: quantity.
-	
-	cartList := restInterface listCart: cartID.
-		
-	self triggerEvent: #cartListChanged with: self.
-	"^cartID"
-	
-	
-	
-	
-! !
-
-!PurchaseListWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 17:50:30'!
-assertQuantityIsPositiveInteger
-	
-	(quantity allSatisfy: [:aDigit | aDigit isDigit]) ifFalse: ['no es numero'].
-	
-	quantity asNumber.
-	
-	
-! !
-
-!PurchaseListWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 17:50:30'!
-checkOutCartItems
-	|ticketID|
-
-	ticketID := restInterface checkOutCart: cartID.
-	
-	ticket := restInterface ticketOfTransaction: ticketID.
-		
-	self triggerEvent: #cartCheckedOut with: self.
-	
-	
-	
-	
-! !
-
-!PurchaseListWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 17:50:30'!
-listPurchases
-
-	purchases := restInterface listPurchasesOf: user.
-		
-	self triggerEvent: #purchaseListRequested with: self.
-	
-	
-	
-	
-! !
-
-!PurchaseListWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 17:50:31'!
-removeSelectedItemFromCart
-	|selectedItem |
-	
-	"self assertItemIsSelected."
-	"self assertQuantityIsPositiveInteger."
-	
-	selectedItem := indexedCartList at: self cartListIndex.
-	
-	restInterface removeFromCart: cartID AllItems: selectedItem.
-	
-	cartList := restInterface listCart: cartID.
-		
-	self triggerEvent: #cartListChanged with: self.
-	"^cartID"
-	
-	
-	
-	
-! !
+	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -898,10 +584,10 @@ removeSelectedItemFromCart
 PurchaseListWindowModel class
 	instanceVariableNames: ''!
 
-!PurchaseListWindowModel class methodsFor: 'as yet unclassified' stamp: 'ET 7/7/2021 17:50:31'!
-withCartID: aCartID username: anUsername
+!PurchaseListWindowModel class methodsFor: 'as yet unclassified' stamp: 'ET 7/7/2021 19:25:23'!
+withPurchaseList: aPurchaseList
 
-	^self new initializeWithCartID: aCartID username: anUsername.! !
+	^self new initializeWithPurchaseList: aPurchaseList.! !
 
 
 !classDefinition: #StoreClientRestInterface category: 'TusLibros-Client'!
@@ -928,7 +614,7 @@ addToCart: cartID item: anItem quantity: aQuantity
 		
 		ifFalse:[^self error: resp content].! !
 
-!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/1/2021 17:06:48'!
+!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/7/2021 19:50:30'!
 catalog
 
 
@@ -940,7 +626,7 @@ catalog
 	
 	
 	resp isSuccess
-		ifTrue:[^(WebUtils jsonDecode: ((resp content) readStream)) asOrderedCollection.] 
+		ifTrue:[^(WebUtils jsonDecode: ((resp content) readStream)).] 
 		
 		ifFalse:[^self error: resp content].! !
 
@@ -959,12 +645,6 @@ checkOutCart: cartID
 			^(WebUtils jsonDecode: ((resp content) readStream)) .] 
 		
 		ifFalse:[^self error: resp content].! !
-
-!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/1/2021 17:06:57'!
-correctlyEncodeSpacesForUrlRequestParameter: aParameter
-	
-	
-	^ aParameter copyReplaceAll: ' ' with: '%20'. ! !
 
 !StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/1/2021 17:45:23'!
 createCartFor: aUser password: aPassword
@@ -997,6 +677,23 @@ listCart: cartID
 		
 		ifFalse:[^self error: resp content].! !
 
+!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/7/2021 19:21:19'!
+listPurchasesOf: anUsername password: aPassword
+
+	| fieldDict resp |
+	fieldDict := Dictionary new.
+	fieldDict add: 'clientId'->anUsername.	
+	fieldDict add: 'password'->aPassword.	
+
+	
+	resp:= WebClient htmlSubmit: (self url,'/listPurchases') fields: fieldDict.
+	
+	resp isSuccess 
+		ifTrue:[
+			^(WebUtils jsonDecode: ((resp content) readStream)) .] 
+		
+		ifFalse:[^self error: resp content].! !
+
 !StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/1/2021 18:36:53'!
 removeFromCart: aCartID AllItems: anItem
 
@@ -1011,23 +708,6 @@ removeFromCart: aCartID AllItems: anItem
 	resp isSuccess 
 		ifTrue:[
 			^(WebUtils jsonDecode: ((resp content) readStream)) .] 
-		
-		ifFalse:[^self error: resp content].! !
-
-!StoreClientRestInterface methodsFor: 'sending requests' stamp: 'ET 7/1/2021 17:07:44'!
-sendRequest: sentence
-
-
-	| fieldDict resp urlEncodedSentence |
-
-	urlEncodedSentence := self correctlyEncodeSpacesForUrlRequestParameter: sentence.	
-	
-	fieldDict := Dictionary newFromPairs: {'sentence'. urlEncodedSentence.}.		
-	
-	resp:= WebClient htmlSubmit: (self url,'/words') fields: fieldDict.
-	
-	resp isSuccess 
-		ifTrue:[^(WebUtils jsonDecode: ((resp content) readStream)) asOrderedCollection .] 
 		
 		ifFalse:[^self error: resp content].! !
 
@@ -1061,15 +741,15 @@ url
 
 !classDefinition: #StoreClientWindowModel category: 'TusLibros-Client'!
 Object subclass: #StoreClientWindowModel
-	instanceVariableNames: 'selectedIndex restInterface items quantity cartID cartList cartListIndex indexedCartList ticket user purchases'
+	instanceVariableNames: 'selectedIndex restInterface items quantity cartID cartList cartListIndex indexedCartList ticket user purchases password indexedKeyItems'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Client'!
 
-!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:46:52'!
+!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 19:01:28'!
 cartID
 
-	^ticket.
+	^cartID.
 ! !
 
 !StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/1/2021 18:33:58'!
@@ -1095,10 +775,16 @@ cartListIndex: anIndex
 	
 	^true.! !
 
-!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 6/28/2021 21:42:20'!
+!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 19:56:59'!
 items
 	
-	^items.
+	|showList|
+	showList := OrderedCollection new.
+	indexedKeyItems := OrderedCollection new.
+	items  keysAndValuesDo: [:aKey :aValue | showList add: (aKey asString, ' - ', aValue asString).
+				                  indexedKeyItems add: aKey].
+	
+	^showList.
 ! !
 
 !StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 6/28/2021 21:42:29'!
@@ -1110,6 +796,12 @@ itemsListIndex
 itemsListIndex: anIndex
 	
 	selectedIndex := anIndex.! !
+
+!StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 18:43:15'!
+password
+
+	^password.
+! !
 
 !StoreClientWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 02:46:37'!
 purchases
@@ -1130,13 +822,14 @@ user
 ! !
 
 
-!StoreClientWindowModel methodsFor: 'initialization' stamp: 'ET 7/7/2021 02:42:24'!
-initializeWithCartID: aCartID username: anUsername
+!StoreClientWindowModel methodsFor: 'initialization' stamp: 'ET 7/7/2021 19:52:25'!
+initializeWithCartID: aCartID username: anUsername password: aPassword
 
 	cartID := aCartID.
 	items := OrderedCollection new.
 	cartList := OrderedCollection new.
 	user := anUsername.
+	password := aPassword.
 	selectedIndex := 0.
 	restInterface := StoreClientRestInterface new.
 	
@@ -1160,41 +853,32 @@ quantityText: aQuantity
 	^true.! !
 
 
-!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/1/2021 18:49:16'!
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 20:29:43'!
 addItemToCart
 	|selectedItem |
 	
 	self itemsListIndex = 0 ifTrue: [^self].
-	"self assertQuantityIsPositiveInteger."
+	quantity ifEmpty: [^self].
+	(quantity allSatisfy: [:aDigit | aDigit isDigit]) ifFalse: [^self].
 	
-	selectedItem := (self items) at: self itemsListIndex.
+	selectedItem := indexedKeyItems at: self itemsListIndex.
 	
 	restInterface addToCart: cartID item: selectedItem quantity: quantity.
 	
 	cartList := restInterface listCart: cartID.
 		
 	self triggerEvent: #cartListChanged with: self.
-	"^cartID"
 	
 	
 	
 	
 ! !
 
-!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/1/2021 18:48:10'!
-assertQuantityIsPositiveInteger
-	
-	(quantity allSatisfy: [:aDigit | aDigit isDigit]) ifFalse: ['no es numero'].
-	
-	quantity asNumber.
-	
-	
-! !
-
-!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 02:11:14'!
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 20:17:14'!
 checkOutCartItems
 	|ticketID|
-
+	
+	cartList ifEmpty: [^self].
 	ticketID := restInterface checkOutCart: cartID.
 	
 	ticket := restInterface ticketOfTransaction: ticketID.
@@ -1206,10 +890,10 @@ checkOutCartItems
 	
 ! !
 
-!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 02:12:00'!
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 19:21:48'!
 listPurchases
 
-	purchases := restInterface listPurchasesOf: user.
+	purchases := restInterface listPurchasesOf: user password: password.
 		
 	self triggerEvent: #purchaseListRequested with: self.
 	
@@ -1218,12 +902,11 @@ listPurchases
 	
 ! !
 
-!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/1/2021 18:36:06'!
+!StoreClientWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 20:30:04'!
 removeSelectedItemFromCart
 	|selectedItem |
 	
-	"self assertItemIsSelected."
-	"self assertQuantityIsPositiveInteger."
+	cartListIndex = 0 ifTrue: [^self].
 	
 	selectedItem := indexedCartList at: self cartListIndex.
 	
@@ -1232,7 +915,6 @@ removeSelectedItemFromCart
 	cartList := restInterface listCart: cartID.
 		
 	self triggerEvent: #cartListChanged with: self.
-	"^cartID"
 	
 	
 	
@@ -1245,74 +927,56 @@ removeSelectedItemFromCart
 StoreClientWindowModel class
 	instanceVariableNames: ''!
 
-!StoreClientWindowModel class methodsFor: 'as yet unclassified' stamp: 'ET 7/7/2021 02:43:07'!
-withCartID: aCartID username: anUsername
+!StoreClientWindowModel class methodsFor: 'as yet unclassified' stamp: 'ET 7/7/2021 18:20:00'!
+withCartID: aCartID username: anUsername password: aPassword
 
-	^self new initializeWithCartID: aCartID username: anUsername.! !
+	^self new initializeWithCartID: aCartID username: anUsername password: aPassword.! !
 
 
 !classDefinition: #TicketWindowModel category: 'TusLibros-Client'!
 Object subclass: #TicketWindowModel
-	instanceVariableNames: 'selectedIndex restInterface items quantity cartID cartList cartListIndex indexedCartList ticket user purchases'
+	instanceVariableNames: 'restInterface cartID user password ticketItems totalAmount ticketListIndex'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros-Client'!
 
-!TicketWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:49:27'!
+!TicketWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 20:40:12'!
 cartID
 
-	^ticket.
+	^cartID.
 ! !
 
-!TicketWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:49:27'!
-cartList
+!TicketWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 18:57:04'!
+password
+
+	^password.
+! !
+
+!TicketWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 18:47:53'!
+ticketList
 	|showList|
 	showList := OrderedCollection new.
-	indexedCartList := OrderedCollection new.
-	cartList asSet do: [:anItem | showList add: (anItem asString, ' | ', (cartList occurrencesOf: anItem) asString).
-				                  indexedCartList add: anItem].
+	ticketItems asSet do: [:anItem | showList add: (anItem asString, ' | ', (ticketItems occurrencesOf: anItem) asString).].
 	
 	^showList.
 ! !
 
-!TicketWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:49:27'!
-cartListIndex
+!TicketWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 18:41:08'!
+ticketListIndex
 	
-	^cartListIndex.! !
+	^ticketListIndex.! !
 
-!TicketWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:49:27'!
-cartListIndex: anIndex
+!TicketWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 18:40:59'!
+ticketListIndex: anIndex
 	
-	cartListIndex := anIndex.
+	ticketListIndex := anIndex.
 	
 	^true.! !
 
-!TicketWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:49:27'!
-items
-	
-	^items.
-! !
+!TicketWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 18:39:19'!
+totalAmount
 
-!TicketWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:49:27'!
-itemsListIndex
-	
-	^selectedIndex.! !
-
-!TicketWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:49:27'!
-itemsListIndex: anIndex
-	
-	selectedIndex := anIndex.! !
-
-!TicketWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:49:27'!
-purchases
-
-	^purchases.
-! !
-
-!TicketWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:49:27'!
-ticket
-
-	^ticket.
+	^totalAmount.
 ! !
 
 !TicketWindowModel methodsFor: 'PluggableListSelectors' stamp: 'ET 7/7/2021 17:49:27'!
@@ -1322,109 +986,34 @@ user
 ! !
 
 
-!TicketWindowModel methodsFor: 'initialization' stamp: 'ET 7/7/2021 17:49:27'!
-initializeWithCartID: aCartID username: anUsername
+!TicketWindowModel methodsFor: 'initialization' stamp: 'ET 7/7/2021 20:45:13'!
+initializeWithTicket: aTicket username: anUsername password: aPassword.
 
-	cartID := aCartID.
-	items := OrderedCollection new.
-	cartList := OrderedCollection new.
 	user := anUsername.
-	selectedIndex := 0.
+	password := aPassword.
+	ticketItems := aTicket asOrderedCollection.
+	totalAmount := ticketItems removeFirst.
+
 	restInterface := StoreClientRestInterface new.
 	
-	items := restInterface catalog.
-	
-	quantity := ''.
-	
-	cartListIndex := 0.! !
+	ticketListIndex := 0.! !
 
 
-!TicketWindowModel methodsFor: 'TextModelMorphSelectors' stamp: 'ET 7/7/2021 17:49:27'!
-quantityText
+!TicketWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 18:53:21'!
+createCart
 
-	^quantity.! !
-
-!TicketWindowModel methodsFor: 'TextModelMorphSelectors' stamp: 'ET 7/7/2021 17:49:27'!
-quantityText: aQuantity
-
-	quantity := aQuantity.
-	
-	^true.! !
-
-
-!TicketWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 17:49:27'!
-addItemToCart
-	|selectedItem |
-	
-	self itemsListIndex = 0 ifTrue: [^self].
-	"self assertQuantityIsPositiveInteger."
-	
-	selectedItem := (self items) at: self itemsListIndex.
-	
-	restInterface addToCart: cartID item: selectedItem quantity: quantity.
-	
-	cartList := restInterface listCart: cartID.
-		
-	self triggerEvent: #cartListChanged with: self.
-	"^cartID"
+	cartID := restInterface createCartFor: user password: password.
+	self triggerEvent: #successfulLogIn with: self.
 	
 	
 	
 	
 ! !
 
-!TicketWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 17:49:27'!
-assertQuantityIsPositiveInteger
-	
-	(quantity allSatisfy: [:aDigit | aDigit isDigit]) ifFalse: ['no es numero'].
-	
-	quantity asNumber.
-	
-	
-! !
-
-!TicketWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 17:49:27'!
-checkOutCartItems
-	|ticketID|
-
-	ticketID := restInterface checkOutCart: cartID.
-	
-	ticket := restInterface ticketOfTransaction: ticketID.
-		
-	self triggerEvent: #cartCheckedOut with: self.
-	
-	
-	
-	
-! !
-
-!TicketWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 17:49:27'!
-listPurchases
-
-	purchases := restInterface listPurchasesOf: user.
-		
-	self triggerEvent: #purchaseListRequested with: self.
-	
-	
-	
-	
-! !
-
-!TicketWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 17:49:27'!
-removeSelectedItemFromCart
-	|selectedItem |
-	
-	"self assertItemIsSelected."
-	"self assertQuantityIsPositiveInteger."
-	
-	selectedItem := indexedCartList at: self cartListIndex.
-	
-	restInterface removeFromCart: cartID AllItems: selectedItem.
-	
-	cartList := restInterface listCart: cartID.
-		
-	self triggerEvent: #cartListChanged with: self.
-	"^cartID"
+!TicketWindowModel methodsFor: 'PluggableButtonSelectors' stamp: 'ET 7/7/2021 18:49:20'!
+logOut
+			
+	self triggerEvent: #userWantsToLogOut with: self.
 	
 	
 	
@@ -1437,7 +1026,7 @@ removeSelectedItemFromCart
 TicketWindowModel class
 	instanceVariableNames: ''!
 
-!TicketWindowModel class methodsFor: 'as yet unclassified' stamp: 'ET 7/7/2021 17:49:27'!
-withCartID: aCartID username: anUsername
+!TicketWindowModel class methodsFor: 'as yet unclassified' stamp: 'ET 7/7/2021 18:35:54'!
+withTicket: aTicket 				username: anUsername 				password: aPassword
 
-	^self new initializeWithCartID: aCartID username: anUsername.! !
+	^self new initializeWithTicket: aTicket username: anUsername password: aPassword.! !

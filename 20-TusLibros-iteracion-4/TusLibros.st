@@ -1218,7 +1218,7 @@ invalidCartIDErrorDescription
 
 !classDefinition: #StoreRestInterface category: 'TusLibros'!
 Object subclass: #StoreRestInterface
-	instanceVariableNames: 'webServer port stringGenius store userCreditCards userCarts'
+	instanceVariableNames: 'webServer port stringGenius store userCreditCards userCarts isbnToBook'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
@@ -1243,6 +1243,21 @@ stopListening
 	
 	^'Stopped listening from port: ', self port asString! !
 
+
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 7/7/2021 21:37:48'!
+action: anActionBlock forRequest: aRequest
+	[|answer answerAsJson|
+	answer := anActionBlock value.
+	
+	answerAsJson:= WebUtils jsonEncode: (answer).
+	aRequest send200Response: (answerAsJson).]
+	on: Error
+	do: [ :anError |
+		aRequest sendResponseCode: 400 
+		content: anError messageText asUtf8
+		type: 'text/html; charset=utf-8'
+		close: true. ].
+	! !
 
 !StoreRestInterface methodsFor: 'initialization' stamp: 'ET 6/28/2021 16:39:27'!
 assertExpirationStringIsValid: cced
@@ -1269,13 +1284,16 @@ creditCardOfClient: aClientID
 	^userCreditCards at: aClientID.
 ! !
 
-!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 7/7/2021 17:45:09'!
+!StoreRestInterface methodsFor: 'initialization' stamp: 'ET 7/7/2021 21:38:03'!
 initializeWith: aPortNumber
 	
 	store := Store withClientAuthenticator: (ClientAuthenticator withClient: 'admin' password: 'admin')
 	clock: GregorianDateTime 
-	priceList: (Dictionary with: 'validBook'->10)
+	priceList: (Dictionary with: '978-0201633610'->10 with: '978-0321146533'->5)
 	merchantProcessor: MerchantProcessorSimulator new.
+	
+	
+	isbnToBook := Dictionary with: '978-0201633610'->'Design Patterns: Elements of Reusable Object-Oriented Software' with: '978-0321146533'->'Test Driven Development: By Example '.
 	
 	userCreditCards := Dictionary with: 'admin'-> (CreditCard owner: 'owner' number: '1234567891011121' expiration: GregorianMonthOfYear current next).
 	
@@ -1285,109 +1303,70 @@ initializeWith: aPortNumber
 	
 	webServer := WebServer new listenOn: self port.
 	
-	webServer addService: '/createCart' action:[:request | |cartIDAsJson client password cartID |
+	webServer addService: '/createCart' action:[:request |
 		
-		[client := (request fields at:'clientId').
+		self action: [		|client password cartID|
+		client := (request fields at:'clientId').
 		password := (request fields at: 'password').
-		
 		cartID := store createCartFor: client authenticatedWith: password.
 		
 		userCarts add: cartID->client.
-		
-		cartIDAsJson:= WebUtils jsonEncode: (cartID).
-		request send200Response: (cartIDAsJson)
+		cartID.
 		 ] 
-		on: Error
-		do: [ :anError |
-			request sendResponseCode: 400 
-		content: anError messageText asUtf8
-		type: 'text/html; charset=utf-8'
-		close: true. ]].
+	forRequest: request.].
+
 	
-	webServer addService: '/addToCart' action:[:request | |answerAsJson cartID item quantity |
+	webServer addService: '/addToCart' action:[:request |
 		
-		[cartID := (request fields at:'cartId') asNumber.
+		self action: [|cartID item quantity|
+		cartID := (request fields at:'cartId') asNumber.
 		item := (request fields at: 'bookIsbn').
 		quantity := (request fields at: 'quantityIsbn') asNumber.
 		
 		store addToCart: cartID item: item quantity: quantity.
 		
-		answerAsJson:= WebUtils jsonEncode: ('OK').
-		request send200Response: (answerAsJson )
-		 ] 
-		on: Error
-		do: [ :anError |
-			request sendResponseCode: 400 
-		content: anError messageText asUtf8
-		type: 'text/html; charset=utf-8'
-		close: true. ]].
+		'OK'.
+		 ] forRequest: request.].
 	
-	webServer addService: '/removeFromCart' action:[:request | |answerAsJson cartID item  |
+	webServer addService: '/removeFromCart' action:[:request |
 		
-		[cartID := (request fields at:'cartId') asNumber.
+		self action: [|cartID item|
+		cartID := (request fields at:'cartId') asNumber.
 		item := (request fields at: 'bookIsbn').
 		
 		store removeFromCart: cartID allItems: item.
 		
-		answerAsJson:= WebUtils jsonEncode: ('OK').
-		request send200Response: (answerAsJson )
-		 ] 
-		on: Error
-		do: [ :anError |
-			request sendResponseCode: 400 
-		content: anError messageText asUtf8
-		type: 'text/html; charset=utf-8'
-		close: true. ]].
+		'OK'.
+		 ] forRequest: request.].
 	
-	webServer addService: '/catalog' action:[:request | |answerAsJson catalog  |
+	webServer addService: '/catalog' action:[:request |
 		
-		[catalog := store itemCatalog.
-		
-		answerAsJson:= WebUtils jsonEncode: (catalog asArray).
-		request send200Response: (answerAsJson)
-		 ] 
-		on: Error
-		do: [ :anError |
-			request sendResponseCode: 400 
-		content: anError messageText asUtf8
-		type: 'text/html; charset=utf-8'
-		close: true. ]].
+		self action: [isbnToBook.] forRequest: request.	
+		].
 	
-	webServer addService: '/listCart' action:[:request | |answerAsJson cartID  list|
+	webServer addService: '/listCart' action:[:request |
 		
-		[cartID := (request fields at:'cartId') asNumber.
+		self action: [|cartID list|
+		cartID := (request fields at:'cartId') asNumber.
 		
 		list := store listCart: cartID.
-		
-		answerAsJson:= WebUtils jsonEncode: (list asArray).
-		request send200Response: (answerAsJson )
-		 ] 
-		on: Error
-		do: [ :anError |
-			request sendResponseCode: 400 
-		content: anError messageText asUtf8
-		type: 'text/html; charset=utf-8'
-		close: true. ]].
+		list asArray.
+		 ] forRequest: request.].
 	
-	webServer addService: '/checkOutCart' action:[:request | |answerAsJson cartID transactionID|
+	webServer addService: '/checkOutCart' action:[:request |
 		
-		[cartID := (request fields at:'cartId') asNumber.
+		self action: [|cartID transactionID| 
+		cartID := (request fields at:'cartId') asNumber.
 
 		transactionID := store checkoutCart: cartID creditCard:  (self creditCardOfClient: (userCarts at: cartID)).
 		
-		answerAsJson:= WebUtils jsonEncode: (transactionID).
-		request send200Response: (answerAsJson )
-		 ] 
-		on: Error
-		do: [ :anError |
-			request sendResponseCode: 400 
-		content: anError messageText asUtf8
-		type: 'text/html; charset=utf-8'
-		close: true. ]].
+		transactionID.
+		 ] forRequest: request.].
 
-	webServer addService: '/transaction' action:[:request | |answerAsJson transactionID transaction ticket|
+	webServer addService: '/transaction' action:[:request |
 		
-		[transactionID := (request fields at:'transactionId') asNumber.
+		self action: [|transactionID transaction ticket|
+		transactionID := (request fields at:'transactionId') asNumber.
 
 		transaction := store transaction: transactionID.
 		
@@ -1395,33 +1374,23 @@ initializeWith: aPortNumber
 		
 		ticket addFirst: transaction totalAmount.
 		
-		answerAsJson:= WebUtils jsonEncode: (ticket asArray).
-		request send200Response: (answerAsJson )
-		 ] 
-		on: Error
-		do: [ :anError |
-			request sendResponseCode: 400 
-		content: anError messageText asUtf8
-		type: 'text/html; charset=utf-8'
-		close: true. ]].
+		ticket asArray.
+		 ] forRequest: request.].
 	
 	
-	webServer addService: '/listPurchases' action:[:request | |cartIDAsJson client password list |
+	webServer addService: '/listPurchases' action:[:request |
 		
-		[client := (request fields at:'clientId').
+		self action: [|client password list purchaseList|
+		client := (request fields at:'clientId').
 		password := (request fields at: 'password').
 		
-		list := store listPurchasesOf:  client password: password.
+		purchaseList := store listPurchasesOf: client password: password.
+		
+		list := purchaseList list.
+		list addFirst: purchaseList totalAmount.
+		list asArray
 
-		cartIDAsJson:= WebUtils jsonEncode: (Array with: list list with: list totalAmount).
-		request send200Response: (cartIDAsJson)
-		 ] 
-		on: Error
-		do: [ :anError |
-			request sendResponseCode: 400 
-		content: anError messageText asUtf8
-		type: 'text/html; charset=utf-8'
-		close: true. ]].
+		 ] forRequest: request.].
 	
 ! !
 
